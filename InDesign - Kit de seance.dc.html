@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#e9e6df;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}a:hover{color:oklch(0.45 0.13 250)}
+@page{size:A4;margin:0}
+@media print{body{background:#fff}[data-noprint]{display:none !important}[data-page]{margin:0 !important;box-shadow:none !important;break-after:page}}
+</style>
+</helmet>
+<div data-noprint="1" style="max-width:210mm;margin:0 auto;padding:32px 0 8px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px">
+  <div style="display:flex;flex-direction:column;gap:2px">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Kit de séance · documents à imprimer</span>
+    <span style="font-family:Newsreader,serif;font-size:26px">{{ kitTitle }}</span>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center"><a data-noprint="1" href="Sommaire.dc.html" title="Retour au sommaire" style="display:flex;align-items:center;gap:6px;padding:7px 12px;background:#1d1c1a;color:#f3f0e8;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none" style-hover="background:#4a4740;color:#f3f0e8">← Sommaire</a><button onClick="{{ print }}" style="font:500 13px 'IBM Plex Sans',sans-serif;background:#1d1c1a;color:#f5f3ee;border:0;border-radius:999px;padding:10px 18px;cursor:pointer">Imprimer / PDF</button></div>
+</div>
+<sc-for list="{{ pages }}" as="pg" hint-placeholder-count="2">
+  <section data-page="1" id="{{ pg.anchor }}" data-screen-label="{{ pg.label }}" style="width:210mm;height:297mm;box-sizing:border-box;padding:14mm 15mm;margin:16px auto;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12);display:flex;flex-direction:column;gap:14px;overflow:hidden">
+    <div style="display:flex;justify-content:space-between;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#4a4740;border-bottom:1.5px solid #1d1c1a;padding-bottom:6px">
+      <span>{{ pg.kicker }}</span><span>{{ pg.kind }}</span>
+    </div>
+    <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:30px;line-height:1.05;margin:4px 0 0;text-wrap:balance">{{ pg.title }}</h1>
+    <sc-if value="{{ pg.hasIntro }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:12.5px;line-height:1.6;color:#2a2926;text-wrap:pretty;white-space:pre-line">{{ pg.intro }}</p></sc-if>
+    <sc-if value="{{ pg.hasFields }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;gap:8px 18px">
+        <sc-for list="{{ pg.fields }}" as="f"><div style="flex:1 1 40mm;display:flex;gap:6px;align-items:flex-end;font-size:11px"><span style="font-weight:600">{{ f }}</span><span style="flex:1;border-bottom:1px solid #8a857a;height:14px"></span></div></sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ pg.isFiche }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 20px">
+        <sc-for list="{{ pg.blocks }}" as="b">
+          <div style="display:flex;flex-direction:column;gap:4px;padding-top:6px;border-top:1px solid #d9d4c7">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.42 0.1 250)">{{ b.h }}</div>
+            <sc-for list="{{ b.items }}" as="it"><div style="font-size:11px;line-height:1.45;text-wrap:pretty">{{ it }}</div></sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ pg.isTable }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;border:1px solid #1d1c1a;flex:1;min-height:0">
+        <div style="display:grid;grid-template-columns:{{ pg.cols }};background:#1d1c1a;color:#fff">
+          <sc-for list="{{ pg.head }}" as="hd"><div style="padding:5px 6px;font-size:9.5px;font-weight:600;letter-spacing:.04em;border-right:1px solid #4a4740">{{ hd }}</div></sc-for>
+        </div>
+        <sc-for list="{{ pg.rows }}" as="r">
+          <div style="display:grid;grid-template-columns:{{ pg.cols }};border-top:1px solid #b9b2a2;flex:1;min-height:{{ pg.rowH }}">
+            <sc-for list="{{ r.cells }}" as="c"><div style="padding:5px 6px;font-size:10px;line-height:1.35;border-right:1px solid #d9d4c7;font-weight:{{ c.w }};color:#2a2926">{{ c.t }}</div></sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ pg.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:10.5px;line-height:1.45;color:#4a4740;padding-top:6px;border-top:1px solid #d9d4c7">{{ pg.note }}</div></sc-if>
+    <div style="margin-top:auto;font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:#8a857a">Cliclac Studio · {{ pg.foot }}</div>
+  </section>
+</sc-for>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/*KIT*/
+const KIT = {title:'InDesign et maquette de magazine — B2 EIDM', pages:[
+ {kicker:'InDesign · Séance 1', kind:'Fiche récap', title:'Réglages d’un nouveau document', blocks:[
+  {h:'Préférences (Cmd + K)', items:['Unités en millimètres.','Grille de ligne de base calée sur l’interlignage.']},
+  {h:'Format', items:['210 × 297, 230 × 300 ou 200 × 265 mm.','Pages en vis-à-vis.']},
+  {h:'Marges', items:['Petit fond suffisant pour la reliure.','Exemple : tête 15, extérieur 20, pied 18, petit fond 15 mm.']},
+  {h:'Colonnes', items:['3 à 6 colonnes.','Gouttière 4 à 5 mm.']},
+  {h:'Fonds perdus', items:['3 mm sur tous les côtés.']},
+  {h:'Calques', items:['Images, Textes, Repères.','Nommés et verrouillables.']}]},
+ {kicker:'InDesign · Séance 2', kind:'Fiche récap', title:'Niveaux de texte et styles', blocks:[
+  {h:'Niveaux', items:['Surtitre, titre, chapô, intertitre.','Texte courant, exergue, légende, crédit, folio.']},
+  {h:'Texte courant', items:['9 à 10,5 pt, interlignage ~120 %.','55 à 65 signes par ligne.']},
+  {h:'Familles', items:['Deux au maximum.','Contrastées entre elles.']},
+  {h:'Styles de paragraphe', items:['Un par niveau.','Basés sur un style commun.']},
+  {h:'Styles de caractère et imbriqués', items:['Italique, gras, couleur.','Lettrine, première phrase en gras.']},
+  {h:'Règle', items:['Aucun réglage manuel.','Options d’enchaînement contre veuves et orphelines.']}]},
+ {kicker:'InDesign · Séances 2 et 3', kind:'Texte fourni', title:'Texte 1 — Les débuts d’un prodige', intro:"Né à Oran en 1936, Yves Saint Laurent arrive à Paris à dix-sept ans. En 1954, il remporte un prix du concours du Secrétariat international de la laine, la même année que Karl Lagerfeld. Christian Dior l’engage l’année suivante comme assistant. À la mort brutale de Dior en 1957, la maison confie la direction artistique à ce jeune homme de 21 ans. Sa première collection, en janvier 1958, présente la ligne Trapèze : des robes évasées qui libèrent la taille. Le succès est immédiat et la presse le salue comme le sauveur de la haute couture française.\n\nAppelé sous les drapeaux en 1960, il est remplacé chez Dior. Avec Pierre Bergé, son compagnon, il fonde sa propre maison en 1961. La première collection Yves Saint Laurent est présentée en janvier 1962. Le monogramme YSL, dessiné par Cassandre, date de cette période.", note:"Chapô à rédiger par l’étudiant (2 lignes). Intertitres à placer. Légendes à écrire pour chaque image."},
+ {kicker:'InDesign · Séance 4', kind:'Texte fourni', title:'Texte 2 — Les années de rupture', intro:"En 1965, la collection Mondrian transpose sur des robes droites en jersey les compositions du peintre néerlandais : des aplats de couleurs primaires séparés de lignes noires. L’année suivante, Saint Laurent présente Le Smoking, premier smoking conçu pour les femmes. Il déclenche un scandale, puis devient une pièce qu’il reprendra dans presque toutes ses collections.\n\nToujours en 1966, il ouvre rue de Tournon la boutique Saint Laurent Rive Gauche. Pour la première fois, un couturier vend du prêt-à-porter conçu comme tel dans sa propre boutique. Suivront la saharienne en 1968, la blouse transparente, le jumpsuit. Saint Laurent emprunte au vestiaire masculin et à celui du travail pour les transformer en pièces de mode. « Chanel a libéré la femme, Yves Saint Laurent lui a donné le pouvoir », dira Pierre Bergé.", note:"Au moins une exergue tirée de ce texte. Un encadré sur la collection Mondrian."},
+ {kicker:'InDesign · Séance 4', kind:'Texte fourni', title:'Texte 3 — L’héritage', intro:"Yves Saint Laurent présente sa dernière collection en janvier 2002, lors d’un défilé rétrospectif au Centre Pompidou. Il meurt à Paris en 2008. La maison de couture ferme, mais le prêt-à-porter et les accessoires se poursuivent sous d’autres directeurs artistiques.\n\nEn 2017, deux musées ouvrent la même année : le musée Yves Saint Laurent Paris, avenue Marceau, dans l’hôtel particulier où il a travaillé près de trente ans, et le musée Yves Saint Laurent Marrakech, près du jardin Majorelle que Bergé et lui avaient sauvé. Des milliers de croquis, de toiles et de vêtements y sont conservés. Son influence se lit toujours dans le vestiaire contemporain : le tailleur-pantalon, le smoking, la saharienne font désormais partie des classiques.", note:"Mise en page libre dans le respect de la charte. Un sommaire des trois articles à concevoir en séance 5."},
+ {kicker:'InDesign · Séance 4', kind:'Fiche récap', title:'Gabarits, nuancier, styles d’objet', blocks:[
+  {h:'Gabarit de base', items:['Folio automatique.','Titre courant.']},
+  {h:'Gabarits enfants', items:['Ouverture, page courante, rubrique.','Basés sur le gabarit de base.']},
+  {h:'Libérer un élément', items:['Cmd + Maj + clic.']},
+  {h:'Nuancier', items:['Couleurs de la charte en CMJN.','Nommées.']},
+  {h:'Styles d’objet', items:['Bloc image avec contour.','Encadré avec fond.','Légende ancrée.']},
+  {h:'Charte', items:['Un autre maquettiste doit pouvoir faire une page sans vous.']}]},
+ {kicker:'InDesign · Séance 5', kind:'Fiche récap', title:'Couverture, sommaire, déclinaisons', blocks:[
+  {h:'Couverture', items:['Logo, image, accroches.','Date, numéro, prix, code-barres.','Fonds perdus 3 mm, sécurité 5 mm.']},
+  {h:'Sommaire', items:['Par rubriques.','Page › Table des matières à partir des styles.']},
+  {h:'Automatisations', items:['Sections et numérotation.','Objets ancrés.','Bibliothèques CC.']},
+  {h:'Déclinaisons', items:['Post 1080 × 1350 px.','Story 1080 × 1920 px.','Affiche A3.']},
+  {h:'Outils', items:['Fichier › Ajuster la mise en page.','Nouveau document écran en pixels, RVB.']},
+  {h:'Règle', items:['Garder les règles, recomposer.']}]},
+ {kicker:'InDesign · Séance 6', kind:'Checklist', title:'Checklist d’export', fields:['Nom','Titre du magazine'], cols:'1fr 22mm', head:['Vérification','OK'], rowH:'11mm', rows:[['Contrôle en amont : aucune erreur'],['Aucun texte en excès'],['Liens à jour, 300 ppi effectifs minimum'],['Polices disponibles'],['Texte noir en 100 % K (aperçu des séparations)'],['Fonds perdus 3 mm sur les images à bord'],['Folios et sommaire corrects'],['PDF/X-4 impression avec traits de coupe'],['PDF écran en planches, RVB, allégé'],['Assemblage : document, liens, polices'],['Nommage NOM_Prenom_S6_Magazine']]},
+ {kicker:'InDesign · Séance 6', kind:'Évaluation', title:'Grille d’évaluation des soutenances', fields:["Nom"], cols:'1fr 13mm 13mm 13mm 13mm 13mm 48mm', head:['Critère','0','1','2','3','4','Commentaire'], rowH:'17mm', rows:[["Grille construite et respectée"],["Hiérarchie typographique"],["Traitement des images YSL"],["Cohérence de la charte"],["Couverture et sommaire"],["Déclinaisons"],["Fichiers de sortie"],["Argumentation orale"]], note:'Total ramené sur 20.'}
+]};
+/*END*/
+class Component extends DCLogic {
+  componentDidMount() { const h = location.hash.slice(1); if (h) setTimeout(() => { const el = document.getElementById(h); if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 16); }, 300); }
+  renderVals() {
+    const pages = KIT.pages.map((p, i) => {
+      const n = p.head ? p.head.length : 0;
+      return {
+        anchor: 'p' + (i + 1), label: String(i + 1).padStart(2, '0') + ' ' + p.title, kicker: p.kicker, kind: p.kind, title: p.title,
+        hasIntro: !!p.intro, intro: p.intro || '', hasFields: !!p.fields, fields: p.fields || [],
+        isFiche: !!p.blocks, blocks: p.blocks || [],
+        isTable: !!p.head, head: p.head || [], cols: p.cols || '1fr', rowH: p.rowH || '10mm',
+        rows: (p.rows || []).map(r => ({ cells: Array.from({ length: n }, (_, j) => ({ t: r[j] || '', w: j === 0 ? 600 : 400 })) })),
+        hasNote: !!p.note, note: p.note || '', foot: KIT.title
+      };
+    });
+    return { pages, kitTitle: KIT.title, print: () => window.print() };
+  }
+}
+</script>
+</body>
+</html>

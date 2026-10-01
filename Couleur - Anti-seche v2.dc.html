@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#f5f3ee;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:oklch(0.45 0.13 250)}
+@media (max-width:760px){[data-aside]{position:static !important;flex:1 1 100% !important}[data-aside] nav{display:none !important}}
+@media print{
+  [data-noprint]{display:none !important}
+  body{background:#fff}
+  [data-chapter]{break-before:page}
+  [data-avoid]{break-inside:avoid}
+  [data-main]{max-width:none !important}
+}
+</style>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;gap:40px 48px;max-width:1240px;margin:0 auto;padding:48px 32px 120px;box-sizing:border-box">
+
+  <aside data-noprint="1" data-aside="1" style="flex:0 0 232px;position:sticky;top:32px;align-self:flex-start;display:flex;flex-direction:column;gap:32px;font-size:13.5px">
+    <a data-noprint="1" href="Sommaire.dc.html" title="Retour au sommaire" style="align-self:flex-start;display:flex;align-items:center;gap:6px;padding:7px 12px;background:#1d1c1a;color:#f3f0e8;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none" style-hover="background:#4a4740;color:#f3f0e8">← Sommaire</a>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Anti-sèche · B1 EIDM</div>
+      <div style="font-family:Newsreader,serif;font-size:22px;line-height:1.1">Couleur</div>
+    </div>
+    <nav style="display:flex;flex-direction:column;gap:2px">
+      <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="8">
+        <a href="{{ c.href }}" style="display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid #e3dfd5;line-height:1.3">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;flex:none">{{ c.num }}</span>
+          <span style="flex:1">{{ c.t }}</span>
+          <sc-if value="{{ c.done }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;flex:none" title="Révisé">✓</span></sc-if>
+        </a>
+      </sc-for>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Afficher les encadrés</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+          <button onClick="{{ f.toggle }}" style="display:flex;align-items:center;gap:10px;background:none;border:0;padding:4px 0;font:inherit;color:inherit;cursor:pointer;text-align:left">
+            <sc-if value="{{ f.on }}" hint-placeholder-val="{{ true }}"><span style="width:16px;height:16px;border:1.5px solid #1d1c1a;background:#1d1c1a;color:#f5f3ee;font-size:11px;line-height:16px;text-align:center;border-radius:3px;flex:none">✓</span></sc-if>
+            <sc-if value="{{ f.off }}" hint-placeholder-val="{{ false }}"><span style="width:16px;height:16px;border:1.5px solid #8a857a;border-radius:3px;flex:none;box-sizing:border-box"></span></sc-if>
+            <span style="font-size:12px;width:14px;text-align:center">{{ f.glyph }}</span>
+            <span>{{ f.label }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Progression · {{ doneLabel }}</div>
+      <div style="height:4px;background:#e3dfd5;border-radius:2px;overflow:hidden"><div style="height:100%;width:{{ donePct }};background:#1d1c1a"></div></div>
+    </div>
+  </aside>
+
+  <main data-main="1" style="flex:1 1 420px;min-width:0;max-width:760px">
+    <header style="display:flex;flex-direction:column;gap:20px;padding-bottom:48px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b675e">Document de révision personnel · Cliclac Studio · usage privé</div>
+      <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(48px,7vw,84px);line-height:.95;letter-spacing:-.02em;margin:0">Couleur et culture visuelle</h1>
+      <div style="font-family:Newsreader,serif;font-style:italic;font-size:22px;color:#4a4740">Les notions du module, alignées sur le syllabus</div>
+    </header>
+
+    <section data-avoid="1" style="display:flex;flex-direction:column;gap:16px;padding:28px 0;border-top:2px solid #1d1c1a;border-bottom:1px solid #d9d4c7;margin-bottom:24px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase">Comment utiliser ce document</div>
+      <p style="margin:0;font-size:16.5px;line-height:1.65;text-wrap:pretty;color:#2a2926">Ce document est ton antisèche. Chaque notion enseignée est expliquée clairement avec le pourquoi et le comment. Les astuces sont des raccourcis de pensée pour expliquer rapidement en cours. Les erreurs courantes te préparent aux questions et aux problèmes que les étudiants vont inévitablement rencontrer.</p>
+      <p style="margin:0;font-size:16.5px;line-height:1.65;text-wrap:pretty;color:#2a2926">Lis ce document une fois avant chaque séance. Tu n’as pas besoin de tout mémoriser : tu as besoin de te souvenir que ça existe et de savoir où chercher si besoin.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4"><span>{{ f.glyph }} {{ f.one }}</span></sc-for>
+      </div>
+    </section>
+
+    <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="2">
+      <section id="{{ c.id }}" data-chapter="1" style="padding-top:72px;scroll-margin-top:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:2px solid #1d1c1a;padding-top:14px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em">CHAPITRE {{ c.num }}</span>
+          <sc-if value="{{ c.notDone }}" hint-placeholder-val="{{ true }}">
+            <button data-noprint="1" onClick="{{ c.toggle }}" style="font:500 12px 'IBM Plex Sans',sans-serif;background:none;border:1px solid #b9b2a2;border-radius:999px;padding:6px 14px;cursor:pointer;color:#4a4740" style-hover="border-color:#1d1c1a;color:#1d1c1a">Marquer comme révisé</button>
+          </sc-if>
+          <sc-if value="{{ c.done }}" hint-placeholder-val="{{ false }}">
+            <button data-noprint="1" onClick="{{ c.toggle }}" style="font:500 12px 'IBM Plex Sans',sans-serif;background:#1d1c1a;border:1px solid #1d1c1a;border-radius:999px;padding:6px 14px;cursor:pointer;color:#f5f3ee">✓ Révisé</button>
+          </sc-if>
+        </div>
+        <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(34px,4.6vw,48px);line-height:1.02;letter-spacing:-.015em;margin:28px 0 10px;text-wrap:balance">{{ c.t }}</h2>
+        <div style="font-family:Newsreader,serif;font-style:italic;font-size:20px;color:#6b675e">{{ c.sub }}</div>
+
+        <sc-for list="{{ c.sections }}" as="s" hint-placeholder-count="2">
+          <div style="display:flex;flex-direction:column;gap:18px;margin-top:44px">
+            <h3 style="font-family:Newsreader,serif;font-weight:500;font-size:25px;line-height:1.2;margin:0">{{ s.h }}</h3>
+            <sc-for list="{{ s.blocks }}" as="b" hint-placeholder-count="3">
+              <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+                <p style="margin:0;font-size:16.5px;line-height:1.68;text-wrap:pretty;color:#2a2926">{{ b.text }}</p>
+              </sc-if>
+              <sc-if value="{{ b.isD }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-wrap:wrap;gap:4px 20px;padding:12px 0;border-top:1px solid #e3dfd5;font-size:16px;line-height:1.6">
+                  <div style="flex:0 0 150px;font-weight:600">{{ b.term }}</div>
+                  <div style="flex:1 1 300px;min-width:0;color:#2a2926;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isQuote }}" hint-placeholder-val="{{ false }}">
+                <figure data-avoid="1" style="margin:12px 0;padding:28px 0 24px;border-top:2px solid #1d1c1a;border-bottom:1px solid #d9d4c7;display:flex;flex-direction:column;gap:14px">
+                  <blockquote style="margin:0;font-family:Newsreader,serif;font-size:clamp(26px,3.4vw,34px);line-height:1.2;letter-spacing:-.01em;text-wrap:balance">« {{ b.text }} »</blockquote>
+                  <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#4a4740">❝ {{ b.term }}</figcaption>
+                </figure>
+              </sc-if>
+              <sc-if value="{{ b.isEx }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 0;border-top:1px dotted #a39c8c;border-bottom:1px dotted #a39c8c">
+                  <div style="flex:0 0 150px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.42 0.1 55);padding-top:4px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-family:Newsreader,serif;font-style:italic;font-size:18.5px;line-height:1.5;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isDire }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.94 0.035 250);border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.38 0.13 250);padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isDal }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.93 0.09 95);border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.36 0.07 85);padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isConf }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:15px 19px;border:1.5px dashed #8a857a;border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1d1c1a;padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isAtt }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:#e8e4da;border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1d1c1a;padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isKey }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:14px 20px;background:#1d1c1a;color:#f5f3ee;border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-family:'IBM Plex Mono',monospace;font-size:14px;line-height:1.65;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+            </sc-for>
+          </div>
+        </sc-for>
+      </section>
+    </sc-for>
+
+    <footer style="margin-top:96px;padding-top:16px;border-top:1px solid #d9d4c7;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6b675e">Cliclac Studio · cliclac.studio · Document de révision privé v1</footer>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/*META*/
+const KEY = 'antiseche-couleur-v2';
+const TYPES = { att: ['!', 'Astuce', 'Astuces'], conf: ['▲', 'Erreur courante', 'Erreurs courantes'] };
+/*DATA*/
+const DATA = [
+{t:'Lumière et perception', sub:'Comment on voit la couleur', s:[
+ ['Physique',
+  ['p','La lumière blanche contient toutes les longueurs d’onde visibles, environ 380 à 780 nm (Newton, prisme, vers 1666). Un objet absorbe une partie de la lumière et renvoie le reste : c’est ce reste que l’on voit.'],
+  ['p','L’œil perçoit grâce à trois types de cônes (sensibles surtout au rouge, au vert et au bleu). Goethe (Traité des couleurs, 1810) insiste sur la dimension perçue et vécue de la couleur.']],
+ ['Synthèses',
+  ['d','Additive','Lumière, écran. Rouge + vert + bleu = blanc. Système RVB.'],['d','Soustractive','Matière, encre, pigment. Cyan + magenta + jaune = noir théorique. Système CMJN.']],
+ ['Métamérisme',
+  ['p','Deux couleurs identiques sous une lumière peuvent différer sous une autre. C’est pourquoi les coloris textiles se valident en cabine de lumière normalisée.'],
+  ['att','Une photo de produit doit être vérifiée sous la lumière où le client le verra : boutique, lumière du jour, écran.']]
+]},
+{t:'Décrire une couleur', sub:'Le vocabulaire professionnel', s:[
+ ['Trois propriétés',
+  ['d','Teinte','La famille de couleur : rouge, bleu, jaune…'],['d','Valeur (luminosité)','Du clair au foncé.'],['d','Saturation (intensité)','Du vif au terne.'],
+  ['att','Décrire avec les trois : « un bleu sombre et peu saturé » plutôt que « bleu marine ».']],
+ ['Vocabulaire',
+  ['d','Couleur rompue','Mêlée d’un peu de sa complémentaire, moins vive.'],['d','Couleur rabattue','Mêlée de noir.'],['d','Couleur dégradée','Mêlée de blanc.'],['d','Pastel','Claire et peu saturée.'],['d','Neutres','Noir, blanc, gris, et par extension beige, écru, taupe.']],
+ ['Cercle chromatique (Itten)',
+  ['d','Primaires','Jaune, rouge, bleu.'],['d','Secondaires','Orange, violet, vert.'],['d','Tertiaires','Mélange d’une primaire et d’une secondaire voisine.'],['d','Complémentaires','Opposées sur le cercle.'],['d','Analogues','Voisines sur le cercle.'],
+  ['p','Harmonies : monochrome, analogue, complémentaire, triade (trois couleurs à égale distance).']]
+]},
+{t:'Les systèmes de référence', sub:'Nommer et reproduire', s:[
+ ['Les systèmes',
+  ['d','Pantone','Couleurs numérotées, nuanciers dédiés au textile (références TCX pour le coton). Sert à transmettre une couleur exacte au fournisseur.'],['d','NCS','Natural Color System (Suède) : décrit une couleur par sa ressemblance à six couleurs élémentaires. Très utilisé en architecture intérieure.'],['d','RVB / hexadécimal','Couleurs d’écran : site, réseaux sociaux.'],['d','CMJN','Impression en quadrichromie.'],
+  ['conf','Une couleur vive d’écran n’est pas toujours imprimable en CMJN. Vérifier avant de la choisir comme couleur de marque.'],
+  ['att','Une couleur de marque se définit dans tous les systèmes à la fois : Pantone, CMJN, RVB, hexadécimal.']]
+]},
+{t:'Les contrastes', sub:'Une couleur n’existe jamais seule', s:[
+ ['Les sept contrastes d’Itten',
+  ['d','Couleur en soi','Couleurs pures juxtaposées.'],['d','Clair-obscur','Différence de valeur.'],['d','Chaud-froid','Oranges et rouges contre bleus et verts.'],['d','Complémentaires','Couleurs opposées, qui s’exaltent.'],['d','Simultané','L’œil ajoute la complémentaire autour d’une couleur : un gris paraît rosé à côté d’un vert.'],['d','Qualité','Saturé contre terne.'],['d','Quantité','Proportions de surface.']],
+ ['Josef Albers',
+  ['p','Interaction of Color (1963) : la perception d’une couleur dépend de ses voisines. Un même gris paraît clair sur noir et foncé sur blanc.'],
+  ['att','C’est pour cela qu’un même vêtement paraît différent selon la carnation et les autres pièces de la tenue.']]
+]},
+{t:'La couleur comme langage', sub:'Psychologie, symbolique, tendances', s:[
+ ['Symbolique',
+  ['p','Les associations de couleurs sont apprises et varient selon les époques (Michel Pastoureau : le bleu, peu valorisé dans l’Antiquité, est devenu la couleur préférée des Européens).'],
+  ['d','Europe','Noir : deuil, élégance, luxe. Blanc : pureté, mariage. Rouge : passion, danger.'],['d','Chine, Inde','Rouge : fête, chance, mariage. Blanc : traditionnellement lié au deuil.'],['d','Monde musulman','Vert : forte dimension religieuse.'],
+  ['conf','Croire qu’une couleur a un sens universel. Vérifier sa signification sur chaque marché.']],
+ ['Codes saisonniers et tendances',
+  ['p','Palettes plus claires et vives au printemps-été, plus sombres en automne-hiver. Les tendances sont définies 18 à 24 mois à l’avance : Première Vision, bureaux de style (Carlin, Nelly Rodi, WGSN), Pantone (couleur de l’année, rapports tendances).']],
+ ['Palettes signature',
+  ['d','Schiaparelli','Rose Shocking, 1937.'],['d','Chanel','Noir, blanc, beige.'],['d','Hermès','Orange : né de la pénurie de carton pendant la Seconde Guerre mondiale.'],['d','Tiffany','Bleu défini par une référence Pantone sur mesure et protégé comme marque.'],['d','Valentino','Rouge Valentino ; Pink PP (2022) avec Pierpaolo Piccioli.'],['d','Bottega Veneta','Vert vif sous Daniel Lee.'],['d','Comme des Garçons','Le noir radical du début des années 1980.']]
+]},
+{t:'La couleur au service de la marque', sub:'Identité et esthétiques', s:[
+ ['Identité',
+  ['d','Couleurs institutionnelles','Une ou deux couleurs fixes, sur tous les supports.'],['d','Territoire chromatique','L’ensemble des couleurs que la marque s’autorise pour ses collections et campagnes.'],
+  ['p','Structure d’une palette : dominante 60 %, secondaire 30 %, accent 10 %, et une gamme de neutres.'],
+  ['att','Moins une marque utilise de couleurs, plus elle est reconnaissable.']],
+ ['Esthétiques contemporaines',
+  ['d','Quiet luxury','Neutres, beige, camel, gris, marine (The Row, Loro Piana).'],['d','Minimalisme','Noir, blanc, écru (Jil Sander, COS).'],['d','Gorpcore','Couleurs techniques, orange de sécurité, kaki.'],['d','Barbiecore, dopamine dressing','Couleurs très saturées.'],['d','Y2K','Argenté, rose, bleu glacier.'],['d','Heritage','Vert anglais, bordeaux, tartans.']]
+]},
+{t:'Analyser un visuel', sub:'La grille en cinq temps', s:[
+ ['Méthode',
+  ['p','1. Contexte : marque, date, support, cible. 2. Description : ce qu’on voit, sans interpréter. 3. Couleur : dominante, secondaires, accent, propriétés, contrastes. 4. Composition et typographie : point focal, lecture, hiérarchie. 5. Interprétation : ce que l’image cherche à faire ressentir, et si elle y parvient.'],
+  ['p','Inspirée de Roland Barthes, Rhétorique de l’image (1964).'],
+  ['conf','Sauter l’étape de description et interpréter tout de suite.']]
+]}
+];
+/*END*/
+class Component extends DCLogic {
+  state = { show: Object.fromEntries(Object.keys(TYPES).map(k => [k, true])), done: {} };
+  componentDidMount() {
+    try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) this.setState({ show: { ...this.state.show, ...s.show }, done: s.done || {} }); } catch (e) {}
+  }
+  save = () => { try { localStorage.setItem(KEY, JSON.stringify({ show: this.state.show, done: this.state.done })); } catch (e) {} };
+  renderVals() {
+    const { show, done } = this.state;
+    const vis = t => !TYPES[t] || show[t] !== false;
+    const chapters = DATA.map((c, i) => ({
+      t: c.t, sub: c.sub, id: 'ch' + (i + 1), href: '#ch' + (i + 1), num: String(i + 1).padStart(2, '0'),
+      done: !!done[i], notDone: !done[i],
+      toggle: () => this.setState(s => ({ done: { ...s.done, [i]: !s.done[i] } }), this.save),
+      sections: c.s.map(sec => ({
+        h: sec[0],
+        blocks: sec.slice(1).map(([t, a, b]) => {
+          const T = TYPES[t] || ['!', 'Attention'];
+          const v = vis(t);
+          return {
+            text: t === 'd' ? b : a, term: t === 'd' ? a : b,
+            label: T[0] + ' ' + (t === 'd' || t === 'quote' ? T[1] : (b || T[1])),
+            isP: t === 'p', isD: t === 'd', isQuote: t === 'quote' && v,
+            isEx: t === 'ex' && v, isDire: t === 'dire' && v, isDal: t === 'dal' && v,
+            isConf: t === 'conf' && v, isAtt: t === 'att' && v, isKey: t === 'key' && v
+          };
+        })
+      }))
+    }));
+    const n = DATA.filter((_, i) => done[i]).length;
+    const filters = Object.keys(TYPES).map(k => ({
+      glyph: TYPES[k][0], one: TYPES[k][1], label: TYPES[k][2], on: show[k] !== false, off: show[k] === false,
+      toggle: () => this.setState(s => ({ show: { ...s.show, [k]: s.show[k] === false } }), this.save)
+    }));
+    return { chapters, filters, doneLabel: n + ' / ' + DATA.length, donePct: Math.round(n / DATA.length * 100) + '%' };
+  }
+}
+</script>
+</body>
+</html>

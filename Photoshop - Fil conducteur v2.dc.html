@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#f5f3ee;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:oklch(0.45 0.13 250)}
+@media (max-width:760px){[data-aside]{position:static !important;flex:1 1 100% !important}[data-aside] nav{display:none !important}}
+@media print{[data-noprint]{display:none!important}
+  [data-noprint]{display:none !important}
+  body{background:#fff}
+  [data-chapter]{break-before:page}
+  [data-avoid]{break-inside:avoid}
+  [data-main]{max-width:none !important}
+}
+</style>
+<script src="./cloud.js"></script>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;gap:40px 48px;max-width:1280px;margin:0 auto;padding:48px 32px 120px;box-sizing:border-box">
+
+  <aside data-noprint="1" data-aside="1" style="flex:0 0 232px;position:sticky;top:32px;align-self:flex-start;display:flex;flex-direction:column;gap:28px;font-size:13.5px">
+    <a data-noprint="1" href="Sommaire.dc.html" title="Retour au sommaire" style="align-self:flex-start;display:flex;align-items:center;gap:6px;padding:7px 12px;background:#1d1c1a;color:#f3f0e8;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none" style-hover="background:#4a4740;color:#f3f0e8">← Sommaire</a>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Fil conducteur · B1 EIDM</div>
+      <div style="font-family:Newsreader,serif;font-size:22px;line-height:1.1">Photoshop &amp; initiation InDesign</div>
+    </div>
+    <nav style="display:flex;flex-direction:column">
+      <a href="#plan" style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #e3dfd5"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">—</span><span>Planning &amp; cadre</span></a>
+      <sc-for list="{{ seances }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" style="display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid #e3dfd5;line-height:1.3">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">S{{ s.n }}</span>
+          <span style="flex:1">{{ s.t }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6b675e;flex:none" title="Préparation cochée">{{ s.prepLabel }}</span>
+        </a>
+      </sc-for>
+      <a href="#recap" style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #e3dfd5"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">—</span><span>Récapitulatif</span></a>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740">
+      <sc-for list="{{ legend }}" as="l" hint-placeholder-count="5"><span>{{ l }}</span></sc-for>
+    </div>
+    <button onClick="{{ print }}" style="font:500 12.5px 'IBM Plex Sans',sans-serif;background:#1d1c1a;color:#f5f3ee;border:0;border-radius:999px;padding:9px 16px;cursor:pointer;align-self:flex-start">Imprimer / PDF</button>
+  </aside>
+
+  <main data-main="1" style="flex:1 1 420px;min-width:0;max-width:860px">
+    <header style="display:flex;flex-direction:column;gap:22px;padding-bottom:40px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b675e">Fil conducteur · B1 Fashion Business &amp; Styling · EIDM · 2026-2027</div>
+      <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(46px,6.6vw,80px);line-height:.96;letter-spacing:-.02em;margin:0;text-wrap:balance">Photoshop et initiation InDesign</h1>
+      <div style="display:flex;flex-wrap:wrap;gap:12px 40px;padding-top:18px;border-top:2px solid #1d1c1a">
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Format</span><span style="font-size:16px">8 séances</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Volume</span><span style="font-size:16px">28h présentiel + 8h FOAD</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Période</span><span style="font-size:16px">Semestre 2</span></div>
+      </div>
+    </header>
+
+    <section id="plan" style="padding-top:24px;scroll-margin-top:16px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">Planning des séances</div>
+      <sc-for list="{{ seances }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 24px;padding:16px 0;border-bottom:1px solid #d9d4c7">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;flex:0 0 90px">SÉANCE {{ s.n }}</span>
+          <span style="font-family:Newsreader,serif;font-size:23px;line-height:1.2;flex:1 1 280px">{{ s.t }}</span>
+          <span style="font-size:13.5px;color:#4a4740;flex:0 0 auto">{{ s.date }} · {{ s.h }}</span>
+        </a>
+      </sc-for>
+    </section>
+
+    <section id="cadre" style="padding-top:64px;scroll-margin-top:16px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:40px 48px">
+        <sc-for list="{{ cadre }}" as="g" hint-placeholder-count="3">
+          <div data-avoid="1" style="display:flex;flex-direction:column">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">{{ g.g }}</div>
+            <sc-for list="{{ g.paras }}" as="p"><p style="margin:12px 0 0;font-size:15.5px;line-height:1.62;text-wrap:pretty;color:#2a2926">{{ p }}</p></sc-for>
+            <sc-for list="{{ g.items }}" as="it">
+              <div style="display:flex;flex-direction:column;gap:2px;padding:11px 0;border-bottom:1px solid #e3dfd5">
+                <div style="font-weight:600;font-size:14.5px">{{ it.k }}</div>
+                <div style="font-size:14.5px;line-height:1.5;color:#4a4740;text-wrap:pretty">{{ it.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <sc-for list="{{ seances }}" as="s" hint-placeholder-count="1">
+      <section id="{{ s.id }}" data-chapter="1" style="padding-top:96px;scroll-margin-top:16px">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;border-top:2px solid #1d1c1a;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em">
+          <span>SÉANCE {{ s.n }}</span><span style="color:#4a4740">{{ s.date }} · {{ s.h }}</span>
+        </div>
+        <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1.02;letter-spacing:-.015em;margin:24px 0 36px;text-wrap:balance">{{ s.t }}</h2>
+
+        <sc-if value="{{ s.hasRef }}" hint-placeholder-val="{{ false }}">
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:16px;padding:28px 30px;border:1.5px solid #1d1c1a;border-radius:6px;margin-bottom:40px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase">◇ Référence culturelle</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="font-family:Newsreader,serif;font-size:28px;line-height:1.1">{{ s.ref.who }}</div>
+              <div style="font-family:Newsreader,serif;font-style:italic;font-size:19px;color:#6b675e">{{ s.ref.t }}</div>
+            </div>
+            <p style="margin:0;font-size:16px;line-height:1.65;text-wrap:pretty">{{ s.ref.p }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.94 0.035 250);border-radius:4px">
+              <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.38 0.13 250);padding-top:4px">? À poser aux étudiants</div>
+              <div style="flex:1 1 300px;min-width:0;font-family:Newsreader,serif;font-size:19px;line-height:1.4;text-wrap:pretty">{{ s.ref.ask }}</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ s.steps }}" as="st" hint-placeholder-count="4">
+            <div style="display:flex;flex-wrap:wrap;gap:8px 28px;padding:24px 0;border-top:1px solid #d9d4c7">
+              <div style="flex:0 0 118px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.02em;padding-top:5px">{{ st.time }}</div>
+              <div style="flex:1 1 400px;min-width:0;display:flex;flex-direction:column;gap:14px">
+                <h3 style="font-family:Newsreader,serif;font-weight:500;font-size:24px;line-height:1.2;margin:0">{{ st.t }}</h3>
+                <sc-for list="{{ st.blocks }}" as="b" hint-placeholder-count="2">
+                  <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}"><p style="margin:0;font-size:16px;line-height:1.66;text-wrap:pretty;color:#2a2926">{{ b.text }}</p></sc-if>
+                  <sc-if value="{{ b.isCas }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:14px 0;border-top:1px dotted #a39c8c;border-bottom:1px dotted #a39c8c">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.42 0.1 55)">● Étude de cas</div>
+                      <div style="font-family:Newsreader,serif;font-style:italic;font-size:18.5px;line-height:1.5;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isExo }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;border:1.5px solid #1d1c1a;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">{{ b.label }}</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isBrief }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#1d1c1a;color:#f5f3ee;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">▣ Brief projet</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isKey }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#e8e4da;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">{{ b.label }}</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:12px">
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:14px">
+            <sc-if value="{{ s.hasEntre }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:6px;padding:18px 20px;border:1.5px dashed #8a857a;border-radius:6px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">↻ Entre les séances</div>
+                <div style="font-size:15px;line-height:1.55;text-wrap:pretty">{{ s.entre }}</div>
+              </div>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;gap:6px;padding:18px 20px;border:1.5px solid #1d1c1a;border-radius:6px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">→ Livrable</div>
+              <div style="font-size:15px;line-height:1.55;text-wrap:pretty">{{ s.livrable }}</div>
+            </div>
+          </div>
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:8px;padding:18px 20px;background:#e8e4da;border-radius:6px">
+            <div style="display:flex;justify-content:space-between;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase"><span>☐ À préparer</span><span style="color:#4a4740">{{ s.prepLabel }}</span></div>
+            <sc-for list="{{ s.prep }}" as="pr" hint-placeholder-count="3">
+              <div onDragOver="{{ pr.onDragOver }}" onDrop="{{ pr.onDrop }}" style="display:flex;flex-direction:column;gap:5px;border-top:1px solid #d3cdbf;padding:9px 0 3px">
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                  <button onClick="{{ pr.toggle }}" style="display:flex;gap:12px;align-items:flex-start;flex:1;min-width:0;background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer">
+                    <sc-if value="{{ pr.on }}" hint-placeholder-val="{{ false }}"><span style="width:16px;height:16px;border:1.5px solid #1d1c1a;background:#1d1c1a;color:#e8e4da;font-size:11px;line-height:16px;text-align:center;border-radius:3px;flex:none;margin-top:2px">✓</span></sc-if>
+                    <sc-if value="{{ pr.off }}" hint-placeholder-val="{{ true }}"><span style="width:16px;height:16px;border:1.5px solid #6b675e;border-radius:3px;flex:none;box-sizing:border-box;margin-top:2px"></span></sc-if>
+                    <span style="font-size:14.5px;line-height:1.5">{{ pr.t }}</span>
+                  </button>
+                  <sc-if value="{{ pr.canEdit }}" hint-placeholder-val="{{ false }}"><label data-noprint="1" title="Joindre des fichiers (ou glisser-déposer sur la ligne)" style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740;cursor:pointer;padding:3px 7px;border:1px solid #bfb8a8;border-radius:3px;margin-top:1px" style-hover="background:#1d1c1a;color:#e8e4da;border-color:#1d1c1a">+ Fichier<input type="file" multiple="{{ true }}" onChange="{{ pr.onFiles }}" style="display:none"></input></label></sc-if>
+                  <sc-if value="{{ pr.custom }}" hint-placeholder-val="{{ false }}"><button data-noprint="1" onClick="{{ pr.remove }}" title="Supprimer cet élément" style="flex:none;background:none;border:0;padding:2px 4px;font-size:16px;line-height:1;color:#6b675e;cursor:pointer" style-hover="color:#1d1c1a">×</button></sc-if>
+                </div>
+                <sc-for list="{{ pr.files }}" as="f">
+                  <div style="display:flex;gap:8px;align-items:baseline;padding-left:28px;min-width:0">
+                    <button onClick="{{ f.open }}" title="Ouvrir" style="background:none;border:0;padding:0;font:inherit;font-size:13px;color:#1d1c1a;text-decoration:underline;text-underline-offset:2px;cursor:pointer;text-align:left;overflow-wrap:anywhere">{{ f.name }}</button>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#6b675e;flex:none">{{ f.size }}</span>
+                    <sc-if value="{{ f.canEdit }}" hint-placeholder-val="{{ false }}"><button data-noprint="1" onClick="{{ f.remove }}" title="Retirer le fichier" style="flex:none;background:none;border:0;padding:0 4px;font-size:14px;line-height:1;color:#6b675e;cursor:pointer" style-hover="color:#1d1c1a">×</button></sc-if>
+                  </div>
+                </sc-for>
+                <sc-for list="{{ pr.docs }}" as="d">
+                  <a href="{{ d.href }}" style="display:flex;gap:8px;align-items:baseline;padding-left:28px;font-size:13px;color:#1d1c1a;text-decoration:none" style-hover="text-decoration:underline"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b675e;flex:none">Kit ↗</span><span>{{ d.label }}</span></a>
+                </sc-for>
+              </div>
+            </sc-for>
+            <sc-if value="{{ s.canEdit }}" hint-placeholder-val="{{ false }}"><div data-noprint="1" style="display:flex;gap:8px;border-top:1px solid #d3cdbf;padding-top:10px">
+              <input value="{{ s.draft }}" onChange="{{ s.onDraft }}" onKeyDown="{{ s.onDraftKey }}" placeholder="Ajouter un élément…" style="flex:1;min-width:0;font:inherit;font-size:14px;padding:6px 9px;border:1px solid #bfb8a8;border-radius:3px;background:#f3f0e8;color:#1d1c1a"></input>
+              <button onClick="{{ s.addItem }}" style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border:1px solid #1d1c1a;border-radius:3px;background:#1d1c1a;color:#e8e4da;cursor:pointer">Ajouter</button>
+            </div></sc-if>
+          </div>
+        </div>
+      </section>
+    </sc-for>
+
+    <section id="recap" data-chapter="1" style="padding-top:96px;scroll-margin-top:16px">
+      <div style="border-top:2px solid #1d1c1a;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em">SYNTHÈSE</div>
+      <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1.02;margin:24px 0 36px">Récapitulatif du module</h2>
+      <div style="display:flex;flex-direction:column;gap:44px">
+        <sc-for list="{{ recap }}" as="g" hint-placeholder-count="2">
+          <div data-avoid="1" style="display:flex;flex-direction:column">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">{{ g.g }}</div>
+            <sc-for list="{{ g.items }}" as="it">
+              <div style="display:flex;flex-wrap:wrap;gap:2px 24px;padding:12px 0;border-bottom:1px solid #e3dfd5">
+                <div style="flex:0 0 190px;font-weight:600;font-size:15px">{{ it.k }}</div>
+                <div style="flex:1 1 300px;min-width:0;font-size:15px;line-height:1.55;color:#2a2926;text-wrap:pretty">{{ it.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <footer style="margin-top:96px;padding-top:16px;border-top:1px solid #d9d4c7;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6b675e">Cliclac Studio · cliclac.studio · Document pédagogique v2</footer>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/*META*/
+const KEY = 'fil-photoshop-v2';
+const LEGEND = ['◇ Référence culturelle', '● Étude de cas', '✎ Exercice imposé', '! Notion clé', '↻ Entre les séances', '→ Livrable', '☐ À préparer'];
+const CADRE = [
+ {g:'Fil rouge projet', paras:['Chaque étudiant conçoit la communication du lancement d’une collection pour une marque de mode (existante ou fictive) : une affiche de campagne, une couverture de magazine et une invitation au défilé. Les trois supports couvrent les productions demandées par le syllabus et partagent la même direction artistique.','Les 6 premières séances sont consacrées à Photoshop (retouche, sélection, montage, composition). La séance 7 initie à InDesign avec la mise en page de l’invitation. La séance 8 est dédiée à la préparation des fichiers pour l’imprimeur et le web, puis à la présentation.'], items:[]},
+ {g:'Travail à distance (8h)', paras:['Le syllabus prévoit 8 heures de FOAD. Elles sont réparties entre les séances, environ 1 heure chacune, sur les modules e-learning de l’école (tutoriels Photoshop et InDesign). Le thème de chaque heure est indiqué dans « Entre les séances ».'], items:[]},
+ {g:'Couverture du syllabus', paras:[], items:[['Retouche','Correcteur, pièce, tampon, gommes — S3'],['Cadrage, redressement, zone de travail, résolution','S1 et S2'],['Sélection et détourage','Sélection rapide, baguette magique, mode masque — S4'],['Détourage et montage','S4 et S5'],['Composition','Couleurs, familles typographiques, mise en page — S5 et S6'],['Production','Affiche S5, couverture S6, invitation S7'],['Initiation InDesign','Interface, document, blocs, mise en page courte — S7'],['Préparer un fichier pour l’imprimeur ou le webdesigner','S8']]},
+ {g:'Contrôle continu', paras:[], items:[['Exercices imposés S1 à S4 — 30 %','Propreté technique, respect des consignes.'],['Affiche et couverture — 35 %','Qualité du montage, hiérarchie, typographie, cohérence de marque.'],['Invitation InDesign — 15 %','Structure du document, blocs, marges.'],['Fichiers de sortie et présentation — 20 %','Exports conformes, argumentation des choix.']]}
+];
+/*DATA*/
+const SEANCES = [
+{date:'Lundi 8 février 2027', h:'13h00 – 16h30 · 3h30', t:'Fondations : image, pixels, calques',
+ ref:{who:'Thomas et John Knoll — Photoshop 1.0 (1990)', t:'Un outil né d’une thèse et d’un studio d’effets spéciaux', p:'Thomas Knoll, doctorant, écrit un petit programme pour afficher des images en niveaux de gris sur son écran. Son frère John travaille chez Industrial Light & Magic, le studio d’effets spéciaux de George Lucas, et y voit immédiatement un outil de retouche. Adobe rachète la licence et publie Photoshop 1.0 en 1990. En quelques années, le logiciel transforme la photographie de mode : ce qui demandait des heures de laboratoire se fait à l’écran. Comprendre d’où vient l’outil aide à comprendre sa logique : Photoshop travaille sur des pixels, point par point.', ask:'Selon vous, quelle proportion des images de mode que vous voyez chaque jour ont été retouchées ?'},
+ steps:[
+  ['0h00 – 0h15','Ouverture',['p','Présentation, tour de table (niveau, attentes), présentation du module et du fil rouge.'],['brief','Vous allez concevoir la communication du lancement d’une collection : une affiche, une couverture de magazine, une invitation. Choisissez une marque de mode, existante ou inventée, avant la séance 2.']],
+  ['0h15 – 0h30','Référence culturelle',['p','Les frères Knoll et Photoshop 1.0. Question au groupe.']],
+  ['0h30 – 1h10','Théorie : l’image numérique',['p','Image matricielle (pixels, Photoshop) et image vectorielle (courbes, Illustrator). La résolution relie pixels et taille d’impression : 300 ppi pour l’impression, la taille en pixels seule compte à l’écran. Pixels nécessaires = cm × 300 ÷ 2,54.'],['p','Modes colorimétriques : RVB pour l’écran, CMJN pour l’impression. Formats : PSD (calques, travail), JPEG (photo, compression avec perte), PNG (transparence, sans perte), TIFF (impression).'],['p','Interface : barre d’outils, barre d’options, panneaux Calques, Propriétés, Historique. Espace de travail « Photographie » à réinitialiser en début de séance.'],['key','Travailler en non destructif : ne jamais modifier le calque d’arrière-plan directement. Dupliquer, utiliser des calques de réglage et des masques.']],
+  ['1h10 – 1h45','Démonstration et exercice : les calques',['p','Créer, nommer, grouper, verrouiller, masquer des calques. Opacité et modes de fusion (Produit, Superposition, Écran). Objets dynamiques pour redimensionner sans perte.'],['exo','À partir de 5 images fournies, créer une planche 1080 × 1350 px (format Instagram portrait) : chaque image sur son calque, nommée, redimensionnée en objet dynamique, alignée sur des repères. Aucun calque « Calque 1 ».','Exercice imposé']],
+  ['1h45 – 1h55','Pause'],
+  ['1h55 – 2h35','Démonstration et exercice : taille d’image et zone de travail',['p','Image › Taille de l’image : change la taille ou la résolution (rééchantillonnage). Image › Taille de la zone de travail : ajoute ou retire de la surface autour de l’image sans la déformer. C’est cette commande qui sert à ajouter des fonds perdus.'],['exo','Préparer une même photo en trois versions : A4 à 300 ppi (vérifier si elle est assez grande), story 1080 × 1920 px, bannière web 1920 × 600 px. Noter à chaque fois ce qui a été perdu.','Exercice imposé'],['key','Agrandir une image trop petite ne crée pas de détail : Photoshop invente des pixels.']],
+  ['2h35 – 3h15','Lancement du fil rouge',['p','Recherche : chacun commence le moodboard de sa marque dans Photoshop (document A3, 12 à 15 images, palette extraite avec la pipette). Je passe de poste en poste.']],
+  ['3h15 – 3h30','Synthèse',['p','Trois moodboards projetés. Rappel des réflexes : nommer, sauvegarder en PSD, travailler en non destructif.']]
+ ],
+ entre:'Finaliser le moodboard. FOAD (1h) : interface et calques.',
+ livrable:'Planche calques + trois versions de la photo + moodboard de marque. Nommage : NOM_Prenom_S1.psd',
+ prep:['5 images pour l’exercice calques','Photo haute définition pour l’exercice des trois formats','Photos d’archives Photoshop 1.0','Fiche récap : résolution, modes, formats']},
+{date:'Mercredi 10 février 2027', h:'13h00 – 16h30 · 3h30', t:'Cadrer, redresser, corriger',
+ ref:{who:'Richard Avedon — Dovima avec les éléphants (1955)', t:'Le cadrage fait l’image', p:'En 1955, Richard Avedon photographie le mannequin Dovima en robe Dior entre deux éléphants au Cirque d’Hiver à Paris. Le cadrage est précis : la silhouette verticale et claire au centre, les masses sombres et rugueuses des animaux de chaque côté, le geste des bras qui relie tout. Déplacez le cadre de quelques centimètres et l’image perd sa tension. Recadrer dans Photoshop, ce n’est pas couper ce qui dépasse : c’est choisir ce que l’image raconte.', ask:'Où placeriez-vous le cadre si cette photo devait devenir une couverture verticale ? Une bannière horizontale ?'},
+ steps:[
+  ['0h00 – 0h15','Retour sur la séance 1',['p','Moodboards projetés. Validation des marques choisies.']],
+  ['0h15 – 0h30','Référence culturelle',['p','Avedon. Question au groupe.']],
+  ['0h30 – 1h05','Théorie et démonstration : recadrage et redressement',['p','Outil Recadrage : ratio imposé, règle des tiers, option « Supprimer les pixels recadrés » décochée pour garder la main. Redresser un horizon avec l’outil Règle ou l’option Redresser. Recadrage perspective et Filtre › Correction de l’objectif pour les verticales d’architecture ou de packshot.'],['p','Composition photographique : règle des tiers, point focal, lignes directrices, espace négatif réservé au texte.']],
+  ['1h05 – 1h45','Démonstration : corriger l’exposition et la couleur',['p','Calques de réglage : Niveaux (noirs, blancs, gamma), Courbes (contraste en S), Teinte/Saturation, Balance des couleurs, Noir et blanc. Lire l’histogramme. Appliquer un réglage à une zone grâce au masque du calque de réglage.'],['key','Un calque de réglage se modifie à tout moment. Image › Réglages modifie les pixels définitivement : à éviter.']],
+  ['1h45 – 1h55','Pause'],
+  ['1h55 – 2h40','Exercice imposé : série cohérente',['exo','Six photos d’une même série, prises dans des conditions différentes. Les recadrer au même ratio, redresser, et harmoniser l’exposition et la couleur pour qu’elles semblent issues de la même prise de vue. Tous les réglages en calques.','Exercice imposé']],
+  ['2h40 – 3h15','Application au fil rouge',['p','Sélection des 3 à 5 photos de la campagne (banques d’images libres ou photos personnelles). Recadrage et correction de la photo principale de l’affiche.']],
+  ['3h15 – 3h30','Synthèse',['p','Avant / après projetés. Ce qui fait qu’une série paraît cohérente.']]
+ ],
+ entre:'Terminer la correction des photos de campagne. FOAD (1h) : recadrage et calques de réglage.',
+ livrable:'Série harmonisée (6 photos, PSD avec calques) + photos de campagne corrigées. Nommage : NOM_Prenom_S2.psd',
+ prep:['Série de 6 photos hétérogènes','Photo avec horizon penché et photo d’architecture','Tirage de Dovima avec les éléphants','Fiche récap : calques de réglage']},
+{date:'Mardi 2 mars 2027', h:'13h00 – 16h30 · 3h30', t:'Retouche et nettoyage d’image',
+ ref:{who:'Dove — Evolution (2006) et la loi française de 2017', t:'Ce que la retouche change', p:'En 2006, un film de la campagne Dove montre en accéléré la transformation d’un visage : maquillage, éclairage, puis retouche numérique qui allonge le cou et agrandit les yeux, jusqu’au panneau publicitaire. En France, depuis le 1er octobre 2017, les photographies commerciales dont la silhouette d’un mannequin a été modifiée doivent porter la mention « photographie retouchée ». La retouche est un outil professionnel quotidien : nettoyer un packshot, effacer une poussière, corriger un pli. Elle pose aussi une question éthique que tout communicant de mode doit connaître.', ask:'Où placez-vous la limite entre nettoyer une image et la falsifier ?'},
+ steps:[
+  ['0h00 – 0h15','Retour sur la séance 2',['p','Photos de campagne projetées. Corrections éventuelles.']],
+  ['0h15 – 0h30','Référence culturelle',['p','Dove Evolution et la loi de 2017. Débat court.']],
+  ['0h30 – 1h10','Démonstration : les outils de retouche',['p','Correcteur localisé (petits défauts, poussières), Correcteur (prélèvement choisi avec Alt), Pièce (grandes zones), Tampon de duplication (textures et bords nets), Remplissage d’après le contenu, Suppression (IA). Gomme et gomme d’arrière-plan, et pourquoi on leur préfère le masque.'],['p','Méthode non destructive : retoucher sur un calque vide avec l’option « Échantillonner : tous les calques ».'],['key','Choisir l’outil selon la zone : texture uniforme = correcteur, bord net = tampon, grande surface = pièce ou remplissage.']],
+  ['1h10 – 1h45','Étude de cas et démonstration : retouche produit',['cas','Packshot d’un sac en cuir : poussières, rayures, reflets, étiquette à effacer, fond à nettoyer. Je montre l’ordre des opérations : nettoyage du fond, défauts du produit, reflets, puis contraste final.']],
+  ['1h45 – 1h55','Pause'],
+  ['1h55 – 2h45','Exercice imposé : trois retouches',['exo','Trois images fournies : un packshot de chaussure (poussières et rayures), une photo de rue (éléments parasites à supprimer), un portrait (imperfections de peau légères, sans modifier la morphologie). Retouche sur calques séparés, avant / après exporté.','Exercice imposé']],
+  ['2h45 – 3h15','Application au fil rouge',['p','Nettoyage des photos de campagne et du packshot du produit phare de la collection.']],
+  ['3h15 – 3h30','Synthèse',['p','Avant / après projetés. On repère les retouches visibles et leur cause.']]
+ ],
+ entre:'Terminer les retouches. FOAD (1h) : outils de retouche.',
+ livrable:'Trois retouches (PSD + avant/après JPEG) + photos de campagne nettoyées. Nommage : NOM_Prenom_S3.psd',
+ prep:['Packshot de sac pour la démonstration','Trois images pour l’exercice','Extrait du film Dove Evolution','Texte de la réglementation 2017','Fiche récap : quel outil pour quelle zone']},
+{date:'Lundi 15 mars 2027', h:'13h00 – 16h30 · 3h30', t:'Sélections et détourage',
+ ref:{who:'Hannah Höch — photomontages dada (1919-1920)', t:'Découper pour recomposer', p:'Hannah Höch découpe des photographies de magazines et les assemble en compositions critiques, comme Coupe au couteau de cuisine (1919-1920). Le photomontage naît du ciseau et de la colle, bien avant l’écran. Détourer dans Photoshop reprend exactement ce geste : isoler une forme de son contexte pour la placer ailleurs. La qualité d’un montage dépend d’abord de la qualité du détourage.', ask:'Dans un montage publicitaire, qu’est-ce qui trahit immédiatement un détourage raté ?'},
+ steps:[
+  ['0h00 – 0h15','Retour sur la séance 3',['p','Retours rapides sur les retouches.']],
+  ['0h15 – 0h30','Référence culturelle',['p','Hannah Höch. Question au groupe.']],
+  ['0h30 – 1h15','Démonstration : les outils de sélection',['p','Sélection d’objet et Sélectionner le sujet (automatiques), Sélection rapide (pinceau), Baguette magique (couleurs uniformes, tolérance), Lasso polygonal, Plume (bords nets, produits). Ajouter et retrancher avec Maj et Alt. Mémoriser une sélection.'],['p','Mode masque (touche Q) : peindre la sélection en noir et blanc. Masque de fusion : cacher sans effacer. Sélectionner et masquer pour les cheveux et la fourrure.'],['key','Toujours détourer avec un masque, jamais avec la gomme : on peut corriger à tout moment.']],
+  ['1h15 – 1h45','Étude de cas : quel outil pour quel sujet',['cas','Quatre images : un flacon de parfum sur fond blanc (baguette ou sélection d’objet), une chaussure aux bords nets (plume), un mannequin aux cheveux au vent (sélectionner et masquer), un vêtement à motif sur fond chargé (combinaison d’outils). Je démontre chacun en direct.']],
+  ['1h45 – 1h55','Pause'],
+  ['1h55 – 2h45','Exercice imposé : quatre détourages',['exo','Détourer les quatre images de l’étude de cas, chacune sur fond de couleur unie pour révéler les défauts. Masques uniquement. Contrôle à 200 % de zoom.','Exercice imposé']],
+  ['2h45 – 3h15','Application au fil rouge',['p','Détourage du ou des sujets de l’affiche de campagne.']],
+  ['3h15 – 3h30','Synthèse',['p','Détourages projetés sur fond rouge vif : on repère les liserés et les bords durs.']]
+ ],
+ entre:'Terminer les détourages de campagne. FOAD (1h) : sélections et masques.',
+ livrable:'Quatre détourages sur fond uni + sujets de campagne détourés. Nommage : NOM_Prenom_S4.psd',
+ prep:['Quatre images de difficulté croissante','Reproductions de photomontages de Hannah Höch','Fiche récap : outils de sélection']},
+{date:'Mardi 16 mars 2027', h:'13h00 – 16h30 · 3h30', t:'Montage et composition : l’affiche de campagne',
+ ref:{who:'Guy Bourdin — campagnes Charles Jourdan (1967-1981)', t:'La couleur et le hors-champ', p:'Pour le chausseur Charles Jourdan, Guy Bourdin crée des images où la chaussure n’est parfois qu’un détail : couleurs saturées, cadrages coupés, mises en scène énigmatiques. Le produit n’est pas montré, il est mis en récit. Ces campagnes montrent qu’une affiche de mode repose sur trois choix : une couleur dominante, une composition qui guide l’œil et une idée que le public doit compléter.', ask:'Sur une affiche, le produit doit-il toujours être au centre ?'},
+ steps:[
+  ['0h00 – 0h15','Retour sur la séance 4',['p','Contrôle des détourages de campagne.']],
+  ['0h15 – 0h30','Référence culturelle',['p','Guy Bourdin. Question au groupe.']],
+  ['0h30 – 1h10','Théorie : couleur et composition',['p','Cercle chromatique : primaires, secondaires, complémentaires, analogues. Une dominante, une couleur secondaire, un accent. Contraste clair-obscur pour la lisibilité.'],['p','Composition : point focal, règle des tiers, hiérarchie (titre, image, informations), espace négatif, lecture en Z. Familles typographiques : empattements, linéales, didones souvent utilisées dans la mode.']],
+  ['1h10 – 1h45','Démonstration : réussir un montage',['p','Intégrer un sujet détouré : harmoniser lumière et couleur (calque de réglage écrêté), ajouter une ombre portée réaliste, flou de profondeur, grain commun. Ajouter du texte : calque de texte, panneau Caractère, alignement sur repères.'],['key','Un montage crédible tient à trois raccords : la direction de la lumière, la couleur et la netteté.']],
+  ['1h45 – 1h55','Pause'],
+  ['1h55 – 3h15','Production : l’affiche de campagne',['exo','Format 40 × 60 cm à 300 ppi (ou 4724 × 7087 px), avec 3 mm de fonds perdus. Au minimum : le sujet détouré intégré, un titre, le nom de la marque, une date. Trois esquisses de composition en petit format avant de produire la version finale.','Production'],['p','Je passe de poste en poste. Point d’étape collectif à 2h40 : chacun montre son esquisse retenue.']],
+  ['3h15 – 3h30','Synthèse',['p','Affiches projetées. Le groupe identifie le point focal de chacune.']]
+ ],
+ entre:'Finaliser l’affiche. FOAD (1h) : texte et composition dans Photoshop.',
+ livrable:'Affiche de campagne (PSD + JPEG de contrôle). Nommage : NOM_Prenom_S5_Affiche.psd',
+ prep:['Campagnes Guy Bourdin à projeter','Fichier de démonstration de montage (sujet + décor)','Fiche récap : couleur et composition']},
+{date:'Mercredi 17 mars 2027', h:'13h00 – 16h30 · 3h30', t:'La couverture de magazine',
+ ref:{who:'Alexey Brodovitch — Harper’s Bazaar (1934-1958)', t:'La double page comme scène', p:'Directeur artistique de Harper’s Bazaar pendant près de 25 ans, Brodovitch fait travailler Avedon, Man Ray ou Cassandre. Il fait dialoguer photographie et typographie, laisse de grands blancs, fait déborder les images. Il est l’un de ceux qui ont inventé la direction artistique de magazine telle qu’on la pratique encore. Une couverture de magazine est une affiche avec des contraintes : un titre fixe, des accroches, un code-barres, et une image qui doit se vendre en kiosque parmi cinquante autres.', ask:'Face à un kiosque, qu’est-ce qui vous fait prendre un magazine plutôt qu’un autre ?'},
+ steps:[
+  ['0h00 – 0h15','Retour sur la séance 5',['p','Affiches finalisées projetées.']],
+  ['0h15 – 0h30','Référence culturelle',['p','Brodovitch. Question au groupe.']],
+  ['0h30 – 1h05','Anatomie d’une couverture',['p','Titre du magazine (logo fixe), image de couverture, accroches principales et secondaires, date et numéro, prix, code-barres. Hiérarchie typographique : trois niveaux au maximum. Le sujet passe souvent devant le titre : détourage partiel.'],['cas','Comparer trois couvertures (Vogue, Numéro, un magazine indépendant) : nombre d’accroches, place de l’image, rapport entre typographie et photo.']],
+  ['1h05 – 1h45','Démonstration : texte et effets dans Photoshop',['p','Calques de texte, styles de paragraphe et de caractère, texte sur tracé. Faire passer le sujet devant le titre avec un masque. Styles de calque (ombre, contour) utilisés avec retenue. Repères et marges de sécurité.']],
+  ['1h45 – 1h55','Pause'],
+  ['1h55 – 3h15','Production : la couverture',['exo','Format 230 × 300 mm à 300 ppi, 3 mm de fonds perdus, marges de sécurité de 10 mm. Titre du magazine, photo de la campagne, trois accroches minimum, date, code-barres. Cohérence avec l’affiche : même palette, même typographie de marque.','Production']],
+  ['3h15 – 3h30','Synthèse',['p','Affiche et couverture projetées côte à côte : on vérifie qu’elles appartiennent à la même campagne.']]
+ ],
+ entre:'Finaliser la couverture. Rédiger les textes de l’invitation (lieu, date, heure, marque, mentions). FOAD (1h) : découverte de l’interface InDesign.',
+ livrable:'Couverture de magazine (PSD + JPEG de contrôle). Nommage : NOM_Prenom_S6_Couverture.psd',
+ prep:['Couvertures de magazines imprimées','Doubles-pages Brodovitch à projeter','Code-barres fictif et gabarit de couverture','Fiche récap : anatomie d’une couverture']},
+{date:'Jeudi 18 mars 2027', h:'13h00 – 16h30 · 3h30', t:'Initiation InDesign : l’invitation',
+ ref:{who:'De PageMaker à InDesign (1985-1999)', t:'La naissance de la PAO', p:'En 1985, le logiciel PageMaker et l’imprimante laser d’Apple permettent de mettre en page un document sur ordinateur : c’est la naissance de la publication assistée par ordinateur. QuarkXPress domine ensuite la presse, jusqu’à l’arrivée d’InDesign en 1999. Photoshop et InDesign n’ont pas le même rôle : le premier travaille l’image, le second organise des pages avec du texte, des images et une grille. On ne met pas en page un magazine dans Photoshop, et on ne retouche pas une photo dans InDesign.', ask:'Qu’avez-vous trouvé difficile en composant du texte dans Photoshop la semaine dernière ?'},
+ steps:[
+  ['0h00 – 0h15','Retour sur la séance 6',['p','Couvertures projetées. Derniers ajustements.']],
+  ['0h15 – 0h30','Référence culturelle',['p','Histoire de la PAO. Tableau au tableau : ce que fait Photoshop, ce que fait InDesign.']],
+  ['0h30 – 1h10','Démonstration : interface et document',['p','Préférences : unités en millimètres. Nouveau document : format, orientation, pages en vis-à-vis ou non, marges, colonnes, fonds perdus (3 mm). Outils Sélection et Sélection directe, panneaux Pages, Calques, Liens, Caractère, Paragraphe.'],['p','Les blocs : bloc texte (outil Texte), bloc image (Fichier › Importer, Cmd + D), ajustement du contenu au bloc, habillage simple. Importer un PSD : il reste lié, toute modification dans Photoshop se met à jour.'],['key','Dans InDesign, tout est dans un bloc. L’image n’est pas dans le document : elle est liée.']],
+  ['1h10 – 1h45','Exercice imposé : flyer simple',['exo','Recomposer un flyer A5 fourni en PDF : un bloc image, un titre, un paragraphe, un bloc d’informations. Respect des marges et alignement sur les colonnes. 30 minutes.','Exercice imposé']],
+  ['1h45 – 1h55','Pause'],
+  ['1h55 – 3h15','Production : l’invitation',['exo','Format au choix : carte 148 × 105 mm (A6 paysage) ou 210 × 105 mm, recto verso, fonds perdus 3 mm. Recto : visuel de campagne et nom de la marque. Verso : informations (date, heure, lieu, adresse, contact), hiérarchisées. Images importées depuis Photoshop, textes composés dans InDesign.','Production']],
+  ['3h15 – 3h30','Synthèse',['p','Invitations projetées. Vérification des marges et des fonds perdus en mode Aperçu (touche W).']]
+ ],
+ entre:'Finaliser l’invitation. Préparer 3 minutes de présentation de la campagne. FOAD (1h) : export PDF depuis InDesign.',
+ livrable:'Flyer d’exercice + invitation recto verso (INDD + assemblage). Nommage : NOM_Prenom_S7_Invitation.indd',
+ prep:['Flyer PDF de l’exercice avec ses images et textes','Gabarit d’invitation vierge pour ceux qui bloquent','Tableau Photoshop / InDesign','Fiche récap : premiers pas InDesign']},
+{date:'Lundi 22 mars 2027', h:'13h00 – 16h30 · 3h30', t:'Préparer, exporter, présenter',
+ steps:[
+  ['0h00 – 0h40','Théorie : préparer un fichier pour l’imprimeur',['p','Conversion en CMJN au profil demandé par l’imprimeur (souvent Coated Fogra39, aussi appelé ISO Coated v2 : les deux sont quasiment identiques). Résolution 300 ppi à la taille finale. Fonds perdus de 3 mm, ajoutés dans Photoshop par Image › Taille de la zone de travail. Textes à 5 mm minimum de la coupe. Noir du texte en 100 % K.'],['p','Depuis Photoshop : enregistrer en PDF (Photoshop PDF) ou TIFF aplati. Depuis InDesign : Fichier › Exporter › PDF/X-4 avec fonds perdus et traits de coupe, puis Fichier › Assemblage.'],['key','L’imprimeur imprime ce qu’on lui envoie. Une erreur de fond perdu ou de mode colorimétrique se voit sur le papier, pas à l’écran.']],
+  ['0h40 – 1h10','Théorie : préparer un fichier pour le web',['p','RVB (sRVB), dimensions en pixels selon l’usage (post 1080 × 1350, story 1080 × 1920, bannière selon le site). Fichier › Exporter › Exportation rapide ou Exporter sous : JPEG pour les photos, PNG pour la transparence, WebP pour les sites. Poids du fichier à surveiller.'],['cas','Même affiche livrée deux fois : pour l’imprimeur (PDF CMJN 300 ppi avec fonds perdus) et pour le community manager (JPEG sRVB 1080 × 1350 px). Je montre les deux fichiers et leurs réglages.']],
+  ['1h10 – 1h45','Exercice imposé : livraisons',['exo','Pour chaque support du fil rouge : un fichier imprimeur et une déclinaison web (post pour l’affiche, story pour la couverture, image d’e-mail pour l’invitation). Vérifier chaque export à l’ouverture.','Exercice imposé']],
+  ['1h45 – 1h55','Pause'],
+  ['1h55 – 3h05','Présentations',['p','Une dizaine d’étudiants, 4 minutes chacun et 2 minutes de questions : la marque, la direction artistique, les trois supports, un choix technique expliqué. Je coupe ceux qui décrivent ce qu’on voit déjà.']],
+  ['3h05 – 3h30','Bilan du module',['p','Retour collectif sur la progression depuis la séance 1. Ce qui attend les étudiants en B2 : le module InDesign approfondi et le projet magazine.']]
+ ],
+ livrable:'Dossier final : affiche, couverture, invitation en version imprimeur et web, fichiers sources. Nommage : NOM_Prenom_S8_Final.zip',
+ prep:['Checklist imprimeur imprimée','Exemples de fichiers imprimeur et web','Grille d’évaluation des présentations','Minuteur']}
+];
+const RECAP = [
+ {g:'Fil rouge culturel', items:[['Séance 1','Thomas et John Knoll — la naissance de Photoshop.'],['Séance 2','Richard Avedon — le cadrage fait l’image.'],['Séance 3','Dove Evolution et la loi de 2017 — l’éthique de la retouche.'],['Séance 4','Hannah Höch — découper pour recomposer.'],['Séance 5','Guy Bourdin — la couleur et le hors-champ.'],['Séance 6','Alexey Brodovitch — la direction artistique de magazine.'],['Séance 7','De PageMaker à InDesign — la naissance de la PAO.']]},
+ {g:'Progression', items:[['Séance 1','Pixels, résolution, calques, taille de l’image et zone de travail, moodboard.'],['Séance 2','Recadrage, redressement, calques de réglage.'],['Séance 3','Outils de retouche, retouche produit.'],['Séance 4','Sélections, masques, détourage.'],['Séance 5','Montage, couleur, composition, affiche.'],['Séance 6','Typographie dans Photoshop, couverture de magazine.'],['Séance 7','Initiation InDesign, invitation.'],['Séance 8','Exports imprimeur et web, présentation.']]}
+];
+/*END*/
+const kv = ([k, v]) => ({ k, v });
+const KITDOCS = {"0-3":[{"label":"Fiche récap — Résolution, modes, formats","href":"Photoshop - Kit de seance.dc.html#p1"}],"1-3":[{"label":"Fiche récap — Cadrer et corriger","href":"Photoshop - Kit de seance.dc.html#p2"}],"2-4":[{"label":"Fiche récap — Quel outil pour quelle retouche","href":"Photoshop - Kit de seance.dc.html#p3"}],"3-2":[{"label":"Fiche récap — Sélectionner et détourer","href":"Photoshop - Kit de seance.dc.html#p4"}],"4-2":[{"label":"Fiche récap — Couleur et composition","href":"Photoshop - Kit de seance.dc.html#p5"}],"5-3":[{"label":"Fiche récap — Anatomie d’une couverture","href":"Photoshop - Kit de seance.dc.html#p6"}],"6-3":[{"label":"Fiche récap — Premiers pas dans InDesign","href":"Photoshop - Kit de seance.dc.html#p7"}],"7-0":[{"label":"Checklist — Checklist de livraison","href":"Photoshop - Kit de seance.dc.html#p8"}],"7-2":[{"label":"Évaluation — Grille d’évaluation des présentations","href":"Photoshop - Kit de seance.dc.html#p9"}]};
+const KITADD = {};
+const fmtSize = b => b < 1048576 ? Math.max(1, Math.round(b / 1024)) + ' Ko' : (b / 1048576).toFixed(1).replace('.', ',') + ' Mo';
+class Component extends DCLogic {
+  state = { prep: {}, extra: {}, files: {}, draft: {}, canEdit: false };
+  componentDidMount() {
+    try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) this.setState({ prep: s }); } catch (e) {}
+    try { const x = JSON.parse(localStorage.getItem(KEY + '-extra') || 'null'); if (x) this.setState({ extra: x }); } catch (e) {}
+    const C = window.Cloud; if (!C) return;
+    C.onAuth(() => this.setState({ canEdit: C.canEdit }));
+    C.ready.then(() => {
+      if (!C.sb) return;
+      this.setState({ canEdit: C.canEdit });
+      C.get(KEY).then(v => { if (v) this.setState({ prep: v }); });
+      C.get(KEY + '-extra').then(v => { if (v) this.setState({ extra: v }); });
+      this.loadFiles();
+    });
+  }
+  save = () => { try { localStorage.setItem(KEY, JSON.stringify(this.state.prep)); } catch (e) {} window.Cloud && window.Cloud.set(KEY, this.state.prep); };
+  saveExtra = () => { try { localStorage.setItem(KEY + '-extra', JSON.stringify(this.state.extra)); } catch (e) {} window.Cloud && window.Cloud.set(KEY + '-extra', this.state.extra); };
+  loadFiles = () => window.Cloud.listFiles(KEY).then(rows => {
+    const files = {}; (rows || []).forEach(r => (files[r.item] = files[r.item] || []).push(r)); this.setState({ files });
+  }).catch(() => {});
+  addFiles = (id, list) => {
+    const arr = Array.from(list || []); if (!arr.length || !this.state.canEdit) return;
+    window.Cloud.addFiles(KEY, id, arr)
+      .then(() => { this.setState(st => ({ prep: { ...st.prep, [id]: true } }), this.save); this.loadFiles(); })
+      .catch(e => { alert('Impossible d’envoyer le fichier : ' + (e.message || e)); this.loadFiles(); });
+  };
+  removeFile = fid => window.Cloud.removeFile(fid).then(this.loadFiles);
+  openFile = r => window.open(window.Cloud.url(r.path), '_blank');
+  addItem = i => {
+    const t = (this.state.draft[i] || '').trim(); if (!t || !this.state.canEdit) return;
+    const id = 'c' + i + '-' + Date.now();
+    this.setState(st => ({ extra: { ...st.extra, [i]: [...(st.extra[i] || []), { id, t }] }, draft: { ...st.draft, [i]: '' } }), this.saveExtra);
+  };
+  removeItem = (i, id) => {
+    if (!confirm('Supprimer cet élément et ses fichiers joints ?')) return;
+    const fids = (this.state.files[id] || []).map(r => r.fid);
+    this.setState(st => ({ extra: { ...st.extra, [i]: (st.extra[i] || []).filter(x => x.id !== id) } }), this.saveExtra);
+    if (fids.length) Promise.all(fids.map(f => window.Cloud.removeFile(f))).then(this.loadFiles);
+  };
+  renderVals() {
+    const { prep, extra, files, draft, canEdit } = this.state;
+    const seances = SEANCES.map((s, i) => {
+      const mk = (id, t, custom, docs) => {
+        const on = !!prep[id];
+        return { t, on, off: !on, custom: custom && canEdit, canEdit, docs: docs || KITDOCS[id] || [],
+          files: (files[id] || []).map(r => ({ canEdit, name: r.name, size: fmtSize(r.size || 0), open: () => this.openFile(r), remove: () => this.removeFile(r.fid) })),
+          toggle: () => canEdit && this.setState(st => ({ prep: { ...st.prep, [id]: !st.prep[id] } }), this.save),
+          onFiles: e => { this.addFiles(id, e.target.files); e.target.value = ''; },
+          onDragOver: e => e.preventDefault(),
+          onDrop: e => { e.preventDefault(); this.addFiles(id, e.dataTransfer.files); },
+          remove: () => this.removeItem(i, id) };
+      };
+      const items = [...s.prep.map((t, j) => mk(i + '-' + j, t, false)), ...(KITADD[i] || []).map(x => mk(i + '-' + x.id, x.t, false, x.docs)), ...(extra[i] || []).map(x => mk(x.id, x.t, true))];
+      return {
+        canEdit, n: i + 1, id: 's' + (i + 1), href: '#s' + (i + 1), date: s.date, h: s.h, t: s.t,
+        hasRef: !!s.ref, ref: s.ref || {}, hasEntre: !!s.entre, entre: s.entre || '', livrable: s.livrable,
+        draft: draft[i] || '', onDraft: e => { const v = e.target.value; this.setState(st => ({ draft: { ...st.draft, [i]: v } })); }, onDraftKey: e => { if (e.key === 'Enter') this.addItem(i); }, addItem: () => this.addItem(i),
+        prep: items, prepLabel: items.filter(x => x.on).length + '/' + items.length,
+        steps: s.steps.map(([time, t, ...bl]) => ({
+          time, t,
+          blocks: bl.map(([k, text, lab]) => ({
+            text, isP: k === 'p', isCas: k === 'cas', isExo: k === 'exo', isBrief: k === 'brief', isKey: k === 'key',
+            label: k === 'exo' ? '✎ ' + (lab || 'Exercice') : '! ' + (lab || 'Notion clé')
+          }))
+        }))
+      };
+    });
+    return {
+      seances, legend: LEGEND, print: () => window.print(),
+      cadre: CADRE.map(g => ({ g: g.g, paras: g.paras, items: g.items.map(kv) })),
+      recap: RECAP.map(g => ({ g: g.g, items: g.items.map(kv) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

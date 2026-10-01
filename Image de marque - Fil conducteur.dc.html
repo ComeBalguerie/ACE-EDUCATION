@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#f5f3ee;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:oklch(0.45 0.13 250)}
+@media (max-width:760px){[data-aside]{position:static !important;flex:1 1 100% !important}[data-aside] nav{display:none !important}}
+@media print{
+  [data-noprint]{display:none !important}
+  body{background:#fff}
+  [data-chapter]{break-before:page}
+  [data-avoid]{break-inside:avoid}
+  [data-main]{max-width:none !important}
+}
+</style>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;gap:40px 48px;max-width:1280px;margin:0 auto;padding:48px 32px 120px;box-sizing:border-box">
+
+  <aside data-noprint="1" data-aside="1" style="flex:0 0 232px;position:sticky;top:32px;align-self:flex-start;display:flex;flex-direction:column;gap:28px;font-size:13.5px">
+    <a data-noprint="1" href="Sommaire.dc.html" title="Retour au sommaire" style="align-self:flex-start;display:flex;align-items:center;gap:6px;padding:7px 12px;background:#1d1c1a;color:#f3f0e8;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none" style-hover="background:#4a4740;color:#f3f0e8">← Sommaire</a>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Fil conducteur · B2 EIDM</div>
+      <div style="font-family:Newsreader,serif;font-size:22px;line-height:1.1">Introduction à l’image de marque</div>
+    </div>
+    <nav style="display:flex;flex-direction:column">
+      <a href="#plan" style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #e3dfd5"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">—</span><span>Planning &amp; cadre</span></a>
+      <sc-for list="{{ seances }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" style="display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid #e3dfd5;line-height:1.3">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">S{{ s.n }}</span>
+          <span style="flex:1">{{ s.t }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6b675e;flex:none" title="Préparation cochée">{{ s.prepLabel }}</span>
+        </a>
+      </sc-for>
+      <a href="#recap" style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #e3dfd5"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">—</span><span>Récapitulatif</span></a>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740">
+      <sc-for list="{{ legend }}" as="l" hint-placeholder-count="5"><span>{{ l }}</span></sc-for>
+    </div>
+    <button onClick="{{ print }}" style="font:500 12.5px 'IBM Plex Sans',sans-serif;background:#1d1c1a;color:#f5f3ee;border:0;border-radius:999px;padding:9px 16px;cursor:pointer;align-self:flex-start">Imprimer / PDF</button>
+  </aside>
+
+  <main data-main="1" style="flex:1 1 420px;min-width:0;max-width:860px">
+    <header style="display:flex;flex-direction:column;gap:22px;padding-bottom:40px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b675e">Fil conducteur · Bachelor 2 · EIDM Nice · 2026-2027</div>
+      <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(46px,6.6vw,80px);line-height:.96;letter-spacing:-.02em;margin:0;text-wrap:balance">Introduction à l’image de marque</h1>
+      <div style="display:flex;flex-wrap:wrap;gap:12px 40px;padding-top:18px;border-top:2px solid #1d1c1a">
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Format</span><span style="font-size:16px">4 séances × 3h30</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Volume</span><span style="font-size:16px">14h présentiel</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Période</span><span style="font-size:16px">Semestre 2</span></div>
+      </div>
+    </header>
+
+    <section id="plan" style="padding-top:24px;scroll-margin-top:16px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">Planning des séances</div>
+      <sc-for list="{{ seances }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 24px;padding:16px 0;border-bottom:1px solid #d9d4c7">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;flex:0 0 90px">SÉANCE {{ s.n }}</span>
+          <span style="font-family:Newsreader,serif;font-size:23px;line-height:1.2;flex:1 1 280px">{{ s.t }}</span>
+          <span style="font-size:13.5px;color:#4a4740;flex:0 0 auto">{{ s.date }} · {{ s.h }}</span>
+        </a>
+      </sc-for>
+    </section>
+
+    <section id="cadre" style="padding-top:64px;scroll-margin-top:16px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:40px 48px">
+        <sc-for list="{{ cadre }}" as="g" hint-placeholder-count="3">
+          <div data-avoid="1" style="display:flex;flex-direction:column">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">{{ g.g }}</div>
+            <sc-for list="{{ g.paras }}" as="p"><p style="margin:12px 0 0;font-size:15.5px;line-height:1.62;text-wrap:pretty;color:#2a2926">{{ p }}</p></sc-for>
+            <sc-for list="{{ g.items }}" as="it">
+              <div style="display:flex;flex-direction:column;gap:2px;padding:11px 0;border-bottom:1px solid #e3dfd5">
+                <div style="font-weight:600;font-size:14.5px">{{ it.k }}</div>
+                <div style="font-size:14.5px;line-height:1.5;color:#4a4740;text-wrap:pretty">{{ it.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <sc-for list="{{ seances }}" as="s" hint-placeholder-count="1">
+      <section id="{{ s.id }}" data-chapter="1" style="padding-top:96px;scroll-margin-top:16px">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;border-top:2px solid #1d1c1a;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em">
+          <span>SÉANCE {{ s.n }}</span><span style="color:#4a4740">{{ s.date }} · {{ s.h }}</span>
+        </div>
+        <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1.02;letter-spacing:-.015em;margin:24px 0 36px;text-wrap:balance">{{ s.t }}</h2>
+
+        <sc-if value="{{ s.hasRef }}" hint-placeholder-val="{{ false }}">
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:16px;padding:28px 30px;border:1.5px solid #1d1c1a;border-radius:6px;margin-bottom:40px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase">◇ Référence culturelle</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="font-family:Newsreader,serif;font-size:28px;line-height:1.1">{{ s.ref.who }}</div>
+              <div style="font-family:Newsreader,serif;font-style:italic;font-size:19px;color:#6b675e">{{ s.ref.t }}</div>
+            </div>
+            <p style="margin:0;font-size:16px;line-height:1.65;text-wrap:pretty">{{ s.ref.p }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.94 0.035 250);border-radius:4px">
+              <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.38 0.13 250);padding-top:4px">? À poser aux étudiants</div>
+              <div style="flex:1 1 300px;min-width:0;font-family:Newsreader,serif;font-size:19px;line-height:1.4;text-wrap:pretty">{{ s.ref.ask }}</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ s.steps }}" as="st" hint-placeholder-count="4">
+            <div style="display:flex;flex-wrap:wrap;gap:8px 28px;padding:24px 0;border-top:1px solid #d9d4c7">
+              <div style="flex:0 0 118px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.02em;padding-top:5px">{{ st.time }}</div>
+              <div style="flex:1 1 400px;min-width:0;display:flex;flex-direction:column;gap:14px">
+                <h3 style="font-family:Newsreader,serif;font-weight:500;font-size:24px;line-height:1.2;margin:0">{{ st.t }}</h3>
+                <sc-for list="{{ st.blocks }}" as="b" hint-placeholder-count="2">
+                  <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}"><p style="margin:0;font-size:16px;line-height:1.66;text-wrap:pretty;color:#2a2926">{{ b.text }}</p></sc-if>
+                  <sc-if value="{{ b.isCas }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:14px 0;border-top:1px dotted #a39c8c;border-bottom:1px dotted #a39c8c">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.42 0.1 55)">● Étude de cas</div>
+                      <div style="font-family:Newsreader,serif;font-style:italic;font-size:18.5px;line-height:1.5;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isExo }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;border:1.5px solid #1d1c1a;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">{{ b.label }}</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isBrief }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#1d1c1a;color:#f5f3ee;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">▣ Brief de marque</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isKey }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#e8e4da;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">{{ b.label }}</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:12px">
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:14px">
+            <sc-if value="{{ s.hasEntre }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:6px;padding:18px 20px;border:1.5px dashed #8a857a;border-radius:6px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">↻ Entre les séances</div>
+                <div style="font-size:15px;line-height:1.55;text-wrap:pretty">{{ s.entre }}</div>
+              </div>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;gap:6px;padding:18px 20px;border:1.5px solid #1d1c1a;border-radius:6px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">→ Livrable</div>
+              <div style="font-size:15px;line-height:1.55;text-wrap:pretty">{{ s.livrable }}</div>
+            </div>
+          </div>
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:8px;padding:18px 20px;background:#e8e4da;border-radius:6px">
+            <div style="display:flex;justify-content:space-between;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase"><span>☐ À préparer</span><span style="color:#4a4740">{{ s.prepLabel }}</span></div>
+            <sc-for list="{{ s.prep }}" as="pr" hint-placeholder-count="3">
+              <button onClick="{{ pr.toggle }}" style="display:flex;gap:12px;align-items:flex-start;background:none;border:0;border-top:1px solid #d3cdbf;padding:9px 0 3px;font:inherit;color:inherit;text-align:left;cursor:pointer">
+                <sc-if value="{{ pr.on }}" hint-placeholder-val="{{ false }}"><span style="width:16px;height:16px;border:1.5px solid #1d1c1a;background:#1d1c1a;color:#e8e4da;font-size:11px;line-height:16px;text-align:center;border-radius:3px;flex:none;margin-top:2px">✓</span></sc-if>
+                <sc-if value="{{ pr.off }}" hint-placeholder-val="{{ true }}"><span style="width:16px;height:16px;border:1.5px solid #6b675e;border-radius:3px;flex:none;box-sizing:border-box;margin-top:2px"></span></sc-if>
+                <span style="font-size:14.5px;line-height:1.5">{{ pr.t }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </sc-for>
+
+    <section id="recap" data-chapter="1" style="padding-top:96px;scroll-margin-top:16px">
+      <div style="border-top:2px solid #1d1c1a;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em">SYNTHÈSE</div>
+      <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1.02;margin:24px 0 36px">Récapitulatif du module</h2>
+      <div style="display:flex;flex-direction:column;gap:44px">
+        <sc-for list="{{ recap }}" as="g" hint-placeholder-count="2">
+          <div data-avoid="1" style="display:flex;flex-direction:column">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">{{ g.g }}</div>
+            <sc-for list="{{ g.items }}" as="it">
+              <div style="display:flex;flex-wrap:wrap;gap:2px 24px;padding:12px 0;border-bottom:1px solid #e3dfd5">
+                <div style="flex:0 0 190px;font-weight:600;font-size:15px">{{ it.k }}</div>
+                <div style="flex:1 1 300px;min-width:0;font-size:15px;line-height:1.55;color:#2a2926;text-wrap:pretty">{{ it.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <footer style="margin-top:96px;padding-top:16px;border-top:1px solid #d9d4c7;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6b675e">Cliclac Studio · cliclac.studio · Document pédagogique v1</footer>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/*META*/
+const KEY = 'fil-marque-v1';
+const LEGEND = ['◇ Référence culturelle', '✎ Exercice pratique', '● Étude de cas', '▣ Brief de marque', '! Notion clé'];
+const CADRE = [
+ {g:'Fil rouge projet', paras:['Chaque étudiant construit le brief de marque d’une marque de mode fictive de son choix. Ce document est complété progressivement sur les 4 séances et présenté à l’oral en séance 4. C’est le livrable final du module.','Structure du brief de marque : valeurs et Golden Circle, positionnement et cible, identité verbale, promesse de marque.'], items:[]},
+ {g:'Fil rouge culturel', paras:[], items:[['Séance 1','Simon Sinek — Start With Why (2009)'],['Séance 2','Marty Neumeier — The Brand Gap (2003)'],['Séance 3','Alexandre de Betak — la marque comme expérience'],['Séance 4','David Aaker — Building Strong Brands (1996)']]},
+ {g:'Critères d’évaluation', paras:[], items:[['Cohérence','Est-ce que les valeurs, le positionnement et l’identité forment un tout logique ?'],['Pertinence','Est-ce que le positionnement est crédible et différent dans son marché ?'],['Précision','Est-ce que le persona est concret ? La promesse est-elle claire et unique ?'],['Argumentation','Capacité à défendre ses choix à l’oral.'],['Compréhension des notions','Maîtrise du vocabulaire du branding vu en cours.']]}
+];
+/*DATA*/
+const SEANCES = [
+{date:'Vendredi 15 janvier 2027', h:'13h00 – 16h30', t:'Pourquoi une marque existe',
+ ref:{who:'Simon Sinek — Start With Why (2009)', t:'La raison d’être avant tout', p:'Sinek montre que les marques qui inspirent ne partent pas de ce qu’elles vendent mais de pourquoi elles existent. Apple ne dit pas « on fait de beaux ordinateurs, achetez-les ». Apple dit « on croit que les gens qui pensent différemment changent le monde. On fait des outils pour eux. » Le produit est la conséquence, pas le point de départ. C’est le Golden Circle : Why au centre, How autour, What à l’extérieur. La plupart des marques communiquent de l’extérieur vers l’intérieur. Les grandes marques font l’inverse.', ask:'Pensez à une marque de mode que vous admirez. Vous savez ce qu’elle vend. Mais pourquoi elle existe — pour qui elle se bat ? Est-ce que vous pouvez le dire en une phrase ?'},
+ steps:[
+  ['0h15 – 0h35','Intro et tour de table',['p','Présentation rapide de mon profil et de mon activité actuelle. Tour de table : prénom, marque de mode préférée et pourquoi. Ça donne le ton et ça me dit immédiatement leur niveau de culture mode.']],
+  ['0h35 – 1h00','Qu’est-ce qu’une marque — et ce qu’elle n’est pas',['p','Une marque ce n’est pas un logo. Ce n’est pas un nom. Ce n’est pas une publicité. C’est un système de valeurs qui se manifeste dans tout ce qu’une entreprise fait — ses produits, sa communication, son service, son ton, son design.'],['p','Je projette la Fleur de Marque sans les étiquettes. Je leur demande de placer eux-mêmes les notions : où sont les valeurs ? Où est le logo ? Où est l’image de marque ? Discussion collective avant de révéler la structure. L’objectif est qu’ils construisent la logique avant de la recevoir.'],['cas','Jacquemus vs une marque générique du même segment de prix. Même produit, même qualité approximative. Pourquoi l’un désirable et l’autre non ? La réponse est dans les valeurs et la cohérence, pas dans le produit.']],
+  ['1h00 – 1h30','Les racines — valeurs et raison d’être',['p','Les valeurs sont le fondement immuable de la marque. Tout ce qui sera construit ensuite doit en être cohérent. Elles répondent à la question : qui sommes-nous vraiment, indépendamment de ce qu’on vend ?'],['p','Trois questions clés : qu’est-ce qu’on défend vraiment ? Qu’est-ce qu’on refuse catégoriquement ? Si la marque était une personne, comment serait-elle ?'],['key','Le Golden Circle de Sinek comme outil pour creuser les valeurs. Attention : le Golden Circle est un outil de purpose, pas de positionnement. Il aide à trouver la raison d’être, pas la place sur le marché — on verra le positionnement en séance 2.','Attention'],['exo','Chacun choisit sa marque fictive mode — nom, secteur, univers. 5 minutes. Puis ils définissent 3 valeurs et les justifient à l’oral en 2 minutes chacun. Je valide ou je recadre. L’objectif : les valeurs doivent être sincères, pas marketing. On sent immédiatement la différence.']],
+  ['1h30 – 2h00','Le Golden Circle appliqué',['p','Démonstration en direct : je prends une marque connue (Patagonia, Sézane, Veja) et je construis son Golden Circle devant eux. Why — How — What. Je montre comment le Why nourrit tout le reste.'],['key','Le Why c’est la vision, pas le produit. Nike ne dit pas « on veut vendre plus de chaussures ». Nike dit « on veut inspirer chaque athlète dans le monde ». C’est cette ambition qui rend la marque grande.','À retenir'],['exo','Ils appliquent le Golden Circle à leur marque fictive. Par écrit, 10 minutes. Why : pourquoi ma marque existe au-delà de l’argent ? How : comment je concrétise ce pourquoi ? What : qu’est-ce que je vends concrètement ? Puis partage avec le voisin, correction mutuelle, 3 ou 4 présentations au groupe.']],
+  ['2h00 – 2h30','La Fleur de Marque — structure complète',['p','Je révèle la Fleur de Marque complète avec toutes les étiquettes. Je fais le bilan de ce qu’on a construit aujourd’hui (les racines) et je leur montre ce qu’on va construire dans les 3 prochaines séances (la tige, les pétales, le personnage qui regarde).'],['key','La tige est fine mais elle porte tout. Si les valeurs ne sont pas solides, rien de ce qui vient après ne tient. C’est pour ça qu’on commence par là.'],['cas','Nike — le brief de Bill Bowerman : si tu as un corps, tu es un athlète. Comment une phrase change la perception d’une marque. Discussion : est-ce que ça change votre rapport à Nike de savoir ça ?']],
+  ['2h30 – 3h10','Lancement du brief de marque',['p','Je distribue le template du brief de marque. Explication de la structure complète — c’est ce qu’on va construire bloc par bloc sur les 4 séances. Aujourd’hui ils complètent la première section.'],['brief','Section 1 — Valeurs et Golden Circle. Nom de la marque, secteur, 3 valeurs justifiées, Why / How / What. À rendre complète pour la séance 2.']],
+  ['3h10 – 3h30','Debrief collectif',['p','Chacun partage son Why en une phrase. Le groupe commente : est-ce que ça inspire ? Est-ce qu’on sent l’ambition ? Je conclus sur ce qu’on travaille en séance 2 et ce qu’ils doivent apporter : des références visuelles de 3 marques mode qu’ils admirent et 3 qu’ils n’aiment pas.']]
+ ],
+ livrable:'Section 1 du brief complétée : valeurs et Golden Circle.',
+ prep:['Fleur de Marque sans étiquettes à projeter','Fleur de Marque complète à distribuer en fin de séance','Template du brief de marque à distribuer','Extraits TED Talk Sinek à projeter (5 minutes max)','Sélection Jacquemus vs marque générique pour l’étude de cas']},
+{date:'Jeudi 21 janvier 2027', h:'13h00 – 16h30', t:'Ce que la marque dit et ce que les gens entendent',
+ ref:{who:'Marty Neumeier — The Brand Gap (2003)', t:'L’écart entre identité et image', p:'Neumeier formule la chose la plus importante du branding en une phrase : une marque n’est pas ce que vous dites qu’elle est. C’est ce qu’ils disent qu’elle est. Le « ils » ce sont vos clients. Vous pouvez vous appeler une marque de luxe, vous comporter comme une marque bas de gamme, et personne ne vous croira. L’identité c’est ce que vous émettez. L’image c’est ce que les gens reçoivent. L’écart entre les deux c’est là où se jouent toutes les crises de marque.', ask:'Pensez à une marque qui dit une chose et fait une autre. Comment vous le percevez ? Est-ce que vous lui faites confiance ?'},
+ steps:[
+  ['0h15 – 0h30','Retour sur la séance 1',['p','Tour de table rapide : chacun présente son Why en une phrase. Je corrige si besoin. On valide que tout le monde a une base solide avant d’avancer.']],
+  ['0h30 – 1h00','Identité vs image — émission vs réception',['p','Identité de marque : tout ce que la marque construit et émet. Nom, design, ton, produits, prix, distribution. C’est ce que vous contrôlez.'],['p','Image de marque : ce que les consommateurs perçoivent et renvoient. Elle se construit dans le temps, par accumulation d’expériences, de contacts, de bouche-à-oreille. Vous ne la contrôlez pas directement.'],['p','Si la marque est bien construite, les deux s’alignent. L’écart entre les deux c’est là où se jouent les problèmes. Retour à la Fleur de Marque : le personnage qui regarde c’est l’image, pas la fleur elle-même.'],['cas','Lacoste — une marque dont l’image a échappé à son identité dans les années 90-2000. Comment elle l’a reconquise. Discussion : est-ce un échec de branding ou une preuve de la force du signe ? Comment gérer ça en tant que brand manager ?']],
+  ['1h00 – 1h40','La tige — positionnement et cible',['p','Le positionnement répond à une question simple : quelle place occupe ma marque dans l’esprit du consommateur, face à la concurrence ? Ce n’est pas être le meilleur — c’est occuper un territoire distinct et défendable.'],['p','Quatre questions clés du positionnement : pour qui exactement ? Quel bénéfice principal — fonctionnel ou émotionnel ? Face à qui — qui sont mes concurrents directs et indirects ? Pourquoi suis-je crédible sur ce territoire ?'],['p','La carte de positionnement : deux axes, on place sa marque et ses concurrents. On cherche les espaces libres — pas parce qu’ils sont libres, mais parce qu’un désir profond non satisfait y existe.'],['exo','Carte de positionnement vierge à deux axes. Chacun choisit ses axes (premium vs accessible / minimaliste vs expressif / héritage vs modernité) et place 5 marques mode qu’il connaît. Puis il place sa marque fictive. Où est l’espace libre ? Pourquoi là ? 15 minutes puis partage collectif.']],
+  ['1h40 – 2h20','La cible et le persona',['p','Une marque qui parle à tout le monde ne parle à personne. Plus la cible est précise, plus la communication est efficace. Ça ne veut pas dire exclure — ça veut dire parler d’abord à quelqu’un de précis et laisser les autres s’identifier.'],['p','Le persona c’est un portrait fictif et précis du consommateur idéal. Pas des données démographiques sèches — une personne avec un nom, une vie, des aspirations, des frustrations, une relation spécifique à la mode.'],['exo','Création du persona de leur marque fictive. Nom fictif, âge, situation, ville, métier, aspirations, frustrations, rapport à la mode, marques qu’il ou elle aime déjà. Je circule et corrige. L’objectif : le persona doit être assez précis pour qu’on puisse imaginer ce qu’il mange le matin.']],
+  ['2h20 – 2h50','La promesse de marque',['p','La promesse de marque c’est ce que la marque s’engage à apporter au consommateur de façon constante. C’est la phrase la plus difficile à écrire et la plus utile. Tout le design en découle.'],['p','Une bonne promesse répond à trois questions simultanément : pour qui, quel bénéfice unique, pourquoi je suis crédible. Nike : « je te donne les moyens de ne jamais t’arrêter. » Jacquemus : « je te donne un morceau de Provence et de légèreté. » Uniqlo : « des vêtements si bons qu’on ne les remarque pas — on remarque celui qui les porte. »'],['cas','Zara vs Uniqlo — même prix, territoires opposés. Je projette les deux côte à côte. Discussion : quelle est la promesse de chacun ? Comment le business model est lui-même un message de marque ?']],
+  ['2h50 – 3h10','Avancement du brief de marque',['p','Ils complètent la deuxième section de leur brief avec les éléments travaillés aujourd’hui.'],['brief','Section 2 — Positionnement et cible. Carte de positionnement, description du territoire choisi, persona complet, promesse de marque en une phrase.']],
+  ['3h10 – 3h30','Debrief collectif',['p','Chacun lit sa promesse de marque en une phrase. Le groupe commente : est-ce que ça se différencie ? Est-ce que c’est crédible ? Je conclus sur ce qu’on travaille en séance 3.']]
+ ],
+ livrable:'Section 2 du brief complétée : positionnement, cible, promesse.',
+ prep:['Carte de positionnement vierge à imprimer ou projeter','Template persona à distribuer','Planches Neumeier à projeter','Cas Lacoste et Zara vs Uniqlo préparés']},
+{date:'Mercredi 17 février 2027', h:'13h00 – 16h30', t:'La marque vécue',
+ ref:{who:'Alexandre de Betak — La marque comme expérience', t:'Ce que la marque fait vivre plutôt que ce qu’elle dit', p:'Alexandre de Betak est le directeur artistique qui a créé les défilés de Dior, Victoria’s Secret, Hussein Chalayan. Sa conviction : une marque forte ne vend pas un produit, elle fait ressentir une émotion. L’émotion est plus mémorable que l’information. Le consommateur retient une sensation, pas un argument. Un défilé Dior ce n’est pas une présentation de vêtements — c’est une expérience émotionnelle totale qui dit quelque chose sur qui vous êtes si vous portez Dior. C’est ça le branding expérientiel. La marque doit être vécue, pas seulement vue.', ask:'Pensez à la dernière fois qu’une marque vous a vraiment ému ou surpris. C’était quoi ? Un produit, une pub, un événement ? Pourquoi ça a marqué ?'},
+ steps:[
+  ['0h15 – 0h30','Retour sur la séance 2',['p','Tour de table : chacun présente sa promesse de marque en une phrase. Je valide ou je recadre. On s’assure que tout le monde a un positionnement clair avant d’aller dans l’identité.']],
+  ['0h30 – 1h00','Les pétales — l’identité verbale',['p','L’identité verbale c’est tout ce qui touche aux mots, à la langue, à la façon dont la marque s’exprime. C’est la voix de la marque.'],['p','Le naming : le nom est souvent la première chose perçue. Il doit être mémorable, cohérent avec les valeurs, et disponible légalement. Est-ce qu’il est prononçable partout ? Est-ce qu’il évoque quelque chose sans être trop littéral ? Est-ce qu’il vieillit bien ?'],['p','La baseline : la phrase courte qui résume la promesse. Elle complète le nom, elle ne le répète pas. Just Do It fonctionne sans Nike. Parce que je le vaux bien fonctionne sans L’Oréal.'],['p','Le ton de voix : comment la marque parle. Formelle ou proche ? Sérieuse ou décalée ? Sobre ou expansive ? C’est la personnalité de la marque à l’écrit et à l’oral.'],['p','Le storytelling : l’histoire de la marque. Pourquoi elle existe, d’où elle vient, où elle va. Qui est le héros — la marque ou le consommateur ?'],['exo','Blind test baselines : je projette 10 baselines sans le nom de la marque. Ils doivent identifier la marque. Discussion sur ce qui rend une baseline mémorisable et différenciante. Puis chacun écrit la baseline de sa marque fictive en 5 minutes et la défend à l’oral.']],
+  ['1h00 – 1h30','Les pétales — l’identité visuelle',['p','L’identité visuelle c’est tout ce qui se voit. C’est souvent par là que les étudiants veulent commencer — c’est toujours par là qu’on finit, après les valeurs, le positionnement et l’identité verbale.'],['p','Les composantes : logo (signe, logotype, monogramme), couleurs (palette primaire et secondaire), typographies (display et corps de texte), iconographie (style d’illustration, pictogrammes), style photographique (lumière, cadrage, traitement), mise en page (grille, respiration, proportions).'],['p','Questions clés : est-ce que ça reflète les valeurs sans les illustrer littéralement ? Est-ce que ça parle à la cible ? Est-ce que ça se différencie dans son marché ? Est-ce que c’est cohérent sur tous les supports ?'],['cas','Jacquemus — le défilé dans les champs de lavande (2019). Je le montre en vidéo. Discussion : c’est quoi le vrai produit ici — les vêtements ou l’expérience ? Comment l’identité visuelle de Jacquemus (beige, extérieur naturel, typographie minimale) parle immédiatement de ses valeurs ?']],
+  ['1h30 – 2h10','Moodboard et territoire visuel',['p','Un moodboard c’est une planche de références visuelles qui définit l’univers esthétique d’une marque. Ce n’est pas un collage décoratif — c’est un outil stratégique. Chaque image doit être là pour une raison précise.'],['p','Un bon moodboard répond à la question : si quelqu’un voit cette planche sans lire les mots, est-ce qu’il comprend l’univers de la marque ? La couleur, la lumière, la matière, le type de personne, le style de vie — tout doit être cohérent.'],['exo','Chacun construit un moodboard de 8 à 10 images pour sa marque fictive. Images trouvées sur Pinterest ou références qu’ils ont apportées. Consigne : chaque image doit être justifiable. Pas de belles images au hasard. Je circule et pose la question pour chaque image : pourquoi celle-là et pas une autre ? 25 minutes puis projection collective et commentaires du groupe.']],
+  ['2h10 – 2h40','Le ton de voix en pratique',['p','Le ton de voix c’est une décision stratégique autant qu’une question de style. Il doit être cohérent avec les valeurs et parler à la cible. Une marque luxe sobre ne peut pas avoir un ton familier et blagueur. Une marque streetwear ne peut pas vouvoyer.'],['exo','Exercice du message de rupture de stock. Je leur donne la même situation : votre meilleur produit est épuisé. Ils rédigent le message en 2 versions : une qui correspond à leur marque fictive, une qui ne lui correspond pas du tout. Lecture à voix haute, le groupe devine laquelle est la bonne et pourquoi.']],
+  ['2h40 – 3h10','Avancement du brief de marque',['p','Ils complètent la troisième section de leur brief.'],['brief','Section 3 — Identité verbale. Naming justifié, baseline, ton de voix en 3 mots + exemple concret, direction du storytelling (qui est le héros ?), description du territoire visuel en 5 à 8 lignes.']],
+  ['3h10 – 3h30','Debrief collectif',['p','Chacun présente son territoire visuel en une phrase et lit sa baseline. Le groupe commente. Je conclus sur ce qu’on travaille en séance 4 et ce qu’ils doivent finaliser : le brief complet doit être prêt pour la présentation.']]
+ ],
+ livrable:'Section 3 du brief complétée : identité verbale et territoire visuel. Moodboard finalisé.',
+ prep:['Blind test baselines préparé (10 marques)','Vidéo défilé Jacquemus lavande','Sélection d’exemples de moodboards professionnels à montrer avant l’exercice','Fiche ton de voix à distribuer']},
+{date:'Mercredi 3 mars 2027', h:'13h00 – 16h30', t:'La marque dans le temps',
+ ref:{who:'David Aaker — Building Strong Brands (1996)', t:'La valeur d’une marque se construit dans la durée', p:'Aaker est l’universitaire qui a théorisé la notion de brand equity — la valeur d’une marque au-delà de ses produits. Sa thèse : une marque forte a quatre composantes. La notoriété — les gens savent qu’elle existe. Les associations — ce que les gens pensent et ressentent quand ils l’entendent. La qualité perçue — la conviction que ses produits sont bons. La fidélité — les clients reviennent. Ces quatre composantes se construisent sur des années de cohérence. On ne crée pas une marque forte en un trimestre. On la construit en tenant sa promesse, encore et encore, dans tous les points de contact.', ask:'Pensez à une marque à laquelle vous êtes fidèle depuis longtemps. Pas parce que c’est la moins chère ou la plus pratique — parce que vous lui faites confiance. Pourquoi cette confiance ?'},
+ steps:[
+  ['0h15 – 0h40','L’image de marque — le personnage qui regarde',['p','On revient à la Fleur de Marque pour la dernière notion. Le personnage qui regarde c’est l’image de marque. Ce qu’il voit, ce qu’il ressent, ce qu’il retient — c’est ça l’image. Tu ne la contrôles pas directement. Tu peux seulement espérer que ta fleur est assez cohérente et sincère pour que son regard ressemble à ce que tu as voulu construire.'],['p','L’écart émission-réception : la marque émet un message, le consommateur reçoit autre chose. Soit parce que la fleur est incohérente, soit parce que le marché a changé, soit parce que la marque n’écoute plus. C’est là que se jouent les crises.'],['p','La promesse tenue dans le temps : une image de marque solide ne se construit pas sur une campagne ni sur un logo. Elle se construit sur la répétition cohérente de la même expérience. Une marque c’est ce que les gens disent de toi quand tu n’es pas dans la pièce. Jeff Bezos.'],['cas','Nike et la campagne Colin Kaepernick (2018). Nike prend position sur un sujet politique clivant. Ventes en hausse de 31 % dans les semaines suivantes. Pourquoi ? Parce que c’était cohérent avec le Why. Discussion : est-ce que toutes les marques peuvent faire ça ? Qu’est-ce qui rend cette prise de position crédible pour Nike et pas pour n’importe quelle autre marque ?']],
+  ['0h40 – 1h10','Le bad buzz et l’incohérence de marque',['p','Un bad buzz arrive toujours au même endroit : l’écart entre ce que la marque dit et ce qu’elle fait. Une marque qui se dit éthique et utilise des sous-traitants exploiteurs. Une marque qui se dit inclusive et caste exclusivement des mannequins blancs minces. L’incohérence est toujours visible, toujours sanctionnée.'],['key','Le branding n’est pas une communication. C’est une promesse opérationnelle. Chaque décision de l’entreprise — produit, prix, distribution, recrutement — doit être cohérente avec les valeurs. Sinon l’image se dégrade.','La leçon'],['cas','Une marque mode au choix — Balenciaga crise 2022, ou Zara face à la fast fashion, ou Dior et ses controverses. Je choisis selon l’actualité. Discussion : qu’est-ce qui s’est passé ? Où était l’incohérence ? Comment auraient-ils pu l’éviter ?'],['exo','En binôme : chacun joue le rôle du brand manager de la marque de son voisin. Il identifie le risque principal d’incohérence dans son brief — l’endroit où la promesse pourrait ne pas être tenue. 10 minutes de discussion puis partage collectif. L’objectif : apprendre à voir les failles de sa propre marque avant que le marché les trouve.']],
+  ['1h10 – 1h40','Finalisation du brief de marque',['p','Dernière section du brief : la synthèse. En une page, le brief doit permettre à quelqu’un qui ne connaît pas la marque de comprendre immédiatement qui elle est, pour qui elle est, et ce qu’elle promet.'],['brief','Section 4 — Synthèse. Résumé en 5 lignes de la marque (valeurs, positionnement, cible, promesse). Risques identifiés. Une phrase qui dit ce que la marque ne sera jamais — les refus sont aussi importants que les engagements.']],
+  ['1h40 – 3h10','Présentations orales',['p','Chacun présente son brief de marque en 5 à 7 minutes. Structure imposée : nom et univers de la marque, 3 valeurs justifiées, positionnement en une phrase, persona en 3 lignes, promesse, identité verbale, territoire visuel. Je les coupe s’ils lisent leur brief mot pour mot — je veux qu’ils parlent de leur marque comme s’ils y croyaient.'],['p','Le groupe pose une question chacun. J’évalue en direct sur la grille de critères. L’évaluation porte autant sur la cohérence du brief que sur la capacité à le défendre.']],
+  ['3h10 – 3h30','Bilan du module',['p','Je conclus sur les points forts du groupe et ce qui a progressé en 4 séances. Je leur recommande 3 choses à faire après ce cours : lire The Brand Gap de Neumeier (court et visuel), suivre Brand New sur underconsideration.com pour rester à jour sur les rebrandings, et regarder le documentaire Abstract sur Netflix, épisode Paula Scher.'],['p','Je fais le lien avec ce qu’ils ont déjà fait en InDesign — leur lookbook était déjà un exercice de cohérence de marque sans qu’on le nomme. Et je leur dis que tout ce qu’on a vu ici nourrit directement leur pratique de DA, leur façon de lire un brief client, et leur capacité à défendre leurs choix créatifs.']]
+ ],
+ livrable:'Brief de marque complet présenté à l’oral. Document écrit rendu en fin de séance.',
+ prep:['Grille d’évaluation à remplir pendant les présentations','Vidéo ou images campagne Kaepernick','Cas bad buzz à préparer selon l’actualité','Fiche récapitulative La Fleur de Marque complète à distribuer en fin de module']}
+];
+const RECAP = [
+ {g:'Fil rouge culturel', items:[['Séance 1','Simon Sinek — pourquoi les grandes marques partent du Why.'],['Séance 2','Marty Neumeier — l’écart entre identité et image.'],['Séance 3','Alexandre de Betak — la marque comme expérience émotionnelle.'],['Séance 4','David Aaker — la brand equity et la cohérence dans le temps.']]},
+ {g:'Construction du brief de marque', items:[['Séance 1','Valeurs et Golden Circle — les racines.'],['Séance 2','Positionnement, persona, promesse — la tige.'],['Séance 3','Identité verbale et territoire visuel — les pétales.'],['Séance 4','Image de marque, cohérence, synthèse — le personnage qui regarde.']]},
+ {g:'Références à recommander aux étudiants', items:[['Marty Neumeier','The Brand Gap (2003). Court, visuel, essentiel.'],['Simon Sinek','Start With Why (2009). Accessible et inspirant.'],['Brand New','underconsideration.com. Actualité critique des rebrandings.'],['Abstract (Netflix)','Épisode Paula Scher. Le meilleur portrait d’une DA en action.'],['Alina Wheeler','Designing Brand Identity. La référence technique du branding.']]}
+];
+/*END*/
+const kv = ([k, v]) => ({ k, v });
+class Component extends DCLogic {
+  state = { prep: {} };
+  componentDidMount() { try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) this.setState({ prep: s }); } catch (e) {} }
+  save = () => { try { localStorage.setItem(KEY, JSON.stringify(this.state.prep)); } catch (e) {} };
+  renderVals() {
+    const { prep } = this.state;
+    const seances = SEANCES.map((s, i) => {
+      const items = s.prep.map((t, j) => {
+        const id = i + '-' + j, on = !!prep[id];
+        return { t, on, off: !on, toggle: () => this.setState(st => ({ prep: { ...st.prep, [id]: !st.prep[id] } }), this.save) };
+      });
+      return {
+        n: i + 1, id: 's' + (i + 1), href: '#s' + (i + 1), date: s.date, h: s.h, t: s.t,
+        hasRef: !!s.ref, ref: s.ref || {}, hasEntre: !!s.entre, entre: s.entre || '', livrable: s.livrable,
+        prep: items, prepLabel: items.filter(x => x.on).length + '/' + items.length,
+        steps: s.steps.map(([time, t, ...bl]) => ({
+          time, t,
+          blocks: bl.map(([k, text, lab]) => ({
+            text, isP: k === 'p', isCas: k === 'cas', isExo: k === 'exo', isBrief: k === 'brief', isKey: k === 'key',
+            label: k === 'exo' ? '✎ ' + (lab || 'Exercice') : '! ' + (lab || 'Notion clé')
+          }))
+        }))
+      };
+    });
+    return {
+      seances, legend: LEGEND, print: () => window.print(),
+      cadre: CADRE.map(g => ({ g: g.g, paras: g.paras, items: g.items.map(kv) })),
+      recap: RECAP.map(g => ({ g: g.g, items: g.items.map(kv) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

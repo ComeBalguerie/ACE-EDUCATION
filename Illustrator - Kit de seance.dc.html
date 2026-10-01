@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#e9e6df;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}a:hover{color:oklch(0.45 0.13 250)}
+@page{size:A4;margin:0}
+@media print{body{background:#fff}[data-noprint]{display:none !important}[data-page]{margin:0 !important;box-shadow:none !important;break-after:page}}
+</style>
+</helmet>
+<div data-noprint="1" style="max-width:210mm;margin:0 auto;padding:32px 0 8px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px">
+  <div style="display:flex;flex-direction:column;gap:2px">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Kit de séance · documents à imprimer</span>
+    <span style="font-family:Newsreader,serif;font-size:26px">{{ kitTitle }}</span>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center"><a data-noprint="1" href="Sommaire.dc.html" title="Retour au sommaire" style="display:flex;align-items:center;gap:6px;padding:7px 12px;background:#1d1c1a;color:#f3f0e8;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none" style-hover="background:#4a4740;color:#f3f0e8">← Sommaire</a><button onClick="{{ print }}" style="font:500 13px 'IBM Plex Sans',sans-serif;background:#1d1c1a;color:#f5f3ee;border:0;border-radius:999px;padding:10px 18px;cursor:pointer">Imprimer / PDF</button></div>
+</div>
+<sc-for list="{{ pages }}" as="pg" hint-placeholder-count="2">
+  <section data-page="1" id="{{ pg.anchor }}" data-screen-label="{{ pg.label }}" style="width:210mm;height:297mm;box-sizing:border-box;padding:14mm 15mm;margin:16px auto;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12);display:flex;flex-direction:column;gap:14px;overflow:hidden">
+    <div style="display:flex;justify-content:space-between;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#4a4740;border-bottom:1.5px solid #1d1c1a;padding-bottom:6px">
+      <span>{{ pg.kicker }}</span><span>{{ pg.kind }}</span>
+    </div>
+    <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:30px;line-height:1.05;margin:4px 0 0;text-wrap:balance">{{ pg.title }}</h1>
+    <sc-if value="{{ pg.hasIntro }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:12.5px;line-height:1.6;color:#2a2926;text-wrap:pretty;white-space:pre-line">{{ pg.intro }}</p></sc-if>
+    <sc-if value="{{ pg.hasFields }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;gap:8px 18px">
+        <sc-for list="{{ pg.fields }}" as="f"><div style="flex:1 1 40mm;display:flex;gap:6px;align-items:flex-end;font-size:11px"><span style="font-weight:600">{{ f }}</span><span style="flex:1;border-bottom:1px solid #8a857a;height:14px"></span></div></sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ pg.isFiche }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 20px">
+        <sc-for list="{{ pg.blocks }}" as="b">
+          <div style="display:flex;flex-direction:column;gap:4px;padding-top:6px;border-top:1px solid #d9d4c7">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.42 0.1 250)">{{ b.h }}</div>
+            <sc-for list="{{ b.items }}" as="it"><div style="font-size:11px;line-height:1.45;text-wrap:pretty">{{ it }}</div></sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ pg.isTable }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;border:1px solid #1d1c1a;flex:1;min-height:0">
+        <div style="display:grid;grid-template-columns:{{ pg.cols }};background:#1d1c1a;color:#fff">
+          <sc-for list="{{ pg.head }}" as="hd"><div style="padding:5px 6px;font-size:9.5px;font-weight:600;letter-spacing:.04em;border-right:1px solid #4a4740">{{ hd }}</div></sc-for>
+        </div>
+        <sc-for list="{{ pg.rows }}" as="r">
+          <div style="display:grid;grid-template-columns:{{ pg.cols }};border-top:1px solid #b9b2a2;flex:1;min-height:{{ pg.rowH }}">
+            <sc-for list="{{ r.cells }}" as="c"><div style="padding:5px 6px;font-size:10px;line-height:1.35;border-right:1px solid #d9d4c7;font-weight:{{ c.w }};color:#2a2926">{{ c.t }}</div></sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ pg.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:10.5px;line-height:1.45;color:#4a4740;padding-top:6px;border-top:1px solid #d9d4c7">{{ pg.note }}</div></sc-if>
+    <div style="margin-top:auto;font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:#8a857a">Cliclac Studio · {{ pg.foot }}</div>
+  </section>
+</sc-for>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/*KIT*/
+const KIT = {title:'Illustrator perfectionnement — B2 ESDAC', pages:[
+ {kicker:'Illustrator · Séance 1', kind:'Fiche récap', title:'Les courbes de Bézier', blocks:[
+  {h:'Vocabulaire', items:['Point d’ancrage, poignée directrice.','Point lisse, point angulaire.']},
+  {h:'Placer les points', items:['Aux extrémités des courbes.','Poignées horizontales ou verticales (Maj).']},
+  {h:'Poignées', items:['Pas plus d’un tiers de la courbe.']},
+  {h:'Économie', items:['Le moins de points possible.','Trop de points = courbe molle.']},
+  {h:'Raccourcis', items:['P plume, A sélection directe.','Maj + C conversion de point.','Alt : casser la poignée.']},
+  {h:'Nommage', items:['NOM_Prenom_S1_Intro.ai']}]},
+ {kicker:'Illustrator · Séance 2', kind:'Fiche récap', title:'Tension, repères, Pathfinder', blocks:[
+  {h:'Tension', items:['Une courbe tendue a une direction.','Une courbe molle hésite.']},
+  {h:'Repères', items:['Repères commentés (Cmd + U).','Adhésion au point.']},
+  {h:'Pathfinder', items:['Unifier, Soustraire, Intersection.','Exclure, Diviser.','Alt + clic : forme composée.']},
+  {h:'Concepteur de forme', items:['Maj + M.','Glisser pour fusionner, Alt pour supprimer.']},
+  {h:'Méthode logo', items:['Construire par formes simples.','Corriger à la plume.']},
+  {h:'Test', items:['Le signe tient-il à 16 px et à 2 m ?']}]},
+ {kicker:'Illustrator · Séance 3', kind:'Fiche récap', title:'Organisation, aspect, motifs, effets', blocks:[
+  {h:'Calques', items:['Construction, final, repères.','Tout nommé.']},
+  {h:'Aspect et styles graphiques', items:['Plusieurs fonds et contours.','Styles réutilisables.']},
+  {h:'Symboles', items:['Modifier le symbole met à jour toutes les occurrences.']},
+  {h:'Motifs', items:['Objet › Motif › Créer.','Tester à trois échelles.']},
+  {h:'Effets', items:['Modifiables dans Aspect.','Pixellisation du document à 300 ppi.']},
+  {h:'Règle', items:['Le logo doit fonctionner en aplat.']}]},
+ {kicker:'Illustrator · Séance 4', kind:'Fiche récap', title:'Typographie et pictogrammes', blocks:[
+  {h:'Types de texte', items:['Point, captif, curviligne.']},
+  {h:'Réglages', items:['Crénage : entre deux lettres.','Approche : sur le mot.']},
+  {h:'Logotype', items:['Vectoriser une fois finalisé (Cmd + Maj + O).','Corriger les formes à la main.']},
+  {h:'Système de pictos', items:['Même grille.','Même épaisseur de trait.','Mêmes angles.']},
+  {h:'Référence', items:['Otl Aicher, Munich 1972.']},
+  {h:'Test', items:['Un pictogramme testé à l’échelle réelle.']}]},
+ {kicker:'Illustrator · Séance 4', kind:'Texte fourni', title:'Texte imposé — exercice typographique', intro:"Atelier Nord\nMobilier et objets en bois massif\n\nDepuis 2011, l’atelier dessine et fabrique à la main des meubles en chêne et en frêne issus de forêts gérées durablement. Chaque pièce est numérotée et signée. Les assemblages se font sans vis ni colle, selon des techniques traditionnelles de menuiserie.\n\nExposition « Le geste et la matière »\nDu 12 au 28 mai\nGalerie du Port, 4 quai des Docks\nEntrée libre, du mardi au samedi, de 11 h à 19 h", note:"Consigne : composer ce texte sur un format A5 en noir et blanc uniquement. Un style de paragraphe par niveau, un style de caractère, et le titre de l’exposition sur un tracé courbe."},
+ {kicker:'Illustrator · Séance 5', kind:'Checklist', title:'Checklist d’export', fields:['Nom','Marque'], cols:'1fr 20mm', head:['Vérification','OK'], rowH:'12mm', rows:[['Textes vectorisés dans le logotype'],['Couleurs globales nommées (CMJN et RVB)'],['Versions couleur, noir, négatif'],['PNG écran (plusieurs tailles)'],['SVG web'],['PDF impression (CMJN)'],['Pixellisation des effets à 300 ppi'],['Calques et plans de travail nommés'],['Nommage NOM_Prenom_S5_Final']]},
+ {kicker:'Illustrator · Séance 5', kind:'Évaluation', title:'Grille d’évaluation', fields:["Nom"], cols:'1fr 13mm 13mm 13mm 13mm 13mm 48mm', head:['Critère','0','1','2','3','4','Commentaire'], rowH:'17mm', rows:[["Qualité des tracés Bézier"],["Cohérence du système graphique"],["Pattern de marque"],["Logotype et typographie"],["Pictogrammes"],["Organisation du fichier"],["Exports techniques"],["Argumentation orale"]], note:'Total ramené sur 20.'}
+]};
+/*END*/
+class Component extends DCLogic {
+  componentDidMount() { const h = location.hash.slice(1); if (h) setTimeout(() => { const el = document.getElementById(h); if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 16); }, 300); }
+  renderVals() {
+    const pages = KIT.pages.map((p, i) => {
+      const n = p.head ? p.head.length : 0;
+      return {
+        anchor: 'p' + (i + 1), label: String(i + 1).padStart(2, '0') + ' ' + p.title, kicker: p.kicker, kind: p.kind, title: p.title,
+        hasIntro: !!p.intro, intro: p.intro || '', hasFields: !!p.fields, fields: p.fields || [],
+        isFiche: !!p.blocks, blocks: p.blocks || [],
+        isTable: !!p.head, head: p.head || [], cols: p.cols || '1fr', rowH: p.rowH || '10mm',
+        rows: (p.rows || []).map(r => ({ cells: Array.from({ length: n }, (_, j) => ({ t: r[j] || '', w: j === 0 ? 600 : 400 })) })),
+        hasNote: !!p.note, note: p.note || '', foot: KIT.title
+      };
+    });
+    return { pages, kitTitle: KIT.title, print: () => window.print() };
+  }
+}
+</script>
+</body>
+</html>

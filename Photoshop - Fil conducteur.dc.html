@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#f5f3ee;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:oklch(0.45 0.13 250)}
+@media (max-width:760px){[data-aside]{position:static !important;flex:1 1 100% !important}[data-aside] nav{display:none !important}}
+@media print{
+  [data-noprint]{display:none !important}
+  body{background:#fff}
+  [data-chapter]{break-before:page}
+  [data-avoid]{break-inside:avoid}
+  [data-main]{max-width:none !important}
+}
+</style>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;gap:40px 48px;max-width:1280px;margin:0 auto;padding:48px 32px 120px;box-sizing:border-box">
+
+  <aside data-noprint="1" data-aside="1" style="flex:0 0 232px;position:sticky;top:32px;align-self:flex-start;display:flex;flex-direction:column;gap:28px;font-size:13.5px">
+    <a data-noprint="1" href="Sommaire.dc.html" title="Retour au sommaire" style="align-self:flex-start;display:flex;align-items:center;gap:6px;padding:7px 12px;background:#1d1c1a;color:#f3f0e8;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none" style-hover="background:#4a4740;color:#f3f0e8">← Sommaire</a>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Fil conducteur · B1 EIDM</div>
+      <div style="font-family:Newsreader,serif;font-size:22px;line-height:1.1">Photoshop</div>
+    </div>
+    <nav style="display:flex;flex-direction:column">
+      <a href="#plan" style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #e3dfd5"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">—</span><span>Planning &amp; cadre</span></a>
+      <sc-for list="{{ seances }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" style="display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid #e3dfd5;line-height:1.3">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">S{{ s.n }}</span>
+          <span style="flex:1">{{ s.t }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6b675e;flex:none" title="Préparation cochée">{{ s.prepLabel }}</span>
+        </a>
+      </sc-for>
+      <a href="#recap" style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #e3dfd5"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">—</span><span>Appendices &amp; ressources</span></a>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740">
+      <sc-for list="{{ legend }}" as="l" hint-placeholder-count="5"><span>{{ l }}</span></sc-for>
+    </div>
+    <button onClick="{{ print }}" style="font:500 12.5px 'IBM Plex Sans',sans-serif;background:#1d1c1a;color:#f5f3ee;border:0;border-radius:999px;padding:9px 16px;cursor:pointer;align-self:flex-start">Imprimer / PDF</button>
+  </aside>
+
+  <main data-main="1" style="flex:1 1 420px;min-width:0;max-width:860px">
+    <header style="display:flex;flex-direction:column;gap:22px;padding-bottom:40px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b675e">Fil conducteur · EIDM B1 Fashion Business &amp; Styling · Communication mode &amp; luxe</div>
+      <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(46px,6.6vw,80px);line-height:.96;letter-spacing:-.02em;margin:0;text-wrap:balance">Photoshop — cours complet</h1>
+      <div style="display:flex;flex-wrap:wrap;gap:12px 40px;padding-top:18px;border-top:2px solid #1d1c1a">
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Format</span><span style="font-size:16px">4 séances × 3h30</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Volume</span><span style="font-size:16px">14h présentiel</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Période</span><span style="font-size:16px">Semestre 2</span></div>
+      </div>
+    </header>
+
+    <section id="plan" style="padding-top:24px;scroll-margin-top:16px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">Planning des séances</div>
+      <sc-for list="{{ seances }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 24px;padding:16px 0;border-bottom:1px solid #d9d4c7">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;flex:0 0 90px">SÉANCE {{ s.n }}</span>
+          <span style="font-family:Newsreader,serif;font-size:23px;line-height:1.2;flex:1 1 280px">{{ s.t }}</span>
+          <span style="font-size:13.5px;color:#4a4740;flex:0 0 auto">{{ s.date }} · {{ s.h }}</span>
+        </a>
+      </sc-for>
+    </section>
+
+    <section id="cadre" style="padding-top:64px;scroll-margin-top:16px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:40px 48px">
+        <sc-for list="{{ cadre }}" as="g" hint-placeholder-count="3">
+          <div data-avoid="1" style="display:flex;flex-direction:column">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">{{ g.g }}</div>
+            <sc-for list="{{ g.paras }}" as="p"><p style="margin:12px 0 0;font-size:15.5px;line-height:1.62;text-wrap:pretty;color:#2a2926">{{ p }}</p></sc-for>
+            <sc-for list="{{ g.items }}" as="it">
+              <div style="display:flex;flex-direction:column;gap:2px;padding:11px 0;border-bottom:1px solid #e3dfd5">
+                <div style="font-weight:600;font-size:14.5px">{{ it.k }}</div>
+                <div style="font-size:14.5px;line-height:1.5;color:#4a4740;text-wrap:pretty">{{ it.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <sc-for list="{{ seances }}" as="s" hint-placeholder-count="1">
+      <section id="{{ s.id }}" data-chapter="1" style="padding-top:96px;scroll-margin-top:16px">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;border-top:2px solid #1d1c1a;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em">
+          <span>SÉANCE {{ s.n }}</span><span style="color:#4a4740">{{ s.date }} · {{ s.h }}</span>
+        </div>
+        <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1.02;letter-spacing:-.015em;margin:24px 0 36px;text-wrap:balance">{{ s.t }}</h2>
+        <sc-if value="{{ s.hasObj }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-wrap:wrap;gap:6px 28px;margin:-12px 0 36px">
+            <div style="flex:0 0 118px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6b675e;padding-top:6px">Objectifs</div>
+            <p style="flex:1 1 400px;min-width:0;margin:0;font-family:Newsreader,serif;font-size:20px;line-height:1.45;text-wrap:pretty">{{ s.obj }}</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ s.hasRef }}" hint-placeholder-val="{{ false }}">
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:16px;padding:28px 30px;border:1.5px solid #1d1c1a;border-radius:6px;margin-bottom:40px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase">◇ Référence culturelle</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="font-family:Newsreader,serif;font-size:28px;line-height:1.1">{{ s.ref.who }}</div>
+              <div style="font-family:Newsreader,serif;font-style:italic;font-size:19px;color:#6b675e">{{ s.ref.t }}</div>
+            </div>
+            <p style="margin:0;font-size:16px;line-height:1.65;text-wrap:pretty">{{ s.ref.p }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.94 0.035 250);border-radius:4px">
+              <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.38 0.13 250);padding-top:4px">? À poser aux étudiants</div>
+              <div style="flex:1 1 300px;min-width:0;font-family:Newsreader,serif;font-size:19px;line-height:1.4;text-wrap:pretty">{{ s.ref.ask }}</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ s.steps }}" as="st" hint-placeholder-count="4">
+            <div style="display:flex;flex-wrap:wrap;gap:8px 28px;padding:24px 0;border-top:1px solid #d9d4c7">
+              <div style="flex:0 0 118px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.02em;padding-top:5px">{{ st.time }}</div>
+              <div style="flex:1 1 400px;min-width:0;display:flex;flex-direction:column;gap:14px">
+                <h3 style="font-family:Newsreader,serif;font-weight:500;font-size:24px;line-height:1.2;margin:0">{{ st.t }}</h3>
+                <sc-for list="{{ st.blocks }}" as="b" hint-placeholder-count="2">
+                  <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}"><p style="margin:0;font-size:16px;line-height:1.66;text-wrap:pretty;color:#2a2926">{{ b.text }}</p></sc-if>
+                  <sc-if value="{{ b.isCas }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:14px 0;border-top:1px dotted #a39c8c;border-bottom:1px dotted #a39c8c">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.42 0.1 55)">● Étude de cas</div>
+                      <div style="font-family:Newsreader,serif;font-style:italic;font-size:18.5px;line-height:1.5;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isExo }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;border:1.5px solid #1d1c1a;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">{{ b.label }}</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isBrief }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#1d1c1a;color:#f5f3ee;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">▣ Brief de marque</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isSub }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-top:6px">
+                      <div style="font-weight:600;font-size:16.5px;line-height:1.35">{{ b.text }}</div>
+                      <sc-if value="{{ b.hasPage }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#4a4740;border:1px solid #b9b2a2;border-radius:999px;padding:1px 9px">{{ b.page }}</span></sc-if>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isList }}" hint-placeholder-val="{{ false }}">
+                    <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px">
+                      <sc-for list="{{ b.items }}" as="li"><li style="display:flex;gap:10px;font-size:15.5px;line-height:1.55"><span style="color:#8a857a;flex:none">—</span><span>{{ li }}</span></li></sc-for>
+                    </ul>
+                  </sc-if>
+                  <sc-if value="{{ b.isAsk }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:8px;padding:16px 18px;background:oklch(0.94 0.035 250);border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.38 0.13 250)">{{ b.askLabel }}</div>
+                      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px">
+                        <sc-for list="{{ b.items }}" as="q"><li style="font-family:Newsreader,serif;font-size:19px;line-height:1.35">{{ q }}</li></sc-for>
+                      </ul>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isKey }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#e8e4da;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">{{ b.label }}</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:12px">
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:14px">
+            <sc-if value="{{ s.hasEntre }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:6px;padding:18px 20px;border:1.5px dashed #8a857a;border-radius:6px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">↻ Entre les séances</div>
+                <div style="font-size:15px;line-height:1.55;text-wrap:pretty">{{ s.entre }}</div>
+              </div>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;gap:6px;padding:18px 20px;border:1.5px solid #1d1c1a;border-radius:6px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">→ Livrable</div>
+              <div style="font-size:15px;line-height:1.55;text-wrap:pretty">{{ s.livrable }}</div>
+            </div>
+          </div>
+          <sc-if value="{{ s.hasPrep }}" hint-placeholder-val="{{ true }}"><div data-avoid="1" style="display:flex;flex-direction:column;gap:8px;padding:18px 20px;background:#e8e4da;border-radius:6px">
+            <div style="display:flex;justify-content:space-between;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase"><span>☐ {{ prepTitle }}</span><span style="color:#4a4740">{{ s.prepLabel }}</span></div>
+            <sc-for list="{{ s.prep }}" as="pr" hint-placeholder-count="3">
+              <button onClick="{{ pr.toggle }}" style="display:flex;gap:12px;align-items:flex-start;background:none;border:0;border-top:1px solid #d3cdbf;padding:9px 0 3px;font:inherit;color:inherit;text-align:left;cursor:pointer">
+                <sc-if value="{{ pr.on }}" hint-placeholder-val="{{ false }}"><span style="width:16px;height:16px;border:1.5px solid #1d1c1a;background:#1d1c1a;color:#e8e4da;font-size:11px;line-height:16px;text-align:center;border-radius:3px;flex:none;margin-top:2px">✓</span></sc-if>
+                <sc-if value="{{ pr.off }}" hint-placeholder-val="{{ true }}"><span style="width:16px;height:16px;border:1.5px solid #6b675e;border-radius:3px;flex:none;box-sizing:border-box;margin-top:2px"></span></sc-if>
+                <span style="font-size:14.5px;line-height:1.5">{{ pr.t }}</span>
+              </button>
+            </sc-for>
+          </div></sc-if>
+        </div>
+      </section>
+    </sc-for>
+
+    <section id="recap" data-chapter="1" style="padding-top:96px;scroll-margin-top:16px">
+      <div style="border-top:2px solid #1d1c1a;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em">SYNTHÈSE</div>
+      <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1.02;margin:24px 0 36px">Appendices &amp; ressources</h2>
+      <div style="display:flex;flex-direction:column;gap:44px">
+        <sc-for list="{{ recap }}" as="g" hint-placeholder-count="2">
+          <div data-avoid="1" style="display:flex;flex-direction:column">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">{{ g.g }}</div>
+            <sc-for list="{{ g.items }}" as="it">
+              <div style="display:flex;flex-wrap:wrap;gap:2px 24px;padding:12px 0;border-bottom:1px solid #e3dfd5">
+                <div style="flex:0 0 190px;font-weight:600;font-size:15px">{{ it.k }}</div>
+                <div style="flex:1 1 300px;min-width:0;font-size:15px;line-height:1.55;color:#2a2926;text-wrap:pretty">{{ it.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <footer style="margin-top:96px;padding-top:16px;border-top:1px solid #d9d4c7;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6b675e">Photoshop — cours complet · EIDM B1 · 14h réparties en 4 séances × 3h30</footer>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/*META*/
+const KEY = 'fil-photoshop-v1';
+const PREP_TITLE = 'Checklist pré-cours (30 min avant)';
+const LEGEND = ['● Cas d’étude', '✎ Atelier / activité', '? Questions débat', '! Points clés', '→ Livrable', '☐ Checklist pré-cours'];
+const CADRE = [
+ {g:'Cadre pédagogique', paras:['Ce module forme les étudiants EIDM aux logiciels fondamentaux de création graphique. Centré sur la pratique (workshops), il permet de produire des visuels de communication aboutis : retouche, composition, montage. Tout en suivant les objectifs du syllabus, ce cours place les enjeux mode/luxe au cœur : cas d’étude réels, livrables professionnels, dialogue constant avec la culture visuelle de la marque.','Structure du cours : workshops encadrés + cas d’étude mode + ateliers pratiques.'], items:[]},
+ {g:'Objectifs de maîtrise (compétences)', paras:[], items:[['01','Maîtriser les outils de retouche et correction (nettoyage, recadrage, redressement)'],['02','Réaliser détourages et montages photo avec les bonnes sélections'],['03','Composer un visuel structuré : texte + image + hiérarchie graphique'],['04','Appliquer couleur et typo selon principes mode/luxe'],['05','Préparer un fichier pour transmission imprimeur/webdesigner (normes print/web)']]},
+ {g:'Livrables attendus par séance', paras:[], items:[['Séance 1','Fichier Photoshop organisé (résolution, modes)'],['Séance 2','Détourage + montage produit'],['Séance 3','Composition complète (texte + image + couleur)'],['Séance 4','Fichier export print-ready + présentation critique']]},
+ {g:'Ressources principales', paras:[], items:[['Livre','Photoshop — L’essentiel (pages 65-309)'],['LinkedIn Learning','Apprentissage Photoshop 2023'],['Références couleur','Michel Pastoureau, Petit livre des couleurs (lien B1)']]}
+];
+/*DATA*/
+const H = '13h00 – 17h00';
+const SEANCES = [
+{date:'Séance 1', h:H, t:'Fondations & workflow', obj:'Comprendre résolution, modes couleur, formats. Naviguer l’interface EIDM-style. Créer un document Photoshop professionnel. Débuter retouche basique.',
+ steps:[
+  ['13:00 – 13:10','Ouverture',['p','Mood : découverte interface, premiers pas confiants.']],
+  ['13:10 – 13:50','Théorie — notions de base, interface, documents',
+   ['sub','1. Notions de base sur les images','Livre p. 65-71'],['p','Résolution : pixels par pouce (ppi/dpi). Écran = 72-96 dpi. Print = 300 dpi. C’est la clarté, la netteté. Plus haute = meilleur rendu print, plus lourd fichier.'],['p','Modes couleur : RVB (écrans, digital, additive) vs CMJN (impression, soustractive). Comment convertir sans catastrophe. Lien direct couleur B1.'],
+   ['sub','2. Affichage dans Photoshop','Livre p. 68-71'],['p','Réorganiser l’affichage : fenêtres, onglets, panneaux. Workflow : masquer/afficher selon tâche (retouche = moins de fenêtres, composition = plus). Raccourcis : Tab = masquer tous panneaux.'],
+   ['sub','3. Documents Photoshop','Livre p. 73-104'],['p','Créer document : format (A4, carré, custom), résolution (300 pour print, 72 pour web), mode couleur (CMJN si print, RVB si web). Importer images depuis appareil photo ou Adobe Stock.'],['p','Formats clés pour EIDM : magazine A4 (210×297 mm à 300 dpi), affiche A3 (297×420), invitation carrée (200×200). Marges imprimeur : +3 mm bleed.'],
+   ['sub','4. Import/Export d’images','Livre p. 107-115'],['p','Placer une image : Fichier > Importer. Redimensionner avec Ctrl+T, valider. Formats : JPG (photo, web), PNG (transparent), TIFF (print). PSD = travail, TIFF = livrable.']],
+  ['13:50 – 14:00','Pause'],
+  ['14:00 – 14:30','Cas d’étude — Retouche produit luxe',['cas','Marques mode haute gamme (Hermès, Saint Laurent, Kering). Analyse fichiers professionnels.'],['key','Résolution 300 dpi (qualité photo produit premium). Mode CMJN si communication imprimée. Calques organisés (produit, ombre, retouche, texte). Palette couleur cohérente.','Points clés'],['ask',['Pourquoi une photo produit doit être 300 dpi ?','Quelle différence RVB vs CMJN à l’écran ?','Qu’est-ce qu’un bleed et pourquoi c’est critique ?']]],
+  ['14:30 – 16:45','Atelier 1 — Créer document, explorer interface, débuter retouche',
+   ['sub','Activité 1 : Explorer interface + créer document','45 min'],['list',['Ouvrir Photoshop','Réorganiser panneaux à la façon EIDM (timeline en bas, calques droite)','Créer document magazine A4 à 300 dpi CMJN','Importer 1 image produit de luxe (fournie ou Adobe Stock)','Redimensionner avec respect des proportions']],
+   ['sub','Activité 2 : Débuter retouche basique','45 min'],['list',['Outil Recadrage (Livre p. 241) : ajuster composition de l’image','Outil Redressement : aligner horizon si besoin','Outil Gomme d’arrière-plan (Livre p. 213) : nettoyer fond','Sauvegarde : Fichier > Enregistrer sous > Format PSD']]],
+  ['16:45 – 17:00','Synthèse',['p','Points clés, preview Séance 2.']]
+ ],
+ livrable:'1 fichier Photoshop (.psd) contenant : document A4 CMJN 300 dpi + 1 image produit importée + calques bien nommés + background nettoyé. Prêt pour Séance 2 (détourage).',
+ prep:['Vérifier Photoshop 2024+ installé','Télécharger images produit luxe','Préparer Adobe Stock (accès)','Afficher un document professionnel pour référence','Tester microphone/caméra']},
+{date:'Séance 2', h:H, t:'Retouche & détourage', obj:'Maîtriser les outils de retouche (tampon, correcteur, pièce). Réaliser détourage propre (sélection rapide, baguette, mode masque). Combiner retouche + détourage pour créer montage photo professionnel.',
+ steps:[
+  ['13:00 – 13:10','Ouverture',['p','Recap Séance 1, objectifs clairs.']],
+  ['13:10 – 13:50','Théorie — outils retouche, sélections, masques',
+   ['sub','1. Outils de retouche','Livre p. 213-233'],['list',['Tampon (Clone) : copie pixels d’une zone à une autre. Usage : dupliquer/répéter texture (mur, tissu). Alt+clic source, puis peindre destination.','Correcteur localisé (Healing) : corrige défauts naturellement (cicatrices, taches, rides). Plus intelligent que Tampon. Idéal retouche portrait/peau.','Pièce (Patch) : sélectionne zone à corriger, Photoshop trouve contenu similaire alentour. Rapide pour enlever objets indésirables.','Gommes & Doigt (Smudge) : Gomme d’arrière-plan = enlève bg intelligent. Doigt = adoucit transitions.']],
+   ['sub','2. Réaliser des sélections','Livre p. 121-152'],['list',['Sélection rapide : outil pinceau. Peindre le sujet. Bon pour contours nets (produit, textile).','Baguette magique : clique sur couleur similaire, sélectionne zone. Rapide si fond uni.','Mode Masque : Q. Affiche sélection en rouge translucide. Peindre blanc pour ajouter, noir pour enlever. Pinceau fin pour précision.','Affiner sélection (Sélection > Affiner) : rend contours plus propres, enlève fioritures.']],
+   ['sub','3. Masques de fusion','Livre p. 168+'],['p','Créer masque : Calque > Masque > Ajouter masque. Peindre noir = masquer, blanc = montrer. Non destructif = réversible. Usage : combiner 2 images proprement.']],
+  ['13:50 – 14:00','Pause'],
+  ['14:00 – 14:30','Cas d’étude — Campagne mode retouchée',['cas','Vogue, i-D, lookbooks marques. Analyse photos avant/après retouche professionnelle.'],['key','Retouche invisible (pas d’effet plastique). Détourage propre = bordures sans artefacts. Montage = plusieurs sources combinées naturellement. Masques = clé du non-destructif.','Points clés'],['ask',['Jusqu’où retoucher ? Quand c’est « trop » ?','Quel outil pour quel problème ?','Pourquoi masque plutôt que gomme ?']]],
+  ['14:30 – 16:45','Atelier 2 — Retouche produit + détourage + montage',
+   ['sub','Activité 1 : Nettoyage image produit','45 min'],['list',['Ouvrir fichier Séance 1','Déplier panneaux Calques','Créer calque de retouche vide (Calque > Nouveau calque vide)','Outil Correcteur : enlever taches, poussière, imperfections','Outil Pièce : enlever objets distracteurs','Valider retouche (avant/après toggle Alt+Z)']],
+   ['sub','Activité 2 : Détourage produit','45 min'],['list',['Créer sélection (Sélection rapide pour contours nets, baguette pour fond uni)','Affiner sélection (Sélection > Affiner, 2 px)','Ajouter masque sur calque produit','Peaufiner masque avec pinceau noir (Livre p. 143-144)','Tester montage sur fond couleur EIDM']],
+   ['sub','Activité 3 : Montage simple','25 min'],['list',['Importer 2nde image (fond texture ou couleur) en calque sous produit','Ajuster balance (produit dominant 70 %, fond 30 %)','Ajouter masque sur fond avec dégradé blanc > noir pour transition douce','Exporter JPG pour vérifier rendu']]],
+  ['16:45 – 17:00','Synthèse',['p','Démo composite, preview Séance 3.']]
+ ],
+ livrable:'1 compositing simple : produit retouché + monté sur fond structuré + masques bien appliqués. Fichier PSD + JPG export.', prep:[]},
+{date:'Séance 3', h:H, t:'Composition & typographie', obj:'Créer composition équilibrée (image + texte hiérarchisé). Appliquer principes typo (familles, contraste, hiérarchie). Intégrer couleur mode/luxe. Finaliser visuel de communication abouti.',
+ steps:[
+  ['13:00 – 13:10','Ouverture',['p','Recap détourage, début composition.']],
+  ['13:10 – 13:50','Théorie — composition, texte, couleur appliquée',
+   ['sub','1. Composition graphique : hiérarchie & équilibre','Livre p. 181-195'],['list',['Hiérarchie visuelle : guide l’œil. Image dominante (70 %) > titre (20 %) > sous-texte (10 %). Taille, contraste, position font la hiérarchie. Règle : ce qui est important = plus gros/plus contrasté/centre.','Équilibre : symétrique (formel, statique, luxe classique) vs asymétrique (dynamique, moderne). Image lourde à gauche = balancer texte léger à droite. Test : plie papier au centre, poids = pareil ?','Grille invisible : Photoshop > Affichage > Afficher la grille. 12 colonnes standard. Bloquer éléments à la grille pour cohérence.']],
+   ['sub','2. Texte dans Photoshop','Livre p. 197-210'],['list',['Créer texte : Outil Texte (T). Clique, tape. Choisir police (famille typo). Contraste = clé. Blanc sur noir haute mode, noir sur crème luxe classique.','Formatage : Taille (points), poids (bold/regular), interligne (espacer verticalement). Sans-serif (Helvetica, Futura) = moderne/sport. Serif (Garamond, Times) = tradition/luxe classique.','Typo mode/luxe : Marques mode = polices distinctives. Saint Laurent = Didot. Supreme = Futura bold. Hermès = Poppins. Copier DNA typographique de la marque.']],
+   ['sub','3. Intégration couleur','Livre p. 155-167 + lien B1 Couleur'],['list',['Palette cohérente : max 3-4 couleurs. Dominante (bg), secondaire (accent), neutre (texte). Utiliser palette B1 comme base (teinte + valeur + saturation).','Contraste texte : texte clair sur fond foncé (ratio 4.5:1 minimum pour lisibilité). Blanc > gris clair > beige vs noir > bleu foncé > marron.','Harmonie couleur appliquée : si image rose pêche > fond crème/taupe > texte noir. Si image noir/or > fond blanc cassé > accent doré. Couleur = guide émotionnel.']]],
+  ['13:50 – 14:00','Pause'],
+  ['14:00 – 14:30','Cas d’étude — Couverture magazine mode',['cas','Vogue, i-D, Porter, Another Man (couvertures archivées). Décortiquer hiérarchie : photo dominante 60 %, titre 30 %, accroche 10 %.'],['key','Image hero percutante (portrait, lifestyle, produit). Titre lisible même petit (contraste fort, police distinctive). Hiérarchie éditoriale claire. Couleur soutient ambiance/saison.','Points clés'],['ask',['Comment une couverture guide l’œil ?','Pourquoi la typo est une signature de marque ?','Qu’est-ce qui rend une composition équilibrée ?']]],
+  ['14:30 – 16:45','Atelier 3 — Composition complète (image + texte + couleur)',
+   ['sub','Activité 1 : Mise en page fond + hiérarchie','45 min'],['list',['Créer nouveau calque > Remplir avec couleur secondaire de palette EIDM (Édition > Remplir)','Placer compositing Séance 2 en calque supérieur','Redimensionner image pour laisser 30 % espace pour texte','Aligner sur grille (Photoshop > Affichage > Grille)']],
+   ['sub','Activité 2 : Ajouter texte hiérarchisé','45 min'],['list',['Outil Texte (T) : ajouter titre marque (gros, bold, couleur primaire)','Sous-titre : accroche produit (taille moyenne, poids régulier)','Body text : description 2-3 lignes (petit, lisible, teinte douce)','Créer calques texte séparés (titre, sous-titre, body)']],
+   ['sub','Activité 3 : Finitions & équilibre','25 min'],['list',['Tester contraste texte (est-il lisible ? Ratio 4.5:1 ?)','Équilibrer composition (image + texte poids similaire visuellement ?)','Ajouter accent couleur si besoin (barre fine, point)','Sauvegarder PSD intermédiaire']]],
+  ['16:45 – 17:00','Synthèse',['p','Critique compositions, préparation Séance 4.']]
+ ],
+ livrable:'1 composition complète (image retouchée + fond structuré + titre + sous-titre + body texte + couleur cohérente). Fichier PSD + JPG preview.', prep:[]},
+{date:'Séance 4', h:H, t:'Finalisation & export', obj:'Maîtriser export print-ready (profils couleur, bleed, résolution). Exporter web optimisé (compression, dimensions). Présenter et critiquer livrable final. Déboguer problèmes courants.',
+ steps:[
+  ['13:00 – 13:10','Ouverture',['p','Bilan module, focus qualité export.']],
+  ['13:10 – 13:50','Théorie — export print vs web + normes imprimeur',
+   ['sub','1. Export pour l’impression','Livre p. 116 + spécifications imprimeur'],['list',['Résolution : 300 dpi obligatoire print. Moins = pixelisé. Image mode CMJN.','Profil couleur : Fichier > Propriétés document > Mode CMJN. Pour offset : profil ISO Coated. Pour numérique : Fogra39. Imprimeur donne son profil.','Bleed (débord) : +3 mm bordure pour découpe. Si A4 final = 210×297, fichier à préparer = 216×303. Photoshop : Image > Taille image > ajouter 3 mm chaque côté.','Format livraison : PDF haute qualité ou TIF. Jamais JPG pour print. Polices incorporées (PDF). Fichier > Exporter > Export As > Format PDF.']],
+   ['sub','2. Export pour le web','Livre p. 107-115'],['list',['Résolution : 72 dpi suffit. RVB mode. Dimensions : max 2000 px côté long pour web (ou 1200 px social).','Compression : Fichier > Exporter > Exporter As > Format JPG > Qualité 8/10 (bon compromis poids/qualité). PNG si transparence.','Optimisation : Réduire dimensions avant export (Image > Taille image > 1200×1600 px pour Instagram). Taille fichier < 500 KB web, < 100 KB social.']],
+   ['sub','3. Checklist livrable professionnel','Livre p. 92-104'],['list',['Toutes les polices présentes (pas de « missing font »)','Tous les liens d’images résolus','Couleurs en CMJN si print','Calques organisés + nommés','Aucun espace inutile (crop tight)','Export double-checké (ouvrir fichier export pour tester)']]],
+  ['13:50 – 14:00','Pause'],
+  ['14:00 – 14:30','Cas d’étude — Fichier livraison agence vs imprimeur',['cas','Spécifications réelles marques (Hermès, Kering, LVMH). Normes imprimerie Côte d’Azur (Canson, Clair Azur).'],['key','Fichier print = PSD + PDF haute qualité en dossier source. Web = JPG optimisé en dossier assets. Noms clairs (pas « final_final_VRAI.psd »). Livrables doublons pour sécurité (v1.0, v1.1).','Points clés'],['ask',['C’est quoi une « épreuve » imprimée ?','Quand on rate l’export, ça coûte combien ?','Comment tester couleur avant imprimer ?']]],
+  ['14:30 – 15:45','Atelier 4A — Export',
+   ['sub','Étape 1 : Préparer pour print','30 min'],['list',['Ouvrir composition Séance 3','Image > Mode CMJN (conversion)','Image > Taille image > ajouter +3 mm (bleed)','Aplatir calques si finalisé (Calques > Aplatir)','Fichier > Exporter > Format PDF > Paramètres pro (voir checklist)']],
+   ['sub','Étape 2 : Exporter web','30 min'],['list',['Revenir mode RVB (Image > Mode RVB)','Redimensionner pour web (1200 px côté long)','Fichier > Exporter > JPG Qualité 8','Vérifier poids fichier (< 500 KB)','Tester sur téléphone (AirDrop ou email)']],
+   ['sub','Étape 3 : Organiser dossier livrable','15 min'],['p','Créer dossier « Livrable_EIDM_NomEtudiant » contenant :'],['list',['Photoshop_Travail.psd (fichier source)','Livrable_Print.pdf (haute qualité 300 dpi CMJN)','Livrable_Web.jpg (1200 px RVB)','README.txt (brève description fichiers)']]],
+  ['15:45 – 16:45','Atelier 4B — Présentations flash + critique collective',
+   ['key','Chaque étudiant 5-7 min (setup 1 min + présentation 3 min + critique 2-3 min).','Format'],
+   ['sub','Structure présentation'],['list',['1. Afficher composition finale (sur écran)','2. Décrire choix (couleur, typo, hiérarchie)','3. Montrer avant/après retouche/détourage','4. Expliquer export (print vs web)']],
+   ['ask',['Hiérarchie : l’œil guide clairement ? Titre dominant ?','Couleur : palette cohérente mode/luxe ? Contraste texte ok ?','Typographie : lisible ? Police distinctive ? Famille harmonieuse ?','Technique : retouche invisible ? Détourages propres ? Composition stable ?','Professionnalisme : fichiers livrables ok ? Export bon ? Prêt imprimerie/web ?'],'Critique collective (framework 5 points)']],
+  ['16:45 – 17:00','Synthèse',['p','Bilan apprentissages, suite InDesign.']]
+ ],
+ livrable:'Livrable final — Dossier complet : PSD + PDF print + JPG web + README. Compositions critiquées collectivement. Évolution visible Séance 1 → 4.', prep:[]}
+];
+const RECAP = [
+ {g:'Référence livre — pages clés par chapitre', items:[['Notions de base','p. 65-71'],['Affichage','p. 68-71'],['Documents','p. 73-104'],['Import/Export','p. 107-115'],['Impression','p. 116'],['Sélections','p. 121-152'],['Couleur','p. 155-167'],['Calques','p. 168-180'],['Outils dessin','p. 181-195'],['Texte','p. 197-210'],['Retouches','p. 213-233'],['Transformation','p. 236-249'],['Couleurs avancées','p. 249-273'],['Filtres','p. 278-309']]},
+ {g:'Templates retouche — checklist par outil', items:[['Nettoyage image','Gomme arrière-plan (5 min) + Correcteur rides/taches (5 min) + Pièce objets (3 min) + Export test'],['Détourage','Sélection rapide/baguette (10 min) + Mode masque affinage (10 min) + Tester montage'],['Composition','Placer image dominante + 3 couleurs max + Texte hiérarchisé (titre/sous-titre/body) + Équilibre visuel']]},
+ {g:'Ressources digitales — où chercher images', items:[['Adobe Stock','Haute qualité, licencié, sections fashion/luxe'],['Unsplash / Pexels','Gratuit, vérifier licence'],['Vogue / i-D archives','Inspiration cas d’étude'],['Pinterest','Mood boards organisés par marque']]},
+ {g:'Typo mode/luxe — polices référence', items:[['Moderne/Sport','Futura, Helvetica, Poppins'],['Luxe classique','Garamond, Didot, Bodoni'],['Avant-garde','Akkurat, DIN, Grotesk'],['Marques icônes','Hermès = Poppins, YSL = Didot, Supreme = Futura Bold']]},
+ {g:'Checklist qualité fichier avant livraison', items:[['Polices','Non manquantes (Fenêtre > Polices)'],['Calques','Bien nommés (Image_Produit, Texte_Titre, etc.) · aucun calque vide'],['Résolution','300 dpi print, 72 web'],['Mode couleur','CMJN print, RVB web'],['Bleed','Appliqué (+3 mm)'],['Contraste texte','4.5:1 minimum'],['Liens','Tous résolus'],['Export','Test (ouvrir fichier livrable)'],['Nommage','Clair (pas de « final_final.psd »)']]},
+ {g:'Points clés pédagogiques', items:[['Pratique','Pratique constante, pas juste regarder démo'],['Contexte','Cas d’étude mode = contexte réel'],['Export','Export professionnel = partie intégrante du cours, pas bonus'],['Erreurs','Erreurs = apprentissage (pixel-peeping est OK)'],['Critique','Critique bienveillante = construction collective'],['Suite','InDesign 14h sera mise en page éditoriale']]}
+];
+/*END*/
+const kv = ([k, v]) => ({ k, v });
+class Component extends DCLogic {
+  state = { prep: {} };
+  componentDidMount() { try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) this.setState({ prep: s }); } catch (e) {} }
+  save = () => { try { localStorage.setItem(KEY, JSON.stringify(this.state.prep)); } catch (e) {} };
+  renderVals() {
+    const { prep } = this.state;
+    const seances = SEANCES.map((s, i) => {
+      const items = s.prep.map((t, j) => {
+        const id = i + '-' + j, on = !!prep[id];
+        return { t, on, off: !on, toggle: () => this.setState(st => ({ prep: { ...st.prep, [id]: !st.prep[id] } }), this.save) };
+      });
+      return {
+        n: i + 1, id: 's' + (i + 1), href: '#s' + (i + 1), date: s.date, h: s.h, t: s.t,
+        hasRef: !!s.ref, hasObj: !!s.obj, obj: s.obj || '', hasPrep: s.prep.length > 0, ref: s.ref || {}, hasEntre: !!s.entre, entre: s.entre || '', livrable: s.livrable,
+        prep: items, prepLabel: items.length ? items.filter(x => x.on).length + '/' + items.length : '',
+        steps: s.steps.map(([time, t, ...bl]) => ({
+          time, t,
+          blocks: bl.map(([k, text, lab]) => ({
+            text: Array.isArray(text) ? '' : text, items: Array.isArray(text) ? text : [],
+            isSub: k === 'sub', isList: k === 'list', isAsk: k === 'ask', page: lab || '', hasPage: k === 'sub' && !!lab, askLabel: '? ' + (lab || 'Questions débat'),
+            isP: k === 'p', isCas: k === 'cas', isExo: k === 'exo', isBrief: k === 'brief', isKey: k === 'key',
+            label: k === 'exo' ? '✎ ' + (lab || 'Exercice') : '! ' + (lab || 'Notion clé')
+          }))
+        }))
+      };
+    });
+    return {
+      seances, legend: LEGEND, prepTitle: PREP_TITLE, print: () => window.print(),
+      cadre: CADRE.map(g => ({ g: g.g, paras: g.paras, items: g.items.map(kv) })),
+      recap: RECAP.map(g => ({ g: g.g, items: g.items.map(kv) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

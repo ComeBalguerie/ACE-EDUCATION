@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#f5f3ee;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:oklch(0.45 0.13 250)}
+@media (max-width:760px){[data-aside]{position:static !important;flex:1 1 100% !important}[data-aside] nav{display:none !important}}
+@media print{
+  [data-noprint]{display:none !important}
+  body{background:#fff}
+  [data-chapter]{break-before:page}
+  [data-avoid]{break-inside:avoid}
+  [data-main]{max-width:none !important}
+}
+</style>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;gap:40px 48px;max-width:1240px;margin:0 auto;padding:48px 32px 120px;box-sizing:border-box">
+
+  <aside data-noprint="1" data-aside="1" style="flex:0 0 232px;position:sticky;top:32px;align-self:flex-start;display:flex;flex-direction:column;gap:32px;font-size:13.5px">
+    <a data-noprint="1" href="Sommaire.dc.html" title="Retour au sommaire" style="align-self:flex-start;display:flex;align-items:center;gap:6px;padding:7px 12px;background:#1d1c1a;color:#f3f0e8;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none" style-hover="background:#4a4740;color:#f3f0e8">← Sommaire</a>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Anti-sèche · B1 EIDM</div>
+      <div style="font-family:Newsreader,serif;font-size:22px;line-height:1.1">Théorie de la couleur</div>
+    </div>
+    <nav style="display:flex;flex-direction:column;gap:2px">
+      <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="8">
+        <a href="{{ c.href }}" style="display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid #e3dfd5;line-height:1.3">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;flex:none">{{ c.num }}</span>
+          <span style="flex:1">{{ c.t }}</span>
+          <sc-if value="{{ c.done }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;flex:none" title="Révisé">✓</span></sc-if>
+        </a>
+      </sc-for>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Afficher les encadrés</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
+          <button onClick="{{ f.toggle }}" style="display:flex;align-items:center;gap:10px;background:none;border:0;padding:4px 0;font:inherit;color:inherit;cursor:pointer;text-align:left">
+            <sc-if value="{{ f.on }}" hint-placeholder-val="{{ true }}"><span style="width:16px;height:16px;border:1.5px solid #1d1c1a;background:#1d1c1a;color:#f5f3ee;font-size:11px;line-height:16px;text-align:center;border-radius:3px;flex:none">✓</span></sc-if>
+            <sc-if value="{{ f.off }}" hint-placeholder-val="{{ false }}"><span style="width:16px;height:16px;border:1.5px solid #8a857a;border-radius:3px;flex:none;box-sizing:border-box"></span></sc-if>
+            <span style="font-size:12px;width:14px;text-align:center">{{ f.glyph }}</span>
+            <span>{{ f.label }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Progression · {{ doneLabel }}</div>
+      <div style="height:4px;background:#e3dfd5;border-radius:2px;overflow:hidden"><div style="height:100%;width:{{ donePct }};background:#1d1c1a"></div></div>
+    </div>
+  </aside>
+
+  <main data-main="1" style="flex:1 1 420px;min-width:0;max-width:760px">
+    <header style="display:flex;flex-direction:column;gap:20px;padding-bottom:48px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b675e">Document de révision personnel · Cliclac Studio · usage privé</div>
+      <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(48px,7vw,84px);line-height:.95;letter-spacing:-.02em;margin:0">Théorie de la couleur</h1>
+      <div style="font-family:Newsreader,serif;font-style:italic;font-size:22px;color:#4a4740">Fondamentaux de la couleur et culture visuelle — B1 EIDM</div>
+    </header>
+
+    <section data-avoid="1" style="display:flex;flex-direction:column;gap:16px;padding:28px 0;border-top:2px solid #1d1c1a;border-bottom:1px solid #d9d4c7;margin-bottom:24px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase">Comment utiliser ce document</div>
+      <p style="margin:0;font-size:16.5px;line-height:1.65;text-wrap:pretty;color:#2a2926">Ce document couvre l’intégralité des notions du syllabus. Les blocs jaunes sont des notes spécifiques liées au daltonisme — ce qu’il faut préparer en amont pour chaque notion afin de l’enseigner avec confiance.</p>
+      <p style="margin:0;font-size:16.5px;line-height:1.65;text-wrap:pretty;color:#2a2926">La théorie de la couleur est très structurée. Une fois les fondamentaux posés, tout le reste s’emboîte logiquement. Commence par les chapitres 1 et 2 — la physique et les propriétés — avant de passer aux chapitres suivants.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740">
+        <span>● Exemple concret</span><span>■ À dire en cours</span><span>◆ Note daltonisme</span><span>▲ Confusion fréquente</span><span>! Attention</span>
+      </div>
+    </section>
+
+    <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="2">
+      <section id="{{ c.id }}" data-chapter="1" style="padding-top:72px;scroll-margin-top:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:2px solid #1d1c1a;padding-top:14px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em">CHAPITRE {{ c.num }}</span>
+          <sc-if value="{{ c.notDone }}" hint-placeholder-val="{{ true }}">
+            <button data-noprint="1" onClick="{{ c.toggle }}" style="font:500 12px 'IBM Plex Sans',sans-serif;background:none;border:1px solid #b9b2a2;border-radius:999px;padding:6px 14px;cursor:pointer;color:#4a4740" style-hover="border-color:#1d1c1a;color:#1d1c1a">Marquer comme révisé</button>
+          </sc-if>
+          <sc-if value="{{ c.done }}" hint-placeholder-val="{{ false }}">
+            <button data-noprint="1" onClick="{{ c.toggle }}" style="font:500 12px 'IBM Plex Sans',sans-serif;background:#1d1c1a;border:1px solid #1d1c1a;border-radius:999px;padding:6px 14px;cursor:pointer;color:#f5f3ee">✓ Révisé</button>
+          </sc-if>
+        </div>
+        <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(34px,4.6vw,48px);line-height:1.02;letter-spacing:-.015em;margin:28px 0 10px;text-wrap:balance">{{ c.t }}</h2>
+        <div style="font-family:Newsreader,serif;font-style:italic;font-size:20px;color:#6b675e">{{ c.sub }}</div>
+
+        <sc-for list="{{ c.sections }}" as="s" hint-placeholder-count="2">
+          <div style="display:flex;flex-direction:column;gap:18px;margin-top:44px">
+            <h3 style="font-family:Newsreader,serif;font-weight:500;font-size:25px;line-height:1.2;margin:0">{{ s.h }}</h3>
+            <sc-for list="{{ s.blocks }}" as="b" hint-placeholder-count="3">
+              <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+                <p style="margin:0;font-size:16.5px;line-height:1.68;text-wrap:pretty;color:#2a2926">{{ b.text }}</p>
+              </sc-if>
+              <sc-if value="{{ b.isD }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-wrap:wrap;gap:4px 20px;padding:12px 0;border-top:1px solid #e3dfd5;font-size:16px;line-height:1.6">
+                  <div style="flex:0 0 150px;font-weight:600">{{ b.term }}</div>
+                  <div style="flex:1 1 300px;min-width:0;color:#2a2926;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isEx }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 0;border-top:1px dotted #a39c8c;border-bottom:1px dotted #a39c8c">
+                  <div style="flex:0 0 150px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.42 0.1 55);padding-top:4px">● Exemple concret</div>
+                  <div style="flex:1 1 300px;min-width:0;font-family:Newsreader,serif;font-style:italic;font-size:18.5px;line-height:1.5;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isDire }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.94 0.035 250);border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.38 0.13 250);padding-top:3px">■ À dire en cours</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isDal }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.93 0.09 95);border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.36 0.07 85);padding-top:3px">◆ Note daltonisme</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isConf }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:15px 19px;border:1.5px dashed #8a857a;border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1d1c1a;padding-top:3px">▲ Confusion fréquente</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isAtt }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:#e8e4da;border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1d1c1a;padding-top:3px">! {{ b.term }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+            </sc-for>
+          </div>
+        </sc-for>
+      </section>
+    </sc-for>
+
+    <footer style="margin-top:96px;padding-top:16px;border-top:1px solid #d9d4c7;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6b675e">Cliclac Studio · cliclac.studio · Document de révision privé v1</footer>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const TYPES = { ex: ['●', 'Exemples concrets'], dire: ['■', 'À dire en cours'], dal: ['◆', 'Notes daltonisme'], conf: ['▲', 'Confusions fréquentes'], att: ['!', 'Attention / Important'] };
+const KEY = 'antiseche-couleur-v1';
+const DATA = [
+{t:'La lumière et la perception visuelle', sub:'Comment l’œil perçoit la couleur', s:[
+ ['La lumière comme source de la couleur',
+  ['p','La couleur n’existe pas dans les objets. Elle existe dans la lumière. Isaac Newton l’a démontré en 1666 en passant un rayon de lumière blanche à travers un prisme : la lumière se décompose en un spectre de couleurs — du rouge au violet en passant par l’orange, le jaune, le vert, le bleu, l’indigo.'],
+  ['p','Un objet rouge n’est pas rouge en lui-même. Il absorbe toutes les longueurs d’onde de la lumière sauf le rouge, qu’il réfléchit. C’est cette longueur d’onde réfléchie que notre œil perçoit comme rouge.'],
+  ['p','Conséquence pratique très importante en mode et en communication : la même couleur apparaît différemment selon la source lumineuse. Un vêtement en lumière naturelle du jour, sous des néons de magasin, ou sous un éclairage chaud de boutique de luxe — trois perceptions différentes de la même couleur. C’est pour ça que les stylistes et les directeurs artistiques travaillent toujours avec un éclairage contrôlé.'],
+  ['ex','Hermès travaille avec des spécifications d’éclairage très précises dans ses boutiques pour que l’orange signature soit perçu exactement comme prévu. Ce n’est pas un détail — c’est une décision de marque.'],
+  ['dire','Demander aux étudiants : avez-vous déjà acheté un vêtement en magasin et trouvé que la couleur était différente une fois chez vous ? C’est exactement ce phénomène. La lumière du magasin n’est pas la même que la lumière naturelle.'],
+  ['dal','Ce chapitre est purement théorique — aucun problème pour l’enseigner. Préparer des visuels du spectre lumineux et du prisme de Newton pour projeter. Les schémas font le travail.']],
+ ['Comment l’œil perçoit la couleur',
+  ['p','La rétine contient deux types de cellules photosensibles : les bâtonnets (sensibles à la luminosité, actifs dans la pénombre) et les cônes (sensibles aux couleurs, actifs en pleine lumière). Il existe trois types de cônes, chacun sensible à une gamme de longueurs d’onde : rouge-orangée, verte, bleu-violette.'],
+  ['p','La perception de la couleur est le résultat de la combinaison des signaux de ces trois types de cônes. C’est pour ça qu’on parle de synthèse trichrome — trois composantes suffisent à reproduire toutes les couleurs perceptibles par l’œil humain.'],
+  ['p','Le daltonisme résulte d’une anomalie ou d’une absence d’un ou plusieurs types de cônes. La forme la plus courante (deutéranopie) correspond à une sensibilité réduite aux longueurs d’onde vertes, ce qui affecte la distinction rouge-vert.'],
+  ['dire','Expliquer aux étudiants que la perception de la couleur est subjective et physiologique. Deux personnes ne voient pas exactement la même couleur — même sans daltonisme. C’est pour ça qu’on a besoin de systèmes de référence comme Pantone : pour communiquer de façon objective sur les couleurs.'],
+  ['dal','Tu peux parler de ton daltonisme ici comme exemple concret de variabilité perceptive. C’est une richesse pédagogique. Montrer un test d’Ishihara (les cercles de points colorés) et expliquer comment certaines personnes voient différemment. Les étudiants vont trouver ça fascinant.']]
+]},
+{t:'Les propriétés fondamentales de la couleur', sub:'Teinte, valeur, saturation', s:[
+ ['La teinte',
+  ['p','La teinte (ou hue en anglais) c’est ce qu’on appelle communément la couleur. Rouge, bleu, vert, jaune, orange, violet. C’est la longueur d’onde dominante de la couleur. C’est ce qui différencie le rouge du bleu.'],
+  ['p','Sur le cercle chromatique, les teintes sont disposées dans l’ordre du spectre solaire. La teinte se mesure en degrés (0 à 360) dans les systèmes numériques — 0 degré est le rouge, 120 degrés le vert, 240 degrés le bleu.'],
+  ['ex','Quand on dit que Hermès utilise un orange spécifique, on parle d’abord de sa teinte — une longueur d’onde précise qui correspond à cet orange particulier, ni trop rouge ni trop jaune.'],
+  ['conf','Les étudiants confondent souvent teinte et couleur. La couleur c’est le terme général. La teinte c’est la composante chromatique pure, sans tenir compte de sa clarté ou de son intensité.']],
+ ['La valeur (ou luminosité)',
+  ['p','La valeur c’est la clarté ou l’obscurité d’une couleur. Une couleur claire (proche du blanc) a une valeur haute. Une couleur sombre (proche du noir) a une valeur basse. Une teinte peut exister à toutes les valeurs — du rose pâle (rouge à valeur haute) au bordeaux (rouge à valeur basse).'],
+  ['p','La valeur est peut-être la propriété la plus importante en composition visuelle. L’œil perçoit d’abord les contrastes de valeur avant les contrastes de teinte. En noir et blanc, une image reste lisible. En couleurs mais sans contraste de valeur, elle devient illisible.'],
+  ['att','Tester ça facilement : convertir une image en niveaux de gris dans Photoshop. Si la composition tient en niveaux de gris, elle tient en couleur. Si elle s’effondre en niveaux de gris, elle est construite sur une illusion colorielle.','Astuce'],
+  ['dire','Demander aux étudiants de plisser les yeux en regardant une composition colorée. Quand on plisse les yeux, on réduit la perception des teintes et on voit mieux les valeurs. C’est une technique utilisée par tous les peintres et les DA depuis des siècles.'],
+  ['dal','La valeur est ce que tu perçois le mieux. Le contraste clair-obscur est indépendant de la teinte — c’est ta force naturelle. Tu peux enseigner la valeur de façon très intuitive depuis ton expérience quotidienne.']],
+ ['La saturation (ou chroma)',
+  ['p','La saturation c’est l’intensité ou la pureté d’une couleur. Une couleur très saturée est vive, pure, intense. Une couleur peu saturée est terne, grisée, délavée. Le gris pur a une saturation de zéro — aucune teinte dominante.'],
+  ['p','Réduire la saturation d’une couleur c’est la rapprocher du gris. Augmenter la saturation c’est la rendre plus vive. En mode, les couleurs très saturées sont souvent associées au streetwear, aux marques jeunes, à l’énergie. Les couleurs désaturées sont associées au luxe, à la sophistication, au minimalisme.'],
+  ['ex','La palette Bottega Veneta sous Daniel Lee (2018-2021) : des verts, des bleus, des oranges très caractéristiques mais jamais agressifs. Le secret : des teintes fortes mais des saturations maîtrisées. Ça donne de la personnalité sans agresser l’œil.'],
+  ['dire','Montrer la même teinte à différentes saturations. De la version la plus désaturée (presque grise) à la plus saturée (fluo). Demander à quel moment ça évoque le luxe, à quel moment ça évoque l’énergie, à quel moment ça devient agressif. Les étudiants vont comprendre immédiatement que la saturation est une décision stratégique.'],
+  ['dal','La saturation est plus facile à percevoir que la teinte pour un daltonien. Les couleurs très saturées paraissent différentes des couleurs désaturées même si la teinte est difficile à identifier. Préparer des visuels avec des gradients de saturation clairs pour l’exercice.']],
+ ['Le modèle HSL et ses variantes',
+  ['p','HSL signifie Hue (teinte), Saturation, Lightness (luminosité). C’est le modèle qui traduit directement les trois propriétés fondamentales qu’on vient de voir. C’est le modèle le plus intuitif pour comprendre et manipuler les couleurs.'],
+  ['p','HSB (Hue, Saturation, Brightness) est une variante proche utilisée dans Photoshop et Illustrator. La différence entre Lightness et Brightness est technique — en pratique pour ce cours, les deux fonctionnent de la même façon.'],
+  ['att','RVB (Rouge Vert Bleu) et CMJN (Cyan Magenta Jaune Noir) sont des modèles de reproduction, pas des modèles de perception. On les verra dans le chapitre sur les systèmes de référence professionnels.','Attention']]
+]},
+{t:'Le cercle chromatique', sub:'L’outil de base de toute composition colorielle', s:[
+ ['Structure du cercle chromatique',
+  ['p','Le cercle chromatique est une représentation circulaire des teintes dans l’ordre du spectre solaire. Il permet de visualiser les relations entre les couleurs et de construire des harmonies colorielles de façon logique et reproductible.'],
+  ['p','Le modèle classique en arts appliqués (modèle RJB — Rouge Jaune Bleu) distingue trois niveaux.'],
+  ['d','Primaires','Rouge, jaune, bleu. Ce sont les couleurs qui ne peuvent pas être obtenues par mélange d’autres couleurs.'],
+  ['d','Secondaires','Orange (rouge + jaune), vert (jaune + bleu), violet (bleu + rouge). Obtenues par mélange de deux primaires.'],
+  ['d','Tertiaires','Rouge-orange, jaune-orange, jaune-vert, bleu-vert, bleu-violet, rouge-violet. Obtenues par mélange d’une primaire et d’une secondaire adjacente.'],
+  ['att','Le modèle RJB est le modèle traditionnel des arts plastiques, celui qu’on utilise avec des pigments. Il est différent du modèle RVB (lumière) et du modèle CMJ (impression). Pour ce cours orienté mode et communication, on travaille principalement avec le modèle RJB pour la théorie et les modèles RVB et CMJN pour les applications professionnelles.','Important'],
+  ['conf','Les étudiants qui ont déjà fait de la photo ou du design numérique connaissent le modèle RVB. Les couleurs primaires en RVB sont rouge, vert, bleu — pas rouge, jaune, bleu. Les deux modèles coexistent et répondent à des logiques différentes (synthèse additive pour la lumière, synthèse soustractive pour les pigments). Expliquer la différence clairement en début de cours.'],
+  ['dal','Le cercle chromatique est le chapitre le plus délicat à enseigner pour un daltonien car il implique de pointer des teintes spécifiques. Solution : utiliser systématiquement un cercle chromatique numéroté ou étiqueté avec les noms des couleurs. Ne jamais désigner une couleur uniquement par son emplacement — toujours dire le nom. Préparer un cercle chromatique de haute qualité à projeter avec les noms bien visibles.']],
+ ['Les harmonies colorielles',
+  ['p','Une harmonie colorielle c’est une combinaison de couleurs qui fonctionne visuellement. Le cercle chromatique permet de construire ces harmonies de façon systématique selon des règles géométriques.'],
+  ['d','Complémentaires','Deux couleurs diamétralement opposées sur le cercle. Rouge et vert. Bleu et orange. Jaune et violet. Elles créent le contraste maximum — chacune rend l’autre plus vive par opposition. Très utilisées pour créer de l’impact et de la dynamique.'],
+  ['d','Analogues','Deux à cinq couleurs adjacentes sur le cercle. Bleu, bleu-violet, violet. Jaune-vert, vert, bleu-vert. Elles créent une harmonie douce et cohérente. Très utilisées dans le luxe et la mode pour des palettes sophistiquées.'],
+  ['d','Triadiques','Trois couleurs équidistantes sur le cercle (120 degrés d’écart). Rouge, bleu, jaune. Orange, vert, violet. Elles créent un équilibre dynamique. Plus difficiles à utiliser sans que ça paraisse trop coloré.'],
+  ['d','Tétradiques','(ou double complémentaire) Quatre couleurs formant un rectangle sur le cercle. Permettent des palettes riches mais complexes à équilibrer.'],
+  ['ex','Valentino et sa période rose shocking (2022) : le rose Valentino confronté au noir. C’est une harmonie qui joue sur le contraste de valeur autant que sur la teinte. Prada et ses palettes triadiques complexes — souvent trois couleurs apparemment impossibles qui fonctionnent mystérieusement ensemble. Sézane et ses palettes analogues terreuses — ocre, rouille, kaki — toujours cohérentes et reconnaissables.'],
+  ['dire','Exercice puissant : montrer une campagne de mode et demander aux étudiants d’identifier l’harmonie utilisée. Est-ce que les couleurs sont complémentaires, analogues, monochromatiques ? Ils vont commencer à voir les compositions colorielles comme des décisions stratégiques.'],
+  ['dal','Pour démontrer les couleurs complémentaires rouge-vert, utiliser une représentation numérique avec les codes hexa ou Pantone bien visibles. Ne pas pointer la couleur sur l’écran en disant juste « le rouge ». Dire : le Pantone 485 C (rouge) et le Pantone 356 C (vert) sont complémentaires. L’harmonie bleu-orange est plus facile à percevoir pour toi — l’utiliser en priorité pour les démonstrations en direct.']],
+ ['Les couleurs chaudes et froides',
+  ['p','La température des couleurs est une notion culturelle et perceptive. Les couleurs chaudes (rouge, orange, jaune) évoquent le feu, le soleil, la chaleur, l’énergie, la proximité. Les couleurs froides (bleu, vert, violet) évoquent l’eau, la glace, la distance, le calme, la sophistication.'],
+  ['p','En composition visuelle, les couleurs chaudes avancent visuellement (paraissent plus proches) et les couleurs froides reculent (paraissent plus lointaines). C’est une loi de la perception utilisée en peinture, en architecture intérieure et en communication.'],
+  ['p','En mode et en branding luxe, les couleurs froides sont souvent associées à l’exclusivité et à la distance souhaitée (Chanel, Tiffany, Rolex). Les couleurs chaudes sont associées à la proximité et à l’énergie (Hermès, Valentino, Gucci).'],
+  ['ex','Tiffany Blue : un bleu-vert très reconnaissable, froid et distinctif. Il dit quelque chose sur la marque — sophistication distante, intemporalité, exclusivité. Hermès orange : chaud, joyeux, accessible malgré le prix. Il contredit l’idée que le luxe doit être froid.'],
+  ['dire','Demander aux étudiants : est-ce que vous choisiriez une chambre peinte en rouge ou en bleu pour dormir ? Pourquoi ? La réponse intuitive illustre parfaitement la psychologie des températures de couleur.'],
+  ['dal','La distinction chaud-froid est plus accessible que la distinction des teintes pour un daltonien car elle repose aussi sur des associations culturelles et émotionnelles. Tu peux l’enseigner très naturellement depuis ton expérience. Préparer des exemples visuels forts où le contraste chaud-froid est évident même pour un daltonien — Hermès orange vs Tiffany blue, par exemple.']]
+]},
+{t:'Les contrastes d’Itten', sub:'Les sept contrastes fondamentaux', s:[
+ ['Johannes Itten et la théorie des contrastes',
+  ['p','Johannes Itten (1888-1967) est le maître du Bauhaus qui a formalisé la théorie moderne des contrastes colorés dans son livre L’Art de la couleur (1961). Il identifie sept types de contrastes, chacun produisant un effet visuel différent. C’est la référence académique incontournable en théorie de la couleur.'],
+  ['p','Ces sept contrastes sont des outils de composition — des moyens de créer de l’impact, de la lisibilité, de l’émotion par les couleurs. En mode et en communication, on les utilise en permanence sans toujours les nommer.']],
+ ['1. Le contraste de couleurs en elles-mêmes',
+  ['p','L’effet produit quand des couleurs pures et saturées sont placées côte à côte. Plus les couleurs sont pures et distinctes, plus le contraste est fort. Rouge-bleu-jaune côte à côte : contraste maximum. C’est le contraste le plus basique — il suffit que les couleurs soient différentes.'],
+  ['ex','Mondrian, les maillots de foot, les logos de supermarchés. Tout ce qui veut être immédiatement visible et énergique.']],
+ ['2. Le contraste clair-obscur',
+  ['p','Le contraste entre les valeurs — clair et sombre. C’est le contraste le plus fort en termes de lisibilité. Noir sur blanc : lisibilité maximum. Le contraste clair-obscur fonctionne indépendamment de la teinte — c’est pour ça qu’un design qui tient en niveaux de gris tient en couleur.'],
+  ['p','En mode luxe : le blanc et le noir sont les rois du contraste clair-obscur. Chanel a fait de cette binarité une signature absolue.'],
+  ['dal','C’est ton contraste naturel. Tu perçois très bien le contraste clair-obscur. Tu peux l’enseigner avec une confiance totale depuis ton expérience personnelle. C’est aussi le contraste le plus important à maîtriser pour la lisibilité — tu peux dire aux étudiants que si leur composition fonctionne en clair-obscur, elle sera lisible quelle que soit la perception colorielle du spectateur.']],
+ ['3. Le contraste chaud-froid',
+  ['p','Le contraste entre couleurs chaudes et froides. Il crée une sensation de profondeur et de dynamisme. Les couleurs chaudes avancent, les froides reculent. Utilisé en peinture depuis la Renaissance pour créer l’illusion de la profondeur.'],
+  ['p','En mode : un fond froid (bleu, gris) avec un élément chaud (rouge, orange) en avant-plan. L’élément chaud ressort immédiatement. Très utilisé dans les campagnes de mode pour faire ressortir le vêtement ou l’accessoire clé.'],
+  ['dal','Ce contraste est accessible pour toi car il repose autant sur des associations culturelles que sur la perception pure des teintes. Préparer des exemples où le contraste chaud-froid est très marqué — les étudiants verront la différence de température même si tu ne peux pas la montrer instinctivement.']],
+ ['4. Le contraste complémentaire',
+  ['p','Le contraste entre deux couleurs opposées sur le cercle chromatique. C’est le contraste de teinte le plus intense. Chaque couleur rend l’autre plus vive par opposition — c’est ce qu’on appelle la vibration complémentaire. Rouge et vert, bleu et orange, jaune et violet.'],
+  ['p','Utilisé avec des couleurs très saturées, il peut être agressif. Utilisé avec des couleurs désaturées ou des valeurs différentes, il devient subtil et sophistiqué. Beaucoup de grandes maisons jouent sur des complémentaires assourdis.'],
+  ['ex','Valentino : rose shocking et noir (complémentaire assourdi). Versace : or et noir. Gucci sous Alessandro Michele : de nombreuses combinaisons complémentaires mais jamais criardes grâce à la maîtrise des valeurs et des saturations.'],
+  ['dal','Le complémentaire rouge-vert est le plus difficile pour toi. Utiliser en priorité les exemples bleu-orange ou jaune-violet pour les démonstrations en direct. Préparer des visuels avec les codes Pantone ou hexa bien visibles pour le rouge-vert.']],
+ ['5. Le contraste simultané',
+  ['p','Un phénomène optique : une même couleur perçue différemment selon les couleurs qui l’entourent. Un gris neutre placé sur un fond rouge paraît légèrement verdâtre. Placé sur un fond vert, il paraît légèrement rougeâtre. L’œil cherche toujours à compléter la couleur vers son complémentaire.'],
+  ['p','C’est un phénomène involontaire et non contrôlable — il se produit dans l’œil du spectateur, pas dans le design. Le DA doit l’anticiper. Une couleur validée sur fond blanc peut paraître différente sur fond crème ou sur fond gris.'],
+  ['dire','Montrer l’illusion du damier d’Adelson (les cases A et B paraissent différentes mais sont identiques). C’est le contraste simultané en action. Les étudiants sont toujours surpris et ça illustre parfaitement que la couleur est une perception, pas une donnée objective.'],
+  ['dal','Le contraste simultané est difficile à percevoir clairement pour un daltonien sur les combinaisons rouge-vert. Utiliser des exemples avec du gris sur des fonds colorés très différents. L’illusion fonctionne même en clair-obscur — montrer des exemples en valeur seulement.']],
+ ['6. Le contraste de qualité (saturation)',
+  ['p','Le contraste entre une couleur très saturée et une couleur désaturée. Une couleur vive côte à côte d’une couleur terne. La couleur vive ressort immédiatement. Ce contraste est très utilisé en mode pour faire ressortir un élément clé — un accessoire, un détail — dans une composition générale plus sobre.'],
+  ['ex','Un manteau gris (désaturé) avec une pochette rouge vif (saturée). L’accessoire ressort sans que l’ensemble soit criard. C’est un classique du styling.'],
+  ['dire','Exercice simple : montrer une palette de couleurs toutes désaturées. Puis ajouter une seule couleur vive. L’œil va instantanément se poser dessus. C’est le contraste de qualité en action — et c’est exactement ce que font les stylistes quand ils choisissent la couleur d’un accessoire.']],
+ ['7. Le contraste de quantité',
+  ['p','Le contraste entre les proportions de couleurs dans une composition. Une petite quantité d’une couleur vive face à une grande quantité d’une couleur neutre. Itten a formulé des proportions harmonieuses : le jaune (très clair et vif) nécessite moins de surface que le violet (sombre) pour s’équilibrer visuellement.'],
+  ['p','En mode : la règle des 60-30-10. 60 % d’une couleur dominante, 30 % d’une couleur secondaire, 10 % d’une couleur accent. C’est une règle de styling utilisée en tenue comme en décoration.'],
+  ['ex','Un look : 60 % beige (pantalon et veste), 30 % blanc (chemise), 10 % rouge (ceinture et sac). L’ensemble est équilibré parce que la couleur la plus vive est la plus petite en quantité.'],
+  ['dire','La règle 60-30-10 est très opérationnelle pour des étudiants en styling. Elle leur donne un outil concret pour construire un look coloré sans que ça parte dans tous les sens.']]
+]},
+{t:'Les systèmes de référence professionnels', sub:'Pantone, NCS, RVB, CMJN', s:[
+ ['Pourquoi des systèmes de référence',
+  ['p','La couleur est subjective et dépendante de la perception individuelle, de la source lumineuse, et du support. Pour communiquer de façon précise et reproductible sur une couleur — entre un designer, un imprimeur, un fabricant de textile, un client — on a besoin de systèmes de référence objectifs.'],
+  ['p','Ces systèmes permettent de dire « je veux exactement cette couleur » et d’être sûr que tout le monde comprend la même chose, peu importe où ils se trouvent dans le monde.'],
+  ['dire','Anecdote forte : la couleur exacte du rouge Coca-Cola est spécifiée en Pantone. Si Coca-Cola change d’imprimeur en Chine, au Brésil ou en France, le rouge doit être exactement le même. Sans système de référence, c’est impossible.'],
+  ['dal','Ce chapitre est un point fort pour toi. Les systèmes de référence permettent de travailler avec les couleurs de façon objective, indépendamment de la perception. C’est exactement ce dont tu as besoin pour enseigner. Tu peux présenter ces systèmes comme les outils qui rendent la couleur communicable et fiable.']],
+ ['Pantone',
+  ['p','Le système Pantone (Pantone Matching System ou PMS) est le standard mondial de référence colorielle. Créé en 1963 par Lawrence Herbert à New York. Il répertorie des milliers de couleurs, chacune identifiée par un numéro unique et disponible sous forme de nuancier physique.'],
+  ['p','Chaque couleur Pantone existe en version couchée (C pour Coated — papier brillant) et non couchée (U pour Uncoated — papier mat). La même référence peut paraître différente selon le support — c’est pour ça qu’il faut toujours spécifier C ou U.'],
+  ['p','Pantone publie chaque année la Couleur de l’Année — un exercice de prospective colorielle très suivi dans la mode et le design. En 2024 c’est le Peach Fuzz (13-1023). Ça influence les collections de mode, les intérieurs, les packagings.'],
+  ['p','Usage en mode : les Pantone sont utilisés pour spécifier les couleurs des tissus, des accessoires, des packagings. Hermès orange est le Pantone 021 C. Tiffany Blue est le Pantone 1837 (numéro qui correspond à l’année de fondation de la maison).'],
+  ['ex','Quand un styliste dit vouloir un rouge Valentino, il peut spécifier le Pantone exact. Le fabricant de tissu dans n’importe quel pays peut reproduire cette couleur précisément. Sans Pantone, le rouge du styliste et le rouge du fabricant pourraient être très différents.'],
+  ['dire','Montrer le site pantone.com et l’outil color finder. Montrer aussi comment on peut partir d’une couleur Pantone et obtenir ses équivalences en RVB et CMJN. C’est très utile pour les étudiants qui vont travailler sur des projets multimédias.']],
+ ['NCS — Natural Color System',
+  ['p','Le NCS (Natural Color System) est un système de référence colorielle développé en Suède dans les années 1960-1970. Contrairement au Pantone qui répertorie des couleurs spécifiques, le NCS est un système logique basé sur la perception naturelle de l’œil humain.'],
+  ['p','Le NCS part de six couleurs élémentaires perçues par l’humain : blanc, noir, rouge, jaune, vert, bleu. Toute couleur est décrite par sa ressemblance avec ces six couleurs élémentaires. Une couleur NCS est notée par exemple S 2030-Y90R, ce qui se lit : 20 % de noirceur, 30 % de chromaticité, teinte à 90 % rouge dans le quadrant jaune-rouge.'],
+  ['p','Le NCS est très utilisé en architecture, en design d’intérieur et en Scandinavie. Moins courant dans la mode que le Pantone, mais important à connaître comme vocabulaire professionnel.']],
+ ['RVB — Rouge Vert Bleu',
+  ['p','RVB (en anglais RGB — Red Green Blue) est le modèle de couleur pour les écrans. Chaque couleur est définie par trois valeurs entre 0 et 255 correspondant aux intensités de rouge, vert et bleu. Blanc = 255-255-255. Noir = 0-0-0. Rouge pur = 255-0-0.'],
+  ['p','C’est un modèle de synthèse additive : on part du noir (absence de lumière) et on ajoute de la lumière colorée. Plus on ajoute, plus ça éclaire — d’où le blanc quand on additionne toutes les couleurs au maximum.'],
+  ['p','Usage : tout ce qui est affiché sur écran — sites web, réseaux sociaux, présentations, vidéos. Les valeurs hexadécimales (#FF0000 pour le rouge pur) sont la notation abrégée du RVB utilisée en web design.'],
+  ['dal','Le RVB est le modèle que tu utilises au quotidien dans tes logiciels. Tu peux le décrire très concrètement. Insister sur le fait que les valeurs RVB sont objectives — même si deux personnes perçoivent la couleur différemment, les valeurs 255-0-128 sont les mêmes pour tout le monde.']],
+ ['CMJN — Cyan Magenta Jaune Noir',
+  ['p','CMJN (en anglais CMYK — Cyan Magenta Yellow Black) est le modèle de couleur pour l’impression. Quatre encres : cyan, magenta, jaune, et noir (le K vient de Key, l’encre clé). Chaque couleur est définie par des pourcentages de chacune des quatre encres.'],
+  ['p','C’est un modèle de synthèse soustractive : on part du blanc (le papier) et on soustrait de la lumière avec des encres. Plus on ajoute d’encre, plus ça assombrit — d’où le noir quand on additionne toutes les encres au maximum.'],
+  ['p','Différence fondamentale avec le RVB : les couleurs RVB sont plus vives que les couleurs CMJN. Quand on convertit un design écran (RVB) en fichier d’impression (CMJN), les couleurs perdent en éclat. Certains bleus vifs et certains oranges fluo n’existent pas en CMJN — ils sont hors gamme. C’est pour ça qu’on utilise le Pantone pour les couleurs institutionnelles importantes : le Pantone garantit la couleur indépendamment des limites du CMJN.'],
+  ['ex','Le rouge Instagram (#833AB4 en hexa) est une couleur RVB très vive. Si on imprime le logo Instagram en CMJN standard, il sera moins vif. Pour l’impression, Instagram utilise une spécification Pantone pour garantir la couleur exacte.'],
+  ['dire','Exercice concret : ouvrir Photoshop ou Illustrator, créer un rouge vif en RVB, puis convertir en CMJN. Les étudiants vont voir la couleur changer à l’écran — c’est une démonstration immédiate de la différence entre les deux modèles.']]
+]},
+{t:'La couleur comme langage', sub:'Psychologie, symbolique et culture', s:[
+ ['Les effets psychologiques de la couleur',
+  ['p','La couleur produit des effets physiologiques et psychologiques mesurables. Ce n’est pas de la superstition — c’est de la biologie et de la psychologie cognitive. Ces effets sont partiellement universels (liés à la physiologie humaine) et partiellement culturels (liés aux associations apprises).'],
+  ['d','Rouge','Stimule le système nerveux, accélère le rythme cardiaque, crée un sentiment d’urgence et d’énergie. Utilisé dans les soldes, les alertes, la restauration rapide (McDo, KFC). En mode : passion, sensualité, puissance (Valentino, Louboutin).'],
+  ['d','Bleu','Calme, inspire la confiance, évoque la stabilité et le sérieux. C’est la couleur la plus choisie par les entreprises qui veulent inspirer la confiance (banques, assurances, réseaux sociaux). En mode : masculinité traditionnelle, élégance sobre (Loro Piana, Brunello Cucinelli).'],
+  ['d','Vert','Nature, santé, éthique, équilibre. En forte croissance dans les marques de mode qui veulent communiquer un positionnement durable (Veja, Patagonia, Sézane). Aussi associé au luxe anglais (tweed, chasse, Barbour).'],
+  ['d','Jaune','Optimisme, énergie, attention. Difficile à utiliser en mode luxe car très populaire et peu sophistiqué dans la perception courante. Exception : Moschino, qui l’utilise avec ironie.'],
+  ['d','Noir','Élégance, sophistication, mystère, luxe, modernité. La couleur dominante de la mode parisienne. Chanel en a fait sa signature. Donne de l’autorité et du sérieux.'],
+  ['d','Blanc','Pureté, minimalisme, espace, modernité. Très utilisé dans le luxe contemporain (The Row, Bottega Veneta, Celine). Paradoxalement difficile à maintenir — le blanc salit, vieillit, exige une qualité de fabrication supérieure.'],
+  ['dire','Demander aux étudiants : imaginez une boutique de luxe en rouge vif. Pourquoi ça ne marche pas ? Et maintenant en noir mat avec des accents or ? Pourquoi ça marche mieux ? La réponse est dans la psychologie des couleurs et dans les associations culturelles du luxe.']],
+ ['La symbolique culturelle — variations géographiques',
+  ['p','Un point critique souvent sous-estimé : la même couleur peut signifier des choses radicalement différentes selon les cultures. Un professionnel de la mode internationale doit le savoir.'],
+  ['d','Le blanc','Pureté et mariage en Occident. Deuil et mort en Chine, au Japon, en Inde. Erreur fatale pour une campagne de mode asiatique qui utiliserait du blanc dans un contexte festif.'],
+  ['d','Le rouge','Danger et interdiction en Occident (feux de signalisation). Bonheur, chance et prospérité en Chine (les enveloppes rouges du Nouvel An). Couleur dominante dans les mariages chinois.'],
+  ['d','Le vert','En Occident, nature et écologie. Dans certains pays arabes, couleur sacrée de l’islam. Au Mexique, couleur nationale très symbolique.'],
+  ['d','Le noir','Deuil en Occident. En Égypte ancienne : vie et fertilité (la couleur du limon du Nil). En Afrique subsaharienne : maturité et masculinité dans certaines cultures.'],
+  ['d','Le violet','Royauté et luxe en Occident (il était la couleur la plus chère à produire jusqu’au XIXe siècle). Deuil dans certains pays catholiques d’Amérique latine.'],
+  ['ex','H&M a dû retirer une campagne en Asie parce qu’un modèle portait du blanc dans un contexte qui évoquait le deuil. Dolce & Gabbana a connu une crise majeure en Chine en 2018 — pas seulement pour les vidéos mais aussi pour des codes visuels mal compris du marché chinois.'],
+  ['dire','Demander aux étudiants d’imaginer qu’ils lancent une collection capsule pour le Nouvel An chinois. Quelle couleur principale ? Rouge évidemment. Maintenant une collection pour un mariage en Inde ? Pas de blanc. Ces exemples concrets ancrent immédiatement la symbolique culturelle dans leur pratique future.'],
+  ['dal','Ce chapitre est enseigné principalement par les mots, les associations culturelles et les exemples historiques. Aucun problème pour l’enseigner. Préparer des visuels forts pour chaque culture — robes de mariée blanches occidentales vs robes rouges chinoises vs robes colorées indiennes. Le contraste culturel est immédiatement lisible.']],
+ ['La couleur dans la mode — codes saisonniers et tendances',
+  ['p','La mode fonctionne par cycles colorés. Les tendances de couleurs sont annoncées par des bureaux de tendance (Pantone, WGSN, Peclers Paris) 18 à 24 mois avant leur apparition en boutique. Les marques ajustent leurs collections en conséquence.'],
+  ['p','Les codes saisonniers traditionnels : printemps-été (pastels, couleurs vives, blancs, mariniers), automne-hiver (tons profonds, terracotta, kaki, bordeaux, noir). Ces codes sont de moins en moins rigides avec la globalisation et le changement climatique.'],
+  ['p','Les palettes signature : certaines maisons ont des palettes chromatiques si reconnaissables qu’elles fonctionnent comme des logos. Hermès orange, Tiffany blue, Valentino pink, Bottega Veneta vert, Christian Louboutin semelle rouge. Ces couleurs sont protégées juridiquement dans leurs secteurs.'],
+  ['p','Pantone Couleur de l’Année : chaque année en décembre, Pantone annonce la couleur de l’année suivante. C’est devenu un phénomène culturel qui influence toute l’industrie de la mode, du design d’intérieur et de la communication.'],
+  ['ex','Le Peach Fuzz (Pantone 13-1023), couleur de l’année 2024, a immédiatement influencé les collections printemps-été 2024 de nombreuses maisons. Les marques qui avaient anticipé cette tendance ont pu surfer dessus. Celles qui n’avaient pas prévu de pêche dans leurs collections ont dû s’adapter ou passer à côté.'],
+  ['dire','Aller sur pantone.com en cours et montrer les couleurs de l’année des dernières années. Demander aux étudiants : est-ce qu’ils voient cette couleur autour d’eux ? Dans les vitrines, sur les réseaux sociaux, dans les collections qu’ils connaissent ? La tendance colorielle devient soudain très concrète.']]
+]},
+{t:'La couleur au service de la marque', sub:'Identité chromatique et palettes', s:[
+ ['La couleur comme outil d’identité visuelle',
+  ['p','La couleur est l’élément de l’identité visuelle le plus immédiatement reconnaissable. Avant le logo, avant la typographie, avant la mise en page — la couleur frappe l’œil et active la mémoire de marque. Des études montrent que la couleur augmente la reconnaissance d’une marque de 80 %.'],
+  ['p','Le territoire chromatique d’une marque c’est l’ensemble des couleurs qui lui appartiennent — la palette principale, les déclinaisons, les couleurs interdites. Il est codifié dans la charte graphique et doit être appliqué avec rigueur sur tous les supports.'],
+  ['p','Certaines marques ont déposé leur couleur à titre de marque (trademark) : Hermès orange, Tiffany blue, Louboutin rouge de semelle, UPS brun marron. Dans ces cas, aucun concurrent ne peut utiliser cette couleur dans le même secteur.'],
+  ['ex','Si vous voyez un sac avec exactement cet orange sans le logo Hermès, vous pensez quand même à Hermès. C’est la puissance d’un territoire chromatique bien établi sur le long terme.'],
+  ['dire','Exercice de reconnaissance : projeter des aplats de couleur sans logo ni marque. Hermès orange, Tiffany blue, Valentino pink, Bottega Veneta vert. Combien ils reconnaissent ? C’est toujours surprenant de voir combien de couleurs sont immédiatement associées à une marque spécifique.']],
+ ['Construire une palette colorielle cohérente',
+  ['p','Une palette colorielle de marque comprend généralement trois niveaux.'],
+  ['d','Couleur principale','Ou couleur signature : la couleur la plus reconnaissable de la marque, celle qui apparaît le plus souvent.'],
+  ['d','Couleur secondaire','Complémentaire ou analogue à la principale, utilisée pour la hiérarchie et la variété.'],
+  ['d','Accents ou neutres','Couleurs de fond, de texte, d’éléments secondaires.'],
+  ['p','Méthode de construction d’une palette.'],
+  ['d','Étape 1','Partir des valeurs de la marque et du positionnement. Une marque luxe sobre va vers des neutres sophistiqués. Une marque streetwear énergique va vers des couleurs saturées et contrastées.'],
+  ['d','Étape 2','Choisir la couleur principale en accord avec la psychologie et la symbolique vues précédemment.'],
+  ['d','Étape 3','Construire les couleurs secondaires en utilisant les règles d’harmonie (analogues, complémentaires, triadiques).'],
+  ['d','Étape 4','Ajouter les neutres — blanc, noir, gris, beige — qui permettent de faire respirer la palette.'],
+  ['p','Critères d’une bonne palette : cohérente avec les valeurs de la marque, différenciante dans son marché (pas les mêmes couleurs que le concurrent direct), utilisable sur tous les supports (écran et impression), intemporelle (pas trop liée à une tendance éphémère).'],
+  ['ex','Palette Sézane : blancs, écrus, terracotta, verts kaki. Analogues et désaturées. Ça dit quelque chose immédiatement : proximité, naturalité, authenticité française. Aucun bleu électrique, aucun rose fluo. La palette est cohérente avec le positionnement mode française authentique à prix accessibles.'],
+  ['dire','Exercice : donner aux étudiants un positionnement de marque fictif et leur demander de construire une palette de 5 couleurs. Ils doivent justifier chaque choix. Ce n’est pas un exercice esthétique — c’est un exercice stratégique.'],
+  ['dal','Pour cet exercice, demander aux étudiants de spécifier leurs couleurs en Pantone ou en codes hexa. Ça te permet d’évaluer leurs palettes objectivement même si tu ne perçois pas toutes les distinctions de teinte. Tu peux aussi évaluer les contrastes de valeur et les harmonies logiques (complémentaires, analogues) indépendamment de la teinte.']],
+ ['Justifier ses choix colorés',
+  ['p','Une palette colorielle professionnelle s’accompagne toujours d’une argumentation. Pourquoi ce rouge plutôt qu’un autre ? Pourquoi ce vert avec ce beige ? La justification s’appuie sur trois registres.'],
+  ['d','Stratégique','Cette couleur est cohérente avec notre positionnement (luxe, accessibilité, durabilité, énergie). Elle se différencie de nos concurrents. Elle parle à notre cible.'],
+  ['d','Symbolique et psychologique','Cette couleur évoque les valeurs de la marque. Le vert dit la naturalité et l’éthique. Le noir dit l’élégance et la sophistication.'],
+  ['d','Esthétique','Cette association de couleurs crée l’harmonie voulue (analogue, complémentaire). Elle respecte les proportions. Elle crée le bon contraste de valeur pour la lisibilité.'],
+  ['dire','Demander à un étudiant de défendre sa palette devant le groupe. S’il dit juste « j’aime ces couleurs », le pousser : pourquoi ? Qu’est-ce que ça dit de la marque ? Est-ce que le concurrent direct utilise les mêmes couleurs ? Cette argumentation c’est exactement ce qu’on attend d’eux dans leur futur métier.']]
+]},
+{t:'Les codes visuels et la composition', sub:'Lire et analyser un visuel de mode', s:[
+ ['Les principes de composition visuelle',
+  ['p','La composition visuelle c’est l’organisation des éléments dans l’espace de l’image. Elle détermine où l’œil va, dans quel ordre, et ce qu’il retient. Une bonne composition guide le regard de façon naturelle et inconsciente.'],
+  ['d','L’équilibre','Visuel ou pondéré. Équilibre symétrique (éléments identiques de chaque côté de l’axe central) ou asymétrique (éléments différents mais de poids visuel équivalent). En mode luxe, l’asymétrie est souvent préférée car elle est plus dynamique et sophistiquée.'],
+  ['d','Le rythme','Répétition et variation d’éléments visuels qui crée un mouvement dans l’image. En mode, le rythme vient souvent de la répétition de couleurs, de formes, de textures.'],
+  ['d','La hiérarchie','Ce qui est important doit être immédiatement visible. Ça se construit par la taille (grand = important), la position (centre ou premier plan = important), le contraste (ce qui contraste avec le fond ressort).'],
+  ['d','La proportion','Les rapports de taille entre les éléments. La proportion dorée (1,618) est une proportion naturelle qui produit une harmonie visuellement agréable. Elle est présente dans la nature et utilisée en architecture, en peinture et en design depuis l’Antiquité.']],
+ ['Les grandes esthétiques visuelles en mode contemporaine',
+  ['d','Le minimalisme','Peu d’éléments, beaucoup d’espace vide, palette neutre et restreinte, typographie sobre. Celine, The Row, Bottega Veneta, Loro Piana. Dit : sophistication, assurance, qualité qui se suffit à elle-même. Pas besoin de crier.'],
+  ['d','Le maximalisme','Accumulation d’éléments, richesse visuelle, superpositions, couleurs multiples. Gucci sous Alessandro Michele, Versace, Moschino. Dit : joie, irrévérence, liberté, abondance.'],
+  ['d','Le streetwear','Influence sportswear et culture urbaine, graphisme fort, typographies impactantes, couleurs saturées ou au contraire très neutres (beige, gris). Supreme, Off-White, Palace. Dit : authenticité de rue, appartenance communautaire, culture.'],
+  ['d','La couture','Précision, qualité, héritage, détail. Visuels souvent très propres, fond uni, éclairage studio, modèle en position classique. Chanel, Dior haute couture, Balenciaga Demna pour le paradoxe. Dit : savoir-faire, excellence, tradition revisitée.'],
+  ['ex','Demander aux étudiants : regardez le feed Instagram de Celine et celui de Gucci. Listez tout ce qui est différent. Couleurs, typographie, composition, type de photo, modèles, décors. Ce sont deux grandes marques de luxe mais leurs codes visuels sont aux antipodes. C’est un exercice de lecture visuelle très efficace.']],
+ ['Analyser un visuel de mode — méthode',
+  ['p','Une analyse visuelle structurée d’une campagne ou d’un visuel de mode suit une méthode. Ce n’est pas une impression subjective — c’est un exercice de décodage professionnel.'],
+  ['d','Niveau 1 — Description objective','Qu’est-ce qu’on voit ? Nombre de personnages, cadrage, décor, lumière, couleurs dominantes. Ne pas interpréter, juste décrire.'],
+  ['d','Niveau 2 — Analyse compositionnelle','Comment c’est organisé ? Équilibre, rythme, hiérarchie. Où va l’œil en premier ? Pourquoi ? Quel est le point d’entrée de l’image ?'],
+  ['d','Niveau 3 — Analyse colorielle','Quelle palette ? Quelle harmonie ? Quelle température ? Quel contraste dominant ? Est-ce cohérent avec l’identité de la marque ?'],
+  ['d','Niveau 4 — Interprétation stratégique','Qu’est-ce que ça dit de la marque ? Quel positionnement ça exprime ? À quelle cible ça parle ? Est-ce cohérent avec ce qu’on sait de la marque ?'],
+  ['dire','Donner aux étudiants une méthodologie en quatre niveaux sous forme de fiche. En cours, projeter une campagne et les faire travailler en binôme sur les quatre niveaux. Puis partage et discussion. C’est l’exercice final du module — ils doivent pouvoir le faire seuls.']],
+ ['Références essentielles',
+  ['d','Johannes Itten','L’Art de la couleur (1961). La référence académique fondamentale. Les sept contrastes. Incontournable.'],
+  ['d','Josef Albers','Interaction of Color (1963). Comment les couleurs se modifient mutuellement. Plus avancé mais fascinant.'],
+  ['d','Michel Pastoureau','Le petit livre des couleurs (avec Dominique Simonnet). La symbolique historique et culturelle des couleurs. Accessible et passionnant.'],
+  ['d','Pantone.com','Les nuanciers en ligne, la couleur de l’année, les outils de conversion.'],
+  ['d','Adobe Color','color.adobe.com — outil gratuit pour explorer les harmonies chromatiques. Très utile pour les exercices pratiques.'],
+  ['d','WGSN','Le bureau de tendance de référence pour la mode. Accès payant mais les rapports publics sont disponibles en ligne.']]
+]}
+];
+
+class Component extends DCLogic {
+  state = { show: { ex: true, dire: true, dal: true, conf: true, att: true }, done: {} };
+  componentDidMount() {
+    try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) this.setState(s); } catch (e) {}
+  }
+  save = () => { try { localStorage.setItem(KEY, JSON.stringify({ show: this.state.show, done: this.state.done })); } catch (e) {} };
+  renderVals() {
+    const { show, done } = this.state;
+    const chapters = DATA.map((c, i) => ({
+      t: c.t, sub: c.sub, id: 'ch' + (i + 1), href: '#ch' + (i + 1), num: String(i + 1).padStart(2, '0'),
+      done: !!done[i], notDone: !done[i],
+      toggle: () => this.setState(s => ({ done: { ...s.done, [i]: !s.done[i] } }), this.save),
+      sections: c.s.map(sec => ({
+        h: sec[0],
+        blocks: sec.slice(1).map(([t, a, b]) => ({
+          text: t === 'd' ? b : a, term: t === 'd' ? a : (b || 'Attention'),
+          isP: t === 'p', isD: t === 'd',
+          isEx: t === 'ex' && show.ex, isDire: t === 'dire' && show.dire, isDal: t === 'dal' && show.dal,
+          isConf: t === 'conf' && show.conf, isAtt: t === 'att' && show.att
+        }))
+      }))
+    }));
+    const n = DATA.filter((_, i) => done[i]).length;
+    const filters = Object.keys(TYPES).map(k => ({
+      glyph: TYPES[k][0], label: TYPES[k][1], on: show[k], off: !show[k],
+      toggle: () => this.setState(s => ({ show: { ...s.show, [k]: !s.show[k] } }), this.save)
+    }));
+    return { chapters, filters, doneLabel: n + ' / ' + DATA.length, donePct: Math.round(n / DATA.length * 100) + '%' };
+  }
+}
+</script>
+</body>
+</html>

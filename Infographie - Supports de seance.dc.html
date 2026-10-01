@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./doc-page.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;font-family:'Instrument Sans',system-ui,sans-serif;color:#17131f;-webkit-font-smoothing:antialiased}
+a{color:#17131f}a:hover{color:#00b3b3}
+doc-page:not(:defined){visibility:hidden}
+</style>
+</helmet>
+<doc-page size="a4">
+  <sc-for list="{{ pages }}" as="pg" hint-placeholder-count="2">
+    <section class="page" data-screen-label="{{ pg.label }}" style="display:flex;flex-direction:column;gap:16px;padding:40px 50px 26px;box-sizing:border-box;background:#fff;font-family:'Instrument Sans',system-ui,sans-serif;color:#17131f">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding-bottom:12px;border-bottom:2px solid #17131f">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">{{ mod.name }} · {{ mod.classe }}</div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <sc-if value="{{ pg.hasS }}" hint-placeholder-val="{{ true }}"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;padding:3px 10px;border:2px solid #17131f;border-radius:8px">{{ pg.s }}</span></sc-if>
+          <span style="font-size:12px;font-weight:700;padding:5px 11px;border:2px solid #17131f;border-radius:99px;background:#00b3b3;color:#17131f">{{ pg.type }}</span>
+        </div>
+      </div>
+
+      <div style="flex:1 1 auto;min-height:0;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr);align-content:start;gap:13px">
+        <sc-for list="{{ pg.blocks }}" as="b" hint-placeholder-count="5">
+          <sc-if value="{{ b.isH1 }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px;padding-bottom:4px">
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:31px;line-height:1.05;text-wrap:balance">{{ b.a }}</div>
+              <sc-if value="{{ b.hasB }}" hint-placeholder-val="{{ true }}"><div style="font-size:16px;line-height:1.45;color:#2e2938;text-wrap:pretty">{{ b.b }}</div></sc-if>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:8px;margin-top:4px;font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase"><span style="width:11px;height:11px;background:#00b3b3;border:2px solid #17131f;border-radius:3px;flex:none"></span>{{ b.a }}</div>
+          </sc-if>
+          <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:15px;line-height:1.5;text-wrap:pretty">{{ b.a }}</div>
+          </sc-if>
+          <sc-if value="{{ b.isList }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3">
+                <div style="display:flex;gap:10px;font-size:15px;line-height:1.45"><span style="flex:none;width:7px;height:7px;margin-top:8px;border-radius:50%;background:#17131f"></span><span style="text-wrap:pretty">{{ it.a }}</span></div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isSteps }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3">
+                <div style="display:flex;gap:12px;align-items:flex-start">
+                  <span style="flex:none;width:26px;height:26px;border:2px solid #17131f;border-radius:7px;background:#00b3b3;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px">{{ it.n }}</span>
+                  <div style="font-size:15px;line-height:1.45;text-wrap:pretty;padding-top:2px"><b>{{ it.a }}</b> {{ it.b }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isAnnot }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="4">
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                  <span style="flex:none;width:24px;height:24px;border:2px solid #17131f;border-radius:50%;background:#00b3b3;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">{{ it.l }}</span>
+                  <div style="display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.42"><b style="font-size:14.5px">{{ it.a }}</b><span style="text-wrap:pretty">{{ it.b }}</span></div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isKv }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:minmax(130px,30%) minmax(0,1fr);gap:14px;padding:6px 0;border-bottom:1px solid #e3ddf0;font-size:14.5px;line-height:1.42">
+                  <b>{{ it.a }}</b>
+                  <sc-if value="{{ it.hasB }}" hint-placeholder-val="{{ true }}"><span style="text-wrap:pretty">{{ it.b }}</span></sc-if>
+                  <sc-if value="{{ it.blank }}" hint-placeholder-val="{{ false }}"><span style="border-bottom:1.5px dotted #9a92b3;height:18px"></span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isMeta }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:2px solid #17131f;border-radius:10px">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="6">
+                <div style="display:flex;flex-direction:column;gap:3px;padding:8px 12px;border-right:1px solid #e3ddf0;border-bottom:1px solid #e3ddf0">
+                  <span style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5d5670">{{ it.a }}</span>
+                  <span style="font-size:14px;line-height:1.35;font-weight:600">{{ it.b }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isBar }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;border:2px solid #17131f;border-radius:10px">
+              <div style="padding:7px 12px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#d4f3f3;border-bottom:2px solid #17131f;border-radius:8px 8px 0 0">{{ b.a }}</div>
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="5">
+                <div style="display:flex;justify-content:space-between;gap:12px;padding:5px 12px;border-bottom:1px solid #e3ddf0;font-size:14px;line-height:1.38"><span style="text-wrap:pretty">{{ it.a }}</span><b style="flex:none;font-variant-numeric:tabular-nums">/{{ it.b }}</b></div>
+              </sc-for>
+              <div style="display:flex;justify-content:space-between;padding:7px 12px;background:#17131f;color:#fff;font-size:14px;font-weight:700;border-radius:0 0 7px 7px"><span>Total</span><span>/{{ b.total }}</span></div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isCheck }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;border:2px solid #17131f;border-radius:10px">
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) 62px 62px 62px;gap:8px;padding:6px 12px;background:#d4f3f3;border-bottom:2px solid #17131f;border-radius:8px 8px 0 0;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;align-items:center">
+                <span>{{ b.a }}</span><span style="text-align:center">Acquis</span><span style="text-align:center">À revoir</span><span style="text-align:center">Non</span>
+              </div>
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:minmax(0,1fr) 62px 62px 62px;gap:8px;padding:5px 12px;border-bottom:1px solid #e3ddf0;font-size:14px;line-height:1.38;align-items:center">
+                  <span style="text-wrap:pretty">{{ it.a }}</span>
+                  <span style="justify-self:center;width:15px;height:15px;border:1.5px solid #17131f;border-radius:4px"></span>
+                  <span style="justify-self:center;width:15px;height:15px;border:1.5px solid #17131f;border-radius:4px"></span>
+                  <span style="justify-self:center;width:15px;height:15px;border:1.5px solid #17131f;border-radius:4px"></span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isNote }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:4px;padding:11px 14px;border-radius:10px;background:#d4f3f3;border:2px solid #17131f">
+              <span style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">{{ b.b }}</span>
+              <span style="font-size:15px;line-height:1.45;font-weight:500;text-wrap:pretty">{{ b.a }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isProf }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:4px;padding:10px 14px;border-radius:10px;border:2px dashed #17131f">
+              <span style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Exemplaire enseignant · variante B et rattrapage</span>
+              <span style="font-size:14px;line-height:1.45;text-wrap:pretty">{{ b.a }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isImg }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="height:{{ b.h }};position:relative"><image-slot id="{{ b.id }}" shape="rounded" radius="10" placeholder="{{ b.b }}"></image-slot></div>
+              <span style="font-size:12.5px;color:#5d5670">{{ b.b }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isFill }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <span style="font-size:14px;font-weight:700">{{ b.a }}</span>
+              <sc-for list="{{ b.lines }}" as="ln" hint-placeholder-count="3"><div style="height:26px;border-bottom:1.5px dotted #9a92b3"></div></sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isTable }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;border:2px solid #17131f;border-radius:10px">
+              <div style="display:grid;grid-template-columns:{{ b.cols }};gap:10px;padding:6px 12px;background:#d4f3f3;border-bottom:2px solid #17131f;border-radius:8px 8px 0 0;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">
+                <sc-for list="{{ b.head }}" as="hd" hint-placeholder-count="4"><span>{{ hd.a }}</span></sc-for>
+              </div>
+              <sc-for list="{{ b.rows }}" as="rw" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:{{ b.cols }};gap:10px;padding:5px 12px;border-bottom:1px solid #e3ddf0;font-size:13.5px;line-height:1.38;min-height:18px">
+                  <sc-for list="{{ rw.cells }}" as="c" hint-placeholder-count="4"><span style="text-wrap:pretty">{{ c.a }}</span></sc-for>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;gap:16px;padding-top:9px;border-top:1px solid #17131f;font-size:10.5px;color:#2e2938">
+        <span>{{ mod.name }} · {{ mod.classe }} · {{ intervenant }}</span>
+        <span>Support v{{ version }} du {{ date }} · à déposer sur Moodle · p. {{ pg.num }}/{{ total }}</span>
+      </div>
+    </section>
+  </sc-for>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;exemplaire&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Enseignant&quot;,&quot;Étudiant&quot;],&quot;default&quot;:&quot;Enseignant&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;seance&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Tout&quot;,&quot;Sommaire&quot;,&quot;S1&quot;,&quot;S2&quot;,&quot;S3&quot;,&quot;S4&quot;,&quot;S5&quot;,&quot;S6&quot;,&quot;S7&quot;,&quot;S8&quot;],&quot;default&quot;:&quot;Tout&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;version&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;1.0&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;date&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;01/10/2026&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;intervenant&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Cliclac Studio&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const TYPES = { index: 'Sommaire du module', methode: 'Fiche méthode', exemple: 'Exemple commenté', consignes: 'Consignes et barème', modele: 'Document modèle', autoeval: 'Auto-évaluation' };
+const DATE_DEVOIR = '___ / ___ / ______';
+/*DATA*/
+const MOD = {
+  name: 'Infographie', classe: 'B3 ESDAC', volume: '6 séances · 14 h', periode: 'Semestre 2',
+  fil: 'Chaque étudiant met en page un de ses projets de design d’espace : un dossier de présentation A4 paysage de 16 pages et une planche de concours A1 portrait. Un rendu à chaque séance.',
+  cc: [['Rendus S1 à S5', '40 %'], ['Dossier final', '30 %'], ['Planche A1', '15 %'], ['Soutenance', '15 %'], ['Quiz de fin de séance', 'Note complémentaire, à valider avec la coordination']],
+  extra: ''
+};
+const SEANCES = ['Fondamentaux de la mise en page', 'Typographie et lisibilité', 'Image et composition éditoriale', 'Identité graphique et planche de concours', 'Chaîne de production', 'Présentation et soutenance'];
+const DOCS = [
+ { s: 1, type: 'methode', when: 'Projetée pendant « Formats et marges » et « Grilles », puis distribuée', pages: [[
+  ['h1', 'Format, marges, grille', 'Le blanc n’est pas un reste. Des marges généreuses coûtent de la surface mais donnent de la tenue au document.'],
+  ['kv', [['ISO 216', 'Rapport 1:√2, chaque format est la moitié du précédent. A0 = 1 m².'], ['A4 · A3', '210 × 297 · 297 × 420 mm.'], ['A2 · A1', '420 × 594 · 594 × 841 mm.'], ['Marges', 'Petit fond (reliure), blanc de tête, grand fond, blanc de pied.'], ['Canon classique', 'Rapport 2:3:4:6, symétrie autour de la reliure.'], ['Translation', 'La page de droite reprend la gauche, sans symétrie.']]],
+  ['h', 'Calculer une grille'],
+  ['p', 'A4 paysage : 2 marges de 13,5 mm + 6 colonnes de 40 mm + 5 gouttières de 6 mm = 297 mm. Un texte occupe 2, 3 ou 6 colonnes ; une image, 4.'],
+  ['note', 'Catalogue Archinova (Gautier p. 112) : 245 × 340 mm ouvert, 7 colonnes de 28 mm, gouttières de 3,5 mm, marges de 14 mm. Vérifiez le calcul : 7 × 28 + 6 × 3,5 + 2 × 14 = 245. Le nombre impair crée une asymétrie dynamique.', 'Cas'],
+  ['h', 'Hiérarchie'],
+  ['list', ['Trois niveaux de lecture : on regarde, on parcourt, on lit.', 'Lecture en Z ou en S à partir du point focal.', 'Plus grand, plus contrasté ou plus isolé : lu en premier.']],
+  ['bar', 'Rendu S1', [['Relevé de grille (marges, colonnes, gouttières, alignements)', 7], ['Gabarit InDesign : vis-à-vis, marges, colonnes, ligne de base', 7], ['Gabarit parent avec folio et titre courant', 3], ['Trois lignes justifiant format et grille', 3]]]
+ ]] },
+ { s: 2, type: 'consignes', when: 'Distribué au lancement de l’exercice et de l’application', pages: [[
+  ['h1', 'Feuille de styles et double-page test', 'Deux familles au maximum. La hiérarchie se construit par le corps, la graisse et l’espace.'],
+  ['meta', [['Date du devoir', '___ / ___ / ______'], ['Durée', '15 min d’exercice + application'], ['Modalité', 'Individuel, sur poste'], ['IA', 'Textes du projet rédigés par vous'], ['Rendu', 'NOM_Prenom_S2_Styles.indd + PDF'], ['Dépôt', 'Moodle, avant la séance 3']]],
+  ['steps', [['Exercice.', 'Composer le même texte en 30, 60 et 90 signes par ligne. Imprimer, lire, comparer.'], ['Styles de paragraphe.', 'Titre, sous-titre, chapô, texte courant, légende, folio, titre courant.'], ['Styles de caractère.', 'Italique, gras, couleur.'], ['Ligne de base.', 'Tous les textes alignés sur la grille.'], ['Double-page test.', 'Contenu réel du projet.']]],
+  ['note', 'Le texte courant le plus confortable se situe entre 55 et 65 signes par ligne.', 'À retenir'],
+  ['bar', 'Barème', [['Exercice 30 / 60 / 90 signes et conclusion écrite', 4], ['Styles de paragraphe complets et basés les uns sur les autres', 6], ['Styles de caractère', 2], ['Alignement sur la ligne de base', 3], ['Double-page test lisible, deux familles au maximum', 5]]],
+  ['prof', 'Variante B : exercice sur 40, 65 et 100 signes. Rattrapage : feuille de styles sur un texte fourni, 1 h sur table.']
+ ]] },
+ { s: 3, type: 'exemple', when: 'Analysé à l’oral pendant « Composition éditoriale »', pages: [[
+  ['h1', 'Lire une double-page de dossier', 'Une page de gauche dominée par l’image, une page de droite qui explique : la lecture glisse en Z d’une page à l’autre.'],
+  ['img', 'in-s3-double', 'Double-page type à projeter et à annoter', '250px'],
+  ['annot', [['L’image principale', '4 colonnes, deux tiers de la hauteur : l’ambiance d’abord.'], ['Texte court dessous', 'Il ancre l’image sans la concurrencer.'], ['Texte sur 2 colonnes', 'À droite, la lecture se pose.'], ['Deux vignettes alignées', 'Sur la même ligne de force que l’image de gauche.'], ['Lecture en Z', 'De l’image vers le texte, puis vers les détails.'], ['Même grille, mêmes styles', 'La variété vient des rapports, pas des règles.']]],
+  ['note', 'Une image à 72 ppi agrandie ne gagne aucun détail. Le problème se règle à la source, pas dans InDesign.', 'À retenir'],
+  ['bar', 'Exercice imposé et rendu S3', [['Trois doubles-pages : égalité, dominant/dominé, narration', 9], ['Même grille, mêmes styles', 3], ['Chemin de fer du dossier', 3], ['Quatre doubles-pages du dossier exportées', 5]]]
+ ]] },
+ { s: 4, type: 'modele', when: 'Distribué pendant « La planche de concours », sert de cible pour la planche', pages: [[
+  ['h1', 'La planche de concours A1', 'Format 594 × 841 mm, portrait. Elle se lit en trois temps : de loin, à un mètre, de près.'],
+  ['img', 'in-s4-planche', 'Planche lauréate (Europan) à annoter : trois niveaux de lecture et grille', '230px'],
+  ['kv', [['Grille', 'Modulaire, par exemple 6 × 8 modules.'], ['Titre et identification', '10 à 15 % de la surface.'], ['Image principale', '35 à 40 %.'], ['Documents techniques', '35 % : plans, coupes.'], ['Textes et légendes', '10 à 15 %.']]],
+  ['steps', [['De loin :', 'le titre et l’image principale.'], ['À un mètre :', 'les plans et les coupes.'], ['De près :', 'les textes et les légendes.']]],
+  ['note', 'Le titre n’a pas besoin d’être énorme s’il est isolé.', 'À retenir'],
+  ['bar', 'Rendu S4', [['Mini-charte A4 : nom, 2 couleurs et valeurs, typographie et 3 styles, grille, 3 pictogrammes', 10], ['Couverture du dossier', 4], ['Esquisse de la planche A1 cohérente avec le dossier', 6]]]
+ ]] },
+ { s: 5, type: 'autoeval', when: 'Checklist remplie pendant « Pièges courants », avant les exports', pages: [[
+  ['h1', 'Chaîne de production : la checklist', 'Ce qui ne se voit pas à l’écran se voit à l’impression : fond perdu manquant, image RVB, trait trop fin, texte trop près de la coupe.'],
+  ['check', 'Fichier', ['Contrôle en amont sans erreur (Fenêtre › Sortie › Contrôle en amont)', 'Images à 300 ppi effectifs, converties en CMJN', 'Texte noir en 100 % K seul, aplats en noir enrichi', 'Taux d’encrage autour de 300 à 330 % maximum', 'Polices disponibles et incorporées']],
+  ['check', 'Mise en page', ['Fonds perdus 3 mm et repères de coupe', 'Textes à 5 mm minimum de la coupe', 'Marges suffisantes, alignements vérifiés', 'Deux familles de caractères au maximum', 'Nombre de pages multiple de 4 pour une piqûre à cheval']],
+  ['check', 'Sorties', ['PDF/X-4 impression, profil Coated Fogra39', 'PDF écran allégé', 'Assemblage (Fichier › Assemblage)', 'Impression test d’une double-page à 50 % puis à 100 %']],
+  ['bar', 'Rendu S5', [['Fichier piégé entièrement corrigé', 6], ['PDF/X-4 conforme', 5], ['PDF écran', 3], ['Assemblage complet', 3], ['Checklist remplie', 3]]],
+  ['prof', 'Variante B : fichier piégé n° 2 (autres erreurs). Rattrapage : fichier piégé à corriger et exporter, 30 min sur table.']
+ ]] },
+ { s: 6, type: 'autoeval', when: 'Grille de soutenance distribuée au début de « Préparer son argumentation »', pages: [[
+  ['h1', 'Préparer la soutenance', 'Argumenter, ce n’est pas décrire. « J’ai mis une grande image à gauche » ne dit rien ; « l’image domine parce que l’ambiance est le cœur du projet » est un argument.'],
+  ['steps', [['Le projet en une phrase.', ''], ['Le parti pris graphique :', 'format, grille, typographie, images.'], ['Un choix difficile', 'et pourquoi.'], ['Ce que je referais autrement.', '']]],
+  ['fill', 'Mon projet en une phrase :', 2],
+  ['fill', 'Mon choix le plus difficile, et pourquoi :', 3],
+  ['bar', 'Dossier final · 30 %', [['Grille tenue sur les 16 pages', 6], ['Hiérarchie claire', 5], ['Rapport texte/image maîtrisé', 5], ['Cohérence d’ensemble', 4]]],
+  ['bar', 'Planche A1 · 15 % et soutenance · 15 %', [['Planche : lisibilité à distance, trois niveaux, cohérence avec le dossier', 10], ['Soutenance : argumenter plutôt que décrire', 10]]]
+ ]] }
+];
+/*ENDDATA*/
+
+class Component extends DCLogic {
+  block(raw, k) {
+    const [t, a, b, c] = raw, o = { k };
+    const F = { h1: 'isH1', h: 'isH', p: 'isP', list: 'isList', steps: 'isSteps', annot: 'isAnnot', kv: 'isKv', meta: 'isMeta', bar: 'isBar', check: 'isCheck', note: 'isNote', prof: 'isProf', img: 'isImg', fill: 'isFill', table: 'isTable' };
+    o[F[t]] = true;
+    if (t === 'h1') Object.assign(o, { a, b, hasB: !!b });
+    if (t === 'h' || t === 'p' || t === 'prof') o.a = a;
+    if (t === 'note') Object.assign(o, { a, b: b || 'À retenir' });
+    if (t === 'list') o.items = a.map(x => ({ a: x }));
+    if (t === 'steps') o.items = a.map((x, i) => ({ n: i + 1, a: x[0], b: x[1] }));
+    if (t === 'annot') o.items = a.map((x, i) => ({ l: 'abcdefghij'[i], a: x[0], b: x[1] }));
+    if (t === 'kv' || t === 'meta') o.items = a.map(x => ({ a: x[0], b: x[1], hasB: !!x[1], blank: !x[1] }));
+    if (t === 'bar') Object.assign(o, { a, items: b.map(x => ({ a: x[0], b: x[1] })), total: b.reduce((s, x) => s + x[1], 0) });
+    if (t === 'check') Object.assign(o, { a, items: b.map(x => ({ a: x })) });
+    if (t === 'img') Object.assign(o, { id: a, b, h: c || '240px' });
+    if (t === 'fill') Object.assign(o, { a, lines: [...Array(b || 3).keys()].map(i => ({ i })) });
+    if (t === 'table') Object.assign(o, { head: a.map(x => ({ a: x })), rows: b.map(r => ({ cells: r.map(x => ({ a: x })) })), cols: c || 'repeat(' + a.length + ',minmax(0,1fr))' });
+    return o;
+  }
+  indexPage() {
+    return [
+      ['h1', MOD.name + ' · ' + MOD.classe, MOD.volume + ' · ' + MOD.periode + '. ' + MOD.fil],
+      ['h', 'Un support par séance'],
+      ['table', ['Séance', 'Document', 'Quand l’utiliser'], DOCS.map(d => ['S' + d.s + ' · ' + SEANCES[d.s - 1], TYPES[d.type], d.when]), 'minmax(0,1.1fr) minmax(0,.7fr) minmax(0,1.2fr)'],
+      ['h', 'Contrôle continu'],
+      ['kv', MOD.cc],
+      ['h', 'Règles ACE appliquées à ces supports'],
+      ['list', ['Supports datés et versionnés en pied de page (Qualiopi), déposés sur Moodle après la séance.', 'Chaque sujet indique barème, date, durée, modalité et règle sur l’IA. La démarche est évaluée autant que le résultat.', 'Exemplaire enseignant : variante B pour la seconde classe et sujet de rattrapage. Notes sur Miracle sous 10 jours.']],
+      ...(MOD.extra ? [['note', MOD.extra, 'Supports existants']] : [])
+    ];
+  }
+  componentDidMount() { this.fit(); if (document.fonts) document.fonts.ready.then(() => this.fit()); setTimeout(() => this.fit(), 800); }
+  componentDidUpdate() { this.fit(); }
+  fit() {
+    requestAnimationFrame(() => document.querySelectorAll('section.page').forEach(s => {
+      const c = s.children[1]; if (!c) return; c.style.zoom = 1;
+      const H = Math.round(s.getBoundingClientRect().width * 297 / 210), over = Math.max(s.scrollHeight - H, c.scrollHeight - c.clientHeight);
+      const ch = c.getBoundingClientRect().height;
+      const z = over > 2 ? Math.max(0.78, (ch - over - 4) / ch) : 1; c.style.zoom = z; s.dataset.fit = z.toFixed(2);
+    }));
+  }
+  renderVals() {
+    const p = this.props, ens = (p.exemplaire ?? 'Enseignant') !== 'Étudiant', only = p.seance ?? 'Tout';
+    const docs = only === 'Tout' || only === 'Sommaire' ? DOCS : DOCS.filter(d => 'S' + d.s === only);
+    const list = [];
+    if (only === 'Tout' || only === 'Sommaire' || !docs.length) list.push({ type: TYPES.index, s: '', blocks: this.indexPage() });
+    if (only !== 'Sommaire') (docs.length ? docs : DOCS).forEach(d => d.pages.forEach(pg => list.push({ type: TYPES[d.type], s: 'S' + d.s, blocks: pg })));
+    const pages = list.map((pg, i) => ({ num: i + 1, type: pg.type, s: pg.s, hasS: !!pg.s, label: (pg.s ? pg.s + ' · ' : '') + pg.type,
+      blocks: pg.blocks.filter(b => ens || b[0] !== 'prof').map((b, k) => this.block(b, k)) }));
+    return { pages, total: pages.length, mod: MOD, version: p.version ?? '1.0', date: p.date ?? '01/10/2026', intervenant: p.intervenant ?? 'Cliclac Studio' };
+  }
+}
+</script>
+</body>
+</html>

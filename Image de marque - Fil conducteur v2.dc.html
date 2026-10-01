@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1d1c1a"/><text x="50" y="62" text-anchor="middle" font-family="Georgia,serif" font-size="34" fill="#f5f3ee">IM</text></svg></template>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#f5f3ee;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:oklch(0.45 0.13 250)}
+@media (max-width:760px){[data-mbar]{display:flex !important}[data-aside]{display:none !important}[data-wrap]{padding:24px 18px 80px !important}[data-ref]{padding:20px 18px !important}[data-chapter]{padding-top:64px !important}[id]{scroll-margin-top:72px !important}[data-inp]{font-size:16px !important}[data-mbar]::-webkit-scrollbar{display:none}}
+@media print{[data-noprint]{display:none!important}
+  [data-noprint]{display:none !important}
+  body{background:#fff}
+  [data-chapter]{break-before:page}
+  [data-avoid]{break-inside:avoid}
+  [data-main]{max-width:none !important}
+}
+</style>
+<script src="./cloud.js"></script>
+</helmet>
+<nav data-mbar="1" data-noprint="1" style="display:none;position:sticky;top:0;z-index:10;gap:8px;align-items:center;overflow-x:auto;white-space:nowrap;padding:10px 16px;background:rgba(245,243,238,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid #d9d4c7;scrollbar-width:none">
+  <a href="Sommaire.dc.html" title="Retour au sommaire" style="flex:none;display:flex;align-items:center;min-height:40px;padding:0 14px;background:#1d1c1a;color:#f3f0e8;border-radius:999px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase">←</a>
+  <a href="#plan" style="flex:none;display:flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border:1px solid #bfb8a8;border-radius:999px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#1d1c1a">Plan</a>
+  <sc-for list="{{ seances }}" as="s" hint-placeholder-count="4"><a href="{{ s.href }}" style="flex:none;display:flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border:1px solid #bfb8a8;border-radius:999px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#1d1c1a"><span>S{{ s.n }}</span><span style="color:#6b675e">{{ s.prepLabel }}</span></a></sc-for>
+  <a href="#recap" style="flex:none;display:flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border:1px solid #bfb8a8;border-radius:999px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#1d1c1a">Récap</a>
+</nav>
+<div data-wrap="1" style="display:flex;flex-wrap:wrap;gap:40px 48px;max-width:1280px;margin:0 auto;padding:48px 32px 120px;box-sizing:border-box">
+
+  <aside data-noprint="1" data-aside="1" style="flex:0 0 232px;position:sticky;top:32px;align-self:flex-start;display:flex;flex-direction:column;gap:28px;font-size:13.5px">
+    <a data-noprint="1" href="Sommaire.dc.html" title="Retour au sommaire" style="align-self:flex-start;display:flex;align-items:center;gap:6px;padding:7px 12px;background:#1d1c1a;color:#f3f0e8;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none" style-hover="background:#4a4740;color:#f3f0e8">← Sommaire</a>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Fil conducteur · B2 EIDM</div>
+      <div style="font-family:Newsreader,serif;font-size:22px;line-height:1.1">Image de marque</div>
+    </div>
+    <nav style="display:flex;flex-direction:column">
+      <a href="#plan" style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #e3dfd5"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">—</span><span>Planning &amp; cadre</span></a>
+      <sc-for list="{{ seances }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" style="display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid #e3dfd5;line-height:1.3">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">S{{ s.n }}</span>
+          <span style="flex:1">{{ s.t }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6b675e;flex:none" title="Préparation cochée">{{ s.prepLabel }}</span>
+        </a>
+      </sc-for>
+      <a href="#recap" style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #e3dfd5"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">—</span><span>Récapitulatif</span></a>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740">
+      <sc-for list="{{ legend }}" as="l" hint-placeholder-count="5"><span>{{ l }}</span></sc-for>
+    </div>
+    <button onClick="{{ print }}" style="font:500 12.5px 'IBM Plex Sans',sans-serif;background:#1d1c1a;color:#f5f3ee;border:0;border-radius:999px;padding:9px 16px;cursor:pointer;align-self:flex-start">Imprimer / PDF</button>
+  </aside>
+
+  <main data-main="1" style="flex:1 1 420px;min-width:0;max-width:860px">
+    <header style="display:flex;flex-direction:column;gap:22px;padding-bottom:40px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b675e">Fil conducteur · B2 Fashion art direction &amp; styling · EIDM · 2026-2027</div>
+      <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(46px,6.6vw,80px);line-height:.96;letter-spacing:-.02em;margin:0;text-wrap:balance">Introduction à l’image de marque</h1>
+      <div style="display:flex;flex-wrap:wrap;gap:12px 40px;padding-top:18px;border-top:2px solid #1d1c1a">
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Format</span><span style="font-size:16px">4 séances</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Volume</span><span style="font-size:16px">14h présentiel</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Période</span><span style="font-size:16px">Semestre 2</span></div>
+      </div>
+    </header>
+
+    <section id="plan" style="padding-top:24px;scroll-margin-top:16px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">Planning des séances</div>
+      <sc-for list="{{ seances }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 24px;padding:16px 0;border-bottom:1px solid #d9d4c7">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;flex:0 0 90px">SÉANCE {{ s.n }}</span>
+          <span style="font-family:Newsreader,serif;font-size:23px;line-height:1.2;flex:1 1 280px">{{ s.t }}</span>
+          <span style="font-size:13.5px;color:#4a4740;flex:0 0 auto">{{ s.date }} · {{ s.h }}</span>
+        </a>
+      </sc-for>
+    </section>
+
+    <section id="cadre" style="padding-top:64px;scroll-margin-top:16px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:40px 48px">
+        <sc-for list="{{ cadre }}" as="g" hint-placeholder-count="3">
+          <div data-avoid="1" style="display:flex;flex-direction:column">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">{{ g.g }}</div>
+            <sc-for list="{{ g.paras }}" as="p"><p style="margin:12px 0 0;font-size:15.5px;line-height:1.62;text-wrap:pretty;color:#2a2926">{{ p }}</p></sc-for>
+            <sc-for list="{{ g.items }}" as="it">
+              <div style="display:flex;flex-direction:column;gap:2px;padding:11px 0;border-bottom:1px solid #e3dfd5">
+                <div style="font-weight:600;font-size:14.5px">{{ it.k }}</div>
+                <div style="font-size:14.5px;line-height:1.5;color:#4a4740;text-wrap:pretty">{{ it.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <sc-for list="{{ seances }}" as="s" hint-placeholder-count="1">
+      <section id="{{ s.id }}" data-chapter="1" style="padding-top:96px;scroll-margin-top:16px">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;border-top:2px solid #1d1c1a;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em">
+          <span>SÉANCE {{ s.n }}</span><span style="color:#4a4740">{{ s.date }} · {{ s.h }}</span>
+        </div>
+        <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1.02;letter-spacing:-.015em;margin:24px 0 36px;text-wrap:balance">{{ s.t }}</h2>
+
+        <sc-if value="{{ s.hasRef }}" hint-placeholder-val="{{ false }}">
+          <div data-avoid="1" data-ref="1" style="display:flex;flex-direction:column;gap:16px;padding:28px 30px;border:1.5px solid #1d1c1a;border-radius:6px;margin-bottom:40px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase">◇ Référence culturelle</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="font-family:Newsreader,serif;font-size:28px;line-height:1.1">{{ s.ref.who }}</div>
+              <div style="font-family:Newsreader,serif;font-style:italic;font-size:19px;color:#6b675e">{{ s.ref.t }}</div>
+            </div>
+            <p style="margin:0;font-size:16px;line-height:1.65;text-wrap:pretty">{{ s.ref.p }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.94 0.035 250);border-radius:4px">
+              <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.38 0.13 250);padding-top:4px">? À poser aux étudiants</div>
+              <div style="flex:1 1 300px;min-width:0;font-family:Newsreader,serif;font-size:19px;line-height:1.4;text-wrap:pretty">{{ s.ref.ask }}</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ s.steps }}" as="st" hint-placeholder-count="4">
+            <div style="display:flex;flex-wrap:wrap;gap:8px 28px;padding:24px 0;border-top:1px solid #d9d4c7">
+              <div style="flex:0 0 118px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.02em;padding-top:5px">{{ st.time }}</div>
+              <div style="flex:1 1 400px;min-width:0;display:flex;flex-direction:column;gap:14px">
+                <h3 style="font-family:Newsreader,serif;font-weight:500;font-size:24px;line-height:1.2;margin:0">{{ st.t }}</h3>
+                <sc-for list="{{ st.blocks }}" as="b" hint-placeholder-count="2">
+                  <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}"><p style="margin:0;font-size:16px;line-height:1.66;text-wrap:pretty;color:#2a2926">{{ b.text }}</p></sc-if>
+                  <sc-if value="{{ b.isCas }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:14px 0;border-top:1px dotted #a39c8c;border-bottom:1px dotted #a39c8c">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.42 0.1 55)">● Étude de cas</div>
+                      <div style="font-family:Newsreader,serif;font-style:italic;font-size:18.5px;line-height:1.5;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isExo }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;border:1.5px solid #1d1c1a;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">{{ b.label }}</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isBrief }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#1d1c1a;color:#f5f3ee;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">▣ Brief de l’audit</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isKey }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#e8e4da;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">{{ b.label }}</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:12px">
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:14px">
+            <sc-if value="{{ s.hasEntre }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:6px;padding:18px 20px;border:1.5px dashed #8a857a;border-radius:6px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">↻ Entre les séances</div>
+                <div style="font-size:15px;line-height:1.55;text-wrap:pretty">{{ s.entre }}</div>
+              </div>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;gap:6px;padding:18px 20px;border:1.5px solid #1d1c1a;border-radius:6px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">→ Livrable</div>
+              <div style="font-size:15px;line-height:1.55;text-wrap:pretty">{{ s.livrable }}</div>
+            </div>
+          </div>
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:8px;padding:18px 20px;background:#e8e4da;border-radius:6px">
+            <div style="display:flex;justify-content:space-between;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase"><span>☐ À préparer</span><span style="color:#4a4740">{{ s.prepLabel }}</span></div>
+            <sc-for list="{{ s.prep }}" as="pr" hint-placeholder-count="3">
+              <div onDragOver="{{ pr.onDragOver }}" onDrop="{{ pr.onDrop }}" style="display:flex;flex-direction:column;gap:5px;border-top:1px solid #d3cdbf;padding:9px 0 3px">
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                  <button onClick="{{ pr.toggle }}" style="display:flex;gap:12px;align-items:flex-start;flex:1;min-width:0;background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer">
+                    <sc-if value="{{ pr.on }}" hint-placeholder-val="{{ false }}"><span style="width:16px;height:16px;border:1.5px solid #1d1c1a;background:#1d1c1a;color:#e8e4da;font-size:11px;line-height:16px;text-align:center;border-radius:3px;flex:none;margin-top:2px">✓</span></sc-if>
+                    <sc-if value="{{ pr.off }}" hint-placeholder-val="{{ true }}"><span style="width:16px;height:16px;border:1.5px solid #6b675e;border-radius:3px;flex:none;box-sizing:border-box;margin-top:2px"></span></sc-if>
+                    <span style="font-size:14.5px;line-height:1.5">{{ pr.t }}</span>
+                  </button>
+                  <sc-if value="{{ pr.canEdit }}" hint-placeholder-val="{{ false }}"><label data-noprint="1" title="Joindre des fichiers (ou glisser-déposer sur la ligne)" style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740;cursor:pointer;padding:3px 7px;border:1px solid #bfb8a8;border-radius:3px;margin-top:1px" style-hover="background:#1d1c1a;color:#e8e4da;border-color:#1d1c1a">+ Fichier<input type="file" multiple="{{ true }}" onChange="{{ pr.onFiles }}" style="display:none"></input></label></sc-if>
+                  <sc-if value="{{ pr.custom }}" hint-placeholder-val="{{ false }}"><button data-noprint="1" onClick="{{ pr.remove }}" title="Supprimer cet élément" style="flex:none;background:none;border:0;padding:2px 4px;font-size:16px;line-height:1;color:#6b675e;cursor:pointer" style-hover="color:#1d1c1a">×</button></sc-if>
+                </div>
+                <sc-for list="{{ pr.files }}" as="f">
+                  <div style="display:flex;gap:8px;align-items:baseline;padding-left:28px;min-width:0">
+                    <button onClick="{{ f.open }}" title="Ouvrir" style="background:none;border:0;padding:0;font:inherit;font-size:13px;color:#1d1c1a;text-decoration:underline;text-underline-offset:2px;cursor:pointer;text-align:left;overflow-wrap:anywhere">{{ f.name }}</button>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#6b675e;flex:none">{{ f.size }}</span>
+                    <sc-if value="{{ f.canEdit }}" hint-placeholder-val="{{ false }}"><button data-noprint="1" onClick="{{ f.remove }}" title="Retirer le fichier" style="flex:none;background:none;border:0;padding:0 4px;font-size:14px;line-height:1;color:#6b675e;cursor:pointer" style-hover="color:#1d1c1a">×</button></sc-if>
+                  </div>
+                </sc-for>
+                <sc-for list="{{ pr.docs }}" as="d">
+                  <a href="{{ d.href }}" style="display:flex;gap:8px;align-items:baseline;padding-left:28px;font-size:13px;color:#1d1c1a;text-decoration:none" style-hover="text-decoration:underline"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b675e;flex:none">Kit ↗</span><span>{{ d.label }}</span></a>
+                </sc-for>
+              </div>
+            </sc-for>
+            <sc-if value="{{ s.canEdit }}" hint-placeholder-val="{{ false }}"><div data-noprint="1" style="display:flex;gap:8px;border-top:1px solid #d3cdbf;padding-top:10px">
+              <input data-inp="1" value="{{ s.draft }}" onChange="{{ s.onDraft }}" onKeyDown="{{ s.onDraftKey }}" placeholder="Ajouter un élément…" style="flex:1;min-width:0;font:inherit;font-size:14px;padding:6px 9px;border:1px solid #bfb8a8;border-radius:3px;background:#f3f0e8;color:#1d1c1a"></input>
+              <button onClick="{{ s.addItem }}" style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border:1px solid #1d1c1a;border-radius:3px;background:#1d1c1a;color:#e8e4da;cursor:pointer">Ajouter</button>
+            </div></sc-if>
+          </div>
+        </div>
+      </section>
+    </sc-for>
+
+    <section id="recap" data-chapter="1" style="padding-top:96px;scroll-margin-top:16px">
+      <div style="border-top:2px solid #1d1c1a;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em">SYNTHÈSE</div>
+      <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1.02;margin:24px 0 36px">Récapitulatif du module</h2>
+      <div style="display:flex;flex-direction:column;gap:44px">
+        <sc-for list="{{ recap }}" as="g" hint-placeholder-count="2">
+          <div data-avoid="1" style="display:flex;flex-direction:column">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">{{ g.g }}</div>
+            <sc-for list="{{ g.items }}" as="it">
+              <div style="display:flex;flex-wrap:wrap;gap:2px 24px;padding:12px 0;border-bottom:1px solid #e3dfd5">
+                <div style="flex:0 0 190px;font-weight:600;font-size:15px">{{ it.k }}</div>
+                <div style="flex:1 1 300px;min-width:0;font-size:15px;line-height:1.55;color:#2a2926;text-wrap:pretty">{{ it.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <footer style="margin-top:96px;padding-top:16px;border-top:1px solid #d9d4c7;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6b675e">Cliclac Studio · cliclac.studio · Document pédagogique v2</footer>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/*META*/
+const KEY = 'fil-marque-v2';
+const LEGEND = ['◇ Référence culturelle', '● Étude de cas', '✎ Exercice imposé', '! Notion clé', '↻ Entre les séances', '→ Livrable', '☐ À préparer'];
+const CADRE = [
+ {g:'Intention du module', paras:['Le syllabus aborde l’image de marque du côté du consommateur : ce qu’il perçoit à travers les produits et les lieux de vente. Le module ne demande pas de créer une marque (c’est l’objet du Brand Management en B3) mais d’apprendre à lire une marque, à repérer ses signes et à mesurer l’écart entre ce qu’elle dit d’elle-même et ce qu’elle donne à voir.','Il pose le socle commun des modules Collection Merchandising, Visual Merchandising et Projet VM. Les grilles d’analyse construites ici resserviront directement dans ces modules.'], items:[]},
+ {g:'Fil rouge : audit d’image de marque', paras:['En binôme, les étudiants auditent une marque de mode tirée d’une liste imposée qui couvre les trois segments (mass, premium, luxe). À chaque séance, ils ajoutent une couche d’analyse : les signes visibles, l’offre produit, le point de vente, puis la comparaison avec les autres segments.','Rendu final : un dossier d’audit de 10 à 12 pages et un oral de 8 minutes. Avec une dizaine d’étudiants, on obtient 5 binômes, soit 5 marques et au moins une par segment.'], items:[['Mass','Zara, Uniqlo, H&M, Mango'],['Premium','COS, Sandro, Sézane, A.P.C., Jacquemus'],['Luxe','Hermès, Celine, Loewe, Chanel, Dior']]},
+ {g:'Couverture du syllabus', paras:[], items:[['Thème 1','Image vs identité, éléments visibles d’une image — S1'],['Thème 2','Image de marque et offre produit — S2'],['Thème 3','Point de vente, vitrine, scénographie, parcours client — S3'],['Thème 4','Étude de cas comparative mass / premium / luxe — S4'],['Cours magistral','Un apport théorique de 30 à 40 min par séance'],['Étude de cas','Deux cas par séance au minimum'],['Analyse comparative de points de vente et vitrines','Exercices S3 et S4, visite terrain entre S2 et S3']]},
+ {g:'Contrôle continu', paras:[], items:[['Grilles d’analyse S1 à S3 — 40 %','Une grille remplie par séance, notée sur la précision des observations et l’usage du vocabulaire.'],['Dossier d’audit — 35 %','Structure, qualité des preuves visuelles, pertinence des écarts relevés.'],['Oral — 25 %','Clarté, argumentation, capacité à répondre aux questions.']]}
+];
+/*DATA*/
+const SEANCES = [
+{date:'Date à définir', h:'13h00 – 16h30 · 3h30', t:'Qu’est-ce que l’image de marque ?',
+ ref:{who:'Chanel — 31 rue Cambon (1918)', t:'Une maison qui est déjà une image', p:'En 1918, Gabrielle Chanel installe sa maison au 31 rue Cambon. Boutique au rez-de-chaussée, salons de présentation, ateliers et appartement privé aux étages. L’escalier aux miroirs, d’où elle observait les défilés sans être vue, est devenu une image de la marque au même titre que le tweed ou le N°5. Personne n’a besoin de lire un texte pour comprendre Chanel : le lieu, les matières, le noir et blanc et le beige suffisent. C’est la définition même de l’image de marque : un ensemble de signes que le public reçoit et assemble lui-même.', ask:'Citez trois choses que vous associez à Chanel sans avoir jamais lu un texte de la marque. D’où viennent-elles ?'},
+ steps:[
+  ['0h00 – 0h20','Ouverture du module',['p','Présentation, tour de table : une marque que chacun admire, une marque qui l’a déçu, et pourquoi. Je note les réponses au tableau : elles serviront de matière pendant la séance.'],['brief','En binôme, vous allez auditer une marque de mode : comparer ce qu’elle dit d’elle-même (site, manifeste, campagnes) avec ce qu’elle montre réellement (produits, boutiques, vitrines, avis clients). Une couche d’analyse par séance, un dossier et un oral en séance 4.']],
+  ['0h20 – 0h35','Référence culturelle',['p','Le 31 rue Cambon. Photos de la façade, de l’escalier, des salons. Question au groupe.']],
+  ['0h35 – 1h15','Identité et image : émission et réception',['p','L’identité de marque est ce que la marque émet : ses valeurs, son histoire, son discours, ses codes. L’image de marque est ce que le public reçoit et retient. Les deux ne coïncident jamais complètement. Jean-Noël Kapferer (Les marques, capital de l’entreprise) formalise cette distinction.'],['p','Le prisme d’identité de Kapferer : six facettes pour décrire une marque. Physique (produits, logo, couleurs), personnalité (le caractère qu’on lui prête), culture (valeurs, origine), relation (ce qu’elle propose au client), reflet (l’image du client type), mentalisation (ce que le client pense de lui-même en l’achetant).'],['key','L’image se construit par accumulation de contacts. Une campagne réussie ne compense pas une boutique mal tenue ou un produit décevant.'],['p','Les sources de l’image : produits, prix, points de vente, vendeurs, packaging, campagnes, réseaux sociaux, presse, bouche-à-oreille, clients visibles. La marque ne maîtrise qu’une partie de ces sources.']],
+  ['1h15 – 1h45','Les éléments visibles d’une image',['p','Inventaire des signes : univers visuel (couleurs, typographie, logo, photographie), ton (manière de parler, registre, humour ou gravité), codes esthétiques (motifs, matières, silhouettes, pièces emblématiques), codes sensoriels (musique, parfum, lumière, toucher).'],['cas','Burberry : le trench et le motif check sont les codes de la marque. Au début des années 2000, le check est copié et surexposé, jusqu’à être associé à une image populaire et contrefaite très éloignée du positionnement. La marque réduit alors fortement son usage et recentre son image sur le trench et l’héritage britannique. Un code peut échapper à sa marque.'],['cas','Comparer deux publications Instagram de Jacquemus et de Hermès : lumière, cadrage, présence humaine, ton des légendes. Même secteur, deux images opposées.']],
+  ['1h45 – 1h55','Pause'],
+  ['1h55 – 2h40','Exercice imposé : décoder une marque',['exo','Par binôme, 15 visuels d’une marque anonymisée (campagne, produit, boutique, packaging, post). Remplir la grille d’analyse : univers visuel, ton, codes esthétiques, codes sensoriels supposés, facettes du prisme. Deviner le segment et justifier. Révélation de la marque, puis comparaison des grilles.','Exercice imposé']],
+  ['2h40 – 3h15','Lancement du fil rouge',['p','Constitution des binômes et tirage des marques dans la liste. Premier travail : relever l’identité déclarée de la marque (page « à propos », manifeste, dernière campagne, compte Instagram officiel) et remplir la partie « émission » de la grille.']],
+  ['3h15 – 3h30','Debrief collectif',['p','Chaque binôme présente sa marque en une phrase : « Elle dit qu’elle est… ». On gardera ces phrases pour les confronter à l’analyse de terrain.']]
+ ],
+ entre:'Compléter la partie « identité déclarée » de la grille. Rassembler 20 visuels officiels de la marque.',
+ livrable:'Grille d’analyse de la marque anonymisée + grille « identité déclarée » de la marque du binôme. Nommage : BINOME_Marque_S1.pdf',
+ prep:['Grille d’analyse imprimée (une par binôme)','Planche de 15 visuels anonymisés','Liste des marques à tirer au sort','Photos du 31 rue Cambon','Schéma du prisme de Kapferer']},
+{date:'Date à définir', h:'13h00 – 16h30 · 3h30', t:'Image de marque et offre produit',
+ ref:{who:'Yves Saint Laurent — Rive Gauche (1966)', t:'Quand l’offre change l’image', p:'En 1966, Yves Saint Laurent ouvre rue de Tournon la boutique Saint Laurent Rive Gauche : pour la première fois, un couturier vend du prêt-à-porter conçu comme tel dans sa propre boutique. Le smoking pour femme est présenté la même année. En élargissant son offre, la maison ne se dévalue pas : elle se positionne comme moderne, libre, en phase avec une nouvelle génération. L’offre produit n’est pas un simple catalogue : c’est un message sur ce qu’est la marque et à qui elle s’adresse.', ask:'Si une marque de luxe lançait demain une gamme à 20 €, qu’est-ce qui changerait dans votre image d’elle ?'},
+ steps:[
+  ['0h00 – 0h15','Retour sur la séance 1',['p','Relecture des phrases « Elle dit qu’elle est… ». Chaque binôme montre 3 visuels officiels qui illustrent le mieux ce discours.']],
+  ['0h15 – 0h30','Référence culturelle',['p','Rive Gauche, la boutique rue de Tournon, le smoking. Question au groupe.']],
+  ['0h30 – 1h10','La collection comme traduction de l’image',['p','Structure d’une offre de mode : pièces image (défilé, campagne, rarement vendues en volume), cœur de gamme (l’essentiel du chiffre d’affaires), produits d’accès (accessoires, petite maroquinerie, parfum, beauté), basiques et carry-over (pièces reconduites d’une saison à l’autre), capsules et collaborations.'],['p','Ce que l’offre dit de la marque : largeur et profondeur de gamme, niveau de prix et écarts entre produits, matières, fabrication, rythme de renouvellement, présence de pièces emblématiques reconduites.'],['key','Le prix est un signe. Deux t-shirts blancs identiques en apparence ne racontent pas la même marque à 15 € et à 350 €.'],['p','Cohérence de gamme : chaque produit doit pouvoir être reconnu comme appartenant à la marque, même sans logo.']],
+  ['1h10 – 1h45','Cohérences et incohérences',['cas','Jacquemus, Le Chiquito : un sac minuscule, peu pratique, devenu viral à la fin des années 2010. Produit image plus que produit d’usage, il fixe l’image d’une marque joueuse et solaire, puis se décline en tailles et en prix qui en font un produit d’accès.'],['cas','Hermès et le Birkin : rareté organisée, délais d’attente, artisanat. L’offre est construite pour préserver l’image d’exclusivité. À l’opposé, les parfums et accessoires rendent la marque accessible sans diluer le sac.'],['cas','Contre-exemple : une marque premium qui multiplie les promotions et les collaborations bon marché. L’offre devient illisible et l’image se dégrade.']],
+  ['1h45 – 1h55','Pause'],
+  ['1h55 – 2h45','Exercice imposé : lire une offre en ligne',['exo','Sur l’e-shop de la marque du binôme : relever 30 produits. Pour chacun, catégorie, prix, matière, couleur. Classer dans la pyramide (image, cœur, accès, basique). Calculer l’écart de prix entre le produit le moins cher et le plus cher. Repérer les pièces emblématiques et les produits qui semblent hors marque.','Exercice imposé']],
+  ['2h45 – 3h15','Application au fil rouge',['p','Chaque binôme confronte l’offre relevée au discours de la séance 1 et formule deux cohérences et un écart, preuves à l’appui.']],
+  ['3h15 – 3h30','Debrief collectif',['p','Tour des écarts relevés. Je prépare la visite de terrain : consignes et grille de relevé.']]
+ ],
+ entre:'Visite de terrain obligatoire : un point de vente de la marque (ou, à défaut, un corner en grand magasin). Photos de la vitrine, de l’entrée, de trois zones et de la caisse. Relevé du parcours sur un plan dessiné à main levée. Noter musique, lumière, odeur, attitude du personnel.',
+ livrable:'Tableau des 30 produits + pyramide de l’offre + deux cohérences et un écart. Nommage : BINOME_Marque_S2.pdf',
+ prep:['Gabarit de tableau de relevé produits','Schéma de la pyramide de l’offre','Grille de visite terrain à distribuer','Visuels Rive Gauche 1966','Visuels Le Chiquito et Birkin']},
+{date:'Date à définir', h:'13h00 – 16h30 · 3h30', t:'Le point de vente comme expression de la marque',
+ ref:{who:'Leïla Menchari — vitrines Hermès (1978-2013)', t:'La vitrine comme récit', p:'Pendant plus de trente ans, Leïla Menchari conçoit les vitrines du 24 faubourg Saint-Honoré. Chacune raconte une histoire : un voyage, un jardin, un rêve. Les produits Hermès y sont présents mais jamais au premier plan : ils font partie d’un décor. Ces vitrines sont attendues par les passants comme des expositions. Elles montrent que la vitrine n’est pas un présentoir mais le premier message de la marque dans la rue, avant même qu’on entre.', ask:'La dernière vitrine qui vous a arrêté dans la rue : qu’est-ce qui vous a fait ralentir ?'},
+ steps:[
+  ['0h00 – 0h20','Retour de terrain',['p','Chaque binôme projette 4 photos de sa visite et résume l’impression générale en trois mots. On compare avec les trois mots de l’identité déclarée.']],
+  ['0h20 – 0h35','Référence culturelle',['p','Menchari. Une dizaine de vitrines projetées. Question au groupe.']],
+  ['0h35 – 1h15','Vitrine, scénographie, parcours',['p','La vitrine : fermée (avec fond, on ne voit pas la boutique), ouverte (sans fond, la boutique est la vitrine), thématique ou produit. Règles de base du visual merchandising : un point focal, des groupes impairs, une pyramide de hauteurs, un éclairage qui hiérarchise, un renouvellement régulier.'],['p','La scénographie : matériaux, couleurs, mobilier, lumière, musique, odeur, température. Le marketing sensoriel agit sans être perçu consciemment.'],['p','Le parcours client : zone de décompression à l’entrée (Paco Underhill, Why We Buy, 1999), sens de circulation, zones chaudes et froides, produits d’appel en fond de boutique, cabines, caisse. Le personnel fait partie de la scénographie : tenue, posture, discours.'],['p','Les formats : flagship, boutique, corner en grand magasin, pop-up, outlet. Chaque format dit une chose différente de la marque.'],['key','Un point de vente se lit comme une page : il a un point d’entrée, une hiérarchie et un parcours.']],
+  ['1h15 – 1h45','Études de cas',['cas','Aesop : chaque boutique est conçue par un architecte différent avec des matériaux locaux, mais on reconnaît toujours la marque (les flacons ambrés, le lavabo, la sobriété). La cohérence tient aux règles, pas à la répétition d’un décor.'],['cas','Abercrombie & Fitch dans les années 2000 : pénombre, musique forte, parfum diffusé jusque dans la rue, vendeurs recrutés sur leur apparence. Une image très forte, devenue un problème quand elle a été jugée excluante. La marque a entièrement revu ses magasins dans les années 2010.']],
+  ['1h45 – 1h55','Pause'],
+  ['1h55 – 2h40','Exercice imposé : analyse comparative de vitrines',['exo','Trois vitrines projetées (une par segment). Pour chacune : type de vitrine, point focal, produits montrés, éléments de décor, lumière, message principal. Classer par segment et justifier. Puis même grille appliquée à la vitrine photographiée par le binôme.','Exercice imposé']],
+  ['2h40 – 3h15','Application au fil rouge',['p','Rédaction de la partie « point de vente » de l’audit : plan du parcours redessiné proprement, analyse de la vitrine, relevé sensoriel, cohérences et écarts avec l’identité déclarée.']],
+  ['3h15 – 3h30','Debrief collectif',['p','Chaque binôme donne l’écart le plus fort relevé en boutique. Consignes pour le dossier et l’oral.']]
+ ],
+ entre:'Finaliser le dossier d’audit (10 à 12 pages) et préparer l’oral de 8 minutes.',
+ livrable:'Grille vitrines + partie « point de vente » de l’audit. Nommage : BINOME_Marque_S3.pdf',
+ prep:['Sélection de vitrines Menchari','Trois vitrines contemporaines (mass, premium, luxe)','Grille d’analyse de vitrine imprimée','Photos Aesop et Abercrombie & Fitch avant / après','Consignes écrites du dossier final']},
+{date:'Date à définir', h:'13h00 – 16h30 · 3h30', t:'Étude comparative et soutenances',
+ ref:{who:'OMA et Prada — Epicenter de New York (2001)', t:'La boutique comme espace culturel', p:'En 2001, Prada confie à l’agence de Rem Koolhaas la conception de son Epicenter à SoHo. Une grande vague de bois traverse le magasin et se transforme en gradins pour des projections et des conférences. Les vêtements sont présentés dans des cages suspendues, la technologie est intégrée aux cabines. La boutique ne sert plus seulement à vendre : elle affirme que Prada est une marque intellectuelle, liée à l’art et à l’architecture. C’est un point de contact qui travaille l’image autant que les ventes.', ask:'Quel point de vente de votre marque d’audit pourrait devenir un lieu où l’on vient sans acheter ?'},
+ steps:[
+  ['0h00 – 0h15','Référence culturelle',['p','Prada Epicenter. Plans et photos. Question au groupe.']],
+  ['0h15 – 0h55','Mass, premium, luxe : une grille de comparaison',['p','Critères de comparaison : prix, rareté, rythme des collections, distribution (nombre et emplacement des boutiques), qualité du service, place de l’artisanat, communication (campagnes, célébrités, réseaux), rapport au temps (tendance ou permanence).'],['cas','Zara, COS et Hermès sur la même grille. Zara a longtemps investi très peu en publicité : ses boutiques, placées sur les meilleurs emplacements, font office de communication. COS, du même univers qu’H&M, emprunte les codes du minimalisme premium. Hermès maîtrise sa distribution et entretient la rareté.'],['key','Le segment ne se lit pas seulement dans le prix : il se lit dans la cohérence de tous les points de contact.']],
+  ['0h55 – 1h15','Quand l’image se fissure',['cas','Balenciaga, fin 2022 : une campagne mettant en scène des enfants provoque un scandale mondial. La marque retire la campagne et présente des excuses. Le cas montre qu’un seul point de contact peut contredire en quelques heures l’image construite pendant des années.'],['p','Repérer les écarts : produit qui ne tient pas la promesse, boutique qui contredit la campagne, discours engagé contredit par les pratiques.']],
+  ['1h15 – 1h45','Finalisation des oraux',['p','Derniers ajustements par binôme. Chaque binôme place sa marque sur la grille de comparaison pour pouvoir se situer par rapport aux autres pendant l’oral.']],
+  ['1h45 – 1h55','Pause'],
+  ['1h55 – 3h10','Soutenances',['p','5 binômes, 8 minutes de présentation et 4 minutes de questions chacun. Structure attendue : identité déclarée, offre produit, point de vente, écarts, recommandation. Je coupe ceux qui décrivent sans analyser.']],
+  ['3h10 – 3h30','Synthèse comparative et bilan',['p','On remplit ensemble la grille de comparaison avec les 5 marques auditées. Bilan du module et lien avec les modules de Visual Merchandising.']]
+ ],
+ livrable:'Dossier d’audit final (10 à 12 pages) + support d’oral. Nommage : BINOME_Marque_Final.pdf',
+ prep:['Grille de comparaison mass / premium / luxe en grand format','Photos Prada Epicenter','Cas Zara / COS / Hermès','Grille d’évaluation des oraux','Minuteur']}
+];
+const RECAP = [
+ {g:'Fil rouge culturel', items:[['Séance 1','Chanel, 31 rue Cambon — la maison comme image.'],['Séance 2','Yves Saint Laurent Rive Gauche — l’offre change l’image.'],['Séance 3','Leïla Menchari — la vitrine comme récit.'],['Séance 4','Prada Epicenter — la boutique comme espace culturel.']]},
+ {g:'Progression de l’audit', items:[['Séance 1','Grille d’analyse, identité déclarée de la marque.'],['Séance 2','Relevé et pyramide de l’offre produit.'],['Entre S2 et S3','Visite terrain du point de vente.'],['Séance 3','Analyse de la vitrine, du parcours et de la scénographie.'],['Séance 4','Comparaison entre segments, dossier et oral.']]},
+ {g:'Notions clés', items:[['Identité / image','Ce que la marque émet contre ce que le public reçoit.'],['Prisme de Kapferer','Physique, personnalité, culture, relation, reflet, mentalisation.'],['Pyramide de l’offre','Pièces image, cœur de gamme, produits d’accès, basiques.'],['Visual merchandising','Point focal, groupes impairs, pyramide, éclairage, rotation.'],['Parcours client','Zone de décompression, circulation, zones chaudes et froides.']]}
+];
+/*END*/
+const kv = ([k, v]) => ({ k, v });
+const KITDOCS = {"0-0":[{"label":"Grille d’analyse — Décoder une marque","href":"Image de marque - Kit de seance.dc.html#p2"}],"0-2":[{"label":"Tirage au sort — Liste des marques","href":"Image de marque - Kit de seance.dc.html#p3"}],"1-0":[{"label":"Relevé — Relevé de l’offre produit","href":"Image de marque - Kit de seance.dc.html#p5"}],"1-2":[{"label":"Visite terrain — Grille de visite du point de vente","href":"Image de marque - Kit de seance.dc.html#p6"}],"2-2":[{"label":"Grille d’analyse — Analyse comparative de vitrines","href":"Image de marque - Kit de seance.dc.html#p7"}],"2-4":[{"label":"Consignes — Dossier d’audit et oral","href":"Image de marque - Kit de seance.dc.html#p8"}],"3-0":[{"label":"Grille de synthèse — Mass, premium, luxe","href":"Image de marque - Kit de seance.dc.html#p9"}],"3-3":[{"label":"Évaluation — Grille d’évaluation des oraux","href":"Image de marque - Kit de seance.dc.html#p10"}]};
+const KITADD = {"0":[{"id":"k0","t":"Fiche récap : Identité et image de marque","docs":[{"label":"Fiche récap — Identité et image de marque","href":"Image de marque - Kit de seance.dc.html#p1"}]}],"1":[{"id":"k3","t":"Fiche récap : L’offre produit","docs":[{"label":"Fiche récap — L’offre produit","href":"Image de marque - Kit de seance.dc.html#p4"}]}]};
+const fmtSize = b => b < 1048576 ? Math.max(1, Math.round(b / 1024)) + ' Ko' : (b / 1048576).toFixed(1).replace('.', ',') + ' Mo';
+class Component extends DCLogic {
+  state = { prep: {}, extra: {}, files: {}, draft: {}, canEdit: false };
+  componentDidMount() {
+    try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) this.setState({ prep: s }); } catch (e) {}
+    try { const x = JSON.parse(localStorage.getItem(KEY + '-extra') || 'null'); if (x) this.setState({ extra: x }); } catch (e) {}
+    const C = window.Cloud; if (!C) return;
+    C.onAuth(() => this.setState({ canEdit: C.canEdit }));
+    C.ready.then(() => {
+      if (!C.sb) return;
+      this.setState({ canEdit: C.canEdit });
+      C.get(KEY).then(v => { if (v) this.setState({ prep: v }); });
+      C.get(KEY + '-extra').then(v => { if (v) this.setState({ extra: v }); });
+      this.loadFiles();
+    });
+  }
+  save = () => { try { localStorage.setItem(KEY, JSON.stringify(this.state.prep)); } catch (e) {} window.Cloud && window.Cloud.set(KEY, this.state.prep); };
+  saveExtra = () => { try { localStorage.setItem(KEY + '-extra', JSON.stringify(this.state.extra)); } catch (e) {} window.Cloud && window.Cloud.set(KEY + '-extra', this.state.extra); };
+  loadFiles = () => window.Cloud.listFiles(KEY).then(rows => {
+    const files = {}; (rows || []).forEach(r => (files[r.item] = files[r.item] || []).push(r)); this.setState({ files });
+  }).catch(() => {});
+  addFiles = (id, list) => {
+    const arr = Array.from(list || []); if (!arr.length || !this.state.canEdit) return;
+    window.Cloud.addFiles(KEY, id, arr)
+      .then(() => { this.setState(st => ({ prep: { ...st.prep, [id]: true } }), this.save); this.loadFiles(); })
+      .catch(e => { alert('Impossible d’envoyer le fichier : ' + (e.message || e)); this.loadFiles(); });
+  };
+  removeFile = fid => window.Cloud.removeFile(fid).then(this.loadFiles);
+  openFile = r => window.open(window.Cloud.url(r.path), '_blank');
+  addItem = i => {
+    const t = (this.state.draft[i] || '').trim(); if (!t || !this.state.canEdit) return;
+    const id = 'c' + i + '-' + Date.now();
+    this.setState(st => ({ extra: { ...st.extra, [i]: [...(st.extra[i] || []), { id, t }] }, draft: { ...st.draft, [i]: '' } }), this.saveExtra);
+  };
+  removeItem = (i, id) => {
+    if (!confirm('Supprimer cet élément et ses fichiers joints ?')) return;
+    const fids = (this.state.files[id] || []).map(r => r.fid);
+    this.setState(st => ({ extra: { ...st.extra, [i]: (st.extra[i] || []).filter(x => x.id !== id) } }), this.saveExtra);
+    if (fids.length) Promise.all(fids.map(f => window.Cloud.removeFile(f))).then(this.loadFiles);
+  };
+  renderVals() {
+    const { prep, extra, files, draft, canEdit } = this.state;
+    const seances = SEANCES.map((s, i) => {
+      const mk = (id, t, custom, docs) => {
+        const on = !!prep[id];
+        return { t, on, off: !on, custom: custom && canEdit, canEdit, docs: docs || KITDOCS[id] || [],
+          files: (files[id] || []).map(r => ({ canEdit, name: r.name, size: fmtSize(r.size || 0), open: () => this.openFile(r), remove: () => this.removeFile(r.fid) })),
+          toggle: () => canEdit && this.setState(st => ({ prep: { ...st.prep, [id]: !st.prep[id] } }), this.save),
+          onFiles: e => { this.addFiles(id, e.target.files); e.target.value = ''; },
+          onDragOver: e => e.preventDefault(),
+          onDrop: e => { e.preventDefault(); this.addFiles(id, e.dataTransfer.files); },
+          remove: () => this.removeItem(i, id) };
+      };
+      const items = [...s.prep.map((t, j) => mk(i + '-' + j, t, false)), ...(KITADD[i] || []).map(x => mk(i + '-' + x.id, x.t, false, x.docs)), ...(extra[i] || []).map(x => mk(x.id, x.t, true))];
+      return {
+        canEdit, n: i + 1, id: 's' + (i + 1), href: '#s' + (i + 1), date: s.date, h: s.h, t: s.t,
+        hasRef: !!s.ref, ref: s.ref || {}, hasEntre: !!s.entre, entre: s.entre || '', livrable: s.livrable,
+        draft: draft[i] || '', onDraft: e => { const v = e.target.value; this.setState(st => ({ draft: { ...st.draft, [i]: v } })); }, onDraftKey: e => { if (e.key === 'Enter') this.addItem(i); }, addItem: () => this.addItem(i),
+        prep: items, prepLabel: items.filter(x => x.on).length + '/' + items.length,
+        steps: s.steps.map(([time, t, ...bl]) => ({
+          time, t,
+          blocks: bl.map(([k, text, lab]) => ({
+            text, isP: k === 'p', isCas: k === 'cas', isExo: k === 'exo', isBrief: k === 'brief', isKey: k === 'key',
+            label: k === 'exo' ? '✎ ' + (lab || 'Exercice') : '! ' + (lab || 'Notion clé')
+          }))
+        }))
+      };
+    });
+    return {
+      seances, legend: LEGEND, print: () => window.print(),
+      cadre: CADRE.map(g => ({ g: g.g, paras: g.paras, items: g.items.map(kv) })),
+      recap: RECAP.map(g => ({ g: g.g, items: g.items.map(kv) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

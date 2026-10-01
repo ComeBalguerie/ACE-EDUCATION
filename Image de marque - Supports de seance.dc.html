@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./doc-page.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;font-family:'Instrument Sans',system-ui,sans-serif;color:#17131f;-webkit-font-smoothing:antialiased}
+a{color:#17131f}a:hover{color:#9b66ff}
+doc-page:not(:defined){visibility:hidden}
+</style>
+</helmet>
+<doc-page size="a4">
+  <sc-for list="{{ pages }}" as="pg" hint-placeholder-count="2">
+    <section class="page" data-screen-label="{{ pg.label }}" style="display:flex;flex-direction:column;gap:16px;padding:40px 50px 26px;box-sizing:border-box;background:#fff;font-family:'Instrument Sans',system-ui,sans-serif;color:#17131f">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding-bottom:12px;border-bottom:2px solid #17131f">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">{{ mod.name }} · {{ mod.classe }}</div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <sc-if value="{{ pg.hasS }}" hint-placeholder-val="{{ true }}"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;padding:3px 10px;border:2px solid #17131f;border-radius:8px">{{ pg.s }}</span></sc-if>
+          <span style="font-size:12px;font-weight:700;padding:5px 11px;border:2px solid #17131f;border-radius:99px;background:#9b66ff;color:#17131f">{{ pg.type }}</span>
+        </div>
+      </div>
+
+      <div style="flex:1 1 auto;min-height:0;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr);align-content:start;gap:13px">
+        <sc-for list="{{ pg.blocks }}" as="b" hint-placeholder-count="5">
+          <sc-if value="{{ b.isH1 }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px;padding-bottom:4px">
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:31px;line-height:1.05;text-wrap:balance">{{ b.a }}</div>
+              <sc-if value="{{ b.hasB }}" hint-placeholder-val="{{ true }}"><div style="font-size:16px;line-height:1.45;color:#2e2938;text-wrap:pretty">{{ b.b }}</div></sc-if>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:8px;margin-top:4px;font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase"><span style="width:11px;height:11px;background:#9b66ff;border:2px solid #17131f;border-radius:3px;flex:none"></span>{{ b.a }}</div>
+          </sc-if>
+          <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:15px;line-height:1.5;text-wrap:pretty">{{ b.a }}</div>
+          </sc-if>
+          <sc-if value="{{ b.isList }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3">
+                <div style="display:flex;gap:10px;font-size:15px;line-height:1.45"><span style="flex:none;width:7px;height:7px;margin-top:8px;border-radius:50%;background:#17131f"></span><span style="text-wrap:pretty">{{ it.a }}</span></div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isSteps }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3">
+                <div style="display:flex;gap:12px;align-items:flex-start">
+                  <span style="flex:none;width:26px;height:26px;border:2px solid #17131f;border-radius:7px;background:#9b66ff;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px">{{ it.n }}</span>
+                  <div style="font-size:15px;line-height:1.45;text-wrap:pretty;padding-top:2px"><b>{{ it.a }}</b> {{ it.b }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isAnnot }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="4">
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                  <span style="flex:none;width:24px;height:24px;border:2px solid #17131f;border-radius:50%;background:#9b66ff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">{{ it.l }}</span>
+                  <div style="display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.42"><b style="font-size:14.5px">{{ it.a }}</b><span style="text-wrap:pretty">{{ it.b }}</span></div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isKv }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:minmax(130px,30%) minmax(0,1fr);gap:14px;padding:6px 0;border-bottom:1px solid #e3ddf0;font-size:14.5px;line-height:1.42">
+                  <b>{{ it.a }}</b>
+                  <sc-if value="{{ it.hasB }}" hint-placeholder-val="{{ true }}"><span style="text-wrap:pretty">{{ it.b }}</span></sc-if>
+                  <sc-if value="{{ it.blank }}" hint-placeholder-val="{{ false }}"><span style="border-bottom:1.5px dotted #9a92b3;height:18px"></span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isMeta }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:2px solid #17131f;border-radius:10px">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="6">
+                <div style="display:flex;flex-direction:column;gap:3px;padding:8px 12px;border-right:1px solid #e3ddf0;border-bottom:1px solid #e3ddf0">
+                  <span style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5d5670">{{ it.a }}</span>
+                  <span style="font-size:14px;line-height:1.35;font-weight:600">{{ it.b }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isBar }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;border:2px solid #17131f;border-radius:10px">
+              <div style="padding:7px 12px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#ece3ff;border-bottom:2px solid #17131f;border-radius:8px 8px 0 0">{{ b.a }}</div>
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="5">
+                <div style="display:flex;justify-content:space-between;gap:12px;padding:5px 12px;border-bottom:1px solid #e3ddf0;font-size:14px;line-height:1.38"><span style="text-wrap:pretty">{{ it.a }}</span><b style="flex:none;font-variant-numeric:tabular-nums">/{{ it.b }}</b></div>
+              </sc-for>
+              <div style="display:flex;justify-content:space-between;padding:7px 12px;background:#17131f;color:#fff;font-size:14px;font-weight:700;border-radius:0 0 7px 7px"><span>Total</span><span>/{{ b.total }}</span></div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isCheck }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;border:2px solid #17131f;border-radius:10px">
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) 62px 62px 62px;gap:8px;padding:6px 12px;background:#ece3ff;border-bottom:2px solid #17131f;border-radius:8px 8px 0 0;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;align-items:center">
+                <span>{{ b.a }}</span><span style="text-align:center">Acquis</span><span style="text-align:center">À revoir</span><span style="text-align:center">Non</span>
+              </div>
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:minmax(0,1fr) 62px 62px 62px;gap:8px;padding:5px 12px;border-bottom:1px solid #e3ddf0;font-size:14px;line-height:1.38;align-items:center">
+                  <span style="text-wrap:pretty">{{ it.a }}</span>
+                  <span style="justify-self:center;width:15px;height:15px;border:1.5px solid #17131f;border-radius:4px"></span>
+                  <span style="justify-self:center;width:15px;height:15px;border:1.5px solid #17131f;border-radius:4px"></span>
+                  <span style="justify-self:center;width:15px;height:15px;border:1.5px solid #17131f;border-radius:4px"></span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isNote }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:4px;padding:11px 14px;border-radius:10px;background:#ece3ff;border:2px solid #17131f">
+              <span style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">{{ b.b }}</span>
+              <span style="font-size:15px;line-height:1.45;font-weight:500;text-wrap:pretty">{{ b.a }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isProf }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:4px;padding:10px 14px;border-radius:10px;border:2px dashed #17131f">
+              <span style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Exemplaire enseignant · variante B et rattrapage</span>
+              <span style="font-size:14px;line-height:1.45;text-wrap:pretty">{{ b.a }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isImg }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="height:{{ b.h }};position:relative"><image-slot id="{{ b.id }}" shape="rounded" radius="10" placeholder="{{ b.b }}"></image-slot></div>
+              <span style="font-size:12.5px;color:#5d5670">{{ b.b }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isFill }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <span style="font-size:14px;font-weight:700">{{ b.a }}</span>
+              <sc-for list="{{ b.lines }}" as="ln" hint-placeholder-count="3"><div style="height:26px;border-bottom:1.5px dotted #9a92b3"></div></sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isTable }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;border:2px solid #17131f;border-radius:10px">
+              <div style="display:grid;grid-template-columns:{{ b.cols }};gap:10px;padding:6px 12px;background:#ece3ff;border-bottom:2px solid #17131f;border-radius:8px 8px 0 0;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">
+                <sc-for list="{{ b.head }}" as="hd" hint-placeholder-count="4"><span>{{ hd.a }}</span></sc-for>
+              </div>
+              <sc-for list="{{ b.rows }}" as="rw" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:{{ b.cols }};gap:10px;padding:5px 12px;border-bottom:1px solid #e3ddf0;font-size:13.5px;line-height:1.38;min-height:18px">
+                  <sc-for list="{{ rw.cells }}" as="c" hint-placeholder-count="4"><span style="text-wrap:pretty">{{ c.a }}</span></sc-for>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;gap:16px;padding-top:9px;border-top:1px solid #17131f;font-size:10.5px;color:#2e2938">
+        <span>{{ mod.name }} · {{ mod.classe }} · {{ intervenant }}</span>
+        <span>Support v{{ version }} du {{ date }} · à déposer sur Moodle · p. {{ pg.num }}/{{ total }}</span>
+      </div>
+    </section>
+  </sc-for>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;exemplaire&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Enseignant&quot;,&quot;Étudiant&quot;],&quot;default&quot;:&quot;Enseignant&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;seance&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Tout&quot;,&quot;Sommaire&quot;,&quot;S1&quot;,&quot;S2&quot;,&quot;S3&quot;,&quot;S4&quot;,&quot;S5&quot;,&quot;S6&quot;,&quot;S7&quot;,&quot;S8&quot;],&quot;default&quot;:&quot;Tout&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;version&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;1.0&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;date&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;01/10/2026&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;intervenant&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Cliclac Studio&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const TYPES = { index: 'Sommaire du module', methode: 'Fiche méthode', exemple: 'Exemple commenté', consignes: 'Consignes et barème', modele: 'Document modèle', autoeval: 'Auto-évaluation' };
+const DATE_DEVOIR = '___ / ___ / ______';
+/*DATA*/
+const MOD = {
+  name: 'Image de marque', classe: 'B2 EIDM', volume: '4 séances · 14 h', periode: 'Semestre 2',
+  fil: 'En binôme, les étudiants auditent une marque de mode (mass, premium ou luxe). Une couche d’analyse par séance : les signes visibles, l’offre produit, le point de vente, puis la comparaison. Rendu : dossier de 10 à 12 pages et oral de 8 minutes.',
+  cc: [['Grilles d’analyse S1 à S3', '40 %'], ['Dossier d’audit', '35 %'], ['Oral (note individuelle)', '25 %'], ['Quiz de fin de séance', 'Note complémentaire, à valider avec la coordination']],
+  extra: 'Le syllabus prévoit un travail en binôme. Le document de rentrée privilégie l’individuel : chaque étudiant signe ses parties du dossier et l’oral est noté individuellement.'
+};
+const SEANCES = ['Qu’est-ce que l’image de marque ?', 'Image de marque et offre produit', 'Le point de vente comme expression de la marque', 'Étude comparative et soutenances'];
+const DOCS = [
+ { s: 1, type: 'methode', when: 'Projetée pendant le cours (0h30), grille remplie pendant l’exercice imposé', pages: [[
+  ['h1', 'Lire une marque : le prisme et les signes', 'L’identité est ce que la marque émet. L’image est ce que le public reçoit. L’audit mesure l’écart entre les deux.'],
+  ['h', 'Le prisme d’identité (Kapferer)'],
+  ['kv', [['Physique', 'Produits, logo, couleurs.'], ['Personnalité', 'Le caractère qu’on lui prête.'], ['Culture', 'Valeurs, origine.'], ['Relation', 'Ce qu’elle propose au client.'], ['Reflet', 'L’image du client type.'], ['Mentalisation', 'Ce que le client pense de lui-même en l’achetant.']]],
+  ['h', 'Les signes visibles'],
+  ['kv', [['Univers visuel', 'Couleurs, typographie, logo, photographie.'], ['Ton', 'Registre, humour ou gravité.'], ['Codes esthétiques', 'Motifs, matières, silhouettes, pièces emblématiques.'], ['Codes sensoriels', 'Musique, parfum, lumière, toucher.']]],
+  ['note', 'Burberry au début des années 2000 : le motif check, copié et surexposé, s’éloigne du positionnement. La marque réduit son usage et se recentre sur le trench. Un code peut échapper à sa marque.', 'Cas'],
+  ['bar', 'Grille S1 · décoder une marque anonymisée', [['Univers visuel et ton', 5], ['Codes esthétiques et sensoriels', 5], ['Six facettes du prisme renseignées', 6], ['Segment deviné et justifié', 4]]]
+ ], [
+  ['h1', 'Grille d’analyse à remplir', 'Colonne « Émission » : ce que la marque dit d’elle-même (site, manifeste, campagnes). Colonne « Réception » : ce qu’on observe réellement.'],
+  ['table', ['Critère', 'Émission', 'Réception'], [['Physique', '', ''], ['Personnalité', '', ''], ['Culture', '', ''], ['Relation', '', ''], ['Reflet', '', ''], ['Mentalisation', '', ''], ['Univers visuel', '', ''], ['Ton', '', ''], ['Codes esthétiques', '', ''], ['Codes sensoriels', '', '']], 'minmax(0,.7fr) minmax(0,1.15fr) minmax(0,1.15fr)'],
+  ['fill', 'Segment supposé et justification :', 3],
+  ['fill', 'Premier écart repéré entre émission et réception :', 2]
+ ]] },
+ { s: 2, type: 'modele', when: 'Distribué au lancement de l’exercice imposé (relevé de l’offre)', pages: [[
+  ['h1', 'Relever une offre : le tableau et la pyramide', 'Modèle à reproduire pour les 30 produits de l’e-shop de votre marque. Une ligne d’exemple est remplie.'],
+  ['table', ['N°', 'Produit', 'Catégorie', 'Prix', 'Matière', 'Couleur', 'Niveau'], [['01', 'Sac emblématique', 'Maroquinerie', '590 €', 'Cuir de veau', 'Noir', 'Image'], ['02', '', '', '', '', '', ''], ['03', '', '', '', '', '', ''], ['04', '', '', '', '', '', ''], ['05', '', '', '', '', '', ''], ['06', '', '', '', '', '', ''], ['…', 'jusqu’à 30', '', '', '', '', '']], '36px minmax(0,1.3fr) minmax(0,1fr) 62px minmax(0,1fr) minmax(0,.8fr) minmax(0,.8fr)'],
+  ['h', 'La pyramide de l’offre'],
+  ['kv', [['Image', 'Défilé, campagne, rarement vendues en volume.'], ['Cœur de gamme', 'L’essentiel du chiffre d’affaires.'], ['Accès', 'Accessoires, petite maroquinerie, parfum, beauté.'], ['Basiques / carry-over', 'Reconduits d’une saison à l’autre.']]],
+  ['h', 'À calculer et à repérer'],
+  ['kv', [['Écart de prix', 'Produit le plus cher ÷ produit le moins cher.'], ['Pièces emblématiques', ''], ['Produits hors marque', ''], ['Deux cohérences, un écart', 'Avec le discours relevé en séance 1, preuves à l’appui.']]],
+  ['note', 'Le prix est un signe. Deux t-shirts blancs identiques ne racontent pas la même marque à 15 € et à 350 €.', 'À retenir'],
+  ['bar', 'Grille S2 · lire une offre en ligne', [['Tableau complet des 30 produits', 6], ['Pyramide justifiée', 5], ['Écart de prix, pièces emblématiques, hors marque', 4], ['Deux cohérences et un écart prouvés', 5]]]
+ ]] },
+ { s: 3, type: 'exemple', when: 'Analysé à l’oral avant l’exercice des vitrines (1h55)', pages: [[
+  ['h1', 'Lire une vitrine', 'Un point de vente se lit comme une page : un point d’entrée, une hiérarchie, un parcours.'],
+  ['img', 'im-s3-vitrine', 'Vitrine analysée en séance', '230px'],
+  ['annot', [['Type de vitrine', 'Fermée, ouverte, thématique ou produit.'], ['Point focal', 'Ce que l’œil voit en premier.'], ['Produits montrés', 'Groupes impairs, pyramide de hauteurs.'], ['Décor et matériaux', 'Ce qu’ils disent du segment.'], ['Lumière', 'Elle hiérarchise.'], ['Message principal', 'Une phrase.']]],
+  ['h', 'Comparer trois vitrines'],
+  ['table', ['Critère', 'Mass', 'Premium', 'Luxe'], [['Type', '', '', ''], ['Point focal', '', '', ''], ['Produits', '', '', ''], ['Décor', '', '', ''], ['Lumière', '', '', ''], ['Message', '', '', '']], 'minmax(0,.8fr) repeat(3,minmax(0,1fr))'],
+  ['bar', 'Grille S3 · vitrines', [['Trois vitrines analysées avec les six critères', 8], ['Classement par segment justifié', 4], ['Vitrine du binôme : grille complète', 8]]]
+ ]] },
+ { s: 4, type: 'consignes', when: 'Distribué en début de séance. Auto-évaluation avant les oraux.', pages: [[
+  ['h1', 'Dossier d’audit et oral', 'Le dossier assemble les trois couches d’analyse et situe la marque face aux autres segments.'],
+  ['meta', [['Date du devoir', '___ / ___ / ______'], ['Format', 'Dossier de 10 à 12 pages + oral de 8 min'], ['Modalité', 'Binôme, oral noté individuellement'], ['IA', 'Textes rédigés par le binôme. Photos personnelles et sources citées.'], ['Rendu', 'BINOME_Marque_Final.pdf'], ['Dépôt', 'Moodle, la veille de la séance 4']]],
+  ['h', 'Structure du dossier'],
+  ['steps', [['La marque', 'et son identité déclarée.'], ['Les signes visibles', '(séance 1).'], ['L’offre', '(séance 2).'], ['Le point de vente', '(séance 3).'], ['Le positionnement', 'sur la grille mass / premium / luxe.'], ['Cohérences et écarts,', 'puis conclusion.']]],
+  ['bar', 'Dossier d’audit · 35 %', [['Structure', 4], ['Qualité des preuves visuelles', 5], ['Pertinence des écarts relevés', 6], ['Vocabulaire du cours', 3], ['Mise en forme et sources', 2]]],
+  ['bar', 'Oral · 25 % · note individuelle', [['Clarté', 6], ['Argumentation', 8], ['Réponses aux questions', 6]]],
+  ['prof', 'Variante B : liste de marques différente pour la seconde classe. Rattrapage : audit individuel d’une marque imposée à partir de documents fournis, 3 h sur table.']
+ ], [
+  ['h1', 'Avant l’oral : auto-évaluation', 'À remplir en binôme, puis chacun pour sa partie.'],
+  ['check', 'Dossier', ['Les trois couches d’analyse sont présentes', 'Chaque affirmation s’appuie sur une preuve visuelle', 'La marque est placée sur la grille de comparaison', 'Au moins un écart entre émission et réception est démontré', 'Sources et crédits photo indiqués']],
+  ['check', 'Oral (8 min)', ['Je présente la marque en une phrase', 'Je parle de ma partie sans lire', 'Je relie chaque observation au segment', 'Je sais répondre sur la partie de mon binôme']],
+  ['note', 'Le segment ne se lit pas seulement dans le prix : il se lit dans la cohérence de tous les points de contact.', 'À retenir'],
+  ['fill', 'Ma partie du dossier (pages) :', 1],
+  ['fill', 'La question que je redoute, et ma réponse :', 3]
+ ]] }
+];
+/*ENDDATA*/
+
+class Component extends DCLogic {
+  block(raw, k) {
+    const [t, a, b, c] = raw, o = { k };
+    const F = { h1: 'isH1', h: 'isH', p: 'isP', list: 'isList', steps: 'isSteps', annot: 'isAnnot', kv: 'isKv', meta: 'isMeta', bar: 'isBar', check: 'isCheck', note: 'isNote', prof: 'isProf', img: 'isImg', fill: 'isFill', table: 'isTable' };
+    o[F[t]] = true;
+    if (t === 'h1') Object.assign(o, { a, b, hasB: !!b });
+    if (t === 'h' || t === 'p' || t === 'prof') o.a = a;
+    if (t === 'note') Object.assign(o, { a, b: b || 'À retenir' });
+    if (t === 'list') o.items = a.map(x => ({ a: x }));
+    if (t === 'steps') o.items = a.map((x, i) => ({ n: i + 1, a: x[0], b: x[1] }));
+    if (t === 'annot') o.items = a.map((x, i) => ({ l: 'abcdefghij'[i], a: x[0], b: x[1] }));
+    if (t === 'kv' || t === 'meta') o.items = a.map(x => ({ a: x[0], b: x[1], hasB: !!x[1], blank: !x[1] }));
+    if (t === 'bar') Object.assign(o, { a, items: b.map(x => ({ a: x[0], b: x[1] })), total: b.reduce((s, x) => s + x[1], 0) });
+    if (t === 'check') Object.assign(o, { a, items: b.map(x => ({ a: x })) });
+    if (t === 'img') Object.assign(o, { id: a, b, h: c || '240px' });
+    if (t === 'fill') Object.assign(o, { a, lines: [...Array(b || 3).keys()].map(i => ({ i })) });
+    if (t === 'table') Object.assign(o, { head: a.map(x => ({ a: x })), rows: b.map(r => ({ cells: r.map(x => ({ a: x })) })), cols: c || 'repeat(' + a.length + ',minmax(0,1fr))' });
+    return o;
+  }
+  indexPage() {
+    return [
+      ['h1', MOD.name + ' · ' + MOD.classe, MOD.volume + ' · ' + MOD.periode + '. ' + MOD.fil],
+      ['h', 'Un support par séance'],
+      ['table', ['Séance', 'Document', 'Quand l’utiliser'], DOCS.map(d => ['S' + d.s + ' · ' + SEANCES[d.s - 1], TYPES[d.type], d.when]), 'minmax(0,1.1fr) minmax(0,.7fr) minmax(0,1.2fr)'],
+      ['h', 'Contrôle continu'],
+      ['kv', MOD.cc],
+      ['h', 'Règles ACE appliquées à ces supports'],
+      ['list', ['Supports datés et versionnés en pied de page (Qualiopi), déposés sur Moodle après la séance.', 'Chaque sujet indique barème, date, durée, modalité et règle sur l’IA. La démarche est évaluée autant que le résultat.', 'Exemplaire enseignant : variante B pour la seconde classe et sujet de rattrapage. Notes sur Miracle sous 10 jours.']],
+      ...(MOD.extra ? [['note', MOD.extra, 'Supports existants']] : [])
+    ];
+  }
+  componentDidMount() { this.fit(); if (document.fonts) document.fonts.ready.then(() => this.fit()); setTimeout(() => this.fit(), 800); }
+  componentDidUpdate() { this.fit(); }
+  fit() {
+    requestAnimationFrame(() => document.querySelectorAll('section.page').forEach(s => {
+      const c = s.children[1]; if (!c) return; c.style.zoom = 1;
+      const H = Math.round(s.getBoundingClientRect().width * 297 / 210), over = Math.max(s.scrollHeight - H, c.scrollHeight - c.clientHeight);
+      const ch = c.getBoundingClientRect().height;
+      const z = over > 2 ? Math.max(0.78, (ch - over - 4) / ch) : 1; c.style.zoom = z; s.dataset.fit = z.toFixed(2);
+    }));
+  }
+  renderVals() {
+    const p = this.props, ens = (p.exemplaire ?? 'Enseignant') !== 'Étudiant', only = p.seance ?? 'Tout';
+    const docs = only === 'Tout' || only === 'Sommaire' ? DOCS : DOCS.filter(d => 'S' + d.s === only);
+    const list = [];
+    if (only === 'Tout' || only === 'Sommaire' || !docs.length) list.push({ type: TYPES.index, s: '', blocks: this.indexPage() });
+    if (only !== 'Sommaire') (docs.length ? docs : DOCS).forEach(d => d.pages.forEach(pg => list.push({ type: TYPES[d.type], s: 'S' + d.s, blocks: pg })));
+    const pages = list.map((pg, i) => ({ num: i + 1, type: pg.type, s: pg.s, hasS: !!pg.s, label: (pg.s ? pg.s + ' · ' : '') + pg.type,
+      blocks: pg.blocks.filter(b => ens || b[0] !== 'prof').map((b, k) => this.block(b, k)) }));
+    return { pages, total: pages.length, mod: MOD, version: p.version ?? '1.0', date: p.date ?? '01/10/2026', intervenant: p.intervenant ?? 'Cliclac Studio' };
+  }
+}
+</script>
+</body>
+</html>
