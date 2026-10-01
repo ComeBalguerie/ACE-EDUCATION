@@ -34,7 +34,7 @@ input,button,select,textarea{font-family:inherit}
       <sc-if value="{{ isTabEtu }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;gap:14px">
           <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Code de la classe
-            <input value="{{ lf.cls }}" onChange="{{ onCls }}" placeholder="B2-EIDM" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff;text-transform:uppercase">
+            <input value="{{ lf.cls }}" onChange="{{ onCls }}" placeholder="B1-EIDM" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff;text-transform:uppercase">
           </label>
           <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Pseudo
             <input value="{{ lf.pseudo }}" onChange="{{ onPseudo }}" placeholder="ex. lune, pli42…" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff">
@@ -77,8 +77,8 @@ input,button,select,textarea{font-family:inherit}
 
     <div style="display:flex;flex-direction:column;gap:18px;background:#c6f432;color:#17131f;border-radius:22px;padding:24px;border:2px solid #17131f;box-shadow:5px 5px 0 #17131f">
       <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
-        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:34px;line-height:1">InDesign</div>
-        <div style="font-size:13px;font-weight:600">Maquette de magazine · 6 séances</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:34px;line-height:1">Couleur</div>
+        <div style="font-size:13px;font-weight:600">Fondamentaux de la couleur · 4 séances</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:8px">
         <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600"><span>{{ prog.label }}</span><span>{{ prog.points }} pts</span></div>
@@ -202,8 +202,8 @@ input,button,select,textarea{font-family:inherit}
     <sc-if value="{{ qz.isZone }}" hint-placeholder-val="{{ false }}">
       <div style="display:flex;flex-direction:column;gap:8px">
         <div style="{{ qz.diaStyle }}">
-          <sc-for list="{{ qz.base }}" as="b" hint-placeholder-count="2"><div style="{{ b.style }}"></div></sc-for>
-          <sc-for list="{{ qz.zones }}" as="z" hint-placeholder-count="4"><div onClick="{{ z.onClick }}" style="{{ z.style }}"></div></sc-for>
+          <sc-for list="{{ qz.base }}" as="b" hint-placeholder-count="2"><div style="{{ b.style }}">{{ b.lab }}</div></sc-for>
+          <sc-for list="{{ qz.zones }}" as="z" hint-placeholder-count="4"><div onClick="{{ z.onClick }}" style="{{ z.style }}">{{ z.lab }}</div></sc-for>
         </div>
         <div style="font-size:13px;color:#5d5670">{{ qz.zoneHint }}</div>
       </div>
@@ -260,7 +260,7 @@ input,button,select,textarea{font-family:inherit}
     <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
       <div style="display:flex;flex-direction:column;gap:2px">
         <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#ff3d7f;font-weight:600">Espace enseignant</div>
-        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:32px;line-height:1.1">InDesign · Quiz de fin de séance</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:32px;line-height:1.1">Couleur · Quiz de fin de séance</div>
       </div>
       <button onClick="{{ logout }}" style="padding:8px 14px;border:1.5px solid #c9c0e6;border-radius:999px;background:none;font-size:13px;cursor:pointer;color:#17131f">Déconnexion</button>
     </div>
@@ -388,7 +388,7 @@ input,button,select,textarea{font-family:inherit}
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
-const DBK = 'quiz-eidm-proto-v1', USK = 'quiz-eidm-proto-user', NOMK = 'quiz-eidm-noms-local';
+const DBK = 'quiz-couleur-v1', USK = 'quiz-couleur-user', NOMK = 'quiz-couleur-noms-local';
 const ACC = '#ff3d7f', INK = '#17131f', OK = '#1f8a4c', OKBG = '#dcf8c6', KO = '#d6361f', KOBG = '#ffe1d8', LINE = '#d9d2ef';
 const TLIM = 30;
 
@@ -405,10 +405,21 @@ const LOOK = {
   caption: { background: 'repeating-linear-gradient(#8a82a3 0 1px, transparent 1px 4px)' },
   barcode: { background: 'repeating-linear-gradient(90deg,#17131f 0 2px,#fff 2px 4px,#17131f 4px 5px,#fff 5px 8px)' },
   safe: { boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,.9)', outline: '1.5px dashed rgba(255,255,255,.9)', outlineOffset: '-1.5px' },
-  logo: { background: '#fff' }
+  logo: { background: '#fff' },
+  row: { background: '#fff', boxShadow: 'inset 0 0 0 1.5px #c9c0e6', borderRadius: 6 },
+  none: {}
 };
+const LAB = { display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontSize: 12, fontWeight: 600, lineHeight: 1.15, padding: '2px 4px', color: INK, boxSizing: 'border-box' };
 const R = (x, y, w, h, look, id) => ({ x, y, w, h, look, id });
 const DIA = {
+  wheel: {"ratio":"3","base":[],"zones":[{"x":0,"y":0,"w":8.333333333333334,"h":100,"look":"none","id":"c0","sx":{"background":"#f6d31b"}},{"x":8.333333333333334,"y":0,"w":8.333333333333334,"h":100,"look":"none","id":"c1","sx":{"background":"#f5a81c"}},{"x":16.666666666666668,"y":0,"w":8.333333333333334,"h":100,"look":"none","id":"c2","sx":{"background":"#ef7d1a"}},{"x":25,"y":0,"w":8.333333333333334,"h":100,"look":"none","id":"c3","sx":{"background":"#e4521f"}},{"x":33.333333333333336,"y":0,"w":8.333333333333334,"h":100,"look":"none","id":"c4","sx":{"background":"#d42a2a"}},{"x":41.666666666666664,"y":0,"w":8.333333333333334,"h":100,"look":"none","id":"c5","sx":{"background":"#a8246a"}},{"x":50,"y":0,"w":8.333333333333334,"h":100,"look":"none","id":"c6","sx":{"background":"#6e2a8c"}},{"x":58.333333333333336,"y":0,"w":8.333333333333334,"h":100,"look":"none","id":"c7","sx":{"background":"#463a99"}},{"x":66.66666666666667,"y":0,"w":8.333333333333334,"h":100,"look":"none","id":"c8","sx":{"background":"#2457a8"}},{"x":75,"y":0,"w":8.333333333333334,"h":100,"look":"none","id":"c9","sx":{"background":"#1a8a8a"}},{"x":83.33333333333333,"y":0,"w":8.333333333333334,"h":100,"look":"none","id":"c10","sx":{"background":"#2f9a3a"}},{"x":91.66666666666667,"y":0,"w":8.333333333333334,"h":100,"look":"none","id":"c11","sx":{"background":"#9cc32a"}}]},
+  paletteErr: {"ratio":"3.2","base":[],"zones":[{"x":0,"y":0,"w":20,"h":100,"look":"none","id":"p0","sx":{"background":"#1d3f8f"}},{"x":20,"y":0,"w":20,"h":100,"look":"none","id":"p1","sx":{"background":"#2a6db0"}},{"x":40,"y":0,"w":20,"h":100,"look":"none","id":"p2","sx":{"background":"#1f8a8a"}},{"x":60,"y":0,"w":20,"h":100,"look":"none","id":"err","sx":{"background":"#e8742a"}},{"x":80,"y":0,"w":20,"h":100,"look":"none","id":"p4","sx":{"background":"#2f9a5a"}}]},
+  pyramide: {"ratio":"1.4","base":[{"x":0,"y":0,"w":100,"h":100,"look":"page"}],"zones":[{"x":39,"y":6,"w":22,"h":19,"look":"none","id":"image","sx":{"background":"#17131f"}},{"x":29,"y":29,"w":42,"h":19,"look":"none","id":"coeur","sx":{"background":"#4a4360"}},{"x":19,"y":52,"w":62,"h":19,"look":"none","id":"acces","sx":{"background":"#8a82a3"}},{"x":9,"y":75,"w":82,"h":19,"look":"none","id":"basiques","sx":{"background":"#c9c0e6"}}]},
+  boutique: {"ratio":"1.25","base":[{"x":0,"y":0,"w":100,"h":100,"look":"page"},{"x":38,"y":88,"w":24,"h":12,"look":"none","lab":"Entrée ↑","sx":{}}],"zones":[{"x":0,"y":88,"w":38,"h":12,"look":"img","id":"vitrine"},{"x":62,"y":88,"w":38,"h":12,"look":"img","id":"vitrine2"},{"x":28,"y":66,"w":44,"h":20,"look":"margin","id":"decomp"},{"x":74,"y":32,"w":24,"h":40,"look":"row","id":"droite"},{"x":10,"y":4,"w":80,"h":18,"look":"row","id":"fond"},{"x":2,"y":32,"w":20,"h":26,"look":"row","id":"caisse"},{"x":30,"y":30,"w":38,"h":30,"look":"row","id":"centre"}]},
+  layers: {"ratio":"1.6","base":[{"x":0,"y":0,"w":100,"h":100,"look":"page"}],"zones":[{"x":5,"y":5,"w":90,"h":20,"look":"row","id":"err","lab":"Fond blanc (plein)"},{"x":5,"y":28,"w":90,"h":20,"look":"row","id":"titre","lab":"T · Titre"},{"x":5,"y":51,"w":90,"h":20,"look":"row","id":"courbes","lab":"Courbes (calque de réglage)"},{"x":5,"y":74,"w":90,"h":20,"look":"row","id":"sujet","lab":"Sujet détouré"}]},
+  tiers: {"ratio":"1.5","base":[{"x":0,"y":0,"w":100,"h":100,"look":"img"},{"x":33,"y":0,"w":0.7,"h":100,"look":"none","sx":{"background":"rgba(255,255,255,.85)"}},{"x":66.3,"y":0,"w":0.7,"h":100,"look":"none","sx":{"background":"rgba(255,255,255,.85)"}},{"x":0,"y":33,"w":100,"h":1,"look":"none","sx":{"background":"rgba(255,255,255,.85)"}},{"x":0,"y":66.3,"w":100,"h":1,"look":"none","sx":{"background":"rgba(255,255,255,.85)"}}],"zones":[{"x":29.299999999999997,"y":27.299999999999997,"w":8,"h":12,"look":"none","id":"p1","sx":{"background":"rgba(255,255,255,.4)","borderRadius":"50%"}},{"x":62.599999999999994,"y":27.299999999999997,"w":8,"h":12,"look":"none","id":"p2","sx":{"background":"rgba(255,255,255,.4)","borderRadius":"50%"}},{"x":29.299999999999997,"y":60.599999999999994,"w":8,"h":12,"look":"none","id":"p3","sx":{"background":"rgba(255,255,255,.4)","borderRadius":"50%"}},{"x":62.599999999999994,"y":60.599999999999994,"w":8,"h":12,"look":"none","id":"p4","sx":{"background":"rgba(255,255,255,.4)","borderRadius":"50%"}},{"x":46,"y":44,"w":8,"h":12,"look":"none","id":"centre","sx":{"background":"rgba(255,255,255,.4)","borderRadius":"50%"}},{"x":4,"y":4,"w":8,"h":12,"look":"none","id":"coin","sx":{"background":"rgba(255,255,255,.4)","borderRadius":"50%"}},{"x":46,"y":6,"w":8,"h":12,"look":"none","id":"haut","sx":{"background":"rgba(255,255,255,.4)","borderRadius":"50%"}}]},
+  ancres: {"ratio":"1","base":[{"x":15,"y":15,"w":70,"h":70,"look":"none","sx":{"borderRadius":"50%","boxShadow":"inset 0 0 0 3px #17131f"}}],"zones":[{"x":46,"y":11,"w":8,"h":8,"look":"none","id":"a1","sx":{"background":"#fff","boxShadow":"inset 0 0 0 2.5px #17131f"}},{"x":46,"y":81,"w":8,"h":8,"look":"none","id":"a2","sx":{"background":"#fff","boxShadow":"inset 0 0 0 2.5px #17131f"}},{"x":11,"y":46,"w":8,"h":8,"look":"none","id":"a3","sx":{"background":"#fff","boxShadow":"inset 0 0 0 2.5px #17131f"}},{"x":81,"y":46,"w":8,"h":8,"look":"none","id":"a4","sx":{"background":"#fff","boxShadow":"inset 0 0 0 2.5px #17131f"}},{"x":70.7,"y":21.3,"w":8,"h":8,"look":"none","id":"err","sx":{"background":"#fff","boxShadow":"inset 0 0 0 2.5px #17131f"}}]},
+  pictos: {"ratio":"3.4","base":[{"x":0,"y":0,"w":100,"h":100,"look":"page"}],"zones":[{"x":5,"y":22,"w":14,"h":56,"look":"none","id":"k0","sx":{"background":"#fff","borderRadius":"24%","boxShadow":"inset 0 0 0 4px #17131f"}},{"x":24,"y":22,"w":14,"h":56,"look":"none","id":"k1","sx":{"background":"#fff","borderRadius":"24%","boxShadow":"inset 0 0 0 4px #17131f"}},{"x":43,"y":22,"w":14,"h":56,"look":"none","id":"k2","sx":{"background":"#fff","borderRadius":"24%","boxShadow":"inset 0 0 0 4px #17131f"}},{"x":62,"y":22,"w":14,"h":56,"look":"none","id":"err","sx":{"background":"#fff","borderRadius":"3%","boxShadow":"inset 0 0 0 9px #17131f"}},{"x":81,"y":22,"w":14,"h":56,"look":"none","id":"k4","sx":{"background":"#fff","borderRadius":"24%","boxShadow":"inset 0 0 0 4px #17131f"}}]},
   margins: { ratio: '1.414', base: [R(0,0,50,100,'page'), R(50,0,50,100,'page'), R(49.8,0,0.4,100,'spine'), R(9,10,34,78,'text'), R(57,10,34,78,'text')],
     zones: [R(0,0,50,10,'margin','tete'), R(0,88,50,12,'margin','pied'), R(0,10,9,78,'margin','gf'), R(43,10,7,78,'margin','pf-l'), R(50,10,7,78,'margin','pf-r'), R(91,10,9,78,'margin','gf2')] },
   page: { ratio: '0.707', base: [R(0,0,100,100,'page')],
@@ -420,50 +431,357 @@ const DIA = {
 };
 
 const SESS = [
- { id: 's1', t: 'Le document et la grille', badge: 'Architecte de la grille', qs: [
-  { type: 'qcm', q: 'Quels fonds perdus prévoir pour un magazine imprimé ?', opts: ['0 mm', '1 mm', '3 mm', '10 mm'], a: 2, why: '3 mm au-delà du format : l’image qui va jusqu’au bord ne laisse pas de filet blanc après la coupe.' },
-  { type: 'zone', mode: 'place', dia: 'margins', q: 'Touchez le petit fond.', a: ['pf-l', 'pf-r'], why: 'Le petit fond est la marge intérieure, côté reliure. En magazine, il doit être assez large pour que le texte ne se perde pas dans le pli.' },
-  { type: 'order', q: 'Remettez dans l’ordre la création d’un document InDesign.', items: ['Fichier › Nouveau › Document', 'Choisir le format et les pages en vis-à-vis', 'Régler marges, colonnes et fonds perdus', 'Placer textes et images', 'Enregistrer en .indd'], why: 'Les réglages de départ viennent avant tout contenu : une erreur de format ou de fonds perdus se paie à la fin.' },
-  { type: 'match', q: 'Associez chaque commande à son raccourci.', pairs: [['Préférences', 'Cmd + K'], ['Sélection', 'V'], ['Sélection directe', 'A'], ['Texte', 'T'], ['Bloc rectangle', 'F']], why: 'Ces cinq raccourcis suffisent pour la plupart des manipulations de la séance.' },
-  { type: 'vf', q: 'La grille de ligne de base se cale sur l’interlignage du texte courant.', a: true, why: 'Exemple vu en séance : ligne de base de 12 pt pour un texte en 12 pt d’interlignage. Toutes les colonnes s’alignent alors entre elles.' },
-  { type: 'qcm', q: 'Qui a publié Grid Systems in Graphic Design en 1981 ?', opts: ['Fabien Baron', 'Josef Müller-Brockmann', 'Tibor Kalman', 'Peter Saville'], a: 1, why: 'Graphiste suisse, auteur des affiches de la Tonhalle de Zurich. Pour lui, la grille est un outil de clarté.' } ] },
- { id: 's2', t: 'Typographie et hiérarchie de lecture', badge: 'Typographe', qs: [
-  { type: 'order', q: 'Remettez dans l’ordre les trois temps de lecture.', items: ['On regarde : titre et image', 'On parcourt : chapô, intertitres, exergues', 'On lit : texte courant'], why: 'Une hiérarchie claire guide l’œil du plus visible au plus détaillé.' },
-  { type: 'qcm', q: 'Quel corps pour le texte courant d’un magazine ?', opts: ['6 à 7 pt', '9 à 10,5 pt', '14 à 16 pt', '24 pt'], a: 1, why: '9 à 10,5 pt, avec un interlignage autour de 120 %.' },
-  { type: 'zone', mode: 'place', dia: 'page', q: 'Touchez l’exergue.', a: ['exergue'], why: 'L’exergue est une citation mise en valeur dans le texte. Elle casse le rythme et accroche le lecteur qui parcourt la page.' },
-  { type: 'match', q: 'Associez chaque niveau de texte à son rôle.', pairs: [['Surtitre', 'Annonce la rubrique'], ['Chapô', 'Résume l’article'], ['Exergue', 'Met une citation en valeur'], ['Légende', 'Décrit une image'], ['Folio', 'Numéro de page']], why: 'Chaque niveau a un rôle, donc un style de paragraphe.' },
-  { type: 'vf', q: 'Pour agrandir un titre, on peut modifier sa taille directement sans toucher au style.', a: false, why: 'Aucun réglage manuel : tout passe par les styles. C’est ce qui permet de modifier 40 pages en une minute.' },
-  { type: 'qcm', q: 'Combien de signes par ligne pour un texte confortable ?', opts: ['20 à 30', '55 à 65', '90 à 100', 'Plus de 120'], a: 1, why: 'Au-delà, l’œil se perd en revenant à la ligne. En deçà, la lecture est hachée.' },
-  { type: 'qcm', q: 'Fabien Baron a redessiné quel magazine en 1992 ?', opts: ['Vogue', 'Harper’s Bazaar', 'The Face', 'Colors'], a: 1, why: 'Didones très contrastées, grands titres qui dialoguent avec les photos : la typographie participe à l’image.' } ] },
- { id: 's3', t: 'Images, composition et première double-page', badge: 'Iconographe', qs: [
-  { type: 'qcm', q: 'Résolution effective minimale d’une image pour l’impression ?', opts: ['72 ppi', '150 ppi', '300 ppi', '600 ppi'], a: 2, why: 'On la vérifie dans le panneau Liens (ppi effectifs), après mise à l’échelle dans le bloc.' },
-  { type: 'zone', mode: 'erreur', dia: 'spreadErr', q: 'Trouvez l’erreur sur cette double-page.', a: ['err'], why: 'Un bloc de texte posé sur la reliure : il sera avalé par le pli. Le texte reste dans les colonnes, hors du petit fond.' },
-  { type: 'vf', q: 'On peut corriger l’exposition d’une image directement dans InDesign.', a: false, why: 'On corrige dans Photoshop (Modifier l’original) et le lien se met à jour automatiquement.' },
-  { type: 'match', q: 'Associez chaque outil à ce qu’il fait.', pairs: [['Panneau Liens', 'Statut et ppi effectifs'], ['Modifier l’original', 'Ouvre l’image dans Photoshop'], ['Habillage', 'Le texte contourne une forme'], ['Remplir le bloc proportionnellement', 'L’image couvre le bloc sans déformation']], why: 'Ce sont les quatre réglages à maîtriser pour placer les images YSL.' },
-  { type: 'qcm', q: 'Raccourci pour importer une image ?', opts: ['Cmd + I', 'Cmd + D', 'Cmd + P', 'Cmd + O'], a: 1, why: 'Cmd + D (Fichier › Importer). Plusieurs images peuvent être placées à la suite.' },
-  { type: 'qcm', q: 'Quel photographe signe les catalogues Yohji Yamamoto de la fin des années 1980 ?', opts: ['Nick Knight', 'Helmut Newton', 'Juergen Teller', 'Peter Lindbergh'], a: 0, why: 'Avec Marc Ascoli à la direction artistique et Peter Saville au graphisme.' } ] },
- { id: 's4', t: 'Charte éditoriale et gabarits', badge: 'Gardien de la charte', qs: [
-  { type: 'vf', q: 'Une charte doit permettre à un autre maquettiste de faire une page sans vous demander.', a: true, why: 'C’est le critère retenu en séance pour juger une charte complète.' },
-  { type: 'order', q: 'Remettez dans l’ordre la construction des gabarits.', items: ['Créer le gabarit de base (folio, titre courant)', 'Créer les gabarits enfants basés sur lui', 'Appliquer les gabarits aux pages', 'Libérer un élément sur une page précise'], why: 'Le gabarit parent porte ce qui est commun. Les enfants héritent de ses modifications.' },
-  { type: 'qcm', q: 'Comment insérer un folio automatique ?', opts: ['Page › Numérotation › Folio', 'Texte › Insérer un caractère spécial › Marques › Numéro de page', 'Objet › Folio automatique', 'Fenêtre › Pages › Numéroter'], a: 1, why: 'À placer sur le gabarit : chaque page affiche alors son propre numéro.' },
-  { type: 'qcm', q: 'Raccourci pour libérer un élément de gabarit sur une page ?', opts: ['Alt + clic', 'Cmd + Maj + clic', 'Double-clic', 'Cmd + L'], a: 1, why: 'L’élément devient modifiable sur cette page uniquement.' },
-  { type: 'match', q: 'Associez chaque élément de la charte à l’outil qui le gère.', pairs: [['Couleurs de la charte', 'Nuancier'], ['Encadré avec fond', 'Style d’objet'], ['Folio et titre courant', 'Gabarit parent'], ['Exergue', 'Style de paragraphe']], why: 'Chaque règle de la charte doit être inscrite dans un outil, pas dans la mémoire du maquettiste.' },
-  { type: 'qcm', q: 'Quel magazine, lancé en 2005, se reconnaît à sa mise en page très régulière ?', opts: ['Fantastic Man', 'i-D', 'Purple', 'Dazed'], a: 0, why: 'Jop van Bennekom et Gert Jonkers : une constance rendue possible par un système de gabarits et de styles.' } ] },
- { id: 's5', t: 'Couverture, sommaire et déclinaisons', badge: 'Directeur de couverture', qs: [
-  { type: 'zone', mode: 'erreur', dia: 'cover', q: 'Trouvez l’élément mal placé sur cette couverture.', a: ['err'], why: 'Cette accroche sort de la zone de sécurité (pointillés, 5 mm du bord) : elle risque d’être coupée au massicot.' },
-  { type: 'qcm', q: 'Format d’un post Instagram vertical ?', opts: ['1080 × 1350 px', '1080 × 1920 px', '1920 × 1080 px', '210 × 297 mm'], a: 0, why: '1080 × 1920 px correspond à la story.' },
-  { type: 'vf', q: 'Décliner une double-page, c’est la réduire au nouveau format.', a: false, why: 'Décliner, ce n’est pas réduire : on garde les règles (typographie, couleurs, images) et on recompose.' },
-  { type: 'qcm', q: 'La table des matières automatique est générée à partir…', opts: ['des calques', 'des styles de paragraphe', 'des gabarits', 'du panneau Liens'], a: 1, why: 'Page › Table des matières : InDesign relève les textes qui portent les styles choisis.' },
-  { type: 'qcm', q: 'Mode colorimétrique d’une déclinaison en story ?', opts: ['CMJN', 'RVB', 'Niveaux de gris', 'Pantone'], a: 1, why: 'Document écran : unités en pixels, RVB.' },
-  { type: 'qcm', q: 'Qui dirige les premiers numéros de Colors ?', opts: ['Tibor Kalman', 'Fabien Baron', 'Jop van Bennekom', 'Marc Ascoli'], a: 0, why: 'Une maquette qui change à chaque thème sans perdre son identité.' } ] },
- { id: 's6', t: 'Contrôle, export et soutenance', badge: 'Bon à tirer', qs: [
-  { type: 'order', q: 'Remettez dans l’ordre la sortie du magazine.', items: ['Contrôle en amont', 'Aperçu des séparations', 'Export PDF impression', 'Assemblage'], why: 'On vérifie, puis on exporte, puis on rassemble le document, les liens et les polices.' },
-  { type: 'qcm', q: 'Quelle norme pour le PDF d’impression ?', opts: ['PDF/A', 'PDF/X-4', 'PDF interactif', 'PDF 1.3 écran'], a: 1, why: 'Avec fonds perdus et traits de coupe, selon les demandes de l’imprimeur.' },
-  { type: 'vf', q: 'Un texte noir doit être en 100 % K.', a: true, why: 'Vérifiable dans l’aperçu des séparations. Un noir en quadri bave au repérage.' },
-  { type: 'match', q: 'Associez chaque problème à l’outil qui le règle.', pairs: [['Lien manquant', 'Contrôle en amont'], ['Doubles espaces', 'Rechercher / remplacer'], ['Rassembler liens et polices', 'Assemblage'], ['Vérifier le noir', 'Aperçu des séparations']], why: 'Un document propre n’a aucun voyant rouge au contrôle en amont.' },
-  { type: 'qcm', q: 'Profil CMJN le plus courant chez l’imprimeur ?', opts: ['sRGB', 'Coated Fogra39', 'Adobe RGB', 'Display P3'], a: 1, why: 'Les trois autres sont des profils RVB, pour l’écran.' },
-  { type: 'vf', q: 'Le PDF écran s’exporte en CMJN avec traits de coupe.', a: false, why: 'PDF écran : RVB, images compressées, pages en planches, liens actifs.' } ] }
+ {
+  "id": "s1",
+  "t": "De la lumière à l’œil",
+  "badge": "Œil exercé",
+  "qs": [
+   {
+    "type": "qcm",
+    "q": "Quelles sont les trois propriétés d’une couleur ?",
+    "opts": [
+     "Teinte, valeur, saturation",
+     "Rouge, vert, bleu",
+     "Chaud, froid, neutre",
+     "Clair, foncé, pastel"
+    ],
+    "a": 0,
+    "why": "On décrit une couleur par ces trois propriétés : « un bleu sombre et peu saturé » plutôt que « bleu marine »."
+   },
+   {
+    "type": "zone",
+    "mode": "place",
+    "dia": "wheel",
+    "q": "Sur ce cercle d’Itten déplié, touchez la complémentaire du bleu.",
+    "a": [
+     "c2"
+    ],
+    "why": "La complémentaire est la couleur opposée sur le cercle : le bleu et l’orange."
+   },
+   {
+    "type": "vf",
+    "q": "Une couleur rabattue est une couleur mêlée de blanc.",
+    "a": false,
+    "why": "Rabattue : mêlée de noir. Mêlée de blanc, elle est dégradée. Mêlée de sa complémentaire, elle est rompue."
+   },
+   {
+    "type": "match",
+    "q": "Associez chaque terme à sa définition.",
+    "pairs": [
+     [
+      "Rompue",
+      "Mêlée de sa complémentaire"
+     ],
+     [
+      "Rabattue",
+      "Mêlée de noir"
+     ],
+     [
+      "Dégradée",
+      "Mêlée de blanc"
+     ],
+     [
+      "Pastel",
+      "Claire et peu saturée"
+     ]
+    ],
+    "why": "Le vocabulaire du carnet couleur : à utiliser dans chaque description."
+   },
+   {
+    "type": "qcm",
+    "q": "Quelle synthèse correspond à l’encre et à l’impression ?",
+    "opts": [
+     "Additive (RVB)",
+     "Soustractive (CMJN)",
+     "Simultanée",
+     "Analogue"
+    ],
+    "a": 1,
+    "why": "La matière absorbe la lumière : c’est la synthèse soustractive. La lumière des écrans s’additionne : synthèse additive."
+   },
+   {
+    "type": "vf",
+    "q": "Une même étoffe peut changer de couleur selon l’éclairage.",
+    "a": true,
+    "why": "C’est le métamérisme : on valide un coloris en lumière du jour et sous l’éclairage de la boutique."
+   },
+   {
+    "type": "qcm",
+    "q": "Qui a écrit le Traité des couleurs (1810), centré sur la couleur perçue ?",
+    "opts": [
+     "Isaac Newton",
+     "Goethe",
+     "Josef Albers",
+     "Johannes Itten"
+    ],
+    "a": 1,
+    "why": "Newton décrit la lumière et le prisme ; Goethe s’intéresse à la couleur telle qu’on la perçoit et la ressent."
+   }
+  ]
+ },
+ {
+  "id": "s2",
+  "t": "Nommer, reproduire, contraster",
+  "badge": "Maître des contrastes",
+  "qs": [
+   {
+    "type": "qcm",
+    "q": "À quoi sert une référence Pantone TCX ?",
+    "opts": [
+     "Coder une couleur pour le web",
+     "Transmettre une couleur textile exacte au fournisseur",
+     "Mesurer la saturation",
+     "Nommer une tendance"
+    ],
+    "a": 1,
+    "why": "Les références TCX (coton) servent à transmettre une couleur exacte au fournisseur textile."
+   },
+   {
+    "type": "match",
+    "q": "Associez chaque système à son usage.",
+    "pairs": [
+     [
+      "Pantone",
+      "Nuancier numéroté, impression et textile"
+     ],
+     [
+      "NCS",
+      "Architecture intérieure, boutique"
+     ],
+     [
+      "RVB / hexadécimal",
+      "Écran et web"
+     ],
+     [
+      "CMJN",
+      "Impression"
+     ]
+    ],
+    "why": "Une couleur de marque se définit dans tous ces systèmes."
+   },
+   {
+    "type": "qcm",
+    "q": "Un gris neutre paraît rosé à côté d’un vert. De quel contraste s’agit-il ?",
+    "opts": [
+     "Clair-obscur",
+     "Quantité",
+     "Simultané",
+     "Qualité"
+    ],
+    "a": 2,
+    "why": "Contraste simultané : l’œil ajoute la complémentaire autour d’une couleur."
+   },
+   {
+    "type": "zone",
+    "mode": "erreur",
+    "dia": "paletteErr",
+    "q": "Cette palette doit être analogue (teintes voisines). Trouvez l’erreur.",
+    "a": [
+     "err"
+    ],
+    "why": "L’orange est opposé aux bleus et aux verts : il crée un contraste complémentaire, pas une harmonie analogue."
+   },
+   {
+    "type": "vf",
+    "q": "Le contraste de quantité joue sur les proportions de surface.",
+    "a": true,
+    "why": "Une petite surface de couleur vive suffit à équilibrer une grande surface terne."
+   },
+   {
+    "type": "qcm",
+    "q": "Combien de contrastes Itten a-t-il définis ?",
+    "opts": [
+     "3",
+     "5",
+     "7",
+     "12"
+    ],
+    "a": 2,
+    "why": "Couleur en soi, clair-obscur, chaud-froid, complémentaires, simultané, qualité, quantité."
+   },
+   {
+    "type": "qcm",
+    "q": "Interaction of Color (1963) est signé…",
+    "opts": [
+     "Josef Albers",
+     "Michel Pastoureau",
+     "Elsa Schiaparelli",
+     "Isaac Newton"
+    ],
+    "a": 0,
+    "why": "Albers montre qu’une couleur n’existe jamais seule : un même gris change selon son fond."
+   }
+  ]
+ },
+ {
+  "id": "s3",
+  "t": "La couleur comme langage",
+  "badge": "Lecteur d’images",
+  "qs": [
+   {
+    "type": "vf",
+    "q": "La symbolique des couleurs est la même dans toutes les cultures.",
+    "a": false,
+    "why": "Les associations sont apprises : elles varient selon les marchés et les époques."
+   },
+   {
+    "type": "order",
+    "q": "Remettez dans l’ordre la grille d’analyse en cinq temps.",
+    "items": [
+     "Contexte",
+     "Description",
+     "Couleur",
+     "Composition et typographie",
+     "Interprétation"
+    ],
+    "why": "On décrit avant d’interpréter."
+   },
+   {
+    "type": "qcm",
+    "q": "Combien de temps à l’avance les tendances couleur sont-elles définies ?",
+    "opts": [
+     "3 à 6 mois",
+     "6 à 12 mois",
+     "18 à 24 mois",
+     "5 ans"
+    ],
+    "a": 2,
+    "why": "Salons (Première Vision), bureaux de style et Pantone travaillent 18 à 24 mois à l’avance."
+   },
+   {
+    "type": "match",
+    "q": "Associez chaque maison à sa couleur signature.",
+    "pairs": [
+     [
+      "Hermès",
+      "Orange"
+     ],
+     [
+      "Tiffany",
+      "Bleu"
+     ],
+     [
+      "Valentino",
+      "Rouge"
+     ],
+     [
+      "Chanel",
+      "Noir, blanc et beige"
+     ]
+    ],
+    "why": "Une palette signature rend la marque reconnaissable sans logo."
+   },
+   {
+    "type": "qcm",
+    "q": "Selon Michel Pastoureau, quelle couleur peu valorisée dans l’Antiquité est devenue la préférée des Européens ?",
+    "opts": [
+     "Le rouge",
+     "Le bleu",
+     "Le vert",
+     "Le violet"
+    ],
+    "a": 1,
+    "why": "Les significations des couleurs changent au cours des siècles."
+   },
+   {
+    "type": "qcm",
+    "q": "Le rose « Shocking » (1937) est associé à…",
+    "opts": [
+     "Coco Chanel",
+     "Elsa Schiaparelli",
+     "Yves Saint Laurent",
+     "Valentino"
+    ],
+    "a": 1,
+    "why": "Une couleur qui dérange, devenue signature de la maison Schiaparelli."
+   }
+  ]
+ },
+ {
+  "id": "s4",
+  "t": "La couleur au service de la marque",
+  "badge": "Directeur couleur",
+  "qs": [
+   {
+    "type": "qcm",
+    "q": "Quelle est la répartition classique d’une palette de marque ?",
+    "opts": [
+     "Dominante 60 %, secondaire 30 %, accent 10 %",
+     "33 % pour chaque couleur",
+     "Accent 60 %, dominante 30 %, secondaire 10 %",
+     "Dominante 90 %, accent 10 %"
+    ],
+    "a": 0,
+    "why": "Plus une gamme de neutres pour faire respirer la palette."
+   },
+   {
+    "type": "vf",
+    "q": "Le territoire chromatique se limite aux couleurs du logo.",
+    "a": false,
+    "why": "Il couvre toutes les couleurs que la marque s’autorise, au-delà de ses couleurs institutionnelles."
+   },
+   {
+    "type": "match",
+    "q": "Associez chaque esthétique à ses couleurs.",
+    "pairs": [
+     [
+      "Quiet luxury",
+      "Beige, camel, gris, marine"
+     ],
+     [
+      "Minimalisme",
+      "Noir, blanc, écru"
+     ],
+     [
+      "Gorpcore",
+      "Orange de sécurité, kaki"
+     ],
+     [
+      "Y2K",
+      "Argenté, rose, bleu glacier"
+     ]
+    ],
+    "why": "Les codes chromatiques des grandes esthétiques actuelles."
+   },
+   {
+    "type": "qcm",
+    "q": "Dans quels systèmes définir chaque couleur de la palette ?",
+    "opts": [
+     "Seulement en hexadécimal",
+     "Pantone, CMJN, RVB et hexadécimal",
+     "Seulement en Pantone",
+     "Seulement en CMJN"
+    ],
+    "a": 1,
+    "why": "Pour qu’elle soit reproduite de la même façon sur tous les supports."
+   },
+   {
+    "type": "order",
+    "q": "Remettez dans l’ordre les étapes de l’atelier palette.",
+    "items": [
+     "Définir trois mots d’univers",
+     "Construire la palette",
+     "Appliquer sur trois supports",
+     "Rédiger la justification"
+    ],
+    "why": "Le positionnement d’abord, la couleur ensuite."
+   },
+   {
+    "type": "qcm",
+    "q": "Le Pink PP (2022) a été lancé par…",
+    "opts": [
+     "Pierpaolo Piccioli chez Valentino",
+     "Demna chez Balenciaga",
+     "Daniel Lee chez Burberry",
+     "Virginie Viard chez Chanel"
+    ],
+    "a": 0,
+    "why": "Une couleur comme manifeste, portée sur toute une collection."
+   }
+  ]
+ }
 ];
+
 const KIND = { qcm: 'QCM', vf: 'Vrai ou faux', order: 'Remettre dans l’ordre', match: 'Associer', place: 'Touchez la bonne zone', erreur: 'Trouvez l’erreur' };
 
 const clone = o => JSON.parse(JSON.stringify(o));
@@ -475,14 +793,14 @@ function seed() {
   const db = { users: {}, att: {}, open: { s1: true, s2: true, s3: true }, qedit: {} };
   const demo = [['lune', [16, 14.5, 12]], ['atelier12', [18, 17, 15.5]], ['kiwi', [11.5, 13, null]], ['nova', [15, 9.5, 14]], ['pli', [19.5, 18, 17]]];
   demo.forEach(([p, ns]) => {
-    const k = 'B2-EIDM/' + p; db.users[k] = { cls: 'B2-EIDM', pseudo: p, pin: '0000' }; db.att[k] = {};
+    const k = 'B1-EIDM/' + p; db.users[k] = { cls: 'B1-EIDM', pseudo: p, pin: '0000' }; db.att[k] = {};
     ns.forEach((n, i) => { if (n != null) db.att[k]['s' + (i + 1)] = [{ note: n, pts: Math.round(n * 30 + 80), training: false, date: Date.now() }]; });
   });
   return db;
 }
 
 class Component extends DCLogic {
-  state = { screen: 'login', db: null, user: null, lf: { tab: 'etu', cls: 'B2-EIDM', pseudo: '', pin: '', code: '', err: '' }, quiz: null, res: null, ptab: 'res', edS: 's1', noms: {}, now: Date.now() };
+  state = { screen: 'login', db: null, user: null, lf: { tab: 'etu', cls: 'B1-EIDM', pseudo: '', pin: '', code: '', err: '' }, quiz: null, res: null, ptab: 'res', edS: 's1', noms: {}, now: Date.now() };
 
   componentDidMount() {
     const db = load(DBK, null) || seed();
@@ -597,12 +915,12 @@ class Component extends DCLogic {
     if (q.type === 'zone') {
       const d = DIA[q.dia], pos = r => ({ position: 'absolute', left: r.x + '%', top: r.y + '%', width: r.w + '%', height: r.h + '%' });
       out.diaStyle = { position: 'relative', width: '100%', aspectRatio: d.ratio, background: '#e4ddf7', borderRadius: 6, overflow: 'hidden', maxHeight: '60vh', margin: '0 auto' };
-      out.base = d.base.map(b => ({ style: { ...pos(b), ...LOOK[b.look], pointerEvents: 'none' } }));
+      out.base = d.base.map(b => ({ lab: b.lab || '', style: { ...pos(b), ...LOOK[b.look], ...(b.lab ? LAB : {}), ...(b.sx || {}), pointerEvents: 'none' } }));
       out.zones = d.zones.map(zn => {
         const sel = a === zn.id, good = q.a.includes(zn.id);
         let ol = sel ? '3px solid ' + ACC : 'none';
         if (v) ol = good ? '3px solid ' + OK : sel ? '3px solid ' + KO : 'none';
-        return { onClick: () => this.setAns(zn.id), style: { ...pos(zn), ...LOOK[zn.look], cursor: v ? 'default' : 'pointer', outline: ol, outlineOffset: -3, zIndex: zn.id === 'err' ? 2 : 1, filter: sel && !v ? 'brightness(0.92)' : 'none' } };
+        return { lab: zn.lab || '', onClick: () => this.setAns(zn.id), style: { ...pos(zn), ...LOOK[zn.look], ...(zn.lab ? LAB : {}), ...(zn.sx || {}), cursor: v ? 'default' : 'pointer', outline: ol, outlineOffset: -3, zIndex: zn.id === 'err' ? 2 : 1, filter: sel && !v ? 'brightness(0.92)' : 'none' } };
       });
       out.zoneHint = v ? 'En vert : la bonne zone.' : a ? 'Zone sélectionnée. Validez ou touchez une autre zone.' : 'Touchez directement le schéma.';
     }
@@ -619,7 +937,7 @@ class Component extends DCLogic {
     return {
       prog: { label: done + ' séance' + (done > 1 ? 's' : '') + ' sur ' + SESS.length, pct: (done / SESS.length * 100) + '%', points: sess.reduce((t, x) => t + x.bestPts, 0) },
       badges: [...sess.map(x => ({ mark: 'S' + (x.i + 1), name: x.s.badge, bg: x.badge ? ACC : 'rgba(255,255,255,.5)', border: x.badge ? 'solid ' + INK : 'dashed ' + INK, fg: INK, label: INK })),
-        { mark: 'ID', name: 'Maquettiste', bg: all ? INK : 'rgba(255,255,255,.5)', border: 'solid ' + INK, fg: all ? '#c6f432' : INK, label: INK }],
+        { mark: 'CO', name: 'Coloriste', bg: all ? INK : 'rgba(255,255,255,.5)', border: 'solid ' + INK, fg: all ? '#c6f432' : INK, label: INK }],
       sessions: sess.map(x => ({ n: x.i + 1, t: x.s.t, op: x.open ? 1 : 0.55,
         status: !x.open ? 'Pas encore ouverte' : !x.graded ? 'À faire · ' + this.qsOf(x.s.id).length + ' questions' : 'Note CC ' + fr(x.graded.note) + '/20' + (x.best > x.graded.note ? ' · meilleur ' + fr(x.best) : ''),
         canPlay: x.open, btn: x.graded ? 'Rejouer' : 'Jouer', btnBg: x.graded ? '#fff' : ACC, btnFg: INK, play: () => this.start(x.s.id) }))
@@ -646,7 +964,7 @@ class Component extends DCLogic {
     const lines = [head, ...this.rowsData().map(r => [r.u.pseudo, r.u.cls, this.state.noms[r.k] || '', ...r.notes.map(fr), fr(r.moy)].map(fr))];
     const csv = '\ufeff' + lines.map(l => l.map(c => '"' + String(c === '–' ? '' : c).replace(/"/g, '""') + '"').join(';')).join('\r\n');
     const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
-    const el = document.createElement('a'); el.href = url; el.download = 'Quiz_InDesign_notes.csv'; document.body.appendChild(el); el.click(); el.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    const el = document.createElement('a'); el.href = url; el.download = 'Quiz_Couleur_notes.csv'; document.body.appendChild(el); el.click(); el.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
   editQs = fn => { const sid = this.state.edS; this.setDb(d => { d.qedit[sid] = d.qedit[sid] || clone(SESS.find(s => s.id === sid).qs); fn(d.qedit[sid]); }); };
 
@@ -691,7 +1009,7 @@ class Component extends DCLogic {
       lf, hasErr: !!lf.err, isTabEtu: lf.tab === 'etu', isTabProf: lf.tab === 'prof', tabEtuBg: lf.tab === 'etu' ? '#fff' : 'transparent', tabProfBg: lf.tab === 'prof' ? '#fff' : 'transparent',
       tabEtu: () => this.setLf({ tab: 'etu', err: '' }), tabProf: () => this.setLf({ tab: 'prof', err: '' }),
       onCls: e => this.setLf({ cls: e.target.value }), onPseudo: e => this.setLf({ pseudo: e.target.value }), onPin: e => { const AZ = { '&': '1', 'é': '2', '"': '3', "'": '4', '(': '5', '§': '6', '-': '6', 'è': '7', '!': '8', '_': '8', 'ç': '9', 'à': '0' }; this.setLf({ pin: [...e.target.value].map(c => AZ[c] || c).join('').replace(/\D/g, '').slice(0, 4) }); }, onCode: e => this.setLf({ code: e.target.value }),
-      login: this.login, logout: this.logout, demoEtu: () => this.setLf({ cls: 'B2-EIDM', pseudo: 'demo', pin: '0000', err: '' }),
+      login: this.login, logout: this.logout, demoEtu: () => this.setLf({ cls: 'B1-EIDM', pseudo: 'demo', pin: '0000', err: '' }),
       goHome: () => this.setState({ screen: 'home' }), quit: () => { if (confirm('Quitter la partie ? Elle ne sera pas enregistrée.')) this.setState({ screen: 'home', quiz: null }); },
       user: user || {}, exportCsv: this.exportCsv,
       addQcm: () => this.editQs(L => L.push({ type: 'qcm', q: 'Nouvelle question', opts: ['Réponse A', 'Réponse B', 'Réponse C', 'Réponse D'], a: 0, why: '' })),
