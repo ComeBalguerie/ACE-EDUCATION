@@ -1,5 +1,6 @@
 {
   "framework": null,
-  "buildCommand": "echo ok",
-  "installCommand": "echo ok"
+  "installCommand": "echo ok",
+  "buildCommand": "sh build.sh",
+  "outputDirectory": "public"
 }
