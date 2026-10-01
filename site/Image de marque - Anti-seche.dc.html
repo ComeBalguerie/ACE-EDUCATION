@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#f5f3ee;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:oklch(0.45 0.13 250)}
+@media (max-width:760px){[data-aside]{position:static !important;flex:1 1 100% !important}[data-aside] nav{display:none !important}}
+@media print{
+  [data-noprint]{display:none !important}
+  body{background:#fff}
+  [data-chapter]{break-before:page}
+  [data-avoid]{break-inside:avoid}
+  [data-main]{max-width:none !important}
+}
+</style>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;gap:40px 48px;max-width:1240px;margin:0 auto;padding:48px 32px 120px;box-sizing:border-box">
+
+  <aside data-noprint="1" data-aside="1" style="flex:0 0 232px;position:sticky;top:32px;align-self:flex-start;display:flex;flex-direction:column;gap:32px;font-size:13.5px">
+    <a data-noprint="1" href="Sommaire.dc.html" title="Retour au sommaire" style="align-self:flex-start;display:flex;align-items:center;gap:6px;padding:7px 12px;background:#1d1c1a;color:#f3f0e8;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none" style-hover="background:#4a4740;color:#f3f0e8">← Sommaire</a>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Anti-sèche · B2 EIDM</div>
+      <div style="font-family:Newsreader,serif;font-size:22px;line-height:1.1">Image de marque</div>
+    </div>
+    <nav style="display:flex;flex-direction:column;gap:2px">
+      <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="8">
+        <a href="{{ c.href }}" style="display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid #e3dfd5;line-height:1.3">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;flex:none">{{ c.num }}</span>
+          <span style="flex:1">{{ c.t }}</span>
+          <sc-if value="{{ c.done }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;flex:none" title="Révisé">✓</span></sc-if>
+        </a>
+      </sc-for>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Afficher les encadrés</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+          <button onClick="{{ f.toggle }}" style="display:flex;align-items:center;gap:10px;background:none;border:0;padding:4px 0;font:inherit;color:inherit;cursor:pointer;text-align:left">
+            <sc-if value="{{ f.on }}" hint-placeholder-val="{{ true }}"><span style="width:16px;height:16px;border:1.5px solid #1d1c1a;background:#1d1c1a;color:#f5f3ee;font-size:11px;line-height:16px;text-align:center;border-radius:3px;flex:none">✓</span></sc-if>
+            <sc-if value="{{ f.off }}" hint-placeholder-val="{{ false }}"><span style="width:16px;height:16px;border:1.5px solid #8a857a;border-radius:3px;flex:none;box-sizing:border-box"></span></sc-if>
+            <span style="font-size:12px;width:14px;text-align:center">{{ f.glyph }}</span>
+            <span>{{ f.label }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Progression · {{ doneLabel }}</div>
+      <div style="height:4px;background:#e3dfd5;border-radius:2px;overflow:hidden"><div style="height:100%;width:{{ donePct }};background:#1d1c1a"></div></div>
+    </div>
+  </aside>
+
+  <main data-main="1" style="flex:1 1 420px;min-width:0;max-width:760px">
+    <header style="display:flex;flex-direction:column;gap:20px;padding-bottom:48px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b675e">Document de révision personnel · Cliclac Studio · usage privé</div>
+      <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(48px,7vw,84px);line-height:.95;letter-spacing:-.02em;margin:0">Image de marque</h1>
+      <div style="font-family:Newsreader,serif;font-style:italic;font-size:22px;color:#4a4740">Toutes les notions du module B2 EIDM expliquées</div>
+    </header>
+
+    <section data-avoid="1" style="display:flex;flex-direction:column;gap:16px;padding:28px 0;border-top:2px solid #1d1c1a;border-bottom:1px solid #d9d4c7;margin-bottom:24px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase">Comment utiliser ce document</div>
+      <p style="margin:0;font-size:16.5px;line-height:1.65;text-wrap:pretty;color:#2a2926">Ce document est ton antisèche personnelle. Chaque notion est expliquée clairement avec le pourquoi, le comment, et les exemples à sortir en cours. Les confusions fréquentes te préparent aux questions pièges des étudiants. Les citations sont prêtes à être projetées.</p>
+      <p style="margin:0;font-size:16.5px;line-height:1.65;text-wrap:pretty;color:#2a2926">Lis ce document une fois avant chaque séance. Tu n’as pas besoin de tout mémoriser : tu as besoin de savoir que ça existe et où chercher si un étudiant te prend de court.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4"><span>{{ f.glyph }} {{ f.one }}</span></sc-for>
+      </div>
+    </section>
+
+    <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="2">
+      <section id="{{ c.id }}" data-chapter="1" style="padding-top:72px;scroll-margin-top:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:2px solid #1d1c1a;padding-top:14px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em">CHAPITRE {{ c.num }}</span>
+          <sc-if value="{{ c.notDone }}" hint-placeholder-val="{{ true }}">
+            <button data-noprint="1" onClick="{{ c.toggle }}" style="font:500 12px 'IBM Plex Sans',sans-serif;background:none;border:1px solid #b9b2a2;border-radius:999px;padding:6px 14px;cursor:pointer;color:#4a4740" style-hover="border-color:#1d1c1a;color:#1d1c1a">Marquer comme révisé</button>
+          </sc-if>
+          <sc-if value="{{ c.done }}" hint-placeholder-val="{{ false }}">
+            <button data-noprint="1" onClick="{{ c.toggle }}" style="font:500 12px 'IBM Plex Sans',sans-serif;background:#1d1c1a;border:1px solid #1d1c1a;border-radius:999px;padding:6px 14px;cursor:pointer;color:#f5f3ee">✓ Révisé</button>
+          </sc-if>
+        </div>
+        <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(34px,4.6vw,48px);line-height:1.02;letter-spacing:-.015em;margin:28px 0 10px;text-wrap:balance">{{ c.t }}</h2>
+        <div style="font-family:Newsreader,serif;font-style:italic;font-size:20px;color:#6b675e">{{ c.sub }}</div>
+
+        <sc-for list="{{ c.sections }}" as="s" hint-placeholder-count="2">
+          <div style="display:flex;flex-direction:column;gap:18px;margin-top:44px">
+            <h3 style="font-family:Newsreader,serif;font-weight:500;font-size:25px;line-height:1.2;margin:0">{{ s.h }}</h3>
+            <sc-for list="{{ s.blocks }}" as="b" hint-placeholder-count="3">
+              <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+                <p style="margin:0;font-size:16.5px;line-height:1.68;text-wrap:pretty;color:#2a2926">{{ b.text }}</p>
+              </sc-if>
+              <sc-if value="{{ b.isD }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-wrap:wrap;gap:4px 20px;padding:12px 0;border-top:1px solid #e3dfd5;font-size:16px;line-height:1.6">
+                  <div style="flex:0 0 150px;font-weight:600">{{ b.term }}</div>
+                  <div style="flex:1 1 300px;min-width:0;color:#2a2926;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isQuote }}" hint-placeholder-val="{{ false }}">
+                <figure data-avoid="1" style="margin:12px 0;padding:28px 0 24px;border-top:2px solid #1d1c1a;border-bottom:1px solid #d9d4c7;display:flex;flex-direction:column;gap:14px">
+                  <blockquote style="margin:0;font-family:Newsreader,serif;font-size:clamp(26px,3.4vw,34px);line-height:1.2;letter-spacing:-.01em;text-wrap:balance">« {{ b.text }} »</blockquote>
+                  <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#4a4740">❝ {{ b.term }}</figcaption>
+                </figure>
+              </sc-if>
+              <sc-if value="{{ b.isEx }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 0;border-top:1px dotted #a39c8c;border-bottom:1px dotted #a39c8c">
+                  <div style="flex:0 0 150px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.42 0.1 55);padding-top:4px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-family:Newsreader,serif;font-style:italic;font-size:18.5px;line-height:1.5;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isDire }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.94 0.035 250);border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.38 0.13 250);padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isDal }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.93 0.09 95);border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.36 0.07 85);padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isConf }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:15px 19px;border:1.5px dashed #8a857a;border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1d1c1a;padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isAtt }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:#e8e4da;border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1d1c1a;padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isKey }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:14px 20px;background:#1d1c1a;color:#f5f3ee;border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-family:'IBM Plex Mono',monospace;font-size:14px;line-height:1.65;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+            </sc-for>
+          </div>
+        </sc-for>
+      </section>
+    </sc-for>
+
+    <footer style="margin-top:96px;padding-top:16px;border-top:1px solid #d9d4c7;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6b675e">Cliclac Studio · cliclac.studio · Document de révision privé v1</footer>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/*META*/
+const KEY = 'antiseche-marque-v1';
+const TYPES = { ex: ['●', 'Exemple concret', 'Exemples concrets'], dire: ['■', 'À dire en cours', 'À dire en cours'], conf: ['▲', 'Confusion fréquente', 'Confusions fréquentes'], quote: ['❝', 'Citation', 'Citations'] };
+/*DATA*/
+const DATA = [
+{t:'Qu’est-ce qu’une marque', sub:'La distinction fondamentale que tout le monde rate', s:[
+ ['La marque vs le logo vs le produit',
+  ['p','Un produit c’est ce qu’une entreprise fabrique. Un logo c’est un signe visuel. Une marque c’est quelque chose de beaucoup plus grand : c’est la somme de tout ce que les gens pensent, ressentent et disent à propos d’une entreprise, d’un produit ou d’une personne.'],
+  ['p','La marque existe dans les esprits des consommateurs, pas dans les fichiers Illustrator. C’est pour ça qu’on peut détruire une marque sans changer son logo, et créer une marque forte avec un logo médiocre.'],
+  ['ex','Primark a un logo correct. Leur marque est associée au bas de gamme jetable. Patagonia a un logo banal. Leur marque est associée à l’engagement environnemental authentique. Le logo n’est qu’un des signaux.'],
+  ['dire','Montrer une pomme avec une morsure. Tout le monde connaît Apple. Maintenant montrer le logo de la Banque de France. Personne ne le connaît. Pourquoi ? Parce qu’une marque ce n’est pas un logo, c’est une expérience accumulée.'],
+  ['conf','Les étudiants confondent systématiquement marque et identité visuelle. Ramener toujours à cette question : si on changeait le logo demain, est-ce que la marque serait encore la même ? Pour Nike oui. Pour une marque sans valeurs, non.']],
+ ['La marque comme promesse',
+  ['p','Une marque c’est une promesse faite au consommateur — et tenue dans le temps. Chaque fois que vous interagissez avec une marque, elle honore ou trahit cette promesse. Si elle l’honore systématiquement, la confiance se construit. Si elle la trahit, la confiance se détruit.'],
+  ['p','C’est pour ça qu’on peut payer plus cher pour une marque forte : on achète une réduction de risque. Je sais ce que j’obtiens. Je fais confiance.'],
+  ['quote','Une marque c’est ce que les gens disent de toi quand tu n’es pas dans la pièce.','Jeff Bezos'],
+  ['dire','Demander aux étudiants : pensez à une marque à laquelle vous faites vraiment confiance. Qu’est-ce qu’elle a fait pour mériter cette confiance ? La réponse sera toujours : elle a tenu ses promesses dans le temps.']]
+]},
+{t:'La Fleur de Marque', sub:'Le modèle pédagogique du cours', s:[
+ ['Les racines — les valeurs',
+  ['p','Les valeurs sont le fondement immuable de la marque. Elles précèdent tout — le nom, le logo, la communication. Elles répondent à la question : qui sommes-nous vraiment, indépendamment de ce qu’on vend ?'],
+  ['p','Les valeurs ne sont pas des mots marketing. Ce ne sont pas des aspirations. Ce sont des convictions profondes qui guident chaque décision de l’entreprise. Patagonia refuse de faire certaines publicités parce que ça ne correspond pas à ses valeurs. C’est concret.'],
+  ['p','Trois à cinq valeurs maximum. Au-delà, personne ne s’en souvient et elles se contredisent.'],
+  ['ex','Valeurs de Jacquemus : sincérité, joie, sensualité, simplicité. Tout ce que la marque fait — les défilés en plein air, les posts Instagram personnels de Simon, les couleurs chaudes — découle de ces valeurs. C’est ça la cohérence.'],
+  ['conf','Les étudiants écrivent des valeurs génériques : qualité, innovation, excellence. Ces mots ne signifient rien parce que toutes les marques les revendiquent. Une vraie valeur doit pouvoir justifier un refus. Patagonia refuse de vendre à des entreprises non éthiques. Ça c’est une vraie valeur.'],
+  ['dire','Demander : est-ce que votre concurrent direct pourrait revendiquer la même valeur ? Si oui, ce n’est pas une valeur différenciante. Recommencer.']],
+ ['La tige — positionnement, cible, brief',
+  ['p','La tige relie les racines aux pétales. C’est le travail stratégique invisible. Elle est fine mais elle porte tout. Si elle est solide, tout ce qui vient après est cohérent. Si elle est bancale, l’identité visuelle ne servira à rien.'],
+  ['p','La tige comprend trois éléments : le positionnement (quelle place on occupe face à la concurrence), la cible (à qui on parle précisément), et le brief de marque (le document qui synthétise tout ça).'],
+  ['dire','Pour les étudiants : imaginez que la tige se casse. Qu’est-ce qui s’écroule ? Tout. C’est pour ça qu’on ne commence pas par le logo.']],
+ ['Les pétales — l’identité de marque',
+  ['p','Les pétales c’est tout ce que la marque émet vers le monde. Chaque pétale doit être cohérent avec les racines et la tige. Ce sont les éléments visibles et tangibles de la marque.'],
+  ['d','Identité verbale','Naming, baseline, ton de voix, storytelling.'],
+  ['d','Identité visuelle','Logo, couleurs, typographies, style photo.'],
+  ['d','Communication','Où et comment la marque prend la parole.'],
+  ['d','Activation','Comment la marque vit dans le monde réel.'],
+  ['conf','Les étudiants veulent toujours commencer par les pétales. L’identité visuelle est excitante, concrète, immédiate. Mais sans racines ni tige solides, les pétales ne tiennent pas. La fleur s’écroule.']],
+ ['Le personnage qui regarde — l’image de marque',
+  ['p','Le personnage qui regarde c’est l’image de marque. Ce qu’il voit, ce qu’il ressent, ce qu’il retient. L’image n’appartient pas à la fleur — elle existe dans les yeux de celui qui la regarde. On ne la contrôle pas directement.'],
+  ['p','Si la fleur est bien construite et cohérente, l’image ressemble à ce qu’on voulait créer. Si la fleur est incohérente ou malhonnête, l’image s’éloigne de l’identité. C’est là que se jouent les crises.'],
+  ['dire','La métaphore de l’ombre fonctionne bien aussi : l’image c’est l’ombre que projette la fleur. On ne contrôle pas l’ombre directement — on contrôle la fleur, et l’ombre suit.']]
+]},
+{t:'Le Golden Circle de Sinek', sub:'Outil de purpose, pas de positionnement', s:[
+ ['Why / How / What',
+  ['p','Simon Sinek observe que toutes les organisations savent ce qu’elles font (What). Certaines savent comment elles le font (How). Très peu savent pourquoi elles font ce qu’elles font (Why) — et le pourquoi n’est pas faire de l’argent, c’est la raison d’être profonde.'],
+  ['d','Why','La vision, la raison d’être au-delà du profit. Pourquoi on se lève le matin. Quel changement on veut créer dans le monde.'],
+  ['d','How','La méthode, la façon dont on concrétise le pourquoi. Ce qui nous différencie dans notre approche.'],
+  ['d','What','Le produit ou service. La conséquence tangible du pourquoi.'],
+  ['ex','Apple — Why : on croit que les gens qui pensent différemment changent le monde. How : on fait des produits au design soigné, simples à utiliser. What : des ordinateurs, des téléphones, des tablettes. Apple ne communique pas « on fait de beaux ordinateurs, achetez-les ». Apple communique son Why et le What en découle.'],
+  ['conf','La confusion la plus courante : le Golden Circle est un outil de PURPOSE, pas de POSITIONNEMENT. Il aide à trouver la raison d’être, pas la place sur le marché face à la concurrence. Le positionnement c’est autre chose — voir chapitre 4. Les deux sont complémentaires mais distincts.'],
+  ['dire','Sinek a une formule simple : les gens n’achètent pas ce que vous faites, ils achètent pourquoi vous le faites. Tester avec Apple vs Dell. Même produit technique, perception radicalement différente. Pourquoi ? Le Why.'],
+  ['quote','Les gens n’achètent pas ce que vous faites, ils achètent pourquoi vous le faites.','Simon Sinek']]
+]},
+{t:'Le positionnement', sub:'La place dans l’esprit du consommateur', s:[
+ ['Définition du positionnement',
+  ['p','Le positionnement répond à une question simple : quelle place occupe ma marque dans l’esprit du consommateur, face à la concurrence ? Ce n’est pas être le meilleur généralement — c’est occuper un territoire distinct et défendable sur un ou deux axes spécifiques.'],
+  ['p','La référence fondamentale : Al Ries et Jack Trout, Positioning : The Battle for Your Mind (1981). Leur thèse : le positionnement n’est pas ce que vous faites à votre produit. C’est ce que vous faites dans l’esprit de votre prospect.'],
+  ['p','Quatre questions clés du positionnement : pour qui exactement ? Quel bénéfice principal — fonctionnel ou émotionnel ? Face à qui — qui sont mes concurrents directs et indirects ? Pourquoi suis-je crédible sur ce territoire ?'],
+  ['ex','Nike : performance et dépassement de soi face à Adidas qui joue le lifestyle. Jacquemus : luxe intime et solaire face au luxe froid et distant de Chanel ou Dior. Uniqlo : fonctionnalité et qualité discrète face à Zara qui joue la tendance et le paraître.'],
+  ['conf','Confondre positionnement et purpose. Le purpose (Golden Circle) dit pourquoi on existe. Le positionnement dit où on est par rapport aux autres. Les deux sont nécessaires et se nourrissent mutuellement, mais ils répondent à des questions différentes.']],
+ ['La carte de positionnement',
+  ['p','La carte de positionnement est un outil visuel avec deux axes qui permet de visualiser où se situe une marque par rapport à ses concurrents. On choisit deux axes pertinents pour le marché — premium vs accessible, minimaliste vs expressif, héritage vs modernité — et on place les marques.'],
+  ['p','L’intérêt : identifier les espaces libres. Pas parce qu’ils sont libres, mais parce qu’un désir profond non satisfait y existe peut-être. La question n’est pas « où est-ce que personne n’est ? » mais « où est-ce qu’un consommateur cherche quelque chose qu’il ne trouve pas ? »'],
+  ['dire','Exercice puissant : faire placer les mêmes marques par plusieurs étudiants sur la même carte. Les positions diffèrent. Discussion : pourquoi ? La perception est subjective. C’est ça l’image de marque.'],
+  ['conf','Les étudiants choisissent souvent des axes trop généraux (bon vs mauvais, cher vs pas cher). Un bon axe est spécifique et révélateur d’une tension réelle dans le marché.']],
+ ['Créer un territoire quand tout semble pris',
+  ['p','La réponse intuitive : chercher un espace libre sur la carte existante. La bonne réponse : changer les axes de la carte. Jacquemus n’a pas cherché un espace libre sur l’axe premium/accessible — il a introduit un nouvel axe que personne n’avait encore revendiqué : distant vs intime.'],
+  ['p','La marque qui crée un nouveau territoire n’affronte pas la concurrence frontalement. Elle rend la comparaison non pertinente. C’est la stratégie de l’océan bleu.'],
+  ['p','Condition nécessaire : le territoire doit être sincère. Un territoire artificiel s’effondre toujours. Jacquemus fonctionne parce que l’intimité n’est pas une stratégie — c’est qui Simon est vraiment.'],
+  ['dire','Question à poser aux étudiants : sur quels axes est-ce que tout le monde se bat dans votre marché ? Est-ce que vous pouvez les ignorer complètement et introduire un nouvel axe ?']]
+]},
+{t:'La cible et le persona', sub:'À qui je parle précisément', s:[
+ ['Pourquoi cibler précisément',
+  ['p','Une marque qui parle à tout le monde ne parle à personne. Plus la cible est précise, plus la communication est efficace. Une cible précise ne signifie pas exclure — ça signifie parler d’abord à quelqu’un de précis et laisser les autres s’identifier.'],
+  ['p','Nike cible les athlètes. Mais Nike définit athlète de façon radicale : si tu as un corps, tu es un athlète. La cible précise (les gens qui veulent se dépasser) crée paradoxalement une inclusion massive.'],
+  ['ex','Jacquemus cible la femme urbaine 25-40 ans qui veut du luxe sans la distance. Très précis. Pourtant des hommes de 50 ans achètent Jacquemus. La cible précise crée un territoire que d’autres peuvent rejoindre.']],
+ ['Le persona',
+  ['p','Le persona c’est un portrait fictif et précis du consommateur idéal. Pas des données démographiques sèches — une personne avec un nom, une vie, des aspirations, des frustrations, une relation spécifique à la marque.'],
+  ['p','Un bon persona contient : prénom et âge, situation (ville, métier, mode de vie), aspirations (ce qu’il veut devenir ou ressentir), frustrations (ce qui l’empêche d’y arriver), rapport spécifique à la mode et au luxe, marques qu’il aime déjà et pourquoi.'],
+  ['p','Le test du persona : est-ce qu’on peut imaginer ce qu’il mange le matin ? Avec qui il passe le week-end ? Si oui, le persona est assez précis. Si c’est encore trop abstrait, aller plus loin.'],
+  ['conf','Les étudiants font des personas trop larges : femme 20-40 ans qui aime la mode. C’est inutile. Aller plus loin : Emma, 32 ans, graphiste freelance à Lyon, qui rêvait de travailler dans la mode mais a choisi la stabilité. Elle s’habille pour exprimer la créatrice qu’elle est dans sa vie professionnelle. Ça c’est un persona.'],
+  ['dire','Demander aux étudiants d’inventer le prénom en premier. Ça force l’humanisation. Un persona avec un prénom est automatiquement plus concret qu’un persona sans.']]
+]},
+{t:'L’identité verbale', sub:'La voix de la marque', s:[
+ ['Le naming',
+  ['p','Le nom est souvent la première chose perçue. Il doit être mémorable, cohérent avec les valeurs, et disponible légalement (vérifier la base INPI en France, EUIPO en Europe).'],
+  ['p','Critères d’un bon nom : prononçable dans toutes les langues cibles, évocateur sans être trop littéral, qui vieillit bien, court (deux syllabes idéal), disponible comme nom de domaine et sur les réseaux sociaux.'],
+  ['d','Nom fondateur','Jacquemus, Lacoste, Chanel'],
+  ['d','Nom inventé','Kodak, Häagen-Dazs'],
+  ['d','Nom descriptif','The North Face'],
+  ['d','Nom métaphorique','Amazon, Apple'],
+  ['d','Acronyme','LVMH, H&M'],
+  ['ex','Jacquemus : nom de famille hérité de sa mère. Personnel, inimitable, dit immédiatement que c’est une histoire vraie. Zara : voulait s’appeler Zorba, nom déjà pris. Zara par erreur — et ça fonctionne : neutre, court, universel. Le hasard fait parfois bien les choses.'],
+  ['dire','Anecdote pédagogique puissante : le nom Uniqlo vient d’une erreur administrative. Unique Clothing Warehouse en japonais donne Uniclo, puis le C est devenu Q par erreur dans un enregistrement officiel. Ils ont gardé Uniqlo. Parfois l’imperfection est la bonne décision.']],
+ ['La baseline',
+  ['p','La baseline (ou tagline) est la phrase courte qui résume la promesse de marque. Elle complète le nom, elle ne le répète pas. Elle doit fonctionner indépendamment du nom — si on la reconnaît sans voir la marque, c’est une bonne baseline.'],
+  ['p','Une bonne baseline : courte (moins de 5 mots idéal), mémorable, différenciante, qui dit quelque chose de non générique. Elle peut être une promesse (Just Do It), une description poétique (Un peu d’air sur terre pour Lacoste), une invitation (Think Different pour Apple).'],
+  ['ex','Just Do It — Nike. Trois mots. Aucun produit mentionné. Juste une injonction au dépassement. Reconnue sans le nom. C’est la baseline la plus efficace de l’histoire du marketing. Parce que je le vaux bien — L’Oréal. Reconnue sans le nom. Elle dit quelque chose sur la femme qui porte la marque, pas sur le produit.'],
+  ['conf','Les étudiants font des baselines trop descriptives : La mode éthique et accessible. Ça décrit un positionnement mais ça n’inspire pas. Une baseline doit créer une émotion, pas décrire un produit.'],
+  ['dire','Exercice blind test : projeter 10 baselines sans le nom de la marque. Combien ils reconnaissent ? Discussion sur ce qui rend une baseline mémorisable. C’est souvent la spécificité — les baselines génériques ne collent à aucune marque en particulier.']],
+ ['Le ton de voix',
+  ['p','Le ton de voix c’est la personnalité de la marque à l’écrit et à l’oral. C’est comment elle s’exprime, pas ce qu’elle dit. C’est une décision stratégique autant qu’une question de style.'],
+  ['p','Questions pour définir le ton de voix : formelle ou proche ? Sérieuse ou décalée ? Sobre ou expansive ? Technique ou poétique ? Expert ou accessible ? On le définit souvent par des paires d’opposés en choisissant où on se situe sur chaque axe.'],
+  ['p','Le ton de voix doit être cohérent avec les valeurs et parler à la cible. Et il doit être tenu de façon constante sur tous les points de contact — site web, réseaux sociaux, service client, étiquettes produit.'],
+  ['ex','Jacquemus : intime, joyeux, poétique. Simon parle à la première personne sur Instagram. La frontière entre le créateur et la marque est volontairement floue. Lacoste : élégant, sobre, légèrement décalé. Ne crie jamais. Suggère plutôt qu’affirme. Zara : minimal, froid, aspirationnel. Ne parle presque pas — montre.'],
+  ['dire','Exercice du message de rupture de stock : même situation, trois tons de voix différents. Les étudiants voient immédiatement la différence. Un bon exercice pour comprendre que le ton de voix n’est pas un style décoratif mais une décision stratégique.']],
+ ['Le storytelling',
+  ['p','Le storytelling c’est l’histoire de la marque — pourquoi elle existe, d’où elle vient, où elle va. Ce n’est pas de la communication. C’est le récit fondateur qui donne du sens à tout ce que la marque fait.'],
+  ['p','Question clé : qui est le héros de l’histoire ? La marque ou le consommateur ? Les meilleures marques font du consommateur le héros. Nike ne raconte pas l’histoire de Nike — elle raconte l’histoire de l’athlète qui se dépasse. La marque est le mentor, pas le héros.'],
+  ['p','Modèle de Donald Miller (Building a StoryBrand) : le consommateur est Luke Skywalker. La marque est Yoda. Le rôle de la marque est d’aider le consommateur à devenir qui il veut être — pas de raconter ses propres exploits.'],
+  ['ex','Jacquemus : le storytelling autobiographique. Chaque collection raconte un chapitre de la vie de Simon. Sa mère, l’enfance en Provence, ses amours. Le consommateur entre dans cette histoire et s’en fait une partie. C’est le cas d’école du storytelling personnel.'],
+  ['conf','Le storytelling ne signifie pas raconter l’histoire de la fondation de l’entreprise. Ça c’est la biographie de l’entreprise. Le storytelling c’est le récit qui connecte la marque aux aspirations du consommateur.']]
+]},
+{t:'L’identité visuelle', sub:'Ce qui se voit', s:[
+ ['Les composantes de l’identité visuelle',
+  ['p','L’identité visuelle est l’ensemble des éléments visuels qui rendent une marque reconnaissable. Ce n’est pas juste le logo — c’est un système.'],
+  ['d','Le logo ou signe','La forme visuelle principale. Peut être un signe seul (la pomme Apple), un logotype (le mot Nike en police spécifique), un monogramme (LV de Louis Vuitton), ou une combinaison des deux.'],
+  ['d','Les couleurs','La palette primaire (1 ou 2 couleurs principales) et secondaire (couleurs complémentaires). Chaque couleur a une signification culturelle et émotionnelle. Le vert évoque la nature, la santé, l’éthique. Le noir évoque le luxe, la sobriété, l’élégance.'],
+  ['d','Les typographies','Display (titres, grands formats) et corps de texte (petits formats, longues lectures). Le choix typographique est une décision de personnalité — une serif classique dit autre chose qu’une sans-serif géométrique.'],
+  ['d','Le style photographique','Lumière, cadrage, traitement de la couleur, type de modèle, type de situation. Cohérent sur tous les supports.'],
+  ['d','La mise en page','Grille, respiration, proportions. Ce que Müller-Brockmann appelait le système.'],
+  ['ex','Jacquemus : typographie minimale, beige et blanc, photographies en extérieur naturel. Tout dit la même chose que ses valeurs : sincérité, proximité, soleil. La contre-culture du studio aseptisé du luxe traditionnel.'],
+  ['conf','L’identité visuelle n’illustre pas les valeurs littéralement. Patagonia ne met pas une montagne dans son logo. Nike ne met pas des chaussures dans son logo. L’identité visuelle évoque, suggère, incarne — elle ne décrit pas.'],
+  ['dire','Question à poser : si on retirait le nom de cette marque, est-ce qu’on reconnaîtrait son univers ? Si oui, l’identité visuelle est forte. Si non, elle n’est pas assez différenciante.']],
+ ['Le moodboard',
+  ['p','Le moodboard est une planche de références visuelles qui définit l’univers esthétique d’une marque avant de toucher à un logiciel. Ce n’est pas un collage décoratif — c’est un outil stratégique.'],
+  ['p','Un bon moodboard est édité avec intention. Chaque image est là pour une raison précise : une couleur, une texture, une lumière, un type de personne, un style de vie. L’ensemble doit être cohérent et immédiatement lisible.'],
+  ['p','Test d’un moodboard : est-ce que quelqu’un qui ne connaît pas la marque peut comprendre son univers en regardant la planche 10 secondes ? Si oui, le moodboard est efficace.'],
+  ['dire','En cours : projeter un moodboard professionnel (Jacquemus, Sézane, Veja) et demander aux étudiants de décrire la marque sans avoir jamais vu son nom. Ils vont décrire exactement les valeurs et le positionnement de la marque. C’est la puissance d’un moodboard bien construit.']]
+]},
+{t:'Identité vs image', sub:'La distinction fondamentale', s:[
+ ['Émission vs réception',
+  ['d','Identité de marque','Tout ce que la marque construit et émet délibérément. Valeurs, positionnement, nom, design, ton de voix, produits, prix, distribution. Ce que vous contrôlez.'],
+  ['d','Image de marque','Ce que les consommateurs perçoivent et renvoient. Elle se construit dans le temps par accumulation d’expériences directes, de bouche-à-oreille, de ce qu’ils voient sur les réseaux sociaux. Ce que vous ne contrôlez pas directement.'],
+  ['p','Si les deux s’alignent : la marque est cohérente et crédible. Si l’écart est grand : il y a un problème de branding ou un problème opérationnel (ce que la marque promet et ce qu’elle délivre ne correspond pas).'],
+  ['quote','Une marque n’est pas ce que vous dites qu’elle est. C’est ce qu’ils disent qu’elle est.','Marty Neumeier'],
+  ['ex','Lacoste dans les années 90 : identité sport chic premium. Image dans certaines communautés : marque de cité. Écart massif. La marque a mis 20 ans à reconquérir son image premium. Zara aujourd’hui : identité aspirationnelle proche du luxe. Image de plus en plus associée au fast fashion et à la surconsommation. L’écart se creuse.'],
+  ['dire','La métaphore du personnage qui regarde la fleur est très efficace pédagogiquement. La fleur c’est l’identité — vous la construisez. Le personnage c’est le consommateur — il voit ce qu’il voit, pas forcément ce que vous avez voulu construire.']],
+ ['L’écart émission-réception et les crises de marque',
+  ['p','Un écart entre identité et image peut avoir trois causes.'],
+  ['d','1. Incohérence interne','La marque dit une chose et fait une autre.'],
+  ['d','2. Changement du marché','La marque est restée la même mais les attentes des consommateurs ont évolué.'],
+  ['d','3. Appropriation externe','La marque a été adoptée par une communauté qui ne correspond pas à son territoire voulu (cas Lacoste).'],
+  ['p','Les crises de marque arrivent toujours au même endroit : l’incohérence entre ce que la marque affirme et ce qu’elle fait. Une marque qui se dit éthique et a des pratiques non éthiques. Une marque qui se dit inclusive et produit des communications excluantes.'],
+  ['p','La réponse à une crise : soit reconquérir le territoire (Lacoste), soit accepter et adapter (certaines marques ont accepté leur repositionnement non voulu et l’ont transformé en force).'],
+  ['ex','Nike et Colin Kaepernick (2018) : Nike prend position sur le racisme systémique aux États-Unis en choisissant Kaepernick comme visage de sa campagne. Ventes en hausse de 31 % dans les semaines suivantes malgré le boycott annoncé. Pourquoi ça a marché ? Parce que c’était parfaitement cohérent avec le Why de Nike : inspirer chaque athlète qui veut se dépasser, même contre l’adversité. Une marque avec un Why moins fort n’aurait pas pu faire ça.']],
+ ['La brand equity — la valeur d’une marque',
+  ['p','La brand equity c’est la valeur d’une marque au-delà de ses produits. C’est ce qui fait qu’on paye plus cher pour un iPhone que pour un smartphone équivalent, qu’on choisit Evian plutôt qu’une eau de source inconnue à prix identique.'],
+  ['p','David Aaker identifie quatre composantes :'],
+  ['d','Notoriété','Les gens savent que la marque existe.'],
+  ['d','Associations','Ce qu’ils pensent et ressentent.'],
+  ['d','Qualité perçue','La conviction que les produits sont bons.'],
+  ['d','Fidélité','Les clients reviennent.'],
+  ['p','Ces quatre composantes se construisent sur des années de cohérence. La brand equity ne se crée pas en un trimestre. Et elle peut se détruire en quelques semaines si la promesse est trahie massivement.'],
+  ['dire','Exercice puissant : demander aux étudiants combien ils seraient prêts à payer pour un sac à main générique sans marque vs le même sac avec le logo Celine. La différence de prix c’est la brand equity. C’est la valeur de la marque rendue tangible.']]
+]},
+{t:'Le brief de marque', sub:'Le document fondateur', s:[
+ ['À quoi sert un brief de marque',
+  ['p','Le brief de marque est le document qui synthétise tout le travail stratégique avant de toucher au design. C’est la colonne vertébrale de la marque. Aucune identité visuelle ne devrait être créée sans lui.'],
+  ['p','Il sert à trois choses : aligner toute l’équipe sur une vision commune, cadrer le travail créatif (le designer sait ce qu’il cherche à exprimer), et évaluer les résultats (est-ce que ce logo reflète les valeurs et parle à la cible ?).'],
+  ['p','Un brief bien fait permet à n’importe qui de comprendre qui est la marque, pour qui elle est, et ce qu’elle promet — même sans avoir participé à sa construction.']],
+ ['Contenu d’un brief de marque',
+  ['d','Valeurs de marque','3 à 5 valeurs justifiées, pas des mots génériques.'],
+  ['d','Golden Circle','Why, How, What de la marque.'],
+  ['d','Positionnement','La phrase qui dit où on est et face à qui. Exemple : pour les femmes urbaines qui veulent du luxe sans la distance, [Marque] est la seule marque de mode qui allie accessibilité financière et intimité émotionnelle.'],
+  ['d','Cible et persona','Description précise du consommateur idéal.'],
+  ['d','Analyse concurrentielle','Qui fait quoi, où sont les espaces.'],
+  ['d','Promesse de marque','Ce que la marque s’engage à apporter de façon constante.'],
+  ['d','Territoire créatif','Mots-clés, références, ce qu’on veut inspirer.'],
+  ['d','Ce que la marque refuse','Les limites sont aussi importantes que les engagements.'],
+  ['conf','Un brief trop long n’est pas lu. Un brief trop court ne cadre pas assez. La bonne longueur : une page recto verso pour l’essentiel, deux pages maximum. Si c’est plus long, c’est qu’on n’a pas encore clarifié sa pensée.'],
+  ['dire','La phrase de positionnement a un format classique : Pour [cible précise], [nom de marque] est la seule [catégorie] qui [bénéfice unique] parce que [preuve de crédibilité]. Faire écrire cette phrase aux étudiants — si elle ne tient pas en une phrase, le positionnement n’est pas encore clair.']]
+]},
+{t:'Les références à maîtriser', sub:'Ce qu’il faut connaître pour enseigner', s:[
+ ['Simon Sinek — Start With Why (2009)',
+  ['p','La référence sur le purpose et la raison d’être. Le Golden Circle. La thèse : les marques qui inspirent partent du pourquoi, pas du quoi. Le TED Talk (18 minutes) est visionné plus de 60 millions de fois. C’est souvent le premier contact des étudiants avec la pensée stratégique de marque.'],
+  ['att','Le Golden Circle est puissant mais il ne dit rien sur le positionnement concurrentiel. Il faut le compléter avec d’autres outils.','Limite à connaître']],
+ ['Marty Neumeier — The Brand Gap (2003)',
+  ['p','Le livre le plus accessible sur le branding. Court (200 pages en format carré), visuel, écrit en anglais simple. Sa thèse : le brand gap c’est l’écart entre la stratégie business et l’expérience client. Les marques fortes comblent cet écart.'],
+  ['att','Une marque n’est pas ce que vous dites qu’elle est. C’est ce qu’ils disent qu’elle est. C’est la distinction identité-image en une phrase.','Citation fondamentale']],
+ ['Al Ries et Jack Trout — Positioning (1981)',
+  ['p','La référence absolue sur le positionnement. Leur thèse : le positionnement n’est pas ce que vous faites à votre produit, c’est ce que vous faites dans l’esprit de votre prospect. Le marché est une bataille pour l’esprit du consommateur.'],
+  ['att','La loi du leadership. Il est préférable d’être le premier que d’être le meilleur. Être le premier dans l’esprit du consommateur vaut mieux qu’être objectivement supérieur.','Concept clé']],
+ ['David Aaker — Building Strong Brands (1996)',
+  ['p','La référence académique sur la brand equity. Plus dense que Neumeier, plus structuré. Ses quatre composantes de la brand equity sont incontournables : notoriété, associations, qualité perçue, fidélité.'],
+  ['att','L’identité de marque n’est pas ce que les consommateurs pensent. C’est ce que vous voulez qu’ils pensent. L’image c’est ce qu’ils pensent réellement. Travailler à réduire l’écart.','Concept clé']],
+ ['Jean-Noël Kapferer — Les Marques, capital de l’entreprise',
+  ['p','La référence française en stratégie de marque. Plus complet et plus théorique que les Américains. Son prisme d’identité de marque est un outil avancé à connaître : physique, personnalité, culture, relation, reflet, mentalisation. Utile pour les niveaux plus avancés.']],
+ ['Alexandre de Betak — branding expérientiel',
+  ['p','Le directeur artistique des plus grands défilés mondiaux (Dior, Victoria’s Secret). Sa conviction : une marque forte ne vend pas un produit, elle fait ressentir une émotion. Le défilé comme acte de branding total. L’expérience comme média.'],
+  ['att','On passe de la publicité à l’expérience, du message à l’interaction, du consommateur au participant. Le client devient acteur de la marque.','Concept clé']]
+]}
+];
+/*END*/
+class Component extends DCLogic {
+  state = { show: Object.fromEntries(Object.keys(TYPES).map(k => [k, true])), done: {} };
+  componentDidMount() {
+    try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) this.setState({ show: { ...this.state.show, ...s.show }, done: s.done || {} }); } catch (e) {}
+  }
+  save = () => { try { localStorage.setItem(KEY, JSON.stringify({ show: this.state.show, done: this.state.done })); } catch (e) {} };
+  renderVals() {
+    const { show, done } = this.state;
+    const vis = t => !TYPES[t] || show[t] !== false;
+    const chapters = DATA.map((c, i) => ({
+      t: c.t, sub: c.sub, id: 'ch' + (i + 1), href: '#ch' + (i + 1), num: String(i + 1).padStart(2, '0'),
+      done: !!done[i], notDone: !done[i],
+      toggle: () => this.setState(s => ({ done: { ...s.done, [i]: !s.done[i] } }), this.save),
+      sections: c.s.map(sec => ({
+        h: sec[0],
+        blocks: sec.slice(1).map(([t, a, b]) => {
+          const T = TYPES[t] || ['!', 'Attention'];
+          const v = vis(t);
+          return {
+            text: t === 'd' ? b : a, term: t === 'd' ? a : b,
+            label: T[0] + ' ' + (t === 'd' || t === 'quote' ? T[1] : (b || T[1])),
+            isP: t === 'p', isD: t === 'd', isQuote: t === 'quote' && v,
+            isEx: t === 'ex' && v, isDire: t === 'dire' && v, isDal: t === 'dal' && v,
+            isConf: t === 'conf' && v, isAtt: t === 'att' && v, isKey: t === 'key' && v
+          };
+        })
+      }))
+    }));
+    const n = DATA.filter((_, i) => done[i]).length;
+    const filters = Object.keys(TYPES).map(k => ({
+      glyph: TYPES[k][0], one: TYPES[k][1], label: TYPES[k][2], on: show[k] !== false, off: show[k] === false,
+      toggle: () => this.setState(s => ({ show: { ...s.show, [k]: s.show[k] === false } }), this.save)
+    }));
+    return { chapters, filters, doneLabel: n + ' / ' + DATA.length, donePct: Math.round(n / DATA.length * 100) + '%' };
+  }
+}
+</script>
+</body>
+</html>

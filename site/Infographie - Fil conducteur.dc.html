@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#f5f3ee;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:oklch(0.45 0.13 250)}
+@media (max-width:760px){[data-aside]{position:static !important;flex:1 1 100% !important}[data-aside] nav{display:none !important}}
+@media print{[data-noprint]{display:none!important}
+  [data-noprint]{display:none !important}
+  body{background:#fff}
+  [data-chapter]{break-before:page}
+  [data-avoid]{break-inside:avoid}
+  [data-main]{max-width:none !important}
+}
+</style>
+<script src="./cloud.js"></script>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;gap:40px 48px;max-width:1280px;margin:0 auto;padding:48px 32px 120px;box-sizing:border-box">
+
+  <aside data-noprint="1" data-aside="1" style="flex:0 0 232px;position:sticky;top:32px;align-self:flex-start;display:flex;flex-direction:column;gap:28px;font-size:13.5px">
+    <a data-noprint="1" href="Sommaire.dc.html" title="Retour au sommaire" style="align-self:flex-start;display:flex;align-items:center;gap:6px;padding:7px 12px;background:#1d1c1a;color:#f3f0e8;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none" style-hover="background:#4a4740;color:#f3f0e8">← Sommaire</a>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Fil conducteur · B3 ESDAC</div>
+      <div style="font-family:Newsreader,serif;font-size:22px;line-height:1.1">Infographie &amp; édition</div>
+    </div>
+    <nav style="display:flex;flex-direction:column">
+      <a href="#plan" style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #e3dfd5"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">—</span><span>Planning &amp; cadre</span></a>
+      <sc-for list="{{ seances }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" style="display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid #e3dfd5;line-height:1.3">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">S{{ s.n }}</span>
+          <span style="flex:1">{{ s.t }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6b675e;flex:none" title="Préparation cochée">{{ s.prepLabel }}</span>
+        </a>
+      </sc-for>
+      <a href="#recap" style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #e3dfd5"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">—</span><span>Récapitulatif</span></a>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740">
+      <sc-for list="{{ legend }}" as="l" hint-placeholder-count="5"><span>{{ l }}</span></sc-for>
+    </div>
+    <button onClick="{{ print }}" style="font:500 12.5px 'IBM Plex Sans',sans-serif;background:#1d1c1a;color:#f5f3ee;border:0;border-radius:999px;padding:9px 16px;cursor:pointer;align-self:flex-start">Imprimer / PDF</button>
+  </aside>
+
+  <main data-main="1" style="flex:1 1 420px;min-width:0;max-width:860px">
+    <header style="display:flex;flex-direction:column;gap:22px;padding-bottom:40px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b675e">Fil conducteur · B3 Design d’espace · ESDAC · 2026-2027</div>
+      <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(46px,6.6vw,80px);line-height:.96;letter-spacing:-.02em;margin:0;text-wrap:balance">Infographie &amp; édition</h1>
+      <div style="display:flex;flex-wrap:wrap;gap:12px 40px;padding-top:18px;border-top:2px solid #1d1c1a">
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Format</span><span style="font-size:16px">6 séances</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Volume</span><span style="font-size:16px">14h présentiel</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Période</span><span style="font-size:16px">Semestre 2</span></div>
+      </div>
+    </header>
+
+    <section id="plan" style="padding-top:24px;scroll-margin-top:16px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">Planning des séances</div>
+      <sc-for list="{{ seances }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 24px;padding:16px 0;border-bottom:1px solid #d9d4c7">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;flex:0 0 90px">SÉANCE {{ s.n }}</span>
+          <span style="font-family:Newsreader,serif;font-size:23px;line-height:1.2;flex:1 1 280px">{{ s.t }}</span>
+          <span style="font-size:13.5px;color:#4a4740;flex:0 0 auto">{{ s.date }} · {{ s.h }}</span>
+        </a>
+      </sc-for>
+    </section>
+
+    <section id="cadre" style="padding-top:64px;scroll-margin-top:16px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:40px 48px">
+        <sc-for list="{{ cadre }}" as="g" hint-placeholder-count="3">
+          <div data-avoid="1" style="display:flex;flex-direction:column">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">{{ g.g }}</div>
+            <sc-for list="{{ g.paras }}" as="p"><p style="margin:12px 0 0;font-size:15.5px;line-height:1.62;text-wrap:pretty;color:#2a2926">{{ p }}</p></sc-for>
+            <sc-for list="{{ g.items }}" as="it">
+              <div style="display:flex;flex-direction:column;gap:2px;padding:11px 0;border-bottom:1px solid #e3dfd5">
+                <div style="font-weight:600;font-size:14.5px">{{ it.k }}</div>
+                <div style="font-size:14.5px;line-height:1.5;color:#4a4740;text-wrap:pretty">{{ it.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <sc-for list="{{ seances }}" as="s" hint-placeholder-count="1">
+      <section id="{{ s.id }}" data-chapter="1" style="padding-top:96px;scroll-margin-top:16px">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;border-top:2px solid #1d1c1a;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em">
+          <span>SÉANCE {{ s.n }}</span><span style="color:#4a4740">{{ s.date }} · {{ s.h }}</span>
+        </div>
+        <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1.02;letter-spacing:-.015em;margin:24px 0 36px;text-wrap:balance">{{ s.t }}</h2>
+
+        <sc-if value="{{ s.hasRef }}" hint-placeholder-val="{{ false }}">
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:16px;padding:28px 30px;border:1.5px solid #1d1c1a;border-radius:6px;margin-bottom:40px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase">◇ Référence culturelle</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="font-family:Newsreader,serif;font-size:28px;line-height:1.1">{{ s.ref.who }}</div>
+              <div style="font-family:Newsreader,serif;font-style:italic;font-size:19px;color:#6b675e">{{ s.ref.t }}</div>
+            </div>
+            <p style="margin:0;font-size:16px;line-height:1.65;text-wrap:pretty">{{ s.ref.p }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.94 0.035 250);border-radius:4px">
+              <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.38 0.13 250);padding-top:4px">? À poser aux étudiants</div>
+              <div style="flex:1 1 300px;min-width:0;font-family:Newsreader,serif;font-size:19px;line-height:1.4;text-wrap:pretty">{{ s.ref.ask }}</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ s.steps }}" as="st" hint-placeholder-count="4">
+            <div style="display:flex;flex-wrap:wrap;gap:8px 28px;padding:24px 0;border-top:1px solid #d9d4c7">
+              <div style="flex:0 0 118px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.02em;padding-top:5px">{{ st.time }}</div>
+              <div style="flex:1 1 400px;min-width:0;display:flex;flex-direction:column;gap:14px">
+                <h3 style="font-family:Newsreader,serif;font-weight:500;font-size:24px;line-height:1.2;margin:0">{{ st.t }}</h3>
+                <sc-for list="{{ st.blocks }}" as="b" hint-placeholder-count="2">
+                  <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}"><p style="margin:0;font-size:16px;line-height:1.66;text-wrap:pretty;color:#2a2926">{{ b.text }}</p></sc-if>
+                  <sc-if value="{{ b.isCas }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:14px 0;border-top:1px dotted #a39c8c;border-bottom:1px dotted #a39c8c">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.42 0.1 55)">● Étude de cas</div>
+                      <div style="font-family:Newsreader,serif;font-style:italic;font-size:18.5px;line-height:1.5;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isExo }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;border:1.5px solid #1d1c1a;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">{{ b.label }}</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isBrief }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#1d1c1a;color:#f5f3ee;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">▣ Brief projet</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isKey }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#e8e4da;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">{{ b.label }}</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:12px">
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:14px">
+            <sc-if value="{{ s.hasEntre }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:6px;padding:18px 20px;border:1.5px dashed #8a857a;border-radius:6px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">↻ Entre les séances</div>
+                <div style="font-size:15px;line-height:1.55;text-wrap:pretty">{{ s.entre }}</div>
+              </div>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;gap:6px;padding:18px 20px;border:1.5px solid #1d1c1a;border-radius:6px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">→ Livrable</div>
+              <div style="font-size:15px;line-height:1.55;text-wrap:pretty">{{ s.livrable }}</div>
+            </div>
+          </div>
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:8px;padding:18px 20px;background:#e8e4da;border-radius:6px">
+            <div style="display:flex;justify-content:space-between;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase"><span>☐ À préparer</span><span style="color:#4a4740">{{ s.prepLabel }}</span></div>
+            <sc-for list="{{ s.prep }}" as="pr" hint-placeholder-count="3">
+              <div onDragOver="{{ pr.onDragOver }}" onDrop="{{ pr.onDrop }}" style="display:flex;flex-direction:column;gap:5px;border-top:1px solid #d3cdbf;padding:9px 0 3px">
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                  <button onClick="{{ pr.toggle }}" style="display:flex;gap:12px;align-items:flex-start;flex:1;min-width:0;background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer">
+                    <sc-if value="{{ pr.on }}" hint-placeholder-val="{{ false }}"><span style="width:16px;height:16px;border:1.5px solid #1d1c1a;background:#1d1c1a;color:#e8e4da;font-size:11px;line-height:16px;text-align:center;border-radius:3px;flex:none;margin-top:2px">✓</span></sc-if>
+                    <sc-if value="{{ pr.off }}" hint-placeholder-val="{{ true }}"><span style="width:16px;height:16px;border:1.5px solid #6b675e;border-radius:3px;flex:none;box-sizing:border-box;margin-top:2px"></span></sc-if>
+                    <span style="font-size:14.5px;line-height:1.5">{{ pr.t }}</span>
+                  </button>
+                  <sc-if value="{{ pr.canEdit }}" hint-placeholder-val="{{ false }}"><label data-noprint="1" title="Joindre des fichiers (ou glisser-déposer sur la ligne)" style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740;cursor:pointer;padding:3px 7px;border:1px solid #bfb8a8;border-radius:3px;margin-top:1px" style-hover="background:#1d1c1a;color:#e8e4da;border-color:#1d1c1a">+ Fichier<input type="file" multiple="{{ true }}" onChange="{{ pr.onFiles }}" style="display:none"></input></label></sc-if>
+                  <sc-if value="{{ pr.custom }}" hint-placeholder-val="{{ false }}"><button data-noprint="1" onClick="{{ pr.remove }}" title="Supprimer cet élément" style="flex:none;background:none;border:0;padding:2px 4px;font-size:16px;line-height:1;color:#6b675e;cursor:pointer" style-hover="color:#1d1c1a">×</button></sc-if>
+                </div>
+                <sc-for list="{{ pr.files }}" as="f">
+                  <div style="display:flex;gap:8px;align-items:baseline;padding-left:28px;min-width:0">
+                    <button onClick="{{ f.open }}" title="Ouvrir" style="background:none;border:0;padding:0;font:inherit;font-size:13px;color:#1d1c1a;text-decoration:underline;text-underline-offset:2px;cursor:pointer;text-align:left;overflow-wrap:anywhere">{{ f.name }}</button>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#6b675e;flex:none">{{ f.size }}</span>
+                    <sc-if value="{{ f.canEdit }}" hint-placeholder-val="{{ false }}"><button data-noprint="1" onClick="{{ f.remove }}" title="Retirer le fichier" style="flex:none;background:none;border:0;padding:0 4px;font-size:14px;line-height:1;color:#6b675e;cursor:pointer" style-hover="color:#1d1c1a">×</button></sc-if>
+                  </div>
+                </sc-for>
+                <sc-for list="{{ pr.docs }}" as="d">
+                  <a href="{{ d.href }}" style="display:flex;gap:8px;align-items:baseline;padding-left:28px;font-size:13px;color:#1d1c1a;text-decoration:none" style-hover="text-decoration:underline"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b675e;flex:none">Kit ↗</span><span>{{ d.label }}</span></a>
+                </sc-for>
+              </div>
+            </sc-for>
+            <sc-if value="{{ s.canEdit }}" hint-placeholder-val="{{ false }}"><div data-noprint="1" style="display:flex;gap:8px;border-top:1px solid #d3cdbf;padding-top:10px">
+              <input value="{{ s.draft }}" onChange="{{ s.onDraft }}" onKeyDown="{{ s.onDraftKey }}" placeholder="Ajouter un élément…" style="flex:1;min-width:0;font:inherit;font-size:14px;padding:6px 9px;border:1px solid #bfb8a8;border-radius:3px;background:#f3f0e8;color:#1d1c1a"></input>
+              <button onClick="{{ s.addItem }}" style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border:1px solid #1d1c1a;border-radius:3px;background:#1d1c1a;color:#e8e4da;cursor:pointer">Ajouter</button>
+            </div></sc-if>
+          </div>
+        </div>
+      </section>
+    </sc-for>
+
+    <section id="recap" data-chapter="1" style="padding-top:96px;scroll-margin-top:16px">
+      <div style="border-top:2px solid #1d1c1a;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em">SYNTHÈSE</div>
+      <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1.02;margin:24px 0 36px">Récapitulatif du module</h2>
+      <div style="display:flex;flex-direction:column;gap:44px">
+        <sc-for list="{{ recap }}" as="g" hint-placeholder-count="2">
+          <div data-avoid="1" style="display:flex;flex-direction:column">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">{{ g.g }}</div>
+            <sc-for list="{{ g.items }}" as="it">
+              <div style="display:flex;flex-wrap:wrap;gap:2px 24px;padding:12px 0;border-bottom:1px solid #e3dfd5">
+                <div style="flex:0 0 190px;font-weight:600;font-size:15px">{{ it.k }}</div>
+                <div style="flex:1 1 300px;min-width:0;font-size:15px;line-height:1.55;color:#2a2926;text-wrap:pretty">{{ it.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <footer style="margin-top:96px;padding-top:16px;border-top:1px solid #d9d4c7;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6b675e">Cliclac Studio · cliclac.studio · Document pédagogique v1</footer>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/*META*/
+const KEY = 'fil-infographie-b3-v1';
+const LEGEND = ['◇ Référence culturelle', '● Étude de cas', '✎ Exercice imposé', '! Notion clé', '↻ Entre les séances', '→ Livrable', '☐ À préparer'];
+const CADRE = [
+ {g:'Fil rouge projet', paras:['Chaque étudiant met en page un de ses propres projets de design d’espace (aménagement intérieur, scénographie, stand, commerce…) réalisé dans un autre module. Le contenu existe déjà : l’effort porte entièrement sur la mise en page, la cohérence et l’argumentation des choix.','Deux supports sont produits au fil des 6 séances : un dossier de présentation A4 paysage de 16 pages (couverture, intention, contexte, plans, coupes, perspectives, matériaux, détails) et une planche de concours A1 portrait qui résume le projet en une affiche. C’est le type de document qu’un architecte d’intérieur produit pour un concours, un rendu client ou son portfolio.'], items:[]},
+ {g:'Fil rouge culturel', paras:['Chaque séance s’ouvre sur une référence de 10 à 15 minutes, choisie à la frontière entre graphisme et espace. Une référence, deux ou trois idées, une question posée au groupe.'], items:[['Séance 1','Le Corbusier — le Modulor, la mesure du corps appliquée à l’espace'],['Séance 2','Jean Widmer — la signalétique, lire en mouvement'],['Séance 3','Julius Shulman — la photographie qui construit l’image d’une architecture'],['Séance 4','Wim Crouwel — la grille comme identité'],['Séance 5','Irma Boom — la fabrication comme partie du projet'],['Séance 6','OMA et Bruce Mau — S,M,L,XL, le livre comme manifeste d’agence']]},
+ {g:'Couverture du syllabus', paras:[], items:[['Mise en page','Formats, grilles, marges, hiérarchie visuelle — S1, repris en S4'],['Typographie et lisibilité','Choix des caractères, corps, interlignage, cohérence — S2'],['Image et traitement visuel','Sélection, recadrage, retouche, cadrage, qualité — S3'],['Composition éditoriale','Textes, images, légendes, pictogrammes — S3'],['Identité graphique','Charte, cohérence, style, intentions — S4'],['Logiciels de mise en page','InDesign à chaque séance : gabarits, styles, grille de ligne de base, contrôle en amont, assemblage'],['Chaîne de production','Préparation des fichiers, export, PDF, contraintes techniques — S5'],['Présentation du projet','Dossier, planche, soutenance — S4 et S6']]},
+ {g:'Contrôle continu', paras:['Un rendu à chaque séance. La note finale combine les étapes et le résultat, pour valoriser la progression autant que le document final.'], items:[['Rendus S1 à S5 — 40 %','Gabarit, feuille de styles, doubles-pages, charte, fichiers de production. Notés sur la rigueur et le respect des consignes.'],['Dossier final — 30 %','Grille tenue, hiérarchie claire, rapport texte/image maîtrisé, cohérence d’ensemble.'],['Planche A1 — 15 %','Lisibilité à distance, hiérarchie en trois niveaux, cohérence avec le dossier.'],['Soutenance — 15 %','Capacité à argumenter ses choix graphiques plutôt qu’à décrire ce qu’on voit.']]},
+ {g:'Ressource principale', paras:['Damien et Claire Gautier, Mise en page(s), etc., Pyramyd. Le livre sert d’appui ponctuel : les pages utiles sont indiquées dans chaque séance et dans le récapitulatif. Il ne couvre pas la chaîne numérique (profils, PDF/X, contrôle en amont), apportée par le cours.'], items:[]}
+];
+/*DATA*/
+const SEANCES = [
+{date:'Date à définir', h:'2h', t:'Fondamentaux de la mise en page',
+ ref:{who:'Le Corbusier — Le Modulor (1948)', t:'Une mesure pour l’espace et pour la page', p:'Le Corbusier invente le Modulor, un système de mesures fondé sur la taille d’un homme bras levé et sur le nombre d’or. Il l’applique à l’architecture : hauteurs sous plafond, dimensions des fenêtres, mobilier de l’Unité d’habitation de Marseille. L’idée est simple : un espace est harmonieux quand ses dimensions dérivent d’un même système de proportions. Une page fonctionne de la même manière. Format, marges, colonnes et interlignage doivent découler les uns des autres. Les étudiants de design d’espace connaissent déjà ce raisonnement : aujourd’hui, on l’applique à la surface d’une page. Voir Gautier p. 16–17.', ask:'Dans votre dernier projet d’espace, d’où venaient vos dimensions ? D’une trame, d’une norme, du corps, du hasard ?'},
+ steps:[
+  ['0h00 – 0h15','Présentation du module et du projet',['p','Présentation rapide de mon profil. Tour de table : prénom, projet d’espace qu’ils comptent utiliser, niveau InDesign.'],['brief','Mettre en page le dossier de présentation d’un de vos projets de design d’espace : A4 paysage, 16 pages, plus une planche de concours A1 portrait. Un rendu à chaque séance. Le contenu, vous l’avez déjà ; ce qui est évalué, c’est la manière de le donner à lire.']],
+  ['0h15 – 0h30','Référence culturelle',['p','Le Modulor. Je projette la figure de l’homme bras levé, puis les dimensions de l’Unité d’habitation. Question au groupe.']],
+  ['0h30 – 0h55','Formats et marges',['p','Format ISO 216 : rapport 1:√2, chaque format est la moitié du précédent, l’A0 fait 1 m². A4 = 210 × 297 mm, A3 = 297 × 420 mm, A2 = 420 × 594 mm, A1 = 594 × 841 mm. Le choix d’un format dépend du mode de consultation : dans la main, sur une table, au mur, sur un lutrin (Gautier p. 38–41).'],['p','Vocabulaire des marges : petit fond (côté reliure), blanc de tête, grand fond, blanc de pied. Canons classiques de Van de Graaf et Tschichold : marges dans un rapport 2:3:4:6, symétrie autour de la reliure. Principe moderne de translation : la page de droite reprend la page de gauche sans symétrie (Gautier p. 44–47).'],['key','Le blanc n’est pas un reste. Des marges généreuses coûtent de la surface mais donnent de la tenue au document et laissent place aux pouces du lecteur.']],
+  ['0h55 – 1h15','Grilles et hiérarchie',['p','Une grille multicolonne répartit la largeur utile en colonnes séparées par des gouttières. Exemple sur A4 paysage : marges latérales 13,5 mm, 6 colonnes de 40 mm, gouttières de 6 mm (6 × 40 + 5 × 6 + 2 × 13,5 = 297). Un texte peut occuper 2, 3 ou 6 colonnes ; une image, 4 colonnes, etc. La grille de ligne de base aligne tous les textes sur un même pas vertical.'],['cas','Catalogue Archinova (concours d’architecture, Lyon-La Duchère), Gautier p. 112 : format ouvert 245 × 340 mm, 7 colonnes de 28 mm, gouttières de 3,5 mm, marges de 14 mm. Le nombre impair de colonnes crée une asymétrie dynamique. Je fais vérifier le calcul au groupe.'],['p','Hiérarchie : trois niveaux de lecture (on regarde, on parcourt, on lit). Le point focal attire l’œil, puis la lecture suit un parcours en Z ou en S. Tout ce qui est plus grand, plus contrasté ou plus isolé est lu en premier.']],
+  ['1h15 – 1h50','Exercice et application',['exo','Relevé de grille : sur une double-page de catalogue d’architecture imprimée, tracer au calque les marges, colonnes, gouttières et alignements. Retrouver le système en 15 minutes.','Exercice imposé'],['p','Application au projet : choix du format, création du document InDesign (pages en vis-à-vis, marges, colonnes, grille de ligne de base), construction du gabarit parent avec folio et titre courant.']],
+  ['1h50 – 2h00','Debrief collectif',['p','Trois gabarits projetés. Le groupe identifie ce qui tient et ce qui est arbitraire.']]
+ ],
+ entre:'Rassembler toute la matière du projet : textes (intention, contexte, programme), plans, coupes, perspectives, photos de maquette, planche matériaux. Faire un premier tri.',
+ livrable:'Relevé de grille + gabarit InDesign vide, accompagné de 3 lignes justifiant le format et la grille. Nommage : NOM_Prenom_S1_Gabarit.indd',
+ prep:['4 à 5 doubles-pages de catalogues d’architecture imprimées pour le relevé','Papier calque et feutres fins','Planches Modulor à projeter','Gautier p. 38–49 et 112 à projeter','Fiche récap une page : formats ISO, vocabulaire des marges, calcul de grille']},
+{date:'Date à définir', h:'2h', t:'Typographie et lisibilité',
+ ref:{who:'Jean Widmer — signalétique des autoroutes et du Centre Pompidou', t:'Lire en mouvement, lire à distance', p:'Graphiste suisse installé à Paris, Jean Widmer conçoit à partir de 1972 les panneaux touristiques des autoroutes françaises : des pictogrammes et une typographie qui doivent être compris en quelques secondes à grande vitesse. Il signe ensuite l’identité et la signalétique du Centre Pompidou. Son travail pose la question centrale de ce module pour des designers d’espace : un texte ne se lit pas de la même façon dans la main, sur un mur ou depuis une voiture. Le choix du caractère, son corps, son espacement et son contraste dépendent de la distance et du temps de lecture.', ask:'Dans un espace que vous avez visité récemment, quelle signalétique vous a aidé ? Laquelle vous a perdu ?'},
+ steps:[
+  ['0h00 – 0h15','Retour sur la séance 1',['p','Quatre ou cinq gabarits projetés. Correction des erreurs fréquentes : marges trop faibles, colonnes non multiples de la gouttière, grille de ligne de base oubliée.']],
+  ['0h15 – 0h30','Référence culturelle',['p','Widmer. Panneaux d’autoroute puis signalétique de Beaubourg. Question au groupe.']],
+  ['0h30 – 1h00','Choisir et régler un caractère',['p','Familles de la classification Vox-ATypI : humanes, garaldes, réales, didones, mécanes, linéales… (Gautier p. 51). Critères de choix : hauteur d’œil, contraste pleins/déliés, chasse, nombre de graisses disponibles. L’Univers de Frutiger existe en 21 variantes et 4 chasses (Gautier p. 53) : une seule famille bien déclinée suffit souvent.'],['p','Réglages du texte courant en impression : corps 9 à 11 pt, interlignage autour de 120 % (9/11, 10/12), légendes 7 à 8 pt. Justification idéale de 55 à 65 signes par ligne ; en dessous de 30 la lecture est hachée, au-delà de 80 elle fatigue (Gautier p. 65). En texte justifié, les espaces entre mots varient de 75 à 125 % ; au-delà, activer la césure ou passer au fer à gauche (p. 67).'],['key','Deux familles au maximum. La hiérarchie se construit par le corps, la graisse et l’espace, pas en multipliant les polices.'],['p','Pour l’espace : la taille des lettres se détermine selon la distance de lecture et se vérifie en imprimant à l’échelle 1. Contraste minimal texte/fond de 4,5:1 (norme WCAG), 3:1 pour les très grands corps.']],
+  ['1h00 – 1h50','Exercice et application',['exo','Composer le même texte trois fois : en 30, 60 et 90 signes par ligne. Imprimer, lire, comparer. 15 minutes.','Exercice imposé'],['p','Construction de la feuille de styles du dossier : styles de paragraphe Titre, Intertitre, Chapô, Texte courant, Légende, Cartouche technique, Folio ; styles de caractère ; alignement sur la grille de ligne de base. Application sur une double-page « Intention » avec leur propre texte.']],
+  ['1h50 – 2h00','Debrief collectif',['p','Doubles-pages imprimées à 100 % et lues à bout de bras. On corrige ce que l’écran cachait.']]
+ ],
+ entre:'Rédiger ou corriger les textes du dossier : intention (1 500 signes maximum), légendes. Sélectionner 20 à 30 images.',
+ livrable:'Fichier InDesign avec feuille de styles complète et double-page test, plus son export PDF. Nommage : NOM_Prenom_S2_Styles.indd',
+ prep:['Texte imposé pour l’exercice des justifications','Spécimens imprimés de 3 familles de caractères','Planches Widmer à projeter','Gautier p. 51–69 à projeter','Fiche récap une page : corps, interlignage, justification, contraste']},
+{date:'Date à définir', h:'3h', t:'Image et composition éditoriale',
+ ref:{who:'Julius Shulman — Case Study House #22 (1960)', t:'Le cadrage fabrique l’architecture', p:'Julius Shulman photographie en 1960 la maison Stahl de Pierre Koenig à Los Angeles : deux femmes dans un salon de verre suspendu au-dessus de la ville illuminée. Cette image a fait la célébrité de la maison plus que ses plans. Shulman choisissait l’heure, la lumière, le point de vue, le mobilier et les figurants. Il montre qu’une architecture est aussi une image construite. Pour un dossier de projet, c’est la même chose : le choix, le cadrage et l’ordre des images disent le projet avant le texte.', ask:'Si vous ne deviez garder qu’une image de votre projet, laquelle serait-ce, et qu’est-ce qu’elle raconte ?'},
+ steps:[
+  ['0h00 – 0h15','Retour sur la séance 2',['p','Feuilles de styles projetées. Vérification de la cohérence des styles et de l’alignement sur la ligne de base.']],
+  ['0h15 – 0h30','Référence culturelle',['p','Shulman. Case Study House #22, puis deux autres photographies de la série. Question au groupe.']],
+  ['0h30 – 1h05','L’image : sélection, cadrage, qualité',['p','Types d’images d’un projet d’espace : plan, coupe, axonométrie, perspective ou rendu, photo de maquette, photo de site, échantillon de matière. Chacune a un rôle : informer, situer, faire ressentir.'],['p','Cadrage : du plan général au gros plan (Gautier p. 76–79), règle des tiers, point focal, lignes de fuite. Retouche (corriger exposition, verticales, couleurs) contre traitement graphique (noir et blanc, duotone, silhouette) : la retouche sert l’authenticité, le traitement crée une ambiance (p. 86–87).'],['p','Résolution : 300 ppi à la taille d’impression. Pixels nécessaires = taille en cm × 300 ÷ 2,54 ; une image pleine largeur A4 paysage (29,7 cm) demande environ 3 500 px. Les plans et coupes s’exportent en PDF vectoriel depuis le logiciel de dessin, avec des épaisseurs de trait qui restent lisibles une fois réduites.'],['key','Une image à 72 ppi agrandie ne gagne aucun détail. Le problème se règle à la source, pas dans InDesign.']],
+  ['1h05 – 1h35','Composition éditoriale',['p','Rapport texte/image : le texte domine, les deux s’équilibrent, ou l’image domine (Gautier p. 88–89). Rapport image/image : égalité, dominant/dominé, vignettes, narration par la juxtaposition (p. 100–101).'],['p','Légendes : proches de l’image, dans un style dédié, avec un contenu utile (quoi, où, échelle, crédit). Pictogrammes et éléments techniques : flèche du nord, échelle graphique, légende de plan. Filets et cadres uniquement s’ils structurent (p. 74–75).'],['p','Chemin de fer : les 16 pages en vignettes pour régler le rythme. Alterner doubles-pages denses et respirations pleine image.'],['cas','Double-page type : page de gauche, une grande image sur 4 colonnes et deux tiers de la hauteur, texte court dessous ; page de droite, texte sur 2 colonnes et deux vignettes alignées sur la même ligne de force. Lecture en Z d’une page à l’autre.']],
+  ['1h35 – 2h05','Exercice imposé : trois rapports',['exo','Avec un même lot de 6 images et un texte fournis, composer trois doubles-pages : égalité, dominant/dominé, narration. Même grille, mêmes styles. Comparaison collective.','Exercice imposé']],
+  ['2h05 – 2h50','Application sur le dossier',['p','Chemin de fer complet du dossier, puis composition de 4 doubles-pages. Recadrages et corrections dans Photoshop si nécessaire. Je passe de poste en poste.']],
+  ['2h50 – 3h00','Debrief collectif',['p','Chemins de fer affichés côte à côte. On repère les rythmes monotones et les doubles-pages qui étouffent.']]
+ ],
+ entre:'Composer toutes les doubles-pages du dossier. Vérifier la résolution effective de chaque image dans le panneau Liens.',
+ livrable:'Chemin de fer + 4 doubles-pages composées, export PDF. Nommage : NOM_Prenom_S3_Doubles.pdf',
+ prep:['Lot de 6 images et un texte pour l’exercice des trois rapports','Planches Shulman à projeter','Catalogues ou revues d’architecture pour exemples','Gautier p. 74–105 à projeter','Fiche récap une page : résolution, types d’images, légendes']},
+{date:'Date à définir', h:'3h', t:'Identité graphique et planche de concours',
+ ref:{who:'Wim Crouwel — Stedelijk Museum Amsterdam (1963-1985)', t:'La grille comme identité', p:'Pendant plus de vingt ans, Wim Crouwel conçoit affiches, catalogues et signalétique du Stedelijk Museum. Tous reposent sur une même grille visible, qui lui vaut le surnom de « Mr Gridnik ». L’identité du musée ne tient pas à un logo mais à un système : une grille, une typographie, une manière de placer les éléments. Quand le studio Experimental Jetset reprend l’identité du musée dans les années 2000, il choisit l’Univers en hommage à Crouwel (Gautier p. 256–257). Pour un dossier de projet, l’identité fonctionne de même : c’est la cohérence des règles qui se reconnaît.', ask:'Si on retire le titre de votre dossier, peut-on encore reconnaître qu’il s’agit du même projet d’une page à l’autre ?'},
+ steps:[
+  ['0h00 – 0h15','Retour sur la séance 3',['p','Doubles-pages projetées. Retour sur la tenue de la grille et la qualité des images.']],
+  ['0h15 – 0h30','Référence culturelle',['p','Crouwel au Stedelijk, puis la reprise par Experimental Jetset. Question au groupe.']],
+  ['0h30 – 1h00','Construire une identité de projet',['p','Une charte est un ensemble de règles : titre ou logotype du projet, palette (2 à 3 couleurs et des neutres, valeurs CMJN et RVB), typographie issue de la séance 2, grille, pictogrammes, traitement des images. La couverture et les pages intérieures partagent ces règles (Gautier p. 186–187).'],['cas','Atelier d’architecture as+ir, Gautier p. 150–151 : papier à en-tête, dossier de références, cartes et site internet reposent sur un même module. L’A4 compte 48 modules, la carte de visite 4. Le lien entre tous les supports se fait sans effort.'],['cas','Kulturkeller im Schtei, Gautier p. 246–247 : un seul format, deux couleurs, une marge blanche et une signature toujours au même endroit. Des règles strictes qui laissent une grande liberté au visuel.']],
+  ['1h00 – 1h30','La planche de concours',['p','Format A1 portrait (594 × 841 mm). Elle se lit en trois temps : de loin, le titre et l’image principale ; à un mètre, plans et coupes ; de près, textes et légendes. Grille modulaire, par exemple 6 × 8 modules.'],['p','Répartition indicative : titre et identification 10 à 15 % de la surface, image principale 35 à 40 %, documents techniques 35 %, textes et légendes 10 à 15 %. Le titre n’a pas besoin d’être énorme s’il est isolé.'],['cas','Analyse d’une planche lauréate du concours Europan (3 planches A1 imposées). Repérer les trois niveaux de lecture et la grille.']],
+  ['1h30 – 1h50','Exercice imposé : mini-charte',['exo','Sur une page A4 : nom du projet, 2 couleurs avec leurs valeurs, 1 famille typographique et ses 3 styles principaux, la règle de grille, 3 pictogrammes. 20 minutes, sans retouche.','Exercice imposé']],
+  ['1h50 – 2h50','Application : couverture et planche',['p','Couverture du dossier, puis esquisse de la planche A1 dans InDesign à partir des éléments déjà composés. Je vérifie la cohérence avec le dossier.']],
+  ['2h50 – 3h00','Debrief collectif',['p','Planches imprimées en A3 et affichées au mur. Lecture à 3 m : qu’est-ce qu’on voit en premier ?']]
+ ],
+ entre:'Finaliser le dossier et la planche. Lister les polices et les images utilisées.',
+ livrable:'Mini-charte A4 + couverture + planche A1 en esquisse, export PDF. Nommage : NOM_Prenom_S4_Charte.pdf',
+ prep:['Planches Europan imprimées ou à projeter','Planches Crouwel et Experimental Jetset à projeter','Gautier p. 150–155, 186–187, 246–247 à projeter','Ruban adhésif pour l’affichage','Fiche récap une page : contenu d’une charte, niveaux de lecture d’une planche']},
+{date:'Date à définir', h:'2h', t:'Chaîne de production',
+ ref:{who:'Irma Boom — livres', t:'La fabrication fait partie du projet', p:'La graphiste néerlandaise Irma Boom conçoit des livres où le papier, la reliure et l’impression font partie du propos. Son livre pour le groupe SHV (1996) compte plus de 2 000 pages et se lit dans tous les sens. Son livre sur le parfum Chanel N°5 (2013) est imprimé sans encre, uniquement en gaufrage. Ces objets ne sont possibles que parce qu’elle travaille avec l’imprimeur dès le début. Même pour un dossier de 16 pages, le papier, la reliure et la préparation des fichiers se décident au moment de la conception, pas à la fin.', ask:'Votre dossier sera-t-il agrafé, relié, imprimé chez vous ? Qu’est-ce que ça change à votre mise en page ?'},
+ steps:[
+  ['0h00 – 0h10','Retour sur la séance 4',['p','Planches projetées rapidement. Points à corriger avant la production.']],
+  ['0h10 – 0h25','Référence culturelle',['p','Irma Boom. Je montre le livre SHV et le livre Chanel. Question au groupe.']],
+  ['0h25 – 0h55','Du fichier à l’objet',['p','Les phases d’un projet imprimé : brief et contraintes, recherche, chemin de fer et maquette, conception détaillée, préparation des fichiers, impression et vérification.'],['p','Couleur : l’écran travaille en RVB, l’impression en CMJN. On convertit au profil de l’imprimeur, par exemple Coated Fogra39 (ISO Coated v2) pour du papier couché. Taux d’encrage total limité selon le profil, autour de 300 à 330 %. Texte noir en 100 % K seul ; grands aplats en noir enrichi.'],['p','Fonds perdus de 3 mm (parfois 5), repères de coupe, zone de sécurité de 5 mm pour les textes. Images à 300 ppi effectifs. Polices incorporées au PDF.'],['p','Finition : une reliure en piqûre à cheval impose un nombre de pages multiple de 4 ; au-delà d’une quarantaine de pages, on passe au dos carré collé. Grammage, papier couché ou non couché, pliage (Gautier p. 240–241).'],['key','Ce qui ne se voit pas à l’écran se voit à l’impression : fond perdu manquant, image RVB, trait trop fin, texte trop près de la coupe.']],
+  ['0h55 – 1h35','Exercice et application',['exo','Fichier piégé fourni : images RVB en basse définition, police manquante, pas de fond perdu, texte en quadrichromie. Repérer et corriger tous les problèmes avec le contrôle en amont (Fenêtre › Sortie › Contrôle en amont) et l’aperçu des séparations. 20 minutes.','Exercice imposé'],['p','Sur leur dossier : contrôle en amont, assemblage (Fichier › Assemblage), export PDF/X-4 pour l’impression avec fonds perdus et repères, export PDF écran allégé. Impression test à 50 % puis à 100 % d’une double-page.']],
+  ['1h35 – 1h55','Pièges courants et checklist',['p','Marges trop serrées. Contraste insuffisant. Images basse définition. Trop de polices. Alignements approximatifs. Production lancée trop tôt, sans relecture. On parcourt la checklist ensemble et chacun la remplit pour son dossier.']],
+  ['1h55 – 2h00','Conclusion',['p','Consignes pour la soutenance et le rendu final.']]
+ ],
+ entre:'Finaliser dossier et planche. Préparer une présentation orale de 5 minutes.',
+ livrable:'PDF/X-4 impression, PDF écran, dossier d’assemblage et checklist remplie. Nommage : NOM_Prenom_S5_Impression.pdf et NOM_Prenom_S5_Ecran.pdf',
+ prep:['Fichier InDesign piégé pour l’exercice','Profil de contrôle en amont personnalisé','Échantillons de papiers et de reliures','Planches Irma Boom à projeter','Checklist de production imprimée']},
+{date:'Date à définir', h:'2h', t:'Présentation et soutenance',
+ ref:{who:'OMA et Bruce Mau — S,M,L,XL (1995)', t:'Le livre comme manifeste d’agence', p:'Rem Koolhaas et le graphiste Bruce Mau publient S,M,L,XL, un livre de plus de 1 300 pages qui présente les projets de l’agence OMA classés par taille, du plus petit au plus grand. Textes, plans, photos, bandes dessinées et essais s’y mêlent. Le livre a changé la manière dont les agences d’architecture présentent leur travail : la mise en page fait partie du discours. Un dossier de projet n’est pas un simple support : c’est un argument.', ask:'Qu’est-ce que votre dossier dit de vous en tant que designer, au-delà du projet qu’il présente ?'},
+ steps:[
+  ['0h00 – 0h15','Référence culturelle',['p','S,M,L,XL. Quelques doubles-pages projetées. Question au groupe.']],
+  ['0h15 – 0h35','Préparer son argumentation',['p','Structure en 5 minutes : le projet en une phrase ; le parti pris graphique (format, grille, typographie, images) ; un choix difficile et pourquoi ; ce qu’on referait autrement.'],['key','Argumenter, ce n’est pas décrire. « J’ai mis une grande image à gauche » ne dit rien ; « l’image domine parce que l’ambiance est le cœur du projet » est un argument.']],
+  ['0h35 – 1h45','Soutenances',['p','Planches affichées au mur, dossiers en consultation. Chaque étudiant présente 5 minutes, puis 2 minutes de questions. Je les interromps s’ils décrivent ce qu’on voit déjà. Je remplis la grille d’évaluation en direct.']],
+  ['1h45 – 2h00','Bilan du module',['p','Points forts du groupe, progression depuis la séance 1, pistes pour continuer : relevé de grilles dans les revues, lecture du Gautier, veille sur les catalogues d’architecture.']]
+ ],
+ livrable:'Dossier final en PDF (impression et écran), planche A1 en PDF, dossier d’assemblage. Nommage : NOM_Prenom_S6_Dossier.pdf et NOM_Prenom_S6_Planche.pdf',
+ prep:['Grille d’évaluation imprimée','Espace d’affichage pour les planches','Doubles-pages de S,M,L,XL à projeter','Minuteur pour les soutenances']}
+];
+const RECAP = [
+ {g:'Fil rouge culturel', items:[['Séance 1','Le Corbusier — le Modulor, un système de proportions pour l’espace et la page.'],['Séance 2','Jean Widmer — signalétique, lisibilité à distance et en mouvement.'],['Séance 3','Julius Shulman — le cadrage fabrique l’image d’une architecture.'],['Séance 4','Wim Crouwel — la grille comme identité.'],['Séance 5','Irma Boom — la fabrication fait partie du projet.'],['Séance 6','OMA et Bruce Mau — le livre comme manifeste.']]},
+ {g:'Progression du projet', items:[['Séance 1','Relevé de grille, format, gabarit InDesign.'],['Séance 2','Feuille de styles, double-page test.'],['Séance 3','Chemin de fer, 4 doubles-pages composées.'],['Séance 4','Mini-charte, couverture, planche A1 en esquisse.'],['Séance 5','Contrôle en amont, PDF/X-4, PDF écran, assemblage.'],['Séance 6','Dossier final, planche, soutenance.']]},
+ {g:'Pages utiles du Gautier', items:[['Séance 1','p. 16–17 (nombre d’or, Modulor), 38–43 (formats), 44–49 (marges), 108–113 (grille multicolonne)'],['Séance 2','p. 50–73 (typographie : familles, choix, justification, interlignage)'],['Séance 3','p. 74–105 (attributs graphiques, images, rapports texte/image et image/image), 182–183 (anatomie de la page)'],['Séance 4','p. 138–161 (grille modulaire), 186–187 (couverture et pages intérieures), 246–257 (études de cas)'],['Séance 5','p. 240–241 (finition : pliage, reliure, imposition)'],['Séance 6','p. 244–245 (repères méthodologiques)']]}
+];
+/*END*/
+const kv = ([k, v]) => ({ k, v });
+const KITDOCS = {"0-4":[{"label":"Fiche récap — Formats, marges, grilles","href":"Infographie - Kit de seance.dc.html#p1"}],"1-4":[{"label":"Fiche récap — Typographie et lisibilité","href":"Infographie - Kit de seance.dc.html#p2"}],"1-0":[{"label":"Texte fourni — Texte imposé — exercice des justifications","href":"Infographie - Kit de seance.dc.html#p3"}],"2-4":[{"label":"Fiche récap — Images et composition éditoriale","href":"Infographie - Kit de seance.dc.html#p4"}],"3-4":[{"label":"Fiche récap — Charte et planche de concours","href":"Infographie - Kit de seance.dc.html#p5"}],"4-4":[{"label":"Checklist — Checklist de production","href":"Infographie - Kit de seance.dc.html#p6"}],"5-0":[{"label":"Évaluation — Grille d’évaluation des soutenances","href":"Infographie - Kit de seance.dc.html#p7"}]};
+const KITADD = {};
+const fmtSize = b => b < 1048576 ? Math.max(1, Math.round(b / 1024)) + ' Ko' : (b / 1048576).toFixed(1).replace('.', ',') + ' Mo';
+class Component extends DCLogic {
+  state = { prep: {}, extra: {}, files: {}, draft: {}, canEdit: false };
+  componentDidMount() {
+    try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) this.setState({ prep: s }); } catch (e) {}
+    try { const x = JSON.parse(localStorage.getItem(KEY + '-extra') || 'null'); if (x) this.setState({ extra: x }); } catch (e) {}
+    const C = window.Cloud; if (!C) return;
+    C.onAuth(() => this.setState({ canEdit: C.canEdit }));
+    C.ready.then(() => {
+      if (!C.sb) return;
+      this.setState({ canEdit: C.canEdit });
+      C.get(KEY).then(v => { if (v) this.setState({ prep: v }); });
+      C.get(KEY + '-extra').then(v => { if (v) this.setState({ extra: v }); });
+      this.loadFiles();
+    });
+  }
+  save = () => { try { localStorage.setItem(KEY, JSON.stringify(this.state.prep)); } catch (e) {} window.Cloud && window.Cloud.set(KEY, this.state.prep); };
+  saveExtra = () => { try { localStorage.setItem(KEY + '-extra', JSON.stringify(this.state.extra)); } catch (e) {} window.Cloud && window.Cloud.set(KEY + '-extra', this.state.extra); };
+  loadFiles = () => window.Cloud.listFiles(KEY).then(rows => {
+    const files = {}; (rows || []).forEach(r => (files[r.item] = files[r.item] || []).push(r)); this.setState({ files });
+  }).catch(() => {});
+  addFiles = (id, list) => {
+    const arr = Array.from(list || []); if (!arr.length || !this.state.canEdit) return;
+    window.Cloud.addFiles(KEY, id, arr)
+      .then(() => { this.setState(st => ({ prep: { ...st.prep, [id]: true } }), this.save); this.loadFiles(); })
+      .catch(e => { alert('Impossible d’envoyer le fichier : ' + (e.message || e)); this.loadFiles(); });
+  };
+  removeFile = fid => window.Cloud.removeFile(fid).then(this.loadFiles);
+  openFile = r => window.open(window.Cloud.url(r.path), '_blank');
+  addItem = i => {
+    const t = (this.state.draft[i] || '').trim(); if (!t || !this.state.canEdit) return;
+    const id = 'c' + i + '-' + Date.now();
+    this.setState(st => ({ extra: { ...st.extra, [i]: [...(st.extra[i] || []), { id, t }] }, draft: { ...st.draft, [i]: '' } }), this.saveExtra);
+  };
+  removeItem = (i, id) => {
+    if (!confirm('Supprimer cet élément et ses fichiers joints ?')) return;
+    const fids = (this.state.files[id] || []).map(r => r.fid);
+    this.setState(st => ({ extra: { ...st.extra, [i]: (st.extra[i] || []).filter(x => x.id !== id) } }), this.saveExtra);
+    if (fids.length) Promise.all(fids.map(f => window.Cloud.removeFile(f))).then(this.loadFiles);
+  };
+  renderVals() {
+    const { prep, extra, files, draft, canEdit } = this.state;
+    const seances = SEANCES.map((s, i) => {
+      const mk = (id, t, custom, docs) => {
+        const on = !!prep[id];
+        return { t, on, off: !on, custom: custom && canEdit, canEdit, docs: docs || KITDOCS[id] || [],
+          files: (files[id] || []).map(r => ({ canEdit, name: r.name, size: fmtSize(r.size || 0), open: () => this.openFile(r), remove: () => this.removeFile(r.fid) })),
+          toggle: () => canEdit && this.setState(st => ({ prep: { ...st.prep, [id]: !st.prep[id] } }), this.save),
+          onFiles: e => { this.addFiles(id, e.target.files); e.target.value = ''; },
+          onDragOver: e => e.preventDefault(),
+          onDrop: e => { e.preventDefault(); this.addFiles(id, e.dataTransfer.files); },
+          remove: () => this.removeItem(i, id) };
+      };
+      const items = [...s.prep.map((t, j) => mk(i + '-' + j, t, false)), ...(KITADD[i] || []).map(x => mk(i + '-' + x.id, x.t, false, x.docs)), ...(extra[i] || []).map(x => mk(x.id, x.t, true))];
+      return {
+        canEdit, n: i + 1, id: 's' + (i + 1), href: '#s' + (i + 1), date: s.date, h: s.h, t: s.t,
+        hasRef: !!s.ref, ref: s.ref || {}, hasEntre: !!s.entre, entre: s.entre || '', livrable: s.livrable,
+        draft: draft[i] || '', onDraft: e => { const v = e.target.value; this.setState(st => ({ draft: { ...st.draft, [i]: v } })); }, onDraftKey: e => { if (e.key === 'Enter') this.addItem(i); }, addItem: () => this.addItem(i),
+        prep: items, prepLabel: items.filter(x => x.on).length + '/' + items.length,
+        steps: s.steps.map(([time, t, ...bl]) => ({
+          time, t,
+          blocks: bl.map(([k, text, lab]) => ({
+            text, isP: k === 'p', isCas: k === 'cas', isExo: k === 'exo', isBrief: k === 'brief', isKey: k === 'key',
+            label: k === 'exo' ? '✎ ' + (lab || 'Exercice') : '! ' + (lab || 'Notion clé')
+          }))
+        }))
+      };
+    });
+    return {
+      seances, legend: LEGEND, print: () => window.print(),
+      cadre: CADRE.map(g => ({ g: g.g, paras: g.paras, items: g.items.map(kv) })),
+      recap: RECAP.map(g => ({ g: g.g, items: g.items.map(kv) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

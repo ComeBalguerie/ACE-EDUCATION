@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f2eefc;color:#17131f;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#ff3d7f}a:hover{color:#d81b60}
+input,button,select,textarea{font-family:inherit}
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;flex-direction:column">
+
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:32px 20px">
+    <div style="width:100%;max-width:420px;display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#ff3d7f;font-weight:600">EIDM · Fin de séance</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:44px;line-height:1.02;font-weight:500">Le quiz<br><span style="color:#ff3d7f">de l'atelier</span></div>
+        <div style="font-size:15px;color:#5d5670;line-height:1.5;text-wrap:pretty">Dix minutes pour revoir la séance. Votre première partie compte pour le contrôle continu, les suivantes servent à vous entraîner.</div>
+      </div>
+      <div style="display:flex;gap:4px;background:#e4ddf7;padding:4px;border-radius:10px">
+        <button onClick="{{ tabEtu }}" style="flex:1;padding:10px;border:0;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;background:{{ tabEtuBg }};color:#17131f">Étudiant</button>
+        <button onClick="{{ tabProf }}" style="flex:1;padding:10px;border:0;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;background:{{ tabProfBg }};color:#17131f">Enseignant</button>
+      </div>
+      <sc-if value="{{ isTabEtu }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Code de la classe
+            <input value="{{ lf.cls }}" onChange="{{ onCls }}" placeholder="B2-EIDM" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff;text-transform:uppercase">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Pseudo
+            <input value="{{ lf.pseudo }}" onChange="{{ onPseudo }}" placeholder="ex. lune, pli42…" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Code secret (4 chiffres)
+            <input value="{{ lf.pin }}" onChange="{{ onPin }}" inputMode="numeric" type="text" autoComplete="off" placeholder="1234" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff;letter-spacing:.3em">
+          </label>
+          <div style="font-size:13px;color:#5d5670;line-height:1.5">N'utilisez pas votre nom. Le compte est créé à la première connexion. Notez votre code : il n'y a pas d'e-mail pour le retrouver.</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isTabProf }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Code enseignant
+            <input value="{{ lf.code }}" onChange="{{ onCode }}" type="password" placeholder="Démo : PROF-ACE" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff">
+          </label>
+        </div>
+      </sc-if>
+      <sc-if value="{{ hasErr }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:14px;color:#d6361f;background:#ffe1d8;padding:10px 14px;border-radius:8px">{{ lf.err }}</div>
+      </sc-if>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <button onClick="{{ login }}" style="padding:16px;border:2px solid #17131f;border-radius:14px;background:#ff3d7f;color:#17131f;font-size:17px;font-weight:700;cursor:pointer;box-shadow:4px 4px 0 #17131f" style-hover="transform:translate(-1px,-1px);box-shadow:5px 5px 0 #17131f" style-active="transform:translate(3px,3px);box-shadow:1px 1px 0 #17131f">Entrer</button>
+        <sc-if value="{{ isTabEtu }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ demoEtu }}" style="padding:10px;border:0;background:none;color:#5d5670;font-size:13px;cursor:pointer;text-decoration:underline">Remplir avec un compte de démonstration</button>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+  <div style="width:100%;max-width:560px;margin:0 auto;padding:20px 20px 48px;box-sizing:border-box;display:flex;flex-direction:column;gap:28px">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div style="font-size:12px;color:#5d5670;letter-spacing:.08em;text-transform:uppercase">{{ user.cls }}</div>
+        <div style="font-size:18px;font-weight:600">{{ user.pseudo }}</div>
+      </div>
+      <button onClick="{{ logout }}" style="padding:8px 14px;border:1.5px solid #c9c0e6;border-radius:999px;background:none;font-size:13px;cursor:pointer;color:#17131f">Déconnexion</button>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:18px;background:#c6f432;color:#17131f;border-radius:22px;padding:24px;border:2px solid #17131f;box-shadow:5px 5px 0 #17131f">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:34px;line-height:1">InDesign</div>
+        <div style="font-size:13px;font-weight:600">Maquette de magazine · 6 séances</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600"><span>{{ prog.label }}</span><span>{{ prog.points }} pts</span></div>
+        <div style="height:12px;background:#fff;border:2px solid #17131f;border-radius:99px;overflow:hidden">
+          <div style="height:100%;width:{{ prog.pct }};background:#ff3d7f;border-radius:99px;border-right:2px solid #17131f"></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:14px 8px">
+        <sc-for list="{{ badges }}" as="b" hint-placeholder-count="6">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center">
+            <div style="width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:19px;background:{{ b.bg }};border:1.5px {{ b.border }};color:{{ b.fg }}">{{ b.mark }}</div>
+            <div style="font-size:11px;line-height:1.25;color:{{ b.label }}">{{ b.name }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5d5670;font-weight:600">Séances</div>
+      <sc-for list="{{ sessions }}" as="s" hint-placeholder-count="6">
+        <div style="display:flex;align-items:center;gap:14px;background:#fff;border-radius:14px;padding:14px 16px;border:2px solid #17131f;box-shadow:4px 4px 0 #17131f;opacity:{{ s.op }}">
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:26px;width:34px;color:#ff3d7f">{{ s.n }}</div>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+            <div style="font-size:15px;font-weight:600;line-height:1.3">{{ s.t }}</div>
+            <div style="font-size:13px;color:#5d5670">{{ s.status }}</div>
+          </div>
+          <sc-if value="{{ s.canPlay }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ s.play }}" style="padding:10px 18px;border:2px solid #17131f;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;background:{{ s.btnBg }};color:{{ s.btnFg }}">{{ s.btn }}</button>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isQuiz }}" hint-placeholder-val="{{ false }}">
+  <div style="width:100%;max-width:560px;margin:0 auto;padding:16px 20px 40px;box-sizing:border-box;display:flex;flex-direction:column;gap:22px;flex:1">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#5d5670">
+        <span>Séance {{ qz.n }} · {{ qz.pos }}</span>
+        <div style="display:flex;gap:10px;align-items:center">
+          <sc-if value="{{ qz.training }}" hint-placeholder-val="{{ false }}"><span style="padding:3px 10px;border-radius:99px;background:#c6f432;border:1.5px solid #17131f;font-weight:600;color:#17131f;font-size:12px">Entraînement</span></sc-if>
+          <button onClick="{{ quit }}" style="border:0;background:none;color:#5d5670;font-size:13px;cursor:pointer;text-decoration:underline">Quitter</button>
+        </div>
+      </div>
+      <div style="display:flex;gap:4px">
+        <sc-for list="{{ qz.dots }}" as="d" hint-placeholder-count="6">
+          <div style="flex:1;height:8px;border-radius:99px;background:{{ d.bg }}"></div>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="flex:1;height:6px;background:#e4ddf7;border-radius:99px;overflow:hidden"><div style="height:100%;width:{{ qz.timePct }};background:#ff3d7f;border-radius:99px"></div></div>
+        <div style="font-size:12px;color:#5d5670;min-width:84px;text-align:right">bonus +{{ qz.bonus }}</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#ff3d7f;font-weight:600">{{ qz.kind }}</div>
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:26px;line-height:1.2;text-wrap:pretty">{{ qz.q }}</div>
+    </div>
+
+    <sc-if value="{{ qz.isQcm }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ qz.opts }}" as="o" hint-placeholder-count="4">
+          <button onClick="{{ o.onClick }}" style="display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:14px 16px;border-radius:14px;border:2px solid {{ o.bd }};background:{{ o.bg }};font-size:16px;font-weight:500;color:#17131f;cursor:pointer;line-height:1.35">
+            <span style="flex:none;width:28px;height:28px;border-radius:8px;background:#c6f432;border:2px solid #17131f;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">{{ o.letter }}</span>
+            <span>{{ o.t }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ qz.isOrder }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ qz.seq }}" as="it" hint-placeholder-count="3">
+            <button onClick="{{ it.onClick }}" style="display:flex;gap:12px;align-items:center;text-align:left;padding:12px 14px;border-radius:12px;border:2px solid {{ it.bd }};background:#fff;font-size:15px;color:#17131f;cursor:pointer;line-height:1.35">
+              <span style="flex:none;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:22px;width:22px;color:#ff3d7f">{{ it.n }}</span><span>{{ it.t }}</span>
+            </button>
+          </sc-for>
+          <sc-for list="{{ qz.slots }}" as="sl" hint-placeholder-count="2">
+            <div style="padding:12px 14px;border-radius:12px;border:2px dashed #c9c0e6;font-size:14px;color:#9a92b3;display:flex;gap:12px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:22px;width:22px">{{ sl.n }}</span><span>…</span></div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ qz.hasPool }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:13px;color:#5d5670">Touchez les étapes dans l'ordre. Touchez une étape placée pour la retirer.</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ qz.pool }}" as="p" hint-placeholder-count="3">
+                <button onClick="{{ p.onClick }}" style="padding:10px 14px;border-radius:999px;border:2px solid #17131f;background:#c6f432;font-weight:600;font-size:14px;color:#17131f;cursor:pointer;text-align:left">{{ p.t }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ qz.isMatch }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:13px;color:#5d5670">Touchez un élément à gauche, puis sa correspondance à droite.</div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{ qz.lefts }}" as="l" hint-placeholder-count="4">
+              <button onClick="{{ l.onClick }}" style="display:flex;flex-direction:column;gap:4px;text-align:left;padding:10px 12px;border-radius:10px;border:2px solid {{ l.bd }};background:{{ l.bg }};font-size:14px;color:#17131f;cursor:pointer;min-height:52px;justify-content:center">
+                <span style="display:flex;gap:8px;align-items:baseline"><span style="font-weight:600;color:#ff3d7f">{{ l.n }}</span><span>{{ l.t }}</span></span>
+                <sc-if value="{{ l.showFix }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:#2f6b45">→ {{ l.fix }}</span></sc-if>
+              </button>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{ qz.rights }}" as="r" hint-placeholder-count="4">
+              <button onClick="{{ r.onClick }}" style="display:flex;gap:8px;align-items:center;text-align:left;padding:10px 12px;border-radius:10px;border:2px solid {{ r.bd }};background:#fff;font-size:14px;color:#17131f;cursor:pointer;min-height:52px">
+                <span style="flex:none;width:22px;height:22px;border-radius:50%;background:{{ r.tagBg }};color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center">{{ r.tag }}</span><span>{{ r.t }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ qz.isZone }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="{{ qz.diaStyle }}">
+          <sc-for list="{{ qz.base }}" as="b" hint-placeholder-count="2"><div style="{{ b.style }}"></div></sc-for>
+          <sc-for list="{{ qz.zones }}" as="z" hint-placeholder-count="4"><div onClick="{{ z.onClick }}" style="{{ z.style }}"></div></sc-for>
+        </div>
+        <div style="font-size:13px;color:#5d5670">{{ qz.zoneHint }}</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ qz.validated }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:12px;background:{{ qz.fbBg }}">
+        <div style="font-weight:600;font-size:16px;color:{{ qz.fbFg }}">{{ qz.fbTitle }}</div>
+        <sc-if value="{{ qz.hasFix }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;line-height:1.45"><b>Réponse :</b> {{ qz.fix }}</div></sc-if>
+        <div style="font-size:14px;line-height:1.5;color:#2e2938;text-wrap:pretty">{{ qz.why }}</div>
+      </div>
+    </sc-if>
+
+    <div style="margin-top:auto;display:flex">
+      <button onClick="{{ qz.action }}" style="flex:1;padding:16px;border:2px solid #17131f;border-radius:14px;font-size:17px;font-weight:700;cursor:pointer;box-shadow:4px 4px 0 #17131f;background:{{ qz.actBg }};color:{{ qz.actFg }}">{{ qz.actLabel }}</button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isResult }}" hint-placeholder-val="{{ false }}">
+  <div style="width:100%;max-width:560px;margin:0 auto;padding:32px 20px 48px;box-sizing:border-box;display:flex;flex-direction:column;gap:26px">
+    <div style="display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center">
+      <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#ff3d7f;font-weight:600">Séance {{ res.n }} · {{ res.t }}</div>
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:88px;line-height:1">{{ res.note }}<span style="font-size:32px;color:#9a92b3">/20</span></div>
+      <div style="font-size:15px;color:#5d5670">{{ res.points }} points · {{ res.caption }}</div>
+    </div>
+    <sc-if value="{{ res.newBadge }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:16px;padding:18px;border-radius:18px;background:#c6f432;color:#17131f;border:2px solid #17131f;box-shadow:4px 4px 0 #17131f">
+        <div style="flex:none;width:56px;height:56px;border-radius:50%;background:#ff3d7f;border:2px solid #17131f;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:21px">{{ res.badgeMark }}</div>
+        <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:13px;font-weight:600">Badge obtenu</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:22px">{{ res.badgeName }}</div></div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ res.noBadge }}" hint-placeholder-val="{{ false }}">
+      <div style="font-size:14px;color:#5d5670;text-align:center">Le badge « {{ res.badgeName }} » s'obtient à partir de 14/20. Rejouez pour l'obtenir : seule votre première note compte pour le contrôle continu.</div>
+    </sc-if>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <sc-for list="{{ res.lines }}" as="ln" hint-placeholder-count="6">
+        <div style="display:flex;gap:12px;align-items:center;padding:10px 14px;background:#fff;border-radius:10px;border:2px solid #17131f;box-shadow:4px 4px 0 #17131f;font-size:14px">
+          <span style="flex:none;width:22px;height:22px;border-radius:50%;background:{{ ln.bg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">{{ ln.mark }}</span>
+          <span style="flex:1;min-width:0;line-height:1.35">{{ ln.q }}</span>
+          <span style="color:#5d5670;font-size:13px">{{ ln.pts }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button onClick="{{ goHome }}" style="flex:1;min-width:140px;padding:15px;border:2px solid #17131f;border-radius:14px;background:#ff3d7f;color:#17131f;font-size:15px;font-weight:700;box-shadow:4px 4px 0 #17131f;cursor:pointer">Retour</button>
+      <button onClick="{{ res.replay }}" style="flex:1;min-width:140px;padding:15px;border:2px solid #17131f;border-radius:14px;background:#fff;box-shadow:4px 4px 0 #17131f;color:#17131f;font-size:15px;font-weight:600;cursor:pointer">S'entraîner encore</button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isProf }}" hint-placeholder-val="{{ false }}">
+  <div style="width:100%;max-width:1080px;margin:0 auto;padding:20px 24px 56px;box-sizing:border-box;display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#ff3d7f;font-weight:600">Espace enseignant</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:32px;line-height:1.1">InDesign · Quiz de fin de séance</div>
+      </div>
+      <button onClick="{{ logout }}" style="padding:8px 14px;border:1.5px solid #c9c0e6;border-radius:999px;background:none;font-size:13px;cursor:pointer;color:#17131f">Déconnexion</button>
+    </div>
+    <div style="display:flex;gap:4px;background:#e4ddf7;padding:4px;border-radius:10px;align-self:flex-start;flex-wrap:wrap">
+      <sc-for list="{{ profTabs }}" as="tb" hint-placeholder-count="3">
+        <button onClick="{{ tb.onClick }}" style="padding:9px 16px;border:0;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;background:{{ tb.bg }};color:#17131f">{{ tb.label }}</button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ pt.isRes }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+          <div style="font-size:14px;color:#5d5670;max-width:620px;line-height:1.5;text-wrap:pretty">Note CC = première partie de chaque séance. La colonne « Nom » reste sur cet ordinateur : elle n'est jamais envoyée en ligne et sert à préparer la saisie sur Miracle.</div>
+          <button onClick="{{ exportCsv }}" style="padding:11px 18px;border:2px solid #17131f;border-radius:12px;background:#ff3d7f;color:#17131f;box-shadow:3px 3px 0 #17131f;font-size:14px;font-weight:600;cursor:pointer">Exporter pour Miracle (.csv)</button>
+        </div>
+        <div style="overflow-x:auto;background:#fff;border-radius:14px;border:2px solid #17131f;box-shadow:4px 4px 0 #17131f">
+          <div style="min-width:860px;display:flex;flex-direction:column">
+            <div style="display:grid;grid-template-columns:minmax(110px,1fr) 90px minmax(150px,1.3fr) repeat(6,58px) 70px;gap:8px;padding:12px 16px;font-size:12px;font-weight:600;color:#5d5670;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #d9d2ef">
+              <div>Pseudo</div><div>Classe</div><div>Nom (local)</div>
+              <sc-for list="{{ sessCols }}" as="c" hint-placeholder-count="6"><div style="text-align:center">{{ c }}</div></sc-for>
+              <div style="text-align:right">Moy.</div>
+            </div>
+            <sc-for list="{{ rows }}" as="r" hint-placeholder-count="5">
+              <div style="display:grid;grid-template-columns:minmax(110px,1fr) 90px minmax(150px,1.3fr) repeat(6,58px) 70px;gap:8px;padding:8px 16px;align-items:center;font-size:14px;border-bottom:1px solid #ece7fa">
+                <div style="font-weight:600">{{ r.pseudo }}</div>
+                <div style="font-size:12px;color:#5d5670">{{ r.cls }}</div>
+                <input value="{{ r.nom }}" onChange="{{ r.onNom }}" placeholder="NOM Prénom" style="padding:7px 9px;border:1px solid #d9d2ef;border-radius:7px;font-size:13px;background:#faf8ff;min-width:0">
+                <sc-for list="{{ r.notes }}" as="nt" hint-placeholder-count="6"><div style="text-align:center;font-variant-numeric:tabular-nums;color:{{ nt.fg }}">{{ nt.v }}</div></sc-for>
+                <div style="text-align:right;font-weight:600;font-variant-numeric:tabular-nums">{{ r.moy }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ pt.isSeances }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:10px;max-width:720px">
+        <div style="font-size:14px;color:#5d5670;line-height:1.5">Ouvrez le quiz à la fin de chaque séance. Une séance fermée reste visible mais ne peut pas être jouée.</div>
+        <sc-for list="{{ openList }}" as="o" hint-placeholder-count="6">
+          <div style="display:flex;align-items:center;gap:14px;background:#fff;border-radius:12px;padding:12px 16px;border:2px solid #17131f;box-shadow:4px 4px 0 #17131f">
+            <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:24px;width:30px;color:#ff3d7f">{{ o.n }}</div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><div style="font-size:15px;font-weight:600">{{ o.t }}</div><div style="font-size:13px;color:#5d5670">{{ o.info }}</div></div>
+            <button onClick="{{ o.toggle }}" style="width:52px;height:30px;border-radius:99px;border:0;cursor:pointer;background:{{ o.track }};display:flex;align-items:center;padding:3px;justify-content:{{ o.justify }}"><span style="width:24px;height:24px;border-radius:50%;background:#fff;display:block"></span></button>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ pt.isQs }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:16px;max-width:820px">
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <sc-for list="{{ edSess }}" as="es" hint-placeholder-count="6">
+            <button onClick="{{ es.onClick }}" style="padding:8px 14px;border-radius:999px;border:1.5px solid {{ es.bd }};background:{{ es.bg }};color:{{ es.fg }};font-size:13px;font-weight:600;cursor:pointer">S{{ es.n }}</button>
+          </sc-for>
+        </div>
+        <sc-for list="{{ edQs }}" as="q" hint-placeholder-count="4">
+          <div style="display:flex;flex-direction:column;gap:12px;background:#fff;border-radius:14px;padding:16px 18px;border:2px solid #17131f;box-shadow:4px 4px 0 #17131f">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#ff3d7f;font-weight:600">{{ q.num }} · {{ q.kind }}</div>
+              <button onClick="{{ q.remove }}" style="border:0;background:none;color:#5d5670;font-size:13px;cursor:pointer;text-decoration:underline">Supprimer</button>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <textarea value="{{ q.q }}" onChange="{{ q.onQ }}" rows="2" style="padding:10px 12px;border:1px solid #d9d2ef;border-radius:8px;font-size:15px;resize:vertical;background:#faf8ff"></textarea>
+              <sc-if value="{{ q.isChoice }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div style="font-size:12px;color:#5d5670">Cochez la bonne réponse.</div>
+                  <sc-for list="{{ q.opts }}" as="op" hint-placeholder-count="4">
+                    <div style="display:flex;gap:10px;align-items:center">
+                      <button onClick="{{ op.setGood }}" title="Bonne réponse" style="flex:none;width:26px;height:26px;border-radius:50%;border:2px solid {{ op.bd }};background:{{ op.bg }};cursor:pointer"></button>
+                      <sc-if value="{{ op.isText }}" hint-placeholder-val="{{ true }}"><input value="{{ op.t }}" onChange="{{ op.onT }}" style="flex:1;min-width:0;padding:8px 10px;border:1px solid #d9d2ef;border-radius:8px;font-size:14px;background:#faf8ff"></sc-if>
+                      <sc-if value="{{ op.isFixed }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px">{{ op.t }}</span></sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ q.isOrder }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div style="font-size:12px;color:#5d5670">Saisissez les étapes dans le bon ordre. Elles seront mélangées pour l'étudiant.</div>
+                  <sc-for list="{{ q.items }}" as="it" hint-placeholder-count="4">
+                    <div style="display:flex;gap:6px;align-items:center">
+                      <span style="flex:none;width:22px;font-weight:700;color:#ff3d7f">{{ it.n }}</span>
+                      <input value="{{ it.t }}" onChange="{{ it.onT }}" style="flex:1;min-width:0;padding:8px 10px;border:1px solid #d9d2ef;border-radius:8px;font-size:14px;background:#faf8ff">
+                      <button onClick="{{ it.up }}" title="Monter" style="flex:none;width:32px;height:32px;border:1.5px solid #c9c0e6;border-radius:8px;background:#fff;cursor:pointer;font-size:14px;color:#17131f">↑</button>
+                      <button onClick="{{ it.down }}" title="Descendre" style="flex:none;width:32px;height:32px;border:1.5px solid #c9c0e6;border-radius:8px;background:#fff;cursor:pointer;font-size:14px;color:#17131f">↓</button>
+                      <button onClick="{{ it.del }}" title="Retirer" style="flex:none;width:32px;height:32px;border:1.5px solid #c9c0e6;border-radius:8px;background:#fff;cursor:pointer;font-size:14px;color:#17131f">×</button>
+                    </div>
+                  </sc-for>
+                  <button onClick="{{ q.addItem }}" style="align-self:flex-start;padding:7px 12px;border:1.5px dashed #17131f;border-radius:8px;background:none;font-size:13px;font-weight:600;cursor:pointer;color:#17131f">+ Étape</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ q.isMatch }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div style="font-size:12px;color:#5d5670">Une paire par ligne. La colonne de droite sera mélangée pour l'étudiant.</div>
+                  <sc-for list="{{ q.pairs }}" as="pr" hint-placeholder-count="4">
+                    <div style="display:flex;gap:6px;align-items:center">
+                      <input value="{{ pr.l }}" onChange="{{ pr.onL }}" style="flex:1;min-width:0;padding:8px 10px;border:1px solid #d9d2ef;border-radius:8px;font-size:14px;background:#faf8ff">
+                      <span style="flex:none;color:#5d5670">↔</span>
+                      <input value="{{ pr.r }}" onChange="{{ pr.onR }}" style="flex:1;min-width:0;padding:8px 10px;border:1px solid #d9d2ef;border-radius:8px;font-size:14px;background:#faf8ff">
+                      <button onClick="{{ pr.del }}" title="Retirer" style="flex:none;width:32px;height:32px;border:1.5px solid #c9c0e6;border-radius:8px;background:#fff;cursor:pointer;font-size:14px;color:#17131f">×</button>
+                    </div>
+                  </sc-for>
+                  <button onClick="{{ q.addPair }}" style="align-self:flex-start;padding:7px 12px;border:1.5px dashed #17131f;border-radius:8px;background:none;font-size:13px;font-weight:600;cursor:pointer;color:#17131f">+ Paire</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ q.isZone }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:13px;color:#5d5670;line-height:1.5">{{ q.summary }}</div>
+              </sc-if>
+              <input value="{{ q.why }}" onChange="{{ q.onWhy }}" placeholder="Explication affichée après la réponse" style="padding:8px 10px;border:1px solid #d9d2ef;border-radius:8px;font-size:13px;color:#2e2938;background:#faf8ff">
+            </div>
+          </div>
+        </sc-for>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button onClick="{{ addQcm }}" style="padding:11px 16px;border:2px solid #17131f;border-radius:12px;background:#c6f432;color:#17131f;box-shadow:3px 3px 0 #17131f;font-size:14px;font-weight:600;cursor:pointer">+ QCM</button>
+          <button onClick="{{ addVf }}" style="padding:11px 16px;border:2px solid #17131f;border-radius:12px;background:#c6f432;color:#17131f;box-shadow:3px 3px 0 #17131f;font-size:14px;font-weight:600;cursor:pointer">+ Vrai / faux</button>
+          <button onClick="{{ addOrder }}" style="padding:11px 16px;border:2px solid #17131f;border-radius:12px;background:#c6f432;color:#17131f;box-shadow:3px 3px 0 #17131f;font-size:14px;font-weight:600;cursor:pointer">+ Remettre dans l'ordre</button>
+          <button onClick="{{ addMatch }}" style="padding:11px 16px;border:2px solid #17131f;border-radius:12px;background:#c6f432;color:#17131f;box-shadow:3px 3px 0 #17131f;font-size:14px;font-weight:600;cursor:pointer">+ Associer</button>
+          <button onClick="{{ resetQs }}" style="padding:11px 16px;border:1.5px solid #c9c0e6;border-radius:10px;background:none;color:#17131f;font-size:14px;cursor:pointer">Rétablir les questions d'origine</button>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DBK = 'quiz-eidm-proto-v1', USK = 'quiz-eidm-proto-user', NOMK = 'quiz-eidm-noms-local';
+const ACC = '#ff3d7f', INK = '#17131f', OK = '#1f8a4c', OKBG = '#dcf8c6', KO = '#d6361f', KOBG = '#ffe1d8', LINE = '#d9d2ef';
+const TLIM = 30;
+
+const LOOK = {
+  page: { background: '#fff', boxShadow: 'inset 0 0 0 1px #c9c0e6' },
+  spine: { background: '#c9c0e6' },
+  margin: { background: 'rgba(255,61,127,0.10)', boxShadow: 'inset 0 0 0 1px rgba(255,61,127,.35)' },
+  img: { background: '#8a82a3' },
+  title: { background: INK },
+  chapo: { background: 'repeating-linear-gradient(#4a4360 0 3px, transparent 3px 7px)' },
+  text: { background: 'repeating-linear-gradient(#b8b0d6 0 2px, transparent 2px 6px)' },
+  textw: { background: 'repeating-linear-gradient(rgba(255,255,255,.95) 0 3px, transparent 3px 8px)' },
+  quote: { background: 'repeating-linear-gradient(' + ACC + ' 0 4px, transparent 4px 10px)' },
+  caption: { background: 'repeating-linear-gradient(#8a82a3 0 1px, transparent 1px 4px)' },
+  barcode: { background: 'repeating-linear-gradient(90deg,#17131f 0 2px,#fff 2px 4px,#17131f 4px 5px,#fff 5px 8px)' },
+  safe: { boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,.9)', outline: '1.5px dashed rgba(255,255,255,.9)', outlineOffset: '-1.5px' },
+  logo: { background: '#fff' }
+};
+const R = (x, y, w, h, look, id) => ({ x, y, w, h, look, id });
+const DIA = {
+  margins: { ratio: '1.414', base: [R(0,0,50,100,'page'), R(50,0,50,100,'page'), R(49.8,0,0.4,100,'spine'), R(9,10,34,78,'text'), R(57,10,34,78,'text')],
+    zones: [R(0,0,50,10,'margin','tete'), R(0,88,50,12,'margin','pied'), R(0,10,9,78,'margin','gf'), R(43,10,7,78,'margin','pf-l'), R(50,10,7,78,'margin','pf-r'), R(91,10,9,78,'margin','gf2')] },
+  page: { ratio: '0.707', base: [R(0,0,100,100,'page')],
+    zones: [R(8,7,84,10,'title','titre'), R(8,20,84,7,'chapo','chapo'), R(8,31,40,60,'text','txt1'), R(52,31,40,14,'quote','exergue'), R(52,48,40,3,'title','inter'), R(52,54,40,30,'text','txt2'), R(52,87,40,4,'caption','legende')] },
+  spreadErr: { ratio: '1.414', base: [R(0,0,50,100,'page'), R(50,0,50,100,'page')],
+    zones: [R(0,0,50,100,'img','img'), R(58,10,34,8,'title','titre'), R(58,21,34,6,'chapo','chapo'), R(58,31,16,52,'text','c1'), R(76,31,16,52,'text','c2'), R(42,62,14,24,'text','err'), R(58,87,34,3,'caption','leg')] },
+  cover: { ratio: '0.75', base: [R(0,0,100,100,'img'), R(4,3,92,94,'safe')],
+    zones: [R(10,6,80,11,'logo','logo'), R(70,20,20,2.5,'textw','date'), R(10,40,38,9,'textw','acc1'), R(0,62,34,9,'textw','err'), R(10,78,40,7,'textw','acc3'), R(74,85,16,9,'barcode','code')] }
+};
+
+const SESS = [
+ { id: 's1', t: 'Le document et la grille', badge: 'Architecte de la grille', qs: [
+  { type: 'qcm', q: 'Quels fonds perdus prévoir pour un magazine imprimé ?', opts: ['0 mm', '1 mm', '3 mm', '10 mm'], a: 2, why: '3 mm au-delà du format : l’image qui va jusqu’au bord ne laisse pas de filet blanc après la coupe.' },
+  { type: 'zone', mode: 'place', dia: 'margins', q: 'Touchez le petit fond.', a: ['pf-l', 'pf-r'], why: 'Le petit fond est la marge intérieure, côté reliure. En magazine, il doit être assez large pour que le texte ne se perde pas dans le pli.' },
+  { type: 'order', q: 'Remettez dans l’ordre la création d’un document InDesign.', items: ['Fichier › Nouveau › Document', 'Choisir le format et les pages en vis-à-vis', 'Régler marges, colonnes et fonds perdus', 'Placer textes et images', 'Enregistrer en .indd'], why: 'Les réglages de départ viennent avant tout contenu : une erreur de format ou de fonds perdus se paie à la fin.' },
+  { type: 'match', q: 'Associez chaque commande à son raccourci.', pairs: [['Préférences', 'Cmd + K'], ['Sélection', 'V'], ['Sélection directe', 'A'], ['Texte', 'T'], ['Bloc rectangle', 'F']], why: 'Ces cinq raccourcis suffisent pour la plupart des manipulations de la séance.' },
+  { type: 'vf', q: 'La grille de ligne de base se cale sur l’interlignage du texte courant.', a: true, why: 'Exemple vu en séance : ligne de base de 12 pt pour un texte en 12 pt d’interlignage. Toutes les colonnes s’alignent alors entre elles.' },
+  { type: 'qcm', q: 'Qui a publié Grid Systems in Graphic Design en 1981 ?', opts: ['Fabien Baron', 'Josef Müller-Brockmann', 'Tibor Kalman', 'Peter Saville'], a: 1, why: 'Graphiste suisse, auteur des affiches de la Tonhalle de Zurich. Pour lui, la grille est un outil de clarté.' } ] },
+ { id: 's2', t: 'Typographie et hiérarchie de lecture', badge: 'Typographe', qs: [
+  { type: 'order', q: 'Remettez dans l’ordre les trois temps de lecture.', items: ['On regarde : titre et image', 'On parcourt : chapô, intertitres, exergues', 'On lit : texte courant'], why: 'Une hiérarchie claire guide l’œil du plus visible au plus détaillé.' },
+  { type: 'qcm', q: 'Quel corps pour le texte courant d’un magazine ?', opts: ['6 à 7 pt', '9 à 10,5 pt', '14 à 16 pt', '24 pt'], a: 1, why: '9 à 10,5 pt, avec un interlignage autour de 120 %.' },
+  { type: 'zone', mode: 'place', dia: 'page', q: 'Touchez l’exergue.', a: ['exergue'], why: 'L’exergue est une citation mise en valeur dans le texte. Elle casse le rythme et accroche le lecteur qui parcourt la page.' },
+  { type: 'match', q: 'Associez chaque niveau de texte à son rôle.', pairs: [['Surtitre', 'Annonce la rubrique'], ['Chapô', 'Résume l’article'], ['Exergue', 'Met une citation en valeur'], ['Légende', 'Décrit une image'], ['Folio', 'Numéro de page']], why: 'Chaque niveau a un rôle, donc un style de paragraphe.' },
+  { type: 'vf', q: 'Pour agrandir un titre, on peut modifier sa taille directement sans toucher au style.', a: false, why: 'Aucun réglage manuel : tout passe par les styles. C’est ce qui permet de modifier 40 pages en une minute.' },
+  { type: 'qcm', q: 'Combien de signes par ligne pour un texte confortable ?', opts: ['20 à 30', '55 à 65', '90 à 100', 'Plus de 120'], a: 1, why: 'Au-delà, l’œil se perd en revenant à la ligne. En deçà, la lecture est hachée.' },
+  { type: 'qcm', q: 'Fabien Baron a redessiné quel magazine en 1992 ?', opts: ['Vogue', 'Harper’s Bazaar', 'The Face', 'Colors'], a: 1, why: 'Didones très contrastées, grands titres qui dialoguent avec les photos : la typographie participe à l’image.' } ] },
+ { id: 's3', t: 'Images, composition et première double-page', badge: 'Iconographe', qs: [
+  { type: 'qcm', q: 'Résolution effective minimale d’une image pour l’impression ?', opts: ['72 ppi', '150 ppi', '300 ppi', '600 ppi'], a: 2, why: 'On la vérifie dans le panneau Liens (ppi effectifs), après mise à l’échelle dans le bloc.' },
+  { type: 'zone', mode: 'erreur', dia: 'spreadErr', q: 'Trouvez l’erreur sur cette double-page.', a: ['err'], why: 'Un bloc de texte posé sur la reliure : il sera avalé par le pli. Le texte reste dans les colonnes, hors du petit fond.' },
+  { type: 'vf', q: 'On peut corriger l’exposition d’une image directement dans InDesign.', a: false, why: 'On corrige dans Photoshop (Modifier l’original) et le lien se met à jour automatiquement.' },
+  { type: 'match', q: 'Associez chaque outil à ce qu’il fait.', pairs: [['Panneau Liens', 'Statut et ppi effectifs'], ['Modifier l’original', 'Ouvre l’image dans Photoshop'], ['Habillage', 'Le texte contourne une forme'], ['Remplir le bloc proportionnellement', 'L’image couvre le bloc sans déformation']], why: 'Ce sont les quatre réglages à maîtriser pour placer les images YSL.' },
+  { type: 'qcm', q: 'Raccourci pour importer une image ?', opts: ['Cmd + I', 'Cmd + D', 'Cmd + P', 'Cmd + O'], a: 1, why: 'Cmd + D (Fichier › Importer). Plusieurs images peuvent être placées à la suite.' },
+  { type: 'qcm', q: 'Quel photographe signe les catalogues Yohji Yamamoto de la fin des années 1980 ?', opts: ['Nick Knight', 'Helmut Newton', 'Juergen Teller', 'Peter Lindbergh'], a: 0, why: 'Avec Marc Ascoli à la direction artistique et Peter Saville au graphisme.' } ] },
+ { id: 's4', t: 'Charte éditoriale et gabarits', badge: 'Gardien de la charte', qs: [
+  { type: 'vf', q: 'Une charte doit permettre à un autre maquettiste de faire une page sans vous demander.', a: true, why: 'C’est le critère retenu en séance pour juger une charte complète.' },
+  { type: 'order', q: 'Remettez dans l’ordre la construction des gabarits.', items: ['Créer le gabarit de base (folio, titre courant)', 'Créer les gabarits enfants basés sur lui', 'Appliquer les gabarits aux pages', 'Libérer un élément sur une page précise'], why: 'Le gabarit parent porte ce qui est commun. Les enfants héritent de ses modifications.' },
+  { type: 'qcm', q: 'Comment insérer un folio automatique ?', opts: ['Page › Numérotation › Folio', 'Texte › Insérer un caractère spécial › Marques › Numéro de page', 'Objet › Folio automatique', 'Fenêtre › Pages › Numéroter'], a: 1, why: 'À placer sur le gabarit : chaque page affiche alors son propre numéro.' },
+  { type: 'qcm', q: 'Raccourci pour libérer un élément de gabarit sur une page ?', opts: ['Alt + clic', 'Cmd + Maj + clic', 'Double-clic', 'Cmd + L'], a: 1, why: 'L’élément devient modifiable sur cette page uniquement.' },
+  { type: 'match', q: 'Associez chaque élément de la charte à l’outil qui le gère.', pairs: [['Couleurs de la charte', 'Nuancier'], ['Encadré avec fond', 'Style d’objet'], ['Folio et titre courant', 'Gabarit parent'], ['Exergue', 'Style de paragraphe']], why: 'Chaque règle de la charte doit être inscrite dans un outil, pas dans la mémoire du maquettiste.' },
+  { type: 'qcm', q: 'Quel magazine, lancé en 2005, se reconnaît à sa mise en page très régulière ?', opts: ['Fantastic Man', 'i-D', 'Purple', 'Dazed'], a: 0, why: 'Jop van Bennekom et Gert Jonkers : une constance rendue possible par un système de gabarits et de styles.' } ] },
+ { id: 's5', t: 'Couverture, sommaire et déclinaisons', badge: 'Directeur de couverture', qs: [
+  { type: 'zone', mode: 'erreur', dia: 'cover', q: 'Trouvez l’élément mal placé sur cette couverture.', a: ['err'], why: 'Cette accroche sort de la zone de sécurité (pointillés, 5 mm du bord) : elle risque d’être coupée au massicot.' },
+  { type: 'qcm', q: 'Format d’un post Instagram vertical ?', opts: ['1080 × 1350 px', '1080 × 1920 px', '1920 × 1080 px', '210 × 297 mm'], a: 0, why: '1080 × 1920 px correspond à la story.' },
+  { type: 'vf', q: 'Décliner une double-page, c’est la réduire au nouveau format.', a: false, why: 'Décliner, ce n’est pas réduire : on garde les règles (typographie, couleurs, images) et on recompose.' },
+  { type: 'qcm', q: 'La table des matières automatique est générée à partir…', opts: ['des calques', 'des styles de paragraphe', 'des gabarits', 'du panneau Liens'], a: 1, why: 'Page › Table des matières : InDesign relève les textes qui portent les styles choisis.' },
+  { type: 'qcm', q: 'Mode colorimétrique d’une déclinaison en story ?', opts: ['CMJN', 'RVB', 'Niveaux de gris', 'Pantone'], a: 1, why: 'Document écran : unités en pixels, RVB.' },
+  { type: 'qcm', q: 'Qui dirige les premiers numéros de Colors ?', opts: ['Tibor Kalman', 'Fabien Baron', 'Jop van Bennekom', 'Marc Ascoli'], a: 0, why: 'Une maquette qui change à chaque thème sans perdre son identité.' } ] },
+ { id: 's6', t: 'Contrôle, export et soutenance', badge: 'Bon à tirer', qs: [
+  { type: 'order', q: 'Remettez dans l’ordre la sortie du magazine.', items: ['Contrôle en amont', 'Aperçu des séparations', 'Export PDF impression', 'Assemblage'], why: 'On vérifie, puis on exporte, puis on rassemble le document, les liens et les polices.' },
+  { type: 'qcm', q: 'Quelle norme pour le PDF d’impression ?', opts: ['PDF/A', 'PDF/X-4', 'PDF interactif', 'PDF 1.3 écran'], a: 1, why: 'Avec fonds perdus et traits de coupe, selon les demandes de l’imprimeur.' },
+  { type: 'vf', q: 'Un texte noir doit être en 100 % K.', a: true, why: 'Vérifiable dans l’aperçu des séparations. Un noir en quadri bave au repérage.' },
+  { type: 'match', q: 'Associez chaque problème à l’outil qui le règle.', pairs: [['Lien manquant', 'Contrôle en amont'], ['Doubles espaces', 'Rechercher / remplacer'], ['Rassembler liens et polices', 'Assemblage'], ['Vérifier le noir', 'Aperçu des séparations']], why: 'Un document propre n’a aucun voyant rouge au contrôle en amont.' },
+  { type: 'qcm', q: 'Profil CMJN le plus courant chez l’imprimeur ?', opts: ['sRGB', 'Coated Fogra39', 'Adobe RGB', 'Display P3'], a: 1, why: 'Les trois autres sont des profils RVB, pour l’écran.' },
+  { type: 'vf', q: 'Le PDF écran s’exporte en CMJN avec traits de coupe.', a: false, why: 'PDF écran : RVB, images compressées, pages en planches, liens actifs.' } ] }
+];
+const KIND = { qcm: 'QCM', vf: 'Vrai ou faux', order: 'Remettre dans l’ordre', match: 'Associer', place: 'Touchez la bonne zone', erreur: 'Trouvez l’erreur' };
+
+const clone = o => JSON.parse(JSON.stringify(o));
+const shuffle = a => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+const fr = n => (n == null ? '–' : String(n).replace('.', ','));
+const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k) || 'null') || d; } catch (e) { return d; } };
+
+function seed() {
+  const db = { users: {}, att: {}, open: { s1: true, s2: true, s3: true }, qedit: {} };
+  const demo = [['lune', [16, 14.5, 12]], ['atelier12', [18, 17, 15.5]], ['kiwi', [11.5, 13, null]], ['nova', [15, 9.5, 14]], ['pli', [19.5, 18, 17]]];
+  demo.forEach(([p, ns]) => {
+    const k = 'B2-EIDM/' + p; db.users[k] = { cls: 'B2-EIDM', pseudo: p, pin: '0000' }; db.att[k] = {};
+    ns.forEach((n, i) => { if (n != null) db.att[k]['s' + (i + 1)] = [{ note: n, pts: Math.round(n * 30 + 80), training: false, date: Date.now() }]; });
+  });
+  return db;
+}
+
+class Component extends DCLogic {
+  state = { screen: 'login', db: null, user: null, lf: { tab: 'etu', cls: 'B2-EIDM', pseudo: '', pin: '', code: '', err: '' }, quiz: null, res: null, ptab: 'res', edS: 's1', noms: {}, now: Date.now() };
+
+  componentDidMount() {
+    const db = load(DBK, null) || seed();
+    const user = load(USK, null);
+    this.setState({ db, noms: load(NOMK, {}), user, screen: user ? (user.prof ? 'prof' : 'home') : 'login' }, () => this.saveDb());
+    this.tick = setInterval(() => { if (this.state.screen === 'quiz' && this.state.quiz && !this.state.quiz.validated) this.setState({ now: Date.now() }); }, 250);
+  }
+  componentWillUnmount() { clearInterval(this.tick); }
+  saveDb = () => { try { localStorage.setItem(DBK, JSON.stringify(this.state.db)); } catch (e) {} };
+  setDb = fn => this.setState(st => { const db = clone(st.db); fn(db); return { db }; }, this.saveDb);
+  setLf = p => this.setState(st => ({ lf: { ...st.lf, ...p } }));
+  qsOf = sid => (this.state.db.qedit[sid] || SESS.find(s => s.id === sid).qs);
+  ukey = u => u.cls + '/' + u.pseudo.toLowerCase();
+
+  login = () => {
+    const { lf, db } = this.state;
+    if (lf.tab === 'prof') {
+      if (lf.code.trim().toUpperCase() !== 'PROF-ACE') return this.setLf({ err: 'Code enseignant incorrect.' });
+      const user = { prof: true }; localStorage.setItem(USK, JSON.stringify(user));
+      return this.setState({ user, screen: 'prof', lf: { ...lf, err: '', code: '' } });
+    }
+    const cls = lf.cls.trim().toUpperCase(), pseudo = lf.pseudo.trim();
+    if (!cls) return this.setLf({ err: 'Indiquez le code de la classe.' });
+    if (!/^[\w\-]{3,16}$/.test(pseudo)) return this.setLf({ err: 'Pseudo : 3 à 16 caractères, lettres, chiffres ou tiret.' });
+    if (!/^\d{4}$/.test(lf.pin)) return this.setLf({ err: 'Le code secret fait 4 chiffres.' });
+    const k = cls + '/' + pseudo.toLowerCase(), ex = db.users[k];
+    if (ex && ex.pin !== lf.pin) return this.setLf({ err: 'Ce pseudo existe déjà dans cette classe avec un autre code.' });
+    if (!ex) this.setDb(d => { d.users[k] = { cls, pseudo, pin: lf.pin }; d.att[k] = d.att[k] || {}; });
+    const user = { cls, pseudo: ex ? ex.pseudo : pseudo }; localStorage.setItem(USK, JSON.stringify(user));
+    this.setState({ user, screen: 'home', lf: { ...lf, err: '', pin: '' } });
+  };
+  logout = () => { localStorage.removeItem(USK); this.setState({ user: null, screen: 'login', quiz: null }); };
+
+  atts = sid => ((this.state.db.att[this.ukey(this.state.user)] || {})[sid] || []);
+
+  start = sid => {
+    const training = this.atts(sid).some(a => !a.training);
+    const qs = this.qsOf(sid).map(q => q.type === 'vf' ? { ...q, type: 'qcm', vf: true, opts: ['Vrai', 'Faux'], a: q.a ? 0 : 1 } : q);
+    const perms = qs.map(q => {
+      const n = q.type === 'order' ? q.items.length : q.type === 'match' ? q.pairs.length : 0;
+      if (!n) return null; let p; do { p = shuffle([...Array(n).keys()]); } while (n > 1 && p.every((v, i) => v === i)); return p;
+    });
+    this.setState({ screen: 'quiz', now: Date.now(), quiz: { sid, training, qs, perms, qi: 0, ans: qs.map(q => q.type === 'order' ? [] : q.type === 'match' ? { sel: null, map: {} } : null), validated: false, results: [], t0: Date.now() } });
+  };
+  setAns = v => this.setState(st => { if (st.quiz.validated) return null; const ans = st.quiz.ans.slice(); ans[st.quiz.qi] = typeof v === 'function' ? v(ans[st.quiz.qi]) : v; return { quiz: { ...st.quiz, ans } }; });
+  answered = () => { const { qs, qi, ans } = this.state.quiz, q = qs[qi], a = ans[qi]; if (q.type === 'order') return a.length === q.items.length; if (q.type === 'match') return Object.keys(a.map).length === q.pairs.length; return a != null; };
+  scoreOf = (q, a) => {
+    if (q.type === 'qcm') return a === q.a ? 1 : 0;
+    if (q.type === 'zone') return q.a.includes(a) ? 1 : 0;
+    if (q.type === 'order') return a.filter((v, i) => v === i).length / q.items.length;
+    if (q.type === 'match') return q.pairs.filter((_, i) => a.map[i] === i).length / q.pairs.length;
+    return 0;
+  };
+  validate = () => {
+    if (!this.answered()) return;
+    this.setState(st => {
+      const z = st.quiz, q = z.qs[z.qi], score = this.scoreOf(q, z.ans[z.qi]);
+      const left = Math.max(0, TLIM - (Date.now() - z.t0) / 1000), bonus = score === 1 ? Math.round(50 * left / TLIM) : 0;
+      const results = z.results.slice(); results[z.qi] = { score, pts: Math.round(score * 100) + bonus };
+      return { quiz: { ...z, validated: true, results } };
+    });
+  };
+  next = () => {
+    const z = this.state.quiz;
+    if (z.qi < z.qs.length - 1) return this.setState({ now: Date.now(), quiz: { ...z, qi: z.qi + 1, validated: false, t0: Date.now() } });
+    const tot = z.results.reduce((s, r) => s + r.score, 0), note = Math.round(tot / z.qs.length * 40) / 2, pts = z.results.reduce((s, r) => s + r.pts, 0);
+    const k = this.ukey(this.state.user), prevBest = Math.max(-1, ...this.atts(z.sid).map(a => a.note));
+    this.setDb(d => { d.att[k] = d.att[k] || {}; (d.att[k][z.sid] = d.att[k][z.sid] || []).push({ note, pts, training: z.training, date: Date.now() }); });
+    this.setState({ screen: 'result', res: { sid: z.sid, note, pts, training: z.training, newBadge: note >= 14 && prevBest < 14, had: prevBest >= 14, lines: z.qs.map((q, i) => ({ q: q.q, score: z.results[i].score, pts: z.results[i].pts })) } });
+  };
+
+  qzVals() {
+    const z = this.state.quiz, q = z.qs[z.qi], a = z.ans[z.qi], v = z.validated, sess = SESS.find(s => s.id === z.sid);
+    const elapsed = (this.state.now - z.t0) / 1000, left = Math.max(0, TLIM - elapsed);
+    const r = z.results[z.qi], ok = r && r.score === 1, part = r && r.score > 0 && r.score < 1;
+    const out = { n: SESS.indexOf(sess) + 1, pos: (z.qi + 1) + ' / ' + z.qs.length, training: z.training, q: q.q, validated: v,
+      kind: q.type === 'zone' ? KIND[q.mode] : q.vf ? KIND.vf : KIND[q.type],
+      isQcm: q.type === 'qcm', isOrder: q.type === 'order', isMatch: q.type === 'match', isZone: q.type === 'zone',
+      timePct: (v ? 0 : left / TLIM * 100) + '%', bonus: v ? (r ? r.pts - Math.round(r.score * 100) : 0) : Math.round(50 * left / TLIM),
+      dots: z.qs.map((_, i) => ({ bg: i < z.qi || (i === z.qi && v) ? (z.results[i].score === 1 ? OK : z.results[i].score > 0 ? '#c08a2a' : KO) : i === z.qi ? INK : LINE })),
+      fbBg: ok ? OKBG : part ? '#f6ecd8' : KOBG, fbFg: ok ? OK : part ? '#8a5f12' : KO,
+      fbTitle: !r ? '' : ok ? 'Juste · +' + r.pts + ' pts' : part ? 'En partie juste · +' + r.pts + ' pts' : 'Pas cette fois', why: q.why, hasFix: false, fix: '' };
+    const can = this.answered();
+    out.action = v ? this.next : this.validate; out.actLabel = v ? (z.qi < z.qs.length - 1 ? 'Question suivante' : 'Voir mon résultat') : 'Valider';
+    out.actBg = v ? '#c6f432' : can ? ACC : '#ddd6f0'; out.actFg = v || can ? INK : '#8a82a3';
+    if (q.type === 'qcm') {
+      out.opts = q.opts.map((t, i) => {
+        let bd = a === i ? INK : LINE, bg = '#fff';
+        if (v) { if (i === q.a) { bd = OK; bg = OKBG; } else if (a === i) { bd = KO; bg = KOBG; } }
+        return { t, letter: q.vf ? (i ? 'F' : 'V') : 'ABCD'[i], bd, bg, onClick: () => this.setAns(i) };
+      });
+      if (v && !ok) { out.hasFix = true; out.fix = q.opts[q.a]; }
+    }
+    if (q.type === 'order') {
+      const p = z.perms[z.qi];
+      out.seq = a.map((it, k) => ({ n: k + 1, t: q.items[it], bd: v ? (it === k ? OK : KO) : INK, onClick: () => this.setAns(s => s.filter(x => x !== it)) }));
+      out.slots = v ? [] : q.items.slice(a.length).map((_, k) => ({ n: a.length + k + 1 }));
+      out.pool = v ? [] : p.filter(i => !a.includes(i)).map(i => ({ t: q.items[i], onClick: () => this.setAns(s => [...s, i]) }));
+      out.hasPool = out.pool.length > 0;
+      if (v && !ok) { out.hasFix = true; out.fix = q.items.map((t, i) => (i + 1) + '. ' + t).join('   '); }
+    }
+    if (q.type === 'match') {
+      const p = z.perms[z.qi], inv = {}; Object.entries(a.map).forEach(([l, rr]) => (inv[rr] = +l));
+      out.lefts = q.pairs.map((pp, i) => {
+        const good = a.map[i] === i;
+        return { n: i + 1, t: pp[0], bd: v ? (good ? OK : KO) : a.sel === i ? ACC : (a.map[i] != null ? INK : LINE), bg: !v && a.sel === i ? '#ffe3ee' : '#fff', showFix: v && !good, fix: pp[1],
+          onClick: () => this.setAns(s => ({ ...s, sel: s.sel === i ? null : i })) };
+      });
+      out.rights = p.map(j => ({ t: q.pairs[j][1], tag: inv[j] != null ? inv[j] + 1 : '', tagBg: inv[j] != null ? INK : '#d9d2ef', bd: inv[j] != null ? INK : LINE,
+        onClick: () => this.setAns(s => { if (s.sel == null) { const m = { ...s.map }; if (inv[j] != null) delete m[inv[j]]; return { ...s, map: m }; } const m = { ...s.map }; Object.keys(m).forEach(k => { if (m[k] === j) delete m[k]; }); m[s.sel] = j; return { sel: null, map: m }; }) }));
+    }
+    if (q.type === 'zone') {
+      const d = DIA[q.dia], pos = r => ({ position: 'absolute', left: r.x + '%', top: r.y + '%', width: r.w + '%', height: r.h + '%' });
+      out.diaStyle = { position: 'relative', width: '100%', aspectRatio: d.ratio, background: '#e4ddf7', borderRadius: 6, overflow: 'hidden', maxHeight: '60vh', margin: '0 auto' };
+      out.base = d.base.map(b => ({ style: { ...pos(b), ...LOOK[b.look], pointerEvents: 'none' } }));
+      out.zones = d.zones.map(zn => {
+        const sel = a === zn.id, good = q.a.includes(zn.id);
+        let ol = sel ? '3px solid ' + ACC : 'none';
+        if (v) ol = good ? '3px solid ' + OK : sel ? '3px solid ' + KO : 'none';
+        return { onClick: () => this.setAns(zn.id), style: { ...pos(zn), ...LOOK[zn.look], cursor: v ? 'default' : 'pointer', outline: ol, outlineOffset: -3, zIndex: zn.id === 'err' ? 2 : 1, filter: sel && !v ? 'brightness(0.92)' : 'none' } };
+      });
+      out.zoneHint = v ? 'En vert : la bonne zone.' : a ? 'Zone sélectionnée. Validez ou touchez une autre zone.' : 'Touchez directement le schéma.';
+    }
+    return out;
+  }
+
+  homeVals() {
+    const sess = SESS.map((s, i) => {
+      const at = this.atts(s.id), graded = at.find(x => !x.training), best = at.length ? Math.max(...at.map(x => x.note)) : null, bestPts = at.length ? Math.max(...at.map(x => x.pts)) : 0;
+      const open = !!this.state.db.open[s.id];
+      return { s, i, graded, best, bestPts, open, badge: best != null && best >= 14 };
+    });
+    const done = sess.filter(x => x.graded).length, all = sess.every(x => x.badge);
+    return {
+      prog: { label: done + ' séance' + (done > 1 ? 's' : '') + ' sur 6', pct: (done / 6 * 100) + '%', points: sess.reduce((t, x) => t + x.bestPts, 0) },
+      badges: [...sess.map(x => ({ mark: 'S' + (x.i + 1), name: x.s.badge, bg: x.badge ? ACC : 'rgba(255,255,255,.5)', border: x.badge ? 'solid ' + INK : 'dashed ' + INK, fg: INK, label: INK })),
+        { mark: 'ID', name: 'Maquettiste', bg: all ? INK : 'rgba(255,255,255,.5)', border: 'solid ' + INK, fg: all ? '#c6f432' : INK, label: INK }],
+      sessions: sess.map(x => ({ n: x.i + 1, t: x.s.t, op: x.open ? 1 : 0.55,
+        status: !x.open ? 'Pas encore ouverte' : !x.graded ? 'À faire · ' + this.qsOf(x.s.id).length + ' questions' : 'Note CC ' + fr(x.graded.note) + '/20' + (x.best > x.graded.note ? ' · meilleur ' + fr(x.best) : ''),
+        canPlay: x.open, btn: x.graded ? 'Rejouer' : 'Jouer', btnBg: x.graded ? '#fff' : ACC, btnFg: INK, play: () => this.start(x.s.id) }))
+    };
+  }
+
+  resVals() {
+    const r = this.state.res, s = SESS.find(x => x.id === r.sid), i = SESS.indexOf(s);
+    return { n: i + 1, t: s.t, note: fr(r.note), points: r.pts, caption: r.training ? 'entraînement, ne compte pas' : 'note de contrôle continu enregistrée',
+      newBadge: r.newBadge, noBadge: !r.newBadge && !r.had, badgeMark: 'S' + (i + 1), badgeName: s.badge, replay: () => this.start(r.sid),
+      lines: r.lines.map(l => ({ q: l.q, pts: '+' + l.pts, mark: l.score === 1 ? '✓' : l.score > 0 ? '½' : '✗', bg: l.score === 1 ? OK : l.score > 0 ? '#c08a2a' : KO })) };
+  }
+
+  setNom = (k, v) => this.setState(st => { const noms = { ...st.noms, [k]: v }; try { localStorage.setItem(NOMK, JSON.stringify(noms)); } catch (e) {} return { noms }; });
+  graded = (k, sid) => { const a = ((this.state.db.att[k] || {})[sid] || []).find(x => !x.training); return a ? a.note : null; };
+  rowsData() {
+    return Object.entries(this.state.db.users).sort((a, b) => a[1].cls.localeCompare(b[1].cls) || a[1].pseudo.localeCompare(b[1].pseudo)).map(([k, u]) => {
+      const notes = SESS.map(s => this.graded(k, s.id)), got = notes.filter(n => n != null);
+      return { k, u, notes, moy: got.length ? Math.round(got.reduce((a, b) => a + b, 0) / got.length * 100) / 100 : null };
+    });
+  }
+  exportCsv = () => {
+    const head = ['Pseudo', 'Classe', 'Nom', ...SESS.map((_, i) => 'Quiz S' + (i + 1)), 'Moyenne quiz'];
+    const lines = [head, ...this.rowsData().map(r => [r.u.pseudo, r.u.cls, this.state.noms[r.k] || '', ...r.notes.map(fr), fr(r.moy)].map(fr))];
+    const csv = '\ufeff' + lines.map(l => l.map(c => '"' + String(c === '–' ? '' : c).replace(/"/g, '""') + '"').join(';')).join('\r\n');
+    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+    const el = document.createElement('a'); el.href = url; el.download = 'Quiz_InDesign_notes.csv'; document.body.appendChild(el); el.click(); el.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+  editQs = fn => { const sid = this.state.edS; this.setDb(d => { d.qedit[sid] = d.qedit[sid] || clone(SESS.find(s => s.id === sid).qs); fn(d.qedit[sid]); }); };
+
+  profVals() {
+    const { ptab, edS, db, noms } = this.state;
+    const tabs = [['res', 'Résultats'], ['seances', 'Ouverture des séances'], ['qs', 'Questions']];
+    const qs = this.qsOf(edS);
+    return {
+      profTabs: tabs.map(([id, label]) => ({ label, bg: ptab === id ? '#fff' : 'transparent', onClick: () => this.setState({ ptab: id }) })),
+      pt: { isRes: ptab === 'res', isSeances: ptab === 'seances', isQs: ptab === 'qs' },
+      sessCols: SESS.map((_, i) => 'S' + (i + 1)),
+      rows: this.rowsData().map(r => ({ pseudo: r.u.pseudo, cls: r.u.cls, nom: noms[r.k] || '', onNom: e => this.setNom(r.k, e.target.value), moy: fr(r.moy),
+        notes: r.notes.map(n => ({ v: fr(n), fg: n == null ? '#c9c0e6' : n < 10 ? KO : INK })) })),
+      openList: SESS.map((s, i) => { const on = !!db.open[s.id], n = Object.keys(db.users).filter(k => this.graded(k, s.id) != null).length;
+        return { n: i + 1, t: s.t, info: (on ? 'Ouverte' : 'Fermée') + ' · ' + n + ' participation' + (n > 1 ? 's' : ''), track: on ? OK : '#c9c0e6', justify: on ? 'flex-end' : 'flex-start',
+          toggle: () => this.setDb(d => { d.open[s.id] = !d.open[s.id]; }) }; }),
+      edSess: SESS.map((s, i) => ({ n: i + 1, bd: s.id === edS ? INK : '#c9c0e6', bg: s.id === edS ? INK : 'transparent', fg: s.id === edS ? '#fff' : INK, onClick: () => this.setState({ edS: s.id }) })),
+      edQs: qs.map((q, qi) => {
+        const editable = q.type === 'qcm' || q.type === 'vf';
+        const opts = q.type === 'qcm' ? q.opts.map((t, oi) => ({ t, isText: true, isFixed: false, bd: q.a === oi ? OK : '#c9c0e6', bg: q.a === oi ? OK : '#fff',
+            setGood: () => this.editQs(L => { L[qi].a = oi; }), onT: e => { const val = e.target.value; this.editQs(L => { L[qi].opts[oi] = val; }); } }))
+          : q.type === 'vf' ? [true, false].map(b => ({ t: b ? 'Vrai' : 'Faux', isText: false, isFixed: true, bd: q.a === b ? OK : '#c9c0e6', bg: q.a === b ? OK : '#fff', setGood: () => this.editQs(L => { L[qi].a = b; }) })) : [];
+        const mv = (L, i, d) => { const A = L[qi].items, j = i + d; if (j < 0 || j >= A.length) return; [A[i], A[j]] = [A[j], A[i]]; };
+        const items = q.type === 'order' ? q.items.map((t, i) => ({ n: i + 1, t, onT: e => { const val = e.target.value; this.editQs(L => { L[qi].items[i] = val; }); },
+          up: () => this.editQs(L => mv(L, i, -1)), down: () => this.editQs(L => mv(L, i, 1)), del: () => q.items.length > 2 && this.editQs(L => { L[qi].items.splice(i, 1); }) })) : [];
+        const pairs = q.type === 'match' ? q.pairs.map((p, i) => ({ l: p[0], r: p[1], onL: e => { const val = e.target.value; this.editQs(L => { L[qi].pairs[i][0] = val; }); }, onR: e => { const val = e.target.value; this.editQs(L => { L[qi].pairs[i][1] = val; }); },
+          del: () => q.pairs.length > 2 && this.editQs(L => { L[qi].pairs.splice(i, 1); }) })) : [];
+        const summary = q.type === 'zone' ? 'Question sur schéma : le texte et l’explication sont modifiables, le schéma et la zone correcte ne le sont pas encore.' : '';
+        return { num: 'Q' + (qi + 1), kind: q.type === 'zone' ? KIND[q.mode] : KIND[q.type], isChoice: editable, isOrder: q.type === 'order', isMatch: q.type === 'match', isZone: q.type === 'zone', items, pairs,
+          addItem: () => this.editQs(L => { L[qi].items.push('Nouvelle étape'); }), addPair: () => this.editQs(L => { L[qi].pairs.push(['Élément', 'Correspondance']); }),
+          q: q.q, why: q.why || '', opts, summary,
+          onQ: e => { const val = e.target.value; this.editQs(L => { L[qi].q = val; }); }, onWhy: e => { const val = e.target.value; this.editQs(L => { L[qi].why = val; }); },
+          remove: () => { if (confirm('Supprimer cette question ?')) this.editQs(L => { L.splice(qi, 1); }); } };
+      })
+    };
+  }
+
+  renderVals() {
+    const { screen, lf, user, db } = this.state;
+    const base = {
+      isLogin: screen === 'login' || !db, isHome: db && screen === 'home', isQuiz: db && screen === 'quiz', isResult: db && screen === 'result', isProf: db && screen === 'prof',
+      lf, hasErr: !!lf.err, isTabEtu: lf.tab === 'etu', isTabProf: lf.tab === 'prof', tabEtuBg: lf.tab === 'etu' ? '#fff' : 'transparent', tabProfBg: lf.tab === 'prof' ? '#fff' : 'transparent',
+      tabEtu: () => this.setLf({ tab: 'etu', err: '' }), tabProf: () => this.setLf({ tab: 'prof', err: '' }),
+      onCls: e => this.setLf({ cls: e.target.value }), onPseudo: e => this.setLf({ pseudo: e.target.value }), onPin: e => { const AZ = { '&': '1', 'é': '2', '"': '3', "'": '4', '(': '5', '§': '6', '-': '6', 'è': '7', '!': '8', '_': '8', 'ç': '9', 'à': '0' }; this.setLf({ pin: [...e.target.value].map(c => AZ[c] || c).join('').replace(/\D/g, '').slice(0, 4) }); }, onCode: e => this.setLf({ code: e.target.value }),
+      login: this.login, logout: this.logout, demoEtu: () => this.setLf({ cls: 'B2-EIDM', pseudo: 'demo', pin: '0000', err: '' }),
+      goHome: () => this.setState({ screen: 'home' }), quit: () => { if (confirm('Quitter la partie ? Elle ne sera pas enregistrée.')) this.setState({ screen: 'home', quiz: null }); },
+      user: user || {}, exportCsv: this.exportCsv,
+      addQcm: () => this.editQs(L => L.push({ type: 'qcm', q: 'Nouvelle question', opts: ['Réponse A', 'Réponse B', 'Réponse C', 'Réponse D'], a: 0, why: '' })),
+      addVf: () => this.editQs(L => L.push({ type: 'vf', q: 'Nouvelle affirmation', a: true, why: '' })),
+      addOrder: () => this.editQs(L => L.push({ type: 'order', q: 'Remettez dans l’ordre…', items: ['Étape 1', 'Étape 2', 'Étape 3'], why: '' })),
+      addMatch: () => this.editQs(L => L.push({ type: 'match', q: 'Associez…', pairs: [['Élément 1', 'Correspondance 1'], ['Élément 2', 'Correspondance 2'], ['Élément 3', 'Correspondance 3']], why: '' })),
+      resetQs: () => { if (confirm('Rétablir les questions d’origine pour cette séance ?')) this.setDb(d => { delete d.qedit[this.state.edS]; }); }
+    };
+    if (!db) return base;
+    if (screen === 'home' && user) Object.assign(base, this.homeVals());
+    if (screen === 'quiz' && this.state.quiz) base.qz = this.qzVals();
+    if (screen === 'result' && this.state.res) base.res = this.resVals();
+    if (screen === 'prof') Object.assign(base, this.profVals());
+    return base;
+  }
+}
+</script>
+</body>
+</html>
