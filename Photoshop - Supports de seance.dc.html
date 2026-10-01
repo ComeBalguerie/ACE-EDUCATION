@@ -169,10 +169,10 @@ const DATE_DEVOIR = '___ / ___ / ______';
 const MOD = {
   name: 'Photoshop', classe: 'B1 EIDM', volume: '8 séances · 28 h + 8 h FOAD', periode: 'Semestre 2',
   fil: 'Chaque étudiant conçoit la communication du lancement d’une collection pour une marque de mode : une affiche de campagne, une couverture de magazine et une invitation au défilé, avec la même direction artistique.',
-  cc: [['Exercices imposés S1 à S4', '30 %'], ['Affiche et couverture', '35 %'], ['Invitation InDesign', '15 %'], ['Fichiers de sortie et présentation', '20 %'], ['Quiz de fin de séance', 'Note complémentaire, à valider avec la coordination']],
+  cc: [["Note 1 · théorique","Moyenne des 8 quiz de fin de séance"],["Note 2 · technique","La communication de lancement (affiche, couverture, invitation)"],["   Exercices imposés S1 à S4 et flyer S7","30 % de la note 2"],["   Affiche et couverture","35 % de la note 2"],["   Invitation InDesign","15 % de la note 2"],["   Fichiers de sortie et présentation","20 % de la note 2"]],
   extra: ''
 };
-const SEANCES = ['Fondations : image, pixels, calques', 'Cadrer, redresser, corriger', 'Retouche et nettoyage d’image', 'Sélections et détourage', 'Montage et composition : l’affiche', 'La couverture de magazine', 'Initiation InDesign : l’invitation', 'Préparer, exporter, présenter'];
+const SEANCES = ['Fondations : image, pixels, calques', 'Cadrer, redresser, corriger', 'Retouche et nettoyage d’image', 'Sélections et détourage', 'Montage et composition : l’affiche de campagne', 'La couverture de magazine', 'Initiation InDesign : l’invitation', 'Préparer, exporter, présenter'];
 const DOCS = [
  { s: 1, type: 'methode', when: 'Projetée pendant la théorie (0h30), puis distribuée', pages: [[
   ['h1', 'Travailler en non destructif', 'Dans Photoshop, chaque action peut se défaire si elle est faite au bon endroit. La règle : on ne touche jamais aux pixels d’origine.'],
@@ -203,7 +203,7 @@ const DOCS = [
   ['p', 'Depuis 2017, en France, une photographie commerciale dont la silhouette a été affinée ou épaissie doit porter la mention « photographie retouchée ». Sur un portrait, on corrige les imperfections passagères ; on ne modifie pas la morphologie.'],
   ['bar', 'Exercice imposé : trois retouches', [['Packshot de chaussure : poussières et rayures', 6], ['Photo de rue : éléments parasites supprimés', 6], ['Portrait : peau corrigée sans toucher la morphologie', 5], ['Calques séparés et avant / après exportés', 3]]]
  ]] },
- { s: 4, type: 'exemple', when: 'Analysé à l’oral pendant l’étude de cas (1h05)', pages: [[
+ { s: 4, type: 'exemple', when: 'Analysé à l’oral pendant l’étude de cas (1h15)', pages: [[
   ['h1', 'Quatre sujets, quatre détourages', 'Chaque sujet impose sa méthode. Toujours un masque, jamais la gomme : on peut corriger à tout moment.'],
   ['img', 'ps-s4-sujets', 'Les quatre images de l’étude de cas', '230px'],
   ['annot', [['Flacon sur fond blanc', 'Fond uni, contraste fort : baguette magique ou Sélection d’objet.'], ['Chaussure aux bords nets', 'Contours durs et courbes : outil Plume, tracé converti en sélection.'], ['Cheveux au vent', 'Sélectionner et masquer, outil Améliorer le contour sur les mèches.'], ['Motif sur fond chargé', 'Combinaison : sélection d’objet, puis retouche du masque au pinceau (mode masque, Q).']]],
@@ -235,7 +235,7 @@ const DOCS = [
   ['bar', 'Barème', [['Document paramétré : format, fonds perdus, marges', 4], ['Blocs alignés sur marges et colonnes', 4], ['Hiérarchie des informations', 4], ['Images liées et à jour', 3], ['Cohérence avec l’affiche et la couverture', 3], ['Assemblage complet', 2]]],
   ['prof', 'Variante B : format carré 140 × 140 mm. Rattrapage : flyer A5 recto à partir d’éléments fournis, 1 h sur table.']
  ]] },
- { s: 8, type: 'autoeval', when: 'Remplie avant les livraisons (1h00). La grille de présentation est projetée.', pages: [[
+ { s: 8, type: 'autoeval', when: 'Remplie avant les livraisons (1h10). La grille de présentation est projetée.', pages: [[
   ['h1', 'Livrer : imprimeur et web', 'Cochez chaque point avant d’envoyer. L’imprimeur imprime ce qu’on lui envoie.'],
   ['check', 'Fichiers imprimeur', ['CMJN au profil demandé (Coated Fogra39 / ISO Coated v2)', '300 ppi à la taille finale', 'Fonds perdus 3 mm', 'Textes à 5 mm minimum de la coupe', 'Noir du texte en 100 % K', 'InDesign : PDF/X-4 avec traits de coupe, puis assemblage']],
   ['check', 'Fichiers web', ['sRVB', 'Post 1080 × 1350 px, story 1080 × 1920 px', 'JPEG pour les photos, PNG pour la transparence', 'Poids du fichier vérifié', 'Chaque export rouvert et contrôlé']],
