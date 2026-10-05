@@ -34,12 +34,19 @@
     if (st.error) throw nice(st.error);
     return st.data ? { cls: st.data.cls, pseudo: st.data.pseudo, id: id } : null;
   };
+  Q.CLASSES = ['B1 EIDM', 'B2 EIDM', 'B3 EIDM', 'B1 ESDAC', 'B2 ESDAC', 'B3 ESDAC'];
+  Q.setClass = async function (userId, cls) {
+    await Q.ready;
+    var r = await Q.sb.from('quiz_students').update({ cls: cls }).eq('user_id', userId);
+    if (r.error) throw r.error.code === '23505' ? new Error('Ce pseudo existe déjà dans la classe ' + cls + '.') : nice(r.error);
+  };
 
   Q.studentLogin = async function (cls, pseudo, pin, nom) {
     await Q.ready;
-    var email = emailOf(cls, pseudo), password = pwOf(pin), r;
-    var ex = await Q.sb.rpc('quiz_account_exists', { p_email: email });
+    var password = pwOf(pin), r, email;
+    var ex = await Q.sb.rpc('quiz_login_email', { p_cls: cls, p_pseudo: pseudo });
     if (ex.error) throw nice(ex.error);
+    email = ex.data || emailOf(cls, pseudo).replace('@', '.' + Math.random().toString(36).slice(2, 6) + '@');
     if (!ex.data) {
       if (!nom || nom.length < 3) throw new Error('Première connexion : indiquez votre nom et prénom.');
       r = await Q.sb.auth.signUp({ email: email, password: password });

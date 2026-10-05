@@ -175,3 +175,17 @@ create policy qc_update on public.quiz_config for update using (public.quiz_is_e
 grant select, insert, delete on public.quiz_students, public.quiz_attempts to authenticated;
 grant select on public.quiz_config to anon, authenticated;
 grant insert, update on public.quiz_config to authenticated;
+
+-- Connexion par classe + pseudo, et changement de classe par l'enseignant
+alter table public.quiz_students add column if not exists nom text;
+
+create or replace function public.quiz_login_email(p_cls text, p_pseudo text) returns text
+language sql stable security definer set search_path = public, auth as $$
+  select u.email from public.quiz_students s join auth.users u on u.id = s.user_id
+  where s.cls = p_cls and lower(s.pseudo) = lower(p_pseudo) limit 1
+$$;
+grant execute on function public.quiz_login_email(text, text) to anon, authenticated;
+
+drop policy if exists qs_update on public.quiz_students;
+create policy qs_update on public.quiz_students for update using (public.quiz_is_editor()) with check (public.quiz_is_editor());
+grant update (cls, nom) on public.quiz_students to authenticated;

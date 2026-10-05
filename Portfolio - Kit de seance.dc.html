@@ -66,38 +66,35 @@ a{color:inherit}a:hover{color:oklch(0.45 0.13 250)}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 /*KIT*/
-const KIT = {title:'Infographie et édition — B3 ESDAC', pages:[
- {kicker:'Infographie · Séance 1', kind:'Fiche récap', title:'Formats, marges, grilles', blocks:[
-  {h:'ISO 216', items:['Rapport 1:√2, A0 = 1 m².','A1 594 × 841 · A2 420 × 594.','A3 297 × 420 · A4 210 × 297.']},
-  {h:'Marges', items:['Petit fond, blanc de tête.','Grand fond, blanc de pied.','Canon 2:3:4:6 (Van de Graaf, Tschichold).']},
-  {h:'Grille', items:['Colonne = (largeur utile − gouttières) ÷ n.','A4 paysage : 6 × 40 mm, gouttière 6, marges 13,5.']},
-  {h:'Ligne de base', items:['Pas = interlignage du texte courant.']},
-  {h:'Hiérarchie', items:['On regarde, on parcourt, on lit.','Point focal, lecture en Z ou en S.']},
-  {h:'Nommage', items:['NOM_Prenom_S1_Gabarit.indd']}]},
- {kicker:'Infographie · Séance 2', kind:'Fiche récap', title:'Typographie et lisibilité', blocks:[
-  {h:'Choisir', items:['Hauteur d’œil, contraste, chasse, graisses.','Deux familles au maximum.']},
-  {h:'Texte courant', items:['9 à 11 pt, interlignage ~120 %.','Légendes 7 à 8 pt.']},
-  {h:'Justification', items:['55 à 65 signes : lecture posée.','30 : hachée · 80–90 : fatigue.']},
-  {h:'Texte justifié', items:['Intermots 75 à 125 %.','Sinon césure ou fer à gauche.']},
-  {h:'Contraste', items:['4,5:1 minimum, 3:1 pour les grands corps.']},
-  {h:'Espace', items:['Taille des lettres selon la distance.','Tester à l’échelle 1.']}]},
- {kicker:'Infographie · Séance 2', kind:'Texte fourni', title:'Texte imposé — exercice des justifications', intro:"Le projet transforme un ancien entrepôt de tissus en lieu de travail partagé pour des artisans. Le volume existant, long de quarante mètres, est conservé dans son intégralité : la charpente métallique, les briques et les grandes verrières d’origine restent visibles. À l’intérieur, une rue couverte distribue douze ateliers de tailles différentes, séparés par des cloisons en bois qui s’arrêtent sous la charpente pour laisser circuler la lumière. Au centre, une salle commune accueille les expositions et les rencontres avec le public. Les matériaux ajoutés sont peu nombreux : du bois de pays, de l’acier brut et un sol en béton poli. L’objectif est de montrer que l’on peut réhabiliter un bâtiment industriel sans en effacer l’histoire, en l’adaptant à de nouveaux usages.", note:"Consigne : composer ce texte trois fois, en 30, 60 et 90 signes par ligne, même corps et même caractère. Imprimer et comparer."},
- {kicker:'Infographie · Séance 3', kind:'Fiche récap', title:'Images et composition éditoriale', blocks:[
-  {h:'Types d’images', items:['Plan, coupe, axonométrie.','Perspective, maquette, site, matière.']},
-  {h:'Résolution', items:['300 ppi à la taille finale.','29,7 cm de large ≈ 3500 px.']},
-  {h:'Plans', items:['Export PDF vectoriel.','Traits lisibles après réduction.']},
-  {h:'Rapports', items:['Texte/image : domine, équilibre, domine.','Image/image : égalité, dominant, série.']},
-  {h:'Légendes', items:['Quoi, où, échelle, crédit.','Style dédié, toujours au même endroit.']},
-  {h:'Chemin de fer', items:['16 pages en vignettes.','Alterner denses et respirations.']}]},
- {kicker:'Infographie · Séance 4', kind:'Fiche récap', title:'Charte et planche de concours', blocks:[
-  {h:'Charte', items:['Titre du projet, palette, typo.','Grille, pictogrammes, images.']},
-  {h:'Palette', items:['2 à 3 couleurs + neutres.','CMJN et RVB.']},
-  {h:'Planche A1', items:['594 × 841 mm portrait.','Grille modulaire, ex. 6 × 8.']},
-  {h:'Trois niveaux', items:['De loin : titre, image.','À 1 m : plans, coupes.','De près : textes, légendes.']},
-  {h:'Répartition', items:['Titre 10–15 %, image 35–40 %.','Technique 35 %, textes 10–15 %.']},
-  {h:'Test', items:['Imprimer en A3, lire à 3 m.']}]},
- {kicker:'Infographie · Séance 5', kind:'Checklist', title:'Checklist de production', fields:['Nom','Projet'], cols:'1fr 20mm 20mm', head:['Vérification','Dossier','Planche'], rowH:'11mm', rows:[['Contrôle en amont sans erreur'],['Images 300 ppi effectifs'],['Images converties au profil CMJN'],['Texte noir en 100 % K'],['Fonds perdus 3 mm'],['Textes à 5 mm de la coupe'],['Polices incorporées'],['Nombre de pages multiple de 4 (piqûre à cheval)'],['PDF/X-4 impression'],['PDF écran allégé'],['Assemblage'],['Test d’impression à 100 %']]},
- {kicker:'Infographie · Séance 6', kind:'Évaluation', title:'Grille d’évaluation des soutenances', fields:["Nom"], cols:'1fr 13mm 13mm 13mm 13mm 13mm 48mm', head:['Critère','0','1','2','3','4','Commentaire'], rowH:'17mm', rows:[["Grille et marges tenues"],["Hiérarchie typographique"],["Qualité et choix des images"],["Rapport texte/image et rythme"],["Cohérence de la charte"],["Planche : lisibilité à distance"],["Fichiers de production"],["Argumentation"]], note:'Total ramené sur 20.'}
+const KIT = {title:'Portfolio et communication digitale — B3 ESDAC', pages:[
+ {kicker:'Portfolio · Séance 1', kind:'Fiche récap', title:'Identité créative', blocks:[
+  {h:'Marque personnelle', items:['Tom Peters, « The Brand Called You », 1997.','Votre marque existe dans l’esprit des autres (Arruda).','Une marque forte se découvre, elle ne s’invente pas.']},
+  {h:'Fenêtre de Johari', items:['Zone publique : connu de moi et des autres.','Angle mort : vu par les autres, ignoré de moi.','Zone cachée : connu de moi seul.','Zone inconnue : ignoré de tous.']},
+  {h:'Positionnement', items:['Ma spécialité, ce que je fais, pour qui, ce qui me distingue.','Pas d’adjectifs creux (passionné, créatif, polyvalent).']},
+  {h:'Storytelling personnel', items:['1. Le déclic.','2. Le parcours.','3. Ce qui me guide.','4. Où je vais.']},
+  {h:'Bio', items:['Courte : environ 300 signes (Instagram, Behance).','Longue : environ 1 000 signes (site, dossier).']},
+  {h:'Règle de preuve', items:['Chaque compétence annoncée est prouvée par un projet.','Les barres de niveau ne prouvent rien.']}]},
+ {kicker:'Portfolio · Séance 2', kind:'Fiche récap', title:'Un portfolio cohérent et impactant', blocks:[
+  {h:'Sélection', items:['6 à 10 projets.','Un projet faible fait baisser l’ensemble.','Pareto : quelques projets forts font l’essentiel de l’impression.']},
+  {h:'Ordre', items:['Ouvrir avec le projet le plus fort.','Finir avec le deuxième plus fort.']},
+  {h:'Présenter un projet', items:['1. Image d’ouverture.','2. Contexte et demande.','3. Problématique.','4. Process.','5. Résultat.']},
+  {h:'Méthode STAR', items:['Situation : le contexte.','Tâche : ce qui était demandé.','Action : ce que j’ai fait.','Résultat : ce que ça a donné.']},
+  {h:'Process', items:['Croquis, maquettes, essais.','Le recruteur veut comprendre comment vous pensez.']},
+  {h:'Envoi', items:['PDF de 10 Mo maximum par mail.','Projet de groupe : indiquer son rôle et créditer les autres.']}]},
+ {kicker:'Portfolio · Séance 3', kind:'Fiche récap', title:'Présence en ligne et réseau', blocks:[
+  {h:'Les trois C (Arruda)', items:['Clarté : on comprend ce que vous faites.','Cohérence : le même message partout.','Constance : visible dans la durée.']},
+  {h:'Plateformes', items:['LinkedIn : recruteurs et entreprises.','Behance : projets complets pour les studios.','Instagram : marques et grand public.','Site personnel : la référence vers laquelle tout renvoie.']},
+  {h:'Être sélectivement célèbre', items:['Être connu des bonnes personnes plutôt que du plus grand nombre.']},
+  {h:'Force des liens faibles', items:['Granovetter, 1973.','Les opportunités viennent souvent des connaissances éloignées.']},
+  {h:'Publier', items:['Carrousel Instagram : 1080 × 1350 px (4:5).','Régularité plutôt que rafale.','AIDA : Attention, Intérêt, Désir, Action.']},
+  {h:'Premier message', items:['Se présenter en une ligne.','Citer un de leurs projets.','Demander 15 minutes d’échange.']}]},
+ {kicker:'Portfolio · Séance 4', kind:'Fiche récap', title:'Pitch personnel', blocks:[
+  {h:'Structure du pitch', items:['1. L’accroche : qui je suis.','2. La preuve : un projet qui le montre.','3. La singularité : ce que j’apporte.','4. La demande : ce que je cherche.']},
+  {h:'Trois versions', items:['Une phrase : salon, vernissage.','90 secondes (environ 200 mots) : entretien, jury.','4 à 5 lignes écrites : LinkedIn, mail.']},
+  {h:'PechaKucha', items:['20 images de 20 secondes, 6 min 40.','Tokyo, 2003, architectes Klein et Dytham.']},
+  {h:'Golden Circle (Sinek)', items:['Pourquoi, puis comment, puis quoi.']},
+  {h:'Préparer', items:['Le pitch ne raconte pas tout : il donne envie d’en savoir plus.','Répéter à voix haute, au moins trois fois.','Taper son nom dans Google en navigation privée.']},
+  {h:'À lire', items:['W. Arruda, Digital You, 2019.','C. Moran et N. Van Laethem, La boîte à outils du Personal Branding, Dunod, 2021.']}]}
 ]};
 /*END*/
 class Component extends DCLogic {

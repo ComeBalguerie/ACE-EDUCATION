@@ -37,21 +37,7 @@ input,button,select,textarea{font-family:inherit}
         <button onClick="{{ tabProf }}" style="flex:1;padding:10px;border:0;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;background:{{ tabProfBg }};color:#17131f">Enseignant</button>
       </div>
       <sc-if value="{{ isTabEtu }}" hint-placeholder-val="{{ true }}">
-        <div style="display:flex;flex-direction:column;gap:14px">
-          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Code de la classe
-            <input value="{{ lf.cls }}" onChange="{{ onCls }}" placeholder="B2-EIDM" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff;text-transform:uppercase">
-          </label>
-          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Pseudo
-            <input value="{{ lf.pseudo }}" onChange="{{ onPseudo }}" placeholder="ex. lune, pli42…" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff">
-          </label>
-          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Nom et prénom <span style="font-weight:400;color:#5d5670">(première connexion)</span>
-            <input value="{{ lf.nom }}" onChange="{{ onNomEtu }}" autoComplete="name" placeholder="DUPONT Camille" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff">
-          </label>
-          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Code secret (4 chiffres)
-            <input value="{{ lf.pin }}" onChange="{{ onPin }}" inputMode="numeric" type="text" autoComplete="off" placeholder="1234" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff;letter-spacing:.3em">
-          </label>
-          <div style="font-size:13px;color:#5d5670;line-height:1.5">Seul le pseudo est affiché. Votre nom n'est visible que par l'enseignant. Le compte est créé à la première connexion et sert pour tous les quiz. Notez votre code : il n'y a pas d'e-mail pour le retrouver.</div>
-        </div>
+        <div style="font-size:15px;color:#5d5670;line-height:1.5;text-wrap:pretty">Connectez-vous depuis votre espace étudiant. Vous y choisissez votre école et votre niveau, puis vous revenez ici automatiquement.</div>
       </sc-if>
       <sc-if value="{{ isTabProf }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;flex-direction:column;gap:14px">
@@ -81,7 +67,7 @@ input,button,select,textarea{font-family:inherit}
         <div style="font-size:12px;color:#5d5670;letter-spacing:.08em;text-transform:uppercase">{{ user.cls }}</div>
         <div style="font-size:18px;font-weight:600">{{ user.pseudo }}</div>
       </div>
-      <button onClick="{{ logout }}" style="padding:8px 14px;border:1.5px solid #c9c0e6;border-radius:999px;background:none;font-size:13px;cursor:pointer;color:#17131f">Déconnexion</button>
+      <div style="display:flex;gap:8px;align-items:center"><a href="Espace etudiant.dc.html" style="padding:8px 14px;border:1.5px solid #c9c0e6;border-radius:999px;font-size:13px;color:#17131f;text-decoration:none">Mes modules</a><button onClick="{{ logout }}" style="padding:8px 14px;border:1.5px solid #c9c0e6;border-radius:999px;background:none;font-size:13px;cursor:pointer;color:#17131f">Déconnexion</button></div>
     </div>
 
     <div style="display:flex;flex-direction:column;gap:18px;background:#c6f432;color:#17131f;border-radius:22px;padding:24px;border:2px solid #17131f;box-shadow:5px 5px 0 #17131f">
@@ -295,7 +281,7 @@ input,button,select,textarea{font-family:inherit}
             <sc-for list="{{ rows }}" as="r" hint-placeholder-count="5">
               <div style="display:grid;grid-template-columns:minmax(110px,1fr) 90px minmax(150px,1.3fr) repeat(6,58px) 70px;gap:8px;padding:8px 16px;align-items:center;font-size:14px;border-bottom:1px solid #ece7fa">
                 <div style="font-weight:600">{{ r.pseudo }}</div>
-                <div style="font-size:12px;color:#5d5670">{{ r.cls }}</div>
+                <select value="{{ r.cls }}" onChange="{{ r.onCls }}" style="font-size:12px;color:#17131f;padding:5px 4px;border:1px solid #d9d2ef;border-radius:7px;background:#faf8ff;min-width:0"><sc-for list="{{ r.opts }}" as="co"><option value="{{ co }}">{{ co }}</option></sc-for></select>
                 <input value="{{ r.nom }}" onChange="{{ r.onNom }}" placeholder="NOM Prénom" style="padding:7px 9px;border:1px solid #d9d2ef;border-radius:7px;font-size:13px;background:#faf8ff;min-width:0">
                 <sc-for list="{{ r.notes }}" as="nt" hint-placeholder-count="6"><div style="text-align:center;font-variant-numeric:tabular-nums;color:{{ nt.fg }}">{{ nt.v }}</div></sc-for>
                 <div style="text-align:right;font-weight:600;font-variant-numeric:tabular-nums">{{ r.moy }}</div>
@@ -819,7 +805,7 @@ class Component extends DCLogic {
     const push = (k, a) => { db.att[k] = db.att[k] || {}; (db.att[k][a.sid] = db.att[k][a.sid] || []).push({ note: +a.note, pts: a.pts, training: a.training, date: Date.parse(a.created_at) }); };
     if (me.prof) {
       const { students, attempts } = await QC.allData(MOD), byId = {};
-      students.forEach(s => { const k = this.ukey(s); byId[s.user_id] = k; db.users[k] = { cls: s.cls, pseudo: s.pseudo, nom: s.nom || '' }; db.att[k] = db.att[k] || {}; });
+      students.forEach(s => { const k = this.ukey(s); byId[s.user_id] = k; db.users[k] = { cls: s.cls, pseudo: s.pseudo, nom: s.nom || '', uid: s.user_id }; db.att[k] = db.att[k] || {}; });
       attempts.forEach(a => byId[a.user_id] && push(byId[a.user_id], a));
     } else {
       const k = this.ukey(me); db.users[k] = { cls: me.cls, pseudo: me.pseudo }; db.att[k] = {};
@@ -849,6 +835,7 @@ class Component extends DCLogic {
     const fail = err => this.setState(st => ({ busy: false, lf: { ...st.lf, err } }));
     try {
       const QC = await QCw();
+      if (lf.tab !== 'prof') return location.assign('Espace etudiant.dc.html?r=' + encodeURIComponent(decodeURIComponent(location.pathname.split('/').pop())));
       if (lf.tab === 'prof') {
         if (!lf.email.trim() || !lf.code) return fail('Indiquez votre e-mail et votre mot de passe.');
         this.setState({ busy: true });
@@ -1016,7 +1003,8 @@ class Component extends DCLogic {
       profTabs: tabs.map(([id, label]) => ({ label, bg: ptab === id ? '#fff' : 'transparent', onClick: () => this.setState({ ptab: id }) })),
       pt: { isRes: ptab === 'res', isSeances: ptab === 'seances', isQs: ptab === 'qs' },
       sessCols: SESS.map((_, i) => 'S' + (i + 1)),
-      rows: this.rowsData().map(r => ({ pseudo: r.u.pseudo, cls: r.u.cls, nom: noms[r.k] || r.u.nom || '', onNom: e => this.setNom(r.k, e.target.value), moy: fr(r.moy),
+      rows: this.rowsData().map(r => ({ pseudo: r.u.pseudo, cls: r.u.cls, opts: [...new Set([...window.QuizCloud.CLASSES, r.u.cls])],
+        onCls: e => { const v = e.target.value; if (v === r.u.cls || !confirm('Passer ' + r.u.pseudo + ' en ' + v + ' ?')) return this.forceUpdate(); window.QuizCloud.setClass(r.u.uid, v).then(() => window.QuizCloud.me().then(me => this.loadFor(me)), err => alert(err.message)); }, nom: noms[r.k] || r.u.nom || '', onNom: e => this.setNom(r.k, e.target.value), moy: fr(r.moy),
         notes: r.notes.map(n => ({ v: fr(n), fg: n == null ? '#c9c0e6' : n < 10 ? KO : INK })) })),
       openList: SESS.map((s, i) => { const on = !!db.open[s.id], n = Object.keys(db.users).filter(k => this.graded(k, s.id) != null).length;
         return { n: i + 1, t: s.t, info: (on ? 'Ouverte' : 'Fermée') + ' · ' + n + ' participation' + (n > 1 ? 's' : ''), track: on ? OK : '#c9c0e6', justify: on ? 'flex-end' : 'flex-start',
@@ -1045,7 +1033,7 @@ class Component extends DCLogic {
   renderVals() {
     const { screen, lf, user, db } = this.state;
     const base = {
-      isBoot: this.state.boot, isLogin: !this.state.boot && (screen === 'login' || !db), loginLabel: this.state.busy ? 'Connexion…' : 'Entrer', isHome: db && screen === 'home', isQuiz: db && screen === 'quiz', isResult: db && screen === 'result', isProf: db && screen === 'prof',
+      isBoot: this.state.boot, isLogin: !this.state.boot && (screen === 'login' || !db), loginLabel: this.state.busy ? 'Connexion…' : lf.tab === 'prof' ? 'Entrer' : 'Aller à l’espace étudiant', isHome: db && screen === 'home', isQuiz: db && screen === 'quiz', isResult: db && screen === 'result', isProf: db && screen === 'prof',
       lf, hasErr: !!lf.err, isTabEtu: lf.tab === 'etu', isTabProf: lf.tab === 'prof', tabEtuBg: lf.tab === 'etu' ? '#fff' : 'transparent', tabProfBg: lf.tab === 'prof' ? '#fff' : 'transparent',
       tabEtu: () => this.setLf({ tab: 'etu', err: '' }), tabProf: () => this.setLf({ tab: 'prof', err: '' }),
       onCls: e => this.setLf({ cls: e.target.value }), onPseudo: e => this.setLf({ pseudo: e.target.value }), onPin: e => { const AZ = { '&': '1', 'é': '2', '"': '3', "'": '4', '(': '5', '§': '6', '-': '6', 'è': '7', '!': '8', '_': '8', 'ç': '9', 'à': '0' }; this.setLf({ pin: [...e.target.value].map(c => AZ[c] || c).join('').replace(/\D/g, '').slice(0, 4) }); }, onCode: e => this.setLf({ code: e.target.value }), onEmail: e => this.setLf({ email: e.target.value }), onNomEtu: e => this.setLf({ nom: e.target.value }),

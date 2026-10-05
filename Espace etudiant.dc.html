@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f5f3ee;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+a:hover{color:oklch(0.45 0.13 250)}
+input,button{font-family:inherit}
+</style>
+<script src="./quiz-cloud.js"></script>
+</helmet>
+<main style="max-width:880px;margin:0 auto;padding:56px 24px 96px;display:flex;flex-direction:column;gap:36px">
+  <header style="display:flex;flex-direction:column;gap:14px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b675e">EIDM &amp; ESDAC Nice · 2026-2027</div>
+    <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(40px,7vw,64px);line-height:.98;letter-spacing:-.02em;margin:0">Espace étudiant</h1>
+  </header>
+
+  <sc-if value="{{ isBoot }}" hint-placeholder-val="{{ false }}">
+    <div style="font-size:15px;color:#6b675e">Chargement…</div>
+  </sc-if>
+
+  <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:22px;max-width:440px">
+      <p style="margin:0;font-size:16px;line-height:1.55;color:#4a4740;text-wrap:pretty">Connectez-vous pour retrouver les quiz et les fiches de révision de votre classe. Le compte est créé à la première connexion.</p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:13px;font-weight:600">École</div>
+        <div style="display:flex;gap:8px">
+          <sc-for list="{{ ecoles }}" as="e" hint-placeholder-count="2">
+            <button onClick="{{ e.onClick }}" style="flex:1;padding:13px;border-radius:6px;font-size:16px;font-weight:500;cursor:pointer;border:1.5px solid {{ e.bd }};background:{{ e.bg }};color:{{ e.fg }}">{{ e.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:13px;font-weight:600">Niveau</div>
+        <div style="display:flex;gap:8px">
+          <sc-for list="{{ niveaux }}" as="n" hint-placeholder-count="3">
+            <button onClick="{{ n.onClick }}" style="flex:1;padding:13px;border-radius:6px;font-size:16px;font-weight:500;cursor:pointer;border:1.5px solid {{ n.bd }};background:{{ n.bg }};color:{{ n.fg }}">{{ n.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Pseudo
+        <input value="{{ f.pseudo }}" onChange="{{ onPseudo }}" placeholder="ex. lune, pli42…" autoComplete="username" style="padding:13px;border:1.5px solid #bfb8a8;border-radius:6px;font-size:16px;background:#fff">
+      </label>
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600"><span>Nom et prénom <span style="font-weight:400;color:#6b675e">(première connexion)</span></span>
+        <input value="{{ f.nom }}" onChange="{{ onNom }}" placeholder="DUPONT Camille" autoComplete="name" style="padding:13px;border:1.5px solid #bfb8a8;border-radius:6px;font-size:16px;background:#fff">
+      </label>
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Code secret (4 chiffres)
+        <input value="{{ f.pin }}" onChange="{{ onPin }}" inputMode="numeric" autoComplete="off" placeholder="1234" style="padding:13px;border:1.5px solid #bfb8a8;border-radius:6px;font-size:16px;background:#fff;letter-spacing:.3em">
+      </label>
+      <div style="font-size:13px;line-height:1.5;color:#6b675e">Seul le pseudo est affiché. Votre nom n'est visible que par l'enseignant. Notez votre code : il n'y a pas d'e-mail pour le retrouver.</div>
+      <sc-if value="{{ hasErr }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:14px;color:#8a3b2b;background:#f3e1db;padding:10px 14px;border-radius:6px">{{ err }}</div>
+      </sc-if>
+      <button onClick="{{ login }}" style="padding:15px;border:0;border-radius:6px;background:#1d1c1a;color:#f5f3ee;font-size:16px;font-weight:500;cursor:pointer" style-hover="background:#4a4740">{{ loginLabel }}</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:14px;border-bottom:1px solid #1d1c1a">
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">{{ me.cls }}</span>
+          <span style="font-size:18px;font-weight:500">{{ me.pseudo }}</span>
+        </div>
+        <button onClick="{{ logout }}" style="padding:8px 14px;border:1px solid #bfb8a8;border-radius:999px;background:none;font-size:13px;cursor:pointer;color:#1d1c1a">Déconnexion</button>
+      </div>
+      <sc-if value="{{ noMods }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:15px;line-height:1.55;color:#4a4740">Aucun module n'est encore disponible pour votre classe. Si vous pensez vous être trompé de classe, prévenez votre enseignant.</div>
+      </sc-if>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ mods }}" as="m" hint-placeholder-count="2">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding:20px 0;border-bottom:1px solid #d9d4c7">
+            <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:2px"><span style="font-family:Newsreader,serif;font-size:26px;line-height:1.1">{{ m.name }}</span><span style="font-size:13.5px;color:#6b675e">{{ m.sub }}</span></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <a href="{{ m.quiz }}" style="padding:10px 16px;background:#1d1c1a;color:#f5f3ee;border-radius:999px;font-size:14px;font-weight:500" style-hover="background:#4a4740;color:#f5f3ee">Quiz</a>
+              <a href="{{ m.kit }}" style="padding:10px 16px;border:1px solid #bfb8a8;border-radius:999px;font-size:14px;font-weight:500">Fiches de révision</a>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const MODS = [
+  { name: 'Fondamentaux de la couleur', sub: 'B1 EIDM', cls: ['B1 EIDM'], quiz: 'Quiz Couleur.dc.html', kit: 'Couleur - Kit de seance.dc.html?eleves' },
+  { name: 'Photoshop', sub: 'B1 EIDM', cls: ['B1 EIDM'], quiz: 'Quiz Photoshop.dc.html', kit: 'Photoshop - Kit de seance.dc.html?eleves' },
+  { name: 'Image de marque', sub: 'B2 EIDM', cls: ['B2 EIDM'], quiz: 'Quiz Image de marque.dc.html', kit: 'Image de marque - Kit de seance.dc.html?eleves' },
+  { name: 'InDesign', sub: 'B2 EIDM', cls: ['B2 EIDM'], quiz: 'Quiz EIDM.dc.html', kit: 'InDesign - Kit de seance.dc.html?eleves' },
+  { name: 'Illustrator', sub: 'B2 ESDAC', cls: ['B2 ESDAC'], quiz: 'Quiz Illustrator.dc.html', kit: 'Illustrator - Kit de seance.dc.html?eleves' },
+  { name: 'Infographie & édition', sub: 'B3 ESDAC', cls: ['B3 ESDAC'], quiz: 'Quiz Infographie.dc.html', kit: 'Infographie - Kit de seance.dc.html?eleves' },
+  { name: 'Portfolio et communication digitale', sub: 'B3 ESDAC', cls: ['B3 ESDAC'], quiz: 'Quiz Portfolio.dc.html', kit: 'Portfolio - Kit de seance.dc.html?eleves' }
+];
+const QCw = () => window.QuizCloud ? Promise.resolve(window.QuizCloud) : new Promise(r => { const t = setInterval(() => { if (window.QuizCloud) { clearInterval(t); r(window.QuizCloud); } }, 50); });
+const ret = () => { const r = new URLSearchParams(location.search).get('r'); return r && /^[\w %\-.]+\.dc\.html$/.test(r) ? r : null; };
+
+class Component extends DCLogic {
+  state = { boot: true, busy: false, me: null, err: '', f: { ecole: '', niveau: '', pseudo: '', nom: '', pin: '' } };
+  async componentDidMount() {
+    try {
+      const me = await (await QCw()).me();
+      if (me && ret()) return location.replace(ret());
+      this.setState({ me, boot: false });
+    } catch (e) { this.setState({ boot: false, err: e.message || 'Serveur indisponible.' }); }
+  }
+  setF = p => this.setState(st => ({ f: { ...st.f, ...p }, err: '' }));
+  login = async () => {
+    const { f, busy } = this.state; if (busy) return;
+    const pseudo = f.pseudo.trim();
+    if (!f.ecole || !f.niveau) return this.setState({ err: 'Choisissez votre école et votre niveau.' });
+    if (!/^[\w\-]{3,16}$/.test(pseudo)) return this.setState({ err: 'Pseudo : 3 à 16 caractères, lettres, chiffres ou tiret.' });
+    if (!/^\d{4}$/.test(f.pin)) return this.setState({ err: 'Le code secret fait 4 chiffres.' });
+    this.setState({ busy: true, err: '' });
+    try {
+      const me = await (await QCw()).studentLogin(f.niveau + ' ' + f.ecole, pseudo, f.pin, f.nom.trim());
+      if (ret()) return location.replace(ret());
+      this.setState({ me, busy: false, f: { ...f, pin: '' } });
+    } catch (e) { this.setState({ busy: false, err: e.message || 'Connexion impossible.' }); }
+  };
+  logout = () => { window.QuizCloud && window.QuizCloud.logout(); this.setState({ me: null }); };
+  renderVals() {
+    const { boot, me, f, err, busy } = this.state;
+    const pick = (list, key) => list.map(v => { const on = f[key] === v; return { label: v, bd: on ? '#1d1c1a' : '#bfb8a8', bg: on ? '#1d1c1a' : '#fff', fg: on ? '#f5f3ee' : '#1d1c1a', onClick: () => this.setF({ [key]: v }) }; });
+    const mods = !me ? [] : MODS.filter(m => me.prof || m.cls.includes(me.cls));
+    return {
+      isBoot: boot, isLogin: !boot && !me, isHome: !boot && !!me,
+      ecoles: pick(['EIDM', 'ESDAC'], 'ecole'), niveaux: pick(['B1', 'B2', 'B3'], 'niveau'),
+      f, err, hasErr: !!err, loginLabel: busy ? 'Connexion…' : 'Entrer',
+      onPseudo: e => this.setF({ pseudo: e.target.value }), onNom: e => this.setF({ nom: e.target.value }),
+      onPin: e => { const AZ = { '&': '1', 'é': '2', '"': '3', "'": '4', '(': '5', '§': '6', '-': '6', 'è': '7', '!': '8', '_': '8', 'ç': '9', 'à': '0' }; this.setF({ pin: [...e.target.value].map(c => AZ[c] || c).join('').replace(/\D/g, '').slice(0, 4) }); },
+      login: this.login, logout: this.logout,
+      me: me ? { cls: me.prof ? 'Vue enseignant · tous les modules' : me.cls, pseudo: me.prof ? 'Enseignant' : me.pseudo } : {},
+      mods, noMods: !!me && !mods.length
+    };
+  }
+}
+</script>
+</body>
+</html>
