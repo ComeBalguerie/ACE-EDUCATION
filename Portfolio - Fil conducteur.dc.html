@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#f5f3ee;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:oklch(0.45 0.13 250)}
+@media (max-width:760px){[data-aside]{position:static !important;flex:1 1 100% !important}[data-aside] nav{display:none !important}}
+@media print{[data-noprint]{display:none!important}
+  [data-noprint]{display:none !important}
+  body{background:#fff}
+  [data-chapter]{break-before:page}
+  [data-avoid]{break-inside:avoid}
+  [data-main]{max-width:none !important}
+}
+</style>
+<script src="./cloud.js"></script>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;gap:40px 48px;max-width:1280px;margin:0 auto;padding:48px 32px 120px;box-sizing:border-box">
+
+  <aside data-noprint="1" data-aside="1" style="flex:0 0 232px;position:sticky;top:32px;align-self:flex-start;display:flex;flex-direction:column;gap:28px;font-size:13.5px">
+    <a data-noprint="1" href="Sommaire.dc.html" title="Retour au sommaire" style="align-self:flex-start;display:flex;align-items:center;gap:6px;padding:7px 12px;background:#1d1c1a;color:#f3f0e8;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none" style-hover="background:#4a4740;color:#f3f0e8">← Sommaire</a>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Fil conducteur · B3 ESDAC</div>
+      <div style="font-family:Newsreader,serif;font-size:22px;line-height:1.1">Portfolio et communication digitale</div>
+    </div>
+    <nav style="display:flex;flex-direction:column">
+      <a href="#plan" style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #e3dfd5"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">—</span><span>Planning &amp; cadre</span></a>
+      <sc-for list="{{ seances }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" style="display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid #e3dfd5;line-height:1.3">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">S{{ s.n }}</span>
+          <span style="flex:1">{{ s.t }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6b675e;flex:none" title="Préparation cochée">{{ s.prepLabel }}</span>
+        </a>
+      </sc-for>
+      <a href="#recap" style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #e3dfd5"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">—</span><span>Récapitulatif</span></a>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740">
+      <sc-for list="{{ legend }}" as="l" hint-placeholder-count="5"><span>{{ l }}</span></sc-for>
+    </div>
+    <button onClick="{{ print }}" style="font:500 12.5px 'IBM Plex Sans',sans-serif;background:#1d1c1a;color:#f5f3ee;border:0;border-radius:999px;padding:9px 16px;cursor:pointer;align-self:flex-start">Imprimer / PDF</button>
+  </aside>
+
+  <main data-main="1" style="flex:1 1 420px;min-width:0;max-width:860px">
+    <header style="display:flex;flex-direction:column;gap:22px;padding-bottom:40px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b675e">Fil conducteur · B3 Design d’espace, produit, mode · ESDAC · 2026-2027</div>
+      <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(46px,6.6vw,80px);line-height:.96;letter-spacing:-.02em;margin:0;text-wrap:balance">Portfolio et communication digitale</h1>
+      <div style="display:flex;flex-wrap:wrap;gap:12px 40px;padding-top:18px;border-top:2px solid #1d1c1a">
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Format</span><span style="font-size:16px">4 séances de 3h30</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Volume</span><span style="font-size:16px">14h présentiel</span></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Période</span><span style="font-size:16px">Semestre 2</span></div>
+      </div>
+    </header>
+
+    <section id="plan" style="padding-top:24px;scroll-margin-top:16px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">Planning des séances</div>
+      <sc-for list="{{ seances }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 24px;padding:16px 0;border-bottom:1px solid #d9d4c7">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;flex:0 0 90px">SÉANCE {{ s.n }}</span>
+          <span style="font-family:Newsreader,serif;font-size:23px;line-height:1.2;flex:1 1 280px">{{ s.t }}</span>
+          <span style="font-size:13.5px;color:#4a4740;flex:0 0 auto">{{ s.date }} · {{ s.h }}</span>
+        </a>
+      </sc-for>
+    </section>
+
+    <section id="cadre" style="padding-top:64px;scroll-margin-top:16px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:40px 48px">
+        <sc-for list="{{ cadre }}" as="g" hint-placeholder-count="3">
+          <div data-avoid="1" style="display:flex;flex-direction:column">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">{{ g.g }}</div>
+            <sc-for list="{{ g.paras }}" as="p"><p style="margin:12px 0 0;font-size:15.5px;line-height:1.62;text-wrap:pretty;color:#2a2926">{{ p }}</p></sc-for>
+            <sc-for list="{{ g.items }}" as="it">
+              <div style="display:flex;flex-direction:column;gap:2px;padding:11px 0;border-bottom:1px solid #e3dfd5">
+                <div style="font-weight:600;font-size:14.5px">{{ it.k }}</div>
+                <div style="font-size:14.5px;line-height:1.5;color:#4a4740;text-wrap:pretty">{{ it.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <sc-for list="{{ seances }}" as="s" hint-placeholder-count="1">
+      <section id="{{ s.id }}" data-chapter="1" style="padding-top:96px;scroll-margin-top:16px">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;border-top:2px solid #1d1c1a;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em">
+          <span>SÉANCE {{ s.n }}</span><span style="color:#4a4740">{{ s.date }} · {{ s.h }}</span>
+        </div>
+        <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1.02;letter-spacing:-.015em;margin:24px 0 36px;text-wrap:balance">{{ s.t }}</h2>
+
+        <sc-if value="{{ s.hasRef }}" hint-placeholder-val="{{ false }}">
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:16px;padding:28px 30px;border:1.5px solid #1d1c1a;border-radius:6px;margin-bottom:40px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase">◇ Référence culturelle</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="font-family:Newsreader,serif;font-size:28px;line-height:1.1">{{ s.ref.who }}</div>
+              <div style="font-family:Newsreader,serif;font-style:italic;font-size:19px;color:#6b675e">{{ s.ref.t }}</div>
+            </div>
+            <p style="margin:0;font-size:16px;line-height:1.65;text-wrap:pretty">{{ s.ref.p }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.94 0.035 250);border-radius:4px">
+              <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.38 0.13 250);padding-top:4px">? À poser aux étudiants</div>
+              <div style="flex:1 1 300px;min-width:0;font-family:Newsreader,serif;font-size:19px;line-height:1.4;text-wrap:pretty">{{ s.ref.ask }}</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ s.steps }}" as="st" hint-placeholder-count="4">
+            <div style="display:flex;flex-wrap:wrap;gap:8px 28px;padding:24px 0;border-top:1px solid #d9d4c7">
+              <div style="flex:0 0 118px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.02em;padding-top:5px">{{ st.time }}</div>
+              <div style="flex:1 1 400px;min-width:0;display:flex;flex-direction:column;gap:14px">
+                <h3 style="font-family:Newsreader,serif;font-weight:500;font-size:24px;line-height:1.2;margin:0">{{ st.t }}</h3>
+                <sc-for list="{{ st.blocks }}" as="b" hint-placeholder-count="2">
+                  <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}"><p style="margin:0;font-size:16px;line-height:1.66;text-wrap:pretty;color:#2a2926">{{ b.text }}</p></sc-if>
+                  <sc-if value="{{ b.isCas }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:14px 0;border-top:1px dotted #a39c8c;border-bottom:1px dotted #a39c8c">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.42 0.1 55)">● Étude de cas</div>
+                      <div style="font-family:Newsreader,serif;font-style:italic;font-size:18.5px;line-height:1.5;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isExo }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;border:1.5px solid #1d1c1a;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">{{ b.label }}</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isBrief }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#1d1c1a;color:#f5f3ee;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">▣ Brief projet</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isKey }}" hint-placeholder-val="{{ false }}">
+                    <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#e8e4da;border-radius:4px">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">{{ b.label }}</div>
+                      <div style="font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:12px">
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:14px">
+            <sc-if value="{{ s.hasEntre }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:6px;padding:18px 20px;border:1.5px dashed #8a857a;border-radius:6px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">↻ Entre les séances</div>
+                <div style="font-size:15px;line-height:1.55;text-wrap:pretty">{{ s.entre }}</div>
+              </div>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;gap:6px;padding:18px 20px;border:1.5px solid #1d1c1a;border-radius:6px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">→ Livrable</div>
+              <div style="font-size:15px;line-height:1.55;text-wrap:pretty">{{ s.livrable }}</div>
+            </div>
+          </div>
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:8px;padding:18px 20px;background:#e8e4da;border-radius:6px">
+            <div style="display:flex;justify-content:space-between;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase"><span>☐ À préparer</span><span style="color:#4a4740">{{ s.prepLabel }}</span></div>
+            <sc-for list="{{ s.prep }}" as="pr" hint-placeholder-count="3">
+              <div onDragOver="{{ pr.onDragOver }}" onDrop="{{ pr.onDrop }}" style="display:flex;flex-direction:column;gap:5px;border-top:1px solid #d3cdbf;padding:9px 0 3px">
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                  <button onClick="{{ pr.toggle }}" style="display:flex;gap:12px;align-items:flex-start;flex:1;min-width:0;background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer">
+                    <sc-if value="{{ pr.on }}" hint-placeholder-val="{{ false }}"><span style="width:16px;height:16px;border:1.5px solid #1d1c1a;background:#1d1c1a;color:#e8e4da;font-size:11px;line-height:16px;text-align:center;border-radius:3px;flex:none;margin-top:2px">✓</span></sc-if>
+                    <sc-if value="{{ pr.off }}" hint-placeholder-val="{{ true }}"><span style="width:16px;height:16px;border:1.5px solid #6b675e;border-radius:3px;flex:none;box-sizing:border-box;margin-top:2px"></span></sc-if>
+                    <span style="font-size:14.5px;line-height:1.5">{{ pr.t }}</span>
+                  </button>
+                  <sc-if value="{{ pr.canEdit }}" hint-placeholder-val="{{ false }}"><label data-noprint="1" title="Joindre des fichiers (ou glisser-déposer sur la ligne)" style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740;cursor:pointer;padding:3px 7px;border:1px solid #bfb8a8;border-radius:3px;margin-top:1px" style-hover="background:#1d1c1a;color:#e8e4da;border-color:#1d1c1a">+ Fichier<input type="file" multiple="{{ true }}" onChange="{{ pr.onFiles }}" style="display:none"></input></label></sc-if>
+                  <sc-if value="{{ pr.custom }}" hint-placeholder-val="{{ false }}"><button data-noprint="1" onClick="{{ pr.remove }}" title="Supprimer cet élément" style="flex:none;background:none;border:0;padding:2px 4px;font-size:16px;line-height:1;color:#6b675e;cursor:pointer" style-hover="color:#1d1c1a">×</button></sc-if>
+                </div>
+                <sc-for list="{{ pr.files }}" as="f">
+                  <div style="display:flex;gap:8px;align-items:baseline;padding-left:28px;min-width:0">
+                    <button onClick="{{ f.open }}" title="Ouvrir" style="background:none;border:0;padding:0;font:inherit;font-size:13px;color:#1d1c1a;text-decoration:underline;text-underline-offset:2px;cursor:pointer;text-align:left;overflow-wrap:anywhere">{{ f.name }}</button>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#6b675e;flex:none">{{ f.size }}</span>
+                    <sc-if value="{{ f.canEdit }}" hint-placeholder-val="{{ false }}"><button data-noprint="1" onClick="{{ f.remove }}" title="Retirer le fichier" style="flex:none;background:none;border:0;padding:0 4px;font-size:14px;line-height:1;color:#6b675e;cursor:pointer" style-hover="color:#1d1c1a">×</button></sc-if>
+                  </div>
+                </sc-for>
+                <sc-for list="{{ pr.docs }}" as="d">
+                  <a href="{{ d.href }}" style="display:flex;gap:8px;align-items:baseline;padding-left:28px;font-size:13px;color:#1d1c1a;text-decoration:none" style-hover="text-decoration:underline"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b675e;flex:none">Kit ↗</span><span>{{ d.label }}</span></a>
+                </sc-for>
+              </div>
+            </sc-for>
+            <sc-if value="{{ s.canEdit }}" hint-placeholder-val="{{ false }}"><div data-noprint="1" style="display:flex;gap:8px;border-top:1px solid #d3cdbf;padding-top:10px">
+              <input value="{{ s.draft }}" onChange="{{ s.onDraft }}" onKeyDown="{{ s.onDraftKey }}" placeholder="Ajouter un élément…" style="flex:1;min-width:0;font:inherit;font-size:14px;padding:6px 9px;border:1px solid #bfb8a8;border-radius:3px;background:#f3f0e8;color:#1d1c1a"></input>
+              <button onClick="{{ s.addItem }}" style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border:1px solid #1d1c1a;border-radius:3px;background:#1d1c1a;color:#e8e4da;cursor:pointer">Ajouter</button>
+            </div></sc-if>
+          </div>
+        </div>
+      </section>
+    </sc-for>
+
+    <section id="recap" data-chapter="1" style="padding-top:96px;scroll-margin-top:16px">
+      <div style="border-top:2px solid #1d1c1a;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em">SYNTHÈSE</div>
+      <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1.02;margin:24px 0 36px">Récapitulatif du module</h2>
+      <div style="display:flex;flex-direction:column;gap:44px">
+        <sc-for list="{{ recap }}" as="g" hint-placeholder-count="2">
+          <div data-avoid="1" style="display:flex;flex-direction:column">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">{{ g.g }}</div>
+            <sc-for list="{{ g.items }}" as="it">
+              <div style="display:flex;flex-wrap:wrap;gap:2px 24px;padding:12px 0;border-bottom:1px solid #e3dfd5">
+                <div style="flex:0 0 190px;font-weight:600;font-size:15px">{{ it.k }}</div>
+                <div style="flex:1 1 300px;min-width:0;font-size:15px;line-height:1.55;color:#2a2926;text-wrap:pretty">{{ it.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <footer style="margin-top:96px;padding-top:16px;border-top:1px solid #d9d4c7;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6b675e">Cliclac Studio · cliclac.studio · Document pédagogique v1</footer>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/*META*/
+const KEY = 'fil-portfolio-b3-v1';
+const LEGEND = ['◇ Référence culturelle', '● Étude de cas', '✎ Exercice imposé', '! Notion clé', '↻ Entre les séances', '→ Livrable', '☐ À préparer'];
+const CADRE = [
+ {g:'Fil rouge projet', paras:['Chaque étudiant construit son portfolio et la communication qui va avec. Les projets existent déjà (réalisés dans les autres modules, en stage ou en freelance) : le travail porte sur la sélection, la mise en scène, le récit et la diffusion.','Trois productions avancent en parallèle sur les 4 séances : un portfolio PDF de 16 à 24 pages (version écran, et version imprimée pour les entretiens) ; une présence en ligne cohérente (profil LinkedIn, projet publié sur Behance ou site personnel, compte Instagram professionnel) ; un pitch personnel de 90 secondes. Le module sert directement la recherche de stage, d’alternance, de master ou de premiers clients.'], items:[]},
+ {g:'Fil rouge culturel', paras:['Chaque séance s’ouvre sur une référence de 10 à 15 minutes : un designer ou un format qui a su rendre son travail visible. Une référence, deux ou trois idées, une question posée au groupe.'], items:[['Séance 1','Virgil Abloh — passer de l’architecture à la mode avec une identité reconnaissable'],['Séance 2','Charles et Ray Eames — montrer le process autant que l’objet'],['Séance 3','Simon Porte Jacquemus — Instagram comme récit de marque'],['Séance 4','PechaKucha — 20 images, 20 secondes chacune']]},
+ {g:'Couverture du syllabus', paras:[], items:[['Identité créative','Valeurs, compétences, storytelling — S1'],['Portfolio cohérent et impactant','Sélection des projets, mise en scène, storytelling visuel — S2'],['Présence en ligne','LinkedIn, Behance, Dribbble, Instagram — S3'],['Entretenir son réseau','Networking créatif, feedbacks, co-création, cartographie des partenaires — S3'],['Pitch personnel','Structure, posture, versions selon le contexte — S4'],['Réalisation du portfolio et de sa communication','Fil rouge sur les 4 séances, présenté en S4']]},
+ {g:'Contrôle continu : deux notes', paras:['Deux notes de contrôle continu, saisies dans Miracle. Un sujet de rattrapage est prévu pour chacune.','Un rendu à chaque séance. La note technique combine les étapes et le résultat, pour valoriser la progression autant que le portfolio final.'], items:[['Note 1 · théorique — quiz de fin de séance','Moyenne des 4 quiz, un par séance. Individuel, corrigé automatiquement. Vérifie le vocabulaire et les notions vues en cours.'],['Note 2 · technique — le portfolio et sa communication','Évalue la production du module. Elle se calcule ainsi :'],['   Rendus S1 à S3 — 30 % de la note 2','Fiche identité et bios, chemin de fer et deux projets mis en page, profils et plan éditorial.'],['   Portfolio final — 35 % de la note 2','Sélection pertinente, récit de chaque projet, mise en page cohérente, qualité des images.'],['   Communication digitale — 15 % de la note 2','Profils optimisés, publication réalisée, cohérence entre plateformes.'],['   Pitch et présentation — 20 % de la note 2','Clarté, singularité, tenue du temps, capacité à défendre ses choix.']]},
+ {g:'Ressources', paras:['William Arruda, Digital You: Real Personal Branding in the Virtual Age, ATD Press, 2019. Sert d’appui pour l’identité et la présence en ligne (S1 et S3).','Stéphanie Moran et Nathalie Van Laethem, La boîte à outils du Personal Branding, Dunod, 2021 (64 outils en 8 objectifs). Fiches outils mobilisées en S1 (positionnement), S3 (réseau) et S4 (pitch).'], items:[]}
+];
+/*DATA*/
+const SEANCES = [
+{date:'Date à définir', h:'3h30', t:'Identité créative',
+ ref:{who:'Virgil Abloh (1980-2021)', t:'Une identité qui traverse les disciplines', p:'Virgil Abloh obtient un master d’architecture à l’Illinois Institute of Technology en 2006, puis passe par le graphisme, le DJing et la mode. Il fonde Off-White et devient en 2018 directeur artistique des collections homme de Louis Vuitton. Il revendiquait une méthode simple, l’« approche 3 % » : modifier un objet existant juste assez pour le rendre sien. Son exposition « Figures of Speech » (Museum of Contemporary Art de Chicago, 2019) montrait que son identité tenait moins à une discipline qu’à une manière de penser, de citer et de raconter. C’est l’enjeu de cette séance : savoir dire ce qui relie vos projets, quelle que soit leur nature.', ask:'Si on mettait trois de vos projets côte à côte sans votre nom, qu’est-ce qui permettrait de reconnaître qu’ils sont de vous ?'},
+ steps:[
+  ['0h00 – 0h20','Présentation du module et du projet',['p','Présentation de mon parcours et de mon propre portfolio. Tour de table : prénom, spécialité (espace, produit, mode), ce qu’ils visent après le B3 (master, alternance, emploi, indépendant).'],['brief','Construire votre portfolio et sa communication : un portfolio PDF de 16 à 24 pages, une présence en ligne cohérente (LinkedIn, Behance ou site, Instagram), un pitch de 90 secondes. Un rendu à chaque séance. Les projets, vous les avez déjà ; ce qui est évalué, c’est la manière de les choisir, de les raconter et de les faire circuler.']],
+  ['0h20 – 0h35','Référence culturelle',['p','Virgil Abloh. Parcours, approche 3 %, quelques images de « Figures of Speech ». Question au groupe.']],
+  ['0h35 – 1h15','Valeurs, compétences, positionnement',['p','Le personal branding n’est pas de l’autopromotion : c’est la cohérence entre ce que vous êtes, ce que vous faites et ce que les autres perçoivent. Trois questions structurent l’identité créative : qui je suis (valeurs, ce qui me guide), ce que je sais faire (compétences techniques, logiciels, savoir-être), pour qui (agences, studios, marques, écoles, clients).'],['p','Compétences : distinguer les compétences métier (conception, dessin, maquette, modélisation 3D, patronage…), les outils (suite Adobe, SketchUp, Rhino, Blender, CLO 3D…) et les qualités transversales (gestion de projet, travail en équipe, curiosité). Chaque compétence annoncée doit pouvoir être prouvée par un projet du portfolio.'],['key','Formule de positionnement : « Je suis designer [spécialité] et je [ce que je fais] pour [qui], avec [ce qui me distingue]. » Une phrase, sans adjectif creux (« passionné », « créatif », « polyvalent »).']],
+  ['1h15 – 1h45','Le storytelling personnel',['p','Un récit simple en quatre temps : le déclic (d’où vient l’envie), le parcours (les étapes et ce qu’elles ont apporté), ce qui me guide (une conviction, un sujet récurrent), où je vais (ce que je cherche maintenant). On garde les faits concrets et on évite la biographie exhaustive.'],['cas','Comparaison de trois bios de designers : une liste de diplômes et de logiciels, une bio trop lyrique, une bio qui raconte un fil conducteur en 4 phrases. Le groupe classe les trois et justifie.'],['p','Deux formats à produire : une bio courte (300 signes, pour Instagram, Behance, une signature) et une bio longue (1 000 signes environ, pour la page « À propos » du portfolio et LinkedIn).']],
+  ['1h45 – 2h05','Exercice imposé : image voulue, image perçue',['exo','Chacun note 5 valeurs, 5 compétences et 3 mots-clés qui le décrivent. Puis, en binôme, chacun montre 3 projets au voisin, qui note les 3 mots qu’il perçoit. On compare : les écarts disent ce que le portfolio devra corriger. 20 minutes.','Exercice imposé']],
+  ['2h05 – 3h15','Application',['p','Rédaction de la phrase de positionnement, de la bio courte et de la bio longue. Inventaire de tous les projets réalisés depuis le B1 : pour chacun, note de 1 à 3 sur la qualité, la pertinence pour la cible visée et la singularité. Je passe de poste en poste.']],
+  ['3h15 – 3h30','Debrief collectif',['p','Cinq phrases de positionnement lues à voix haute. Le groupe dit si elles sont claires, crédibles et différenciantes.']]
+ ],
+ entre:'Rassembler les fichiers sources en haute définition de tous les projets retenus : rendus, photos, croquis, plans, fiches techniques. Refaire les photos qui ne sont pas à la hauteur.',
+ livrable:'Fiche identité créative (valeurs, compétences, positionnement, 3 mots-clés) + bio courte et bio longue + inventaire noté des projets. Nommage : NOM_Prenom_S1_Identite.pdf',
+ prep:['Trois bios de designers imprimées pour la comparaison','Grille d’auto-diagnostic (valeurs, compétences, mots-clés)','Images d’Abloh et de « Figures of Speech » à projeter','Mon propre portfolio à montrer','Fiche récap une page : positionnement et storytelling']},
+{date:'Date à définir', h:'3h30', t:'Portfolio cohérent et impactant',
+ ref:{who:'Charles et Ray Eames', t:'Montrer comment on pense, pas seulement ce qu’on produit', p:'Charles et Ray Eames ont conçu du mobilier, des expositions, des jouets et une maison, mais aussi plus d’une centaine de courts films. Ils documentaient sans cesse leur travail : maquettes, essais ratés, photos d’atelier. Leur film Powers of Ten (1977) part d’un pique-nique à Chicago et change d’échelle d’un facteur dix toutes les dix secondes : une leçon de récit visuel, du détail à l’ensemble. Un bon portfolio fait la même chose : il fait voir le cheminement d’un projet, du contexte au détail, et pas seulement l’image finale.', ask:'Dans vos projets, quelle étape intermédiaire (croquis, maquette, essai) en dit le plus sur votre façon de travailler ?'},
+ steps:[
+  ['0h00 – 0h15','Retour sur la séance 1',['p','Quelques bios courtes lues à voix haute. Correction des travers fréquents : adjectifs creux, liste de logiciels, absence de cible.']],
+  ['0h15 – 0h30','Référence culturelle',['p','Les Eames. Extraits de Powers of Ten, photos d’atelier. Question au groupe.']],
+  ['0h30 – 1h05','Sélectionner ses projets',['p','Entre 6 et 10 projets. Un projet faible fait baisser la perception de l’ensemble : mieux vaut 6 projets forts que 12 inégaux. Critères : qualité, pertinence pour la cible, singularité, diversité maîtrisée (montrer plusieurs facettes sans se disperser).'],['p','L’ordre compte : ouvrir avec le projet le plus fort, finir avec le deuxième plus fort, alterner les rythmes au milieu. Adapter la sélection et l’ordre à chaque candidature : une agence d’architecture intérieure, un studio de design produit et une maison de mode n’attendent pas la même chose.'],['key','Le portfolio n’est pas une archive. Chaque projet présent doit servir le positionnement défini en séance 1.']],
+  ['1h05 – 1h40','Mise en scène et storytelling visuel',['p','Structure d’un projet sur 2 à 4 pages : une image d’ouverture forte ; le contexte et la demande ; la problématique ; le process (recherches, croquis, maquettes, prototypes) ; la réponse et le résultat ; votre rôle s’il s’agit d’un projet collectif. Le texte reste court : un titre, un chapô de 2 à 3 lignes, des légendes.'],['p','Selon la spécialité : en design d’espace, plans, coupes, perspectives et photos de maquette ; en design produit, croquis, vues éclatées, prototypes et packshots ; en design mode, planches de tendances, croquis, fiches techniques et photos portées.'],['p','Qualité des images : fond neutre, lumière homogène, cadrage soigné, mockups crédibles. Une seule grille et deux familles de caractères au maximum pour tout le portfolio.'],['cas','Analyse de trois portfolios de jeunes designers (un par spécialité). Le groupe repère la structure de chaque projet, ce qui retient l’attention et ce qui fait décrocher.']],
+  ['1h40 – 2h00','Exercice imposé : chemin de fer',['exo','Sur une planche A3, dessiner en vignettes toutes les pages du portfolio : couverture, à propos, projets dans l’ordre, contact. Indiquer pour chaque page l’image principale. 20 minutes.','Exercice imposé']],
+  ['2h00 – 3h15','Application',['p','Choix du format (A4 ou A3 paysage, lisible à l’écran), création du gabarit dans InDesign ou Figma, mise en page de deux projets complets. Je passe de poste en poste.']],
+  ['3h15 – 3h30','Debrief collectif',['p','Chemins de fer affichés côte à côte. On repère les ouvertures faibles et les rythmes monotones.']]
+ ],
+ entre:'Mettre en page l’ensemble des projets retenus. Rédiger les chapôs et les légendes. Créer une page « À propos » avec la bio longue et une page contact.',
+ livrable:'Chemin de fer + gabarit + deux projets mis en page, export PDF. Nommage : NOM_Prenom_S2_Portfolio.pdf',
+ prep:['Trois portfolios de jeunes designers (espace, produit, mode) à projeter','Planches A3 vierges pour le chemin de fer','Extraits de Powers of Ten','Exemple commenté d’une double-page projet','Fiche récap une page : sélection et structure d’un projet']},
+{date:'Date à définir', h:'3h30', t:'Présence en ligne et réseau',
+ ref:{who:'Simon Porte Jacquemus', t:'Instagram comme récit de marque', p:'Simon Porte Jacquemus lance sa marque en 2009, à 19 ans, sans réseau dans la mode. Sur Instagram, il mêle les collections, les coulisses, ses souvenirs du Sud, des photos de sa famille. Ce compte personnel est devenu un outil central de la marque : il donne une voix et un visage au travail. Ses défilés, comme celui dans un champ de lavande en 2019, sont pensés aussi pour être vus et partagés en ligne. La leçon pour un designer : la présence en ligne n’est pas une vitrine figée, c’est un récit régulier, cohérent avec l’identité.', ask:'Si un recruteur ne voyait que vos neuf dernières publications, quelle image aurait-il de vous ?'},
+ steps:[
+  ['0h00 – 0h15','Retour sur la séance 2',['p','Doubles-pages projetées. Retour sur les ouvertures de projets et la cohérence de la grille.']],
+  ['0h15 – 0h30','Référence culturelle',['p','Jacquemus. Quelques grilles Instagram à différentes périodes. Question au groupe.']],
+  ['0h30 – 1h15','Les plateformes et leurs codes',['p','LinkedIn : recruteurs, agences, entreprises. Photo professionnelle, titre qui reprend la phrase de positionnement, section « Sélection » avec le portfolio, expériences détaillées, posts texte et visuel.'],['p','Behance (Adobe) : projets présentés en entier, comme dans le portfolio. Très consulté par les studios créatifs. Dribbble : formats courts, surtout graphisme et interface, moins adapté à l’espace et à la mode. Instagram : marques, grand public, mode et décoration ; grille cohérente, carrousels, reels, stories, bio avec lien.'],['p','Un site personnel (Adobe Portfolio, Cargo, Squarespace…) reste la référence stable vers laquelle tout renvoie. Même nom d’utilisateur et même photo partout.'],['key','Un seul message, plusieurs formats. On adapte le format et le ton à chaque plateforme, jamais l’identité.']],
+  ['1h15 – 1h45','Le plan éditorial',['p','Fréquence réaliste : une à deux publications par semaine, tenue dans la durée, vaut mieux qu’une semaine intense suivie de trois mois de silence. Quatre piliers de contenu : projet fini, process et coulisses, veille et inspiration, actualité (stage, exposition, concours).'],['p','Formats courants : carrousel Instagram 1080 × 1350 px (4:5), image LinkedIn 1200 × 627 px ou carrée 1080 × 1080 px. Une publication = une accroche dans la première ligne, une légende courte, quelques hashtags ciblés, un appel à l’action (voir le projet, me contacter).']],
+  ['1h45 – 2h15','Entretenir son réseau',['p','Cartographie des partenaires en cercles : les proches (camarades, enseignants, anciens élèves) ; les professionnels (maîtres de stage, agences, studios, fabricants, artisans, fournisseurs) ; les prescripteurs (journalistes, comptes spécialisés, salons comme Maison&Objet, Paris Design Week, Première Vision) ; les contributeurs possibles à votre activité (photographe, développeur web, imprimeur, maquettiste).'],['p','Networking créatif : commenter avec pertinence, partager le travail des autres, demander un avis précis plutôt qu’un avis général, proposer une co-création (concours, exposition, projet commun). Message de prise de contact : personnalisé, court, une demande claire.'],['cas','Comparaison de deux messages LinkedIn envoyés à une agence : un message générique copié-collé et un message qui cite un projet de l’agence et propose un échange de 15 minutes. Le groupe réécrit le premier.']],
+  ['2h15 – 2h35','Exercice imposé : audit de profil',['exo','En binôme, chacun audite le profil LinkedIn ou Instagram du voisin avec la grille fournie : photo, titre ou bio, lien, cohérence visuelle, dernière publication, clarté du positionnement. 20 minutes, puis restitution croisée.','Exercice imposé']],
+  ['2h35 – 3h15','Application',['p','Optimisation des profils (capture avant / après), plan éditorial sur 4 semaines, carte du réseau avec 20 contacts dont 5 à contacter avant la séance 4.']],
+  ['3h15 – 3h30','Debrief collectif',['p','Trois profils projetés avant et après. Le groupe vérifie la cohérence avec le portfolio.']]
+ ],
+ entre:'Publier une première publication selon le plan éditorial. Envoyer deux messages de prise de contact. Finaliser le portfolio complet.',
+ livrable:'Captures avant / après des profils + plan éditorial sur 4 semaines + carte du réseau. Nommage : NOM_Prenom_S3_Presence.pdf',
+ prep:['Grille d’audit de profil imprimée','Exemples de profils LinkedIn, Behance et Instagram de designers','Grilles Instagram de Jacquemus à projeter','Deux messages de prise de contact à comparer','Modèle de plan éditorial et de carte réseau']},
+{date:'Date à définir', h:'3h30', t:'Pitch personnel et réalisation',
+ ref:{who:'PechaKucha (Tokyo, 2003)', t:'20 images, 20 secondes chacune', p:'En 2003, les architectes Astrid Klein et Mark Dytham, installés à Tokyo, créent des soirées où chaque intervenant montre 20 images qui défilent automatiquement toutes les 20 secondes : 6 minutes 40 au total, pas une de plus. Le format s’est diffusé dans des centaines de villes. Il impose de choisir, de hiérarchiser et de parler juste. Le pitch personnel obéit à la même contrainte : dire qui on est et ce qu’on cherche en un temps très court, avec une ou deux images qui le prouvent.', ask:'Si vous n’aviez que 20 secondes et une seule image pour présenter votre travail, laquelle montreriez-vous ?'},
+ steps:[
+  ['0h00 – 0h15','Référence culturelle',['p','PechaKucha. Je montre un extrait de présentation. Question au groupe.']],
+  ['0h15 – 0h45','Construire son pitch',['p','90 secondes, soit environ 200 mots. Quatre temps : l’accroche (qui je suis, en une phrase) ; la preuve (un projet qui me représente, en deux phrases) ; la singularité (ce que j’apporte qu’un autre n’apporte pas) ; la demande (ce que je cherche : stage, alternance, collaboration, conseil).'],['p','Posture : regard, voix posée, débit lent, pas de lecture. On prépare trois versions : orale pour un entretien ou un salon, écrite pour un message LinkedIn, très courte (une phrase) pour se présenter dans un événement.'],['key','Un pitch se répète à voix haute, pas dans sa tête. La troisième version prononcée est toujours meilleure que la première.']],
+  ['0h45 – 1h15','Exercice imposé : trois passages',['exo','En binôme, chacun présente son pitch trois fois, chronométré. Après chaque passage, le voisin remplit la grille (accroche, preuve, singularité, demande, temps, posture) et donne un conseil. 30 minutes.','Exercice imposé']],
+  ['1h15 – 1h45','Dernières vérifications',['p','Export du portfolio en PDF écran (moins de 10 Mo, liens cliquables), vérification des profils, publication d’un post annonçant le portfolio. Checklist finale.']],
+  ['1h45 – 3h15','Présentations',['p','Chaque étudiant présente son pitch (90 secondes), puis montre son portfolio et ses profils (2 minutes), puis 1 minute de questions. Je remplis la grille d’évaluation en direct.']],
+  ['3h15 – 3h30','Bilan du module',['p','Points forts du groupe, progression depuis la séance 1, pistes pour continuer : tenir le plan éditorial, mettre à jour le portfolio après chaque projet, relancer les contacts.']]
+ ],
+ livrable:'Portfolio final en PDF (écran, et impression si demandé), liens vers les profils, publication réalisée, texte du pitch. Nommage : NOM_Prenom_S4_Portfolio.pdf',
+ prep:['Grille d’évaluation des présentations imprimée','Grille de feedback du pitch (binômes)','Minuteur','Extrait PechaKucha à projeter','Checklist finale portfolio et profils']}
+];
+const RECAP = [
+ {g:'Fil rouge culturel', items:[['Séance 1','Virgil Abloh — une identité qui traverse les disciplines.'],['Séance 2','Charles et Ray Eames — montrer le process autant que l’objet.'],['Séance 3','Simon Porte Jacquemus — la présence en ligne comme récit régulier.'],['Séance 4','PechaKucha — choisir, hiérarchiser, parler juste en temps limité.']]},
+ {g:'Progression du projet', items:[['Séance 1','Positionnement, bios courte et longue, inventaire noté des projets.'],['Séance 2','Sélection, chemin de fer, gabarit, deux projets mis en page.'],['Séance 3','Profils optimisés, plan éditorial, carte du réseau.'],['Séance 4','Pitch, portfolio final, publication, présentation.']]},
+ {g:'Ressources', items:[['Arruda, Digital You','Identité et présence en ligne : S1 et S3.'],['Moran et Van Laethem','Positionnement (S1), réseau (S3), pitch (S4).']]}
+];
+/*END*/
+const kv = ([k, v]) => ({ k, v });
+const KITDOCS = {};
+const KITADD = {};
+const fmtSize = b => b < 1048576 ? Math.max(1, Math.round(b / 1024)) + ' Ko' : (b / 1048576).toFixed(1).replace('.', ',') + ' Mo';
+class Component extends DCLogic {
+  state = { prep: {}, extra: {}, files: {}, draft: {}, canEdit: false };
+  componentDidMount() {
+    try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) this.setState({ prep: s }); } catch (e) {}
+    try { const x = JSON.parse(localStorage.getItem(KEY + '-extra') || 'null'); if (x) this.setState({ extra: x }); } catch (e) {}
+    const C = window.Cloud; if (!C) return;
+    C.onAuth(() => this.setState({ canEdit: C.canEdit }));
+    C.ready.then(() => {
+      if (!C.sb) return;
+      this.setState({ canEdit: C.canEdit });
+      C.get(KEY).then(v => { if (v) this.setState({ prep: v }); });
+      C.get(KEY + '-extra').then(v => { if (v) this.setState({ extra: v }); });
+      this.loadFiles();
+    });
+  }
+  save = () => { try { localStorage.setItem(KEY, JSON.stringify(this.state.prep)); } catch (e) {} window.Cloud && window.Cloud.set(KEY, this.state.prep); };
+  saveExtra = () => { try { localStorage.setItem(KEY + '-extra', JSON.stringify(this.state.extra)); } catch (e) {} window.Cloud && window.Cloud.set(KEY + '-extra', this.state.extra); };
+  loadFiles = () => window.Cloud.listFiles(KEY).then(rows => {
+    const files = {}; (rows || []).forEach(r => (files[r.item] = files[r.item] || []).push(r)); this.setState({ files });
+  }).catch(() => {});
+  addFiles = (id, list) => {
+    const arr = Array.from(list || []); if (!arr.length || !this.state.canEdit) return;
+    window.Cloud.addFiles(KEY, id, arr)
+      .then(() => { this.setState(st => ({ prep: { ...st.prep, [id]: true } }), this.save); this.loadFiles(); })
+      .catch(e => { alert('Impossible d’envoyer le fichier : ' + (e.message || e)); this.loadFiles(); });
+  };
+  removeFile = fid => window.Cloud.removeFile(fid).then(this.loadFiles);
+  openFile = r => window.open(window.Cloud.url(r.path), '_blank');
+  addItem = i => {
+    const t = (this.state.draft[i] || '').trim(); if (!t || !this.state.canEdit) return;
+    const id = 'c' + i + '-' + Date.now();
+    this.setState(st => ({ extra: { ...st.extra, [i]: [...(st.extra[i] || []), { id, t }] }, draft: { ...st.draft, [i]: '' } }), this.saveExtra);
+  };
+  removeItem = (i, id) => {
+    if (!confirm('Supprimer cet élément et ses fichiers joints ?')) return;
+    const fids = (this.state.files[id] || []).map(r => r.fid);
+    this.setState(st => ({ extra: { ...st.extra, [i]: (st.extra[i] || []).filter(x => x.id !== id) } }), this.saveExtra);
+    if (fids.length) Promise.all(fids.map(f => window.Cloud.removeFile(f))).then(this.loadFiles);
+  };
+  renderVals() {
+    const { prep, extra, files, draft, canEdit } = this.state;
+    const seances = SEANCES.map((s, i) => {
+      const mk = (id, t, custom, docs) => {
+        const on = !!prep[id];
+        return { t, on, off: !on, custom: custom && canEdit, canEdit, docs: docs || KITDOCS[id] || [],
+          files: (files[id] || []).map(r => ({ canEdit, name: r.name, size: fmtSize(r.size || 0), open: () => this.openFile(r), remove: () => this.removeFile(r.fid) })),
+          toggle: () => canEdit && this.setState(st => ({ prep: { ...st.prep, [id]: !st.prep[id] } }), this.save),
+          onFiles: e => { this.addFiles(id, e.target.files); e.target.value = ''; },
+          onDragOver: e => e.preventDefault(),
+          onDrop: e => { e.preventDefault(); this.addFiles(id, e.dataTransfer.files); },
+          remove: () => this.removeItem(i, id) };
+      };
+      const items = [...s.prep.map((t, j) => mk(i + '-' + j, t, false)), ...(KITADD[i] || []).map(x => mk(i + '-' + x.id, x.t, false, x.docs)), ...(extra[i] || []).map(x => mk(x.id, x.t, true))];
+      return {
+        canEdit, n: i + 1, id: 's' + (i + 1), href: '#s' + (i + 1), date: s.date, h: s.h, t: s.t,
+        hasRef: !!s.ref, ref: s.ref || {}, hasEntre: !!s.entre, entre: s.entre || '', livrable: s.livrable,
+        draft: draft[i] || '', onDraft: e => { const v = e.target.value; this.setState(st => ({ draft: { ...st.draft, [i]: v } })); }, onDraftKey: e => { if (e.key === 'Enter') this.addItem(i); }, addItem: () => this.addItem(i),
+        prep: items, prepLabel: items.filter(x => x.on).length + '/' + items.length,
+        steps: s.steps.map(([time, t, ...bl]) => ({
+          time, t,
+          blocks: bl.map(([k, text, lab]) => ({
+            text, isP: k === 'p', isCas: k === 'cas', isExo: k === 'exo', isBrief: k === 'brief', isKey: k === 'key',
+            label: k === 'exo' ? '✎ ' + (lab || 'Exercice') : '! ' + (lab || 'Notion clé')
+          }))
+        }))
+      };
+    });
+    return {
+      seances, legend: LEGEND, print: () => window.print(),
+      cadre: CADRE.map(g => ({ g: g.g, paras: g.paras, items: g.items.map(kv) })),
+      recap: RECAP.map(g => ({ g: g.g, items: g.items.map(kv) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

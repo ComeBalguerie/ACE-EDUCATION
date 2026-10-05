@@ -15,9 +15,14 @@ body{margin:0;background:#f2eefc;color:#17131f;font-family:'Instrument Sans',sys
 a{color:#ff3d7f}a:hover{color:#d81b60}
 input,button,select,textarea{font-family:inherit}
 </style>
+<script src="./quiz-cloud.js"></script>
 </helmet>
 
 <div style="min-height:100vh;display:flex;flex-direction:column">
+<sc-if value="{{ isBoot }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:15px;color:#5d5670">Chargement…</div>
+</sc-if>
+
 
 <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
   <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:32px 20px">
@@ -39,27 +44,31 @@ input,button,select,textarea{font-family:inherit}
           <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Pseudo
             <input value="{{ lf.pseudo }}" onChange="{{ onPseudo }}" placeholder="ex. lune, pli42…" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff">
           </label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Nom et prénom <span style="font-weight:400;color:#5d5670">(première connexion)</span>
+            <input value="{{ lf.nom }}" onChange="{{ onNomEtu }}" autoComplete="name" placeholder="DUPONT Camille" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff">
+          </label>
           <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Code secret (4 chiffres)
             <input value="{{ lf.pin }}" onChange="{{ onPin }}" inputMode="numeric" type="text" autoComplete="off" placeholder="1234" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff;letter-spacing:.3em">
           </label>
-          <div style="font-size:13px;color:#5d5670;line-height:1.5">N'utilisez pas votre nom. Le compte est créé à la première connexion. Notez votre code : il n'y a pas d'e-mail pour le retrouver.</div>
+          <div style="font-size:13px;color:#5d5670;line-height:1.5">Seul le pseudo est affiché. Votre nom n'est visible que par l'enseignant. Le compte est créé à la première connexion et sert pour tous les quiz. Notez votre code : il n'y a pas d'e-mail pour le retrouver.</div>
         </div>
       </sc-if>
       <sc-if value="{{ isTabProf }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;flex-direction:column;gap:14px">
-          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Code enseignant
-            <input value="{{ lf.code }}" onChange="{{ onCode }}" type="password" placeholder="Démo : PROF-ACE" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff">
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">E-mail
+            <input value="{{ lf.email }}" onChange="{{ onEmail }}" type="email" autoComplete="email" placeholder="prenom.nom@exemple.fr" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff">
           </label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Mot de passe
+            <input value="{{ lf.code }}" onChange="{{ onCode }}" type="password" autoComplete="current-password" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff">
+          </label>
+          <div style="font-size:13px;color:#5d5670;line-height:1.5">Le compte enseignant du site de cours.</div>
         </div>
       </sc-if>
       <sc-if value="{{ hasErr }}" hint-placeholder-val="{{ false }}">
         <div style="font-size:14px;color:#d6361f;background:#ffe1d8;padding:10px 14px;border-radius:8px">{{ lf.err }}</div>
       </sc-if>
       <div style="display:flex;flex-direction:column;gap:10px">
-        <button onClick="{{ login }}" style="padding:16px;border:2px solid #17131f;border-radius:14px;background:#ff3d7f;color:#17131f;font-size:17px;font-weight:700;cursor:pointer;box-shadow:4px 4px 0 #17131f" style-hover="transform:translate(-1px,-1px);box-shadow:5px 5px 0 #17131f" style-active="transform:translate(3px,3px);box-shadow:1px 1px 0 #17131f">Entrer</button>
-        <sc-if value="{{ isTabEtu }}" hint-placeholder-val="{{ true }}">
-          <button onClick="{{ demoEtu }}" style="padding:10px;border:0;background:none;color:#5d5670;font-size:13px;cursor:pointer;text-decoration:underline">Remplir avec un compte de démonstration</button>
-        </sc-if>
+        <button onClick="{{ login }}" style="padding:16px;border:2px solid #17131f;border-radius:14px;background:#ff3d7f;color:#17131f;font-size:17px;font-weight:700;cursor:pointer;box-shadow:4px 4px 0 #17131f" style-hover="transform:translate(-1px,-1px);box-shadow:5px 5px 0 #17131f" style-active="transform:translate(3px,3px);box-shadow:1px 1px 0 #17131f">{{ loginLabel }}</button>
       </div>
     </div>
   </div>
@@ -273,7 +282,7 @@ input,button,select,textarea{font-family:inherit}
     <sc-if value="{{ pt.isRes }}" hint-placeholder-val="{{ true }}">
       <div style="display:flex;flex-direction:column;gap:14px">
         <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
-          <div style="font-size:14px;color:#5d5670;max-width:620px;line-height:1.5;text-wrap:pretty">Note CC = première partie de chaque séance. La colonne « Nom » reste sur cet ordinateur : elle n'est jamais envoyée en ligne et sert à préparer la saisie sur Miracle.</div>
+          <div style="font-size:14px;color:#5d5670;max-width:620px;line-height:1.5;text-wrap:pretty">Note CC = première partie de chaque séance. Le nom est saisi par l'élève à la création de son compte. Une correction faite ici reste sur cet ordinateur.</div>
           <button onClick="{{ exportCsv }}" style="padding:11px 18px;border:2px solid #17131f;border-radius:12px;background:#ff3d7f;color:#17131f;box-shadow:3px 3px 0 #17131f;font-size:14px;font-weight:600;cursor:pointer">Exporter pour Miracle (.csv)</button>
         </div>
         <div style="overflow-x:auto;background:#fff;border-radius:14px;border:2px solid #17131f;box-shadow:4px 4px 0 #17131f">
@@ -389,6 +398,8 @@ input,button,select,textarea{font-family:inherit}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 const DBK = 'quiz-eidm-proto-v1', USK = 'quiz-eidm-proto-user', NOMK = 'quiz-eidm-noms-local';
+const MOD = 'indesign';
+const QCw = () => window.QuizCloud ? Promise.resolve(window.QuizCloud) : new Promise(r => { const t = setInterval(() => { if (window.QuizCloud) { clearInterval(t); r(window.QuizCloud); } }, 50); });
 const ACC = '#ff3d7f', INK = '#17131f', OK = '#1f8a4c', OKBG = '#dcf8c6', KO = '#d6361f', KOBG = '#ffe1d8', LINE = '#d9d2ef';
 const TLIM = 30;
 
@@ -471,50 +482,83 @@ const shuffle = a => { const b = a.slice(); for (let i = b.length - 1; i > 0; i-
 const fr = n => (n == null ? '–' : String(n).replace('.', ','));
 const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k) || 'null') || d; } catch (e) { return d; } };
 
-function seed() {
-  const db = { users: {}, att: {}, open: { s1: true, s2: true, s3: true }, qedit: {} };
-  const demo = [['lune', [16, 14.5, 12]], ['atelier12', [18, 17, 15.5]], ['kiwi', [11.5, 13, null]], ['nova', [15, 9.5, 14]], ['pli', [19.5, 18, 17]]];
-  demo.forEach(([p, ns]) => {
-    const k = 'B2-EIDM/' + p; db.users[k] = { cls: 'B2-EIDM', pseudo: p, pin: '0000' }; db.att[k] = {};
-    ns.forEach((n, i) => { if (n != null) db.att[k]['s' + (i + 1)] = [{ note: n, pts: Math.round(n * 30 + 80), training: false, date: Date.now() }]; });
-  });
-  return db;
-}
 
 class Component extends DCLogic {
-  state = { screen: 'login', db: null, user: null, lf: { tab: 'etu', cls: 'B2-EIDM', pseudo: '', pin: '', code: '', err: '' }, quiz: null, res: null, ptab: 'res', edS: 's1', noms: {}, now: Date.now() };
+  state = { boot: true, busy: false, screen: 'login', db: null, user: null, lf: { tab: 'etu', cls: 'B2-EIDM', pseudo: '', pin: '', code: '', email: '', nom: '', err: '' }, quiz: null, res: null, ptab: 'res', edS: 's1', noms: {}, now: Date.now() };
 
   componentDidMount() {
-    const db = load(DBK, null) || seed();
-    const user = load(USK, null);
-    this.setState({ db, noms: load(NOMK, {}), user, screen: user ? (user.prof ? 'prof' : 'home') : 'login' }, () => this.saveDb());
+    this.setState({ noms: load(NOMK, {}) });
+    this.boot();
     this.tick = setInterval(() => { if (this.state.screen === 'quiz' && this.state.quiz && !this.state.quiz.validated) this.setState({ now: Date.now() }); }, 250);
+    this.poll = setInterval(this.refresh, 15000);
   }
-  componentWillUnmount() { clearInterval(this.tick); }
-  saveDb = () => { try { localStorage.setItem(DBK, JSON.stringify(this.state.db)); } catch (e) {} };
+  componentWillUnmount() { clearInterval(this.tick); clearInterval(this.poll); }
+  emptyDb = () => ({ users: {}, att: {}, open: {}, qedit: {} });
+  boot = async () => {
+    try {
+      const QC = await QCw();
+      const me = await QC.me();
+      if (!me) return this.setState({ db: this.emptyDb(), boot: false, screen: 'login' });
+      await this.loadFor(me);
+      this.setState({ boot: false, user: me.prof ? { prof: true } : { cls: me.cls, pseudo: me.pseudo }, screen: me.prof ? 'prof' : 'home' });
+      if (!me.prof) QC.flush().then(n => n && this.loadFor(me)).catch(() => {});
+    } catch (e) { this.setState(st => ({ db: this.emptyDb(), boot: false, screen: 'login', lf: { ...st.lf, err: e.message || 'Serveur indisponible.' } })); }
+  };
+  loadFor = async me => {
+    const QC = window.QuizCloud, cfg = await QC.config(MOD);
+    const db = { users: {}, att: {}, open: cfg.open || {}, qedit: cfg.qedit || {} };
+    const push = (k, a) => { db.att[k] = db.att[k] || {}; (db.att[k][a.sid] = db.att[k][a.sid] || []).push({ note: +a.note, pts: a.pts, training: a.training, date: Date.parse(a.created_at) }); };
+    if (me.prof) {
+      const { students, attempts } = await QC.allData(MOD), byId = {};
+      students.forEach(s => { const k = this.ukey(s); byId[s.user_id] = k; db.users[k] = { cls: s.cls, pseudo: s.pseudo, nom: s.nom || '' }; db.att[k] = db.att[k] || {}; });
+      attempts.forEach(a => byId[a.user_id] && push(byId[a.user_id], a));
+    } else {
+      const k = this.ukey(me); db.users[k] = { cls: me.cls, pseudo: me.pseudo }; db.att[k] = {};
+      (await QC.myAttempts(MOD)).forEach(a => push(k, a));
+      QC.pending(MOD, me.id).forEach(a => push(k, a));
+    }
+    if (!this.dirty) this.setState({ db });
+  };
+  refresh = () => {
+    const { user, screen, ptab } = this.state, QC = window.QuizCloud;
+    if (!QC || !user || this.dirty) return;
+    if (screen === 'home' || (screen === 'prof' && ptab !== 'qs')) QC.me().then(me => { if (!me) return; if (!me.prof) QC.flush().catch(() => {}); return this.loadFor(me); }).catch(() => {});
+  };
+  saveDb = () => {
+    if (!this.state.user || !this.state.user.prof) return;
+    this.dirty = true; clearTimeout(this.saveT);
+    this.saveT = setTimeout(() => { const { db } = this.state; window.QuizCloud.saveConfig(MOD, db.open, db.qedit).then(() => { this.dirty = false; }, e => { this.dirty = false; alert('Enregistrement impossible : ' + (e.message || e)); }); }, 500);
+  };
   setDb = fn => this.setState(st => { const db = clone(st.db); fn(db); return { db }; }, this.saveDb);
   setLf = p => this.setState(st => ({ lf: { ...st.lf, ...p } }));
   qsOf = sid => (this.state.db.qedit[sid] || SESS.find(s => s.id === sid).qs);
   ukey = u => u.cls + '/' + u.pseudo.toLowerCase();
 
-  login = () => {
-    const { lf, db } = this.state;
-    if (lf.tab === 'prof') {
-      if (lf.code.trim().toUpperCase() !== 'PROF-ACE') return this.setLf({ err: 'Code enseignant incorrect.' });
-      const user = { prof: true }; localStorage.setItem(USK, JSON.stringify(user));
-      return this.setState({ user, screen: 'prof', lf: { ...lf, err: '', code: '' } });
-    }
-    const cls = lf.cls.trim().toUpperCase(), pseudo = lf.pseudo.trim();
-    if (!cls) return this.setLf({ err: 'Indiquez le code de la classe.' });
-    if (!/^[\w\-]{3,16}$/.test(pseudo)) return this.setLf({ err: 'Pseudo : 3 à 16 caractères, lettres, chiffres ou tiret.' });
-    if (!/^\d{4}$/.test(lf.pin)) return this.setLf({ err: 'Le code secret fait 4 chiffres.' });
-    const k = cls + '/' + pseudo.toLowerCase(), ex = db.users[k];
-    if (ex && ex.pin !== lf.pin) return this.setLf({ err: 'Ce pseudo existe déjà dans cette classe avec un autre code.' });
-    if (!ex) this.setDb(d => { d.users[k] = { cls, pseudo, pin: lf.pin }; d.att[k] = d.att[k] || {}; });
-    const user = { cls, pseudo: ex ? ex.pseudo : pseudo }; localStorage.setItem(USK, JSON.stringify(user));
-    this.setState({ user, screen: 'home', lf: { ...lf, err: '', pin: '' } });
+  login = async () => {
+    const { lf } = this.state;
+    if (this.state.busy) return;
+    const fail = err => this.setState(st => ({ busy: false, lf: { ...st.lf, err } }));
+    try {
+      const QC = await QCw();
+      if (lf.tab === 'prof') {
+        if (!lf.email.trim() || !lf.code) return fail('Indiquez votre e-mail et votre mot de passe.');
+        this.setState({ busy: true });
+        const me = await QC.teacherLogin(lf.email.trim(), lf.code);
+        await this.loadFor(me);
+        return this.setState(st => ({ busy: false, user: { prof: true }, screen: 'prof', lf: { ...st.lf, err: '', code: '' } }));
+      }
+      const cls = lf.cls.trim().toUpperCase(), pseudo = lf.pseudo.trim();
+      if (!cls) return fail('Indiquez le code de la classe.');
+      if (!/^[\w\-]{3,16}$/.test(pseudo)) return fail('Pseudo : 3 à 16 caractères, lettres, chiffres ou tiret.');
+      if (!/^\d{4}$/.test(lf.pin)) return fail('Le code secret fait 4 chiffres.');
+      this.setState({ busy: true, lf: { ...lf, err: '' } });
+      const me = await QC.studentLogin(cls, pseudo, lf.pin, lf.nom.trim());
+      if (!me || me.prof) throw new Error('Connexion impossible.');
+      await this.loadFor(me);
+      this.setState(st => ({ busy: false, user: { cls: me.cls, pseudo: me.pseudo }, screen: 'home', lf: { ...st.lf, err: '', pin: '' } }));
+    } catch (e) { fail(e.message || 'Connexion impossible.'); }
   };
-  logout = () => { localStorage.removeItem(USK); this.setState({ user: null, screen: 'login', quiz: null }); };
+  logout = () => { if (window.QuizCloud) window.QuizCloud.logout(); this.setState({ user: null, screen: 'login', quiz: null, db: this.emptyDb() }); };
 
   atts = sid => ((this.state.db.att[this.ukey(this.state.user)] || {})[sid] || []);
 
@@ -551,6 +595,11 @@ class Component extends DCLogic {
     const tot = z.results.reduce((s, r) => s + r.score, 0), note = Math.round(tot / z.qs.length * 40) / 2, pts = z.results.reduce((s, r) => s + r.pts, 0);
     const k = this.ukey(this.state.user), prevBest = Math.max(-1, ...this.atts(z.sid).map(a => a.note));
     this.setDb(d => { d.att[k] = d.att[k] || {}; (d.att[k][z.sid] = d.att[k][z.sid] || []).push({ note, pts, training: z.training, date: Date.now() }); });
+    window.QuizCloud.addAttempt({ module: MOD, sid: z.sid, note, pts, training: z.training, scores: z.results.map(r => r.score) }).then(row => {
+      if (!row || row.training === z.training) return;
+      this.setDb(d => { const L = d.att[k][z.sid]; L[L.length - 1].training = row.training; });
+      this.setState(st => st.res ? { res: { ...st.res, training: row.training } } : null);
+    }).catch(() => {});
     this.setState({ screen: 'result', res: { sid: z.sid, note, pts, training: z.training, newBadge: note >= 14 && prevBest < 14, had: prevBest >= 14, lines: z.qs.map((q, i) => ({ q: q.q, score: z.results[i].score, pts: z.results[i].pts })) } });
   };
 
@@ -643,7 +692,7 @@ class Component extends DCLogic {
   }
   exportCsv = () => {
     const head = ['Pseudo', 'Classe', 'Nom', ...SESS.map((_, i) => 'Quiz S' + (i + 1)), 'Moyenne quiz'];
-    const lines = [head, ...this.rowsData().map(r => [r.u.pseudo, r.u.cls, this.state.noms[r.k] || '', ...r.notes.map(fr), fr(r.moy)].map(fr))];
+    const lines = [head, ...this.rowsData().map(r => [r.u.pseudo, r.u.cls, this.state.noms[r.k] || r.u.nom || '', ...r.notes.map(fr), fr(r.moy)].map(fr))];
     const csv = '\ufeff' + lines.map(l => l.map(c => '"' + String(c === '–' ? '' : c).replace(/"/g, '""') + '"').join(';')).join('\r\n');
     const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
     const el = document.createElement('a'); el.href = url; el.download = 'Quiz_InDesign_notes.csv'; document.body.appendChild(el); el.click(); el.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
@@ -658,7 +707,7 @@ class Component extends DCLogic {
       profTabs: tabs.map(([id, label]) => ({ label, bg: ptab === id ? '#fff' : 'transparent', onClick: () => this.setState({ ptab: id }) })),
       pt: { isRes: ptab === 'res', isSeances: ptab === 'seances', isQs: ptab === 'qs' },
       sessCols: SESS.map((_, i) => 'S' + (i + 1)),
-      rows: this.rowsData().map(r => ({ pseudo: r.u.pseudo, cls: r.u.cls, nom: noms[r.k] || '', onNom: e => this.setNom(r.k, e.target.value), moy: fr(r.moy),
+      rows: this.rowsData().map(r => ({ pseudo: r.u.pseudo, cls: r.u.cls, nom: noms[r.k] || r.u.nom || '', onNom: e => this.setNom(r.k, e.target.value), moy: fr(r.moy),
         notes: r.notes.map(n => ({ v: fr(n), fg: n == null ? '#c9c0e6' : n < 10 ? KO : INK })) })),
       openList: SESS.map((s, i) => { const on = !!db.open[s.id], n = Object.keys(db.users).filter(k => this.graded(k, s.id) != null).length;
         return { n: i + 1, t: s.t, info: (on ? 'Ouverte' : 'Fermée') + ' · ' + n + ' participation' + (n > 1 ? 's' : ''), track: on ? OK : '#c9c0e6', justify: on ? 'flex-end' : 'flex-start',
@@ -687,10 +736,10 @@ class Component extends DCLogic {
   renderVals() {
     const { screen, lf, user, db } = this.state;
     const base = {
-      isLogin: screen === 'login' || !db, isHome: db && screen === 'home', isQuiz: db && screen === 'quiz', isResult: db && screen === 'result', isProf: db && screen === 'prof',
+      isBoot: this.state.boot, isLogin: !this.state.boot && (screen === 'login' || !db), loginLabel: this.state.busy ? 'Connexion…' : 'Entrer', isHome: db && screen === 'home', isQuiz: db && screen === 'quiz', isResult: db && screen === 'result', isProf: db && screen === 'prof',
       lf, hasErr: !!lf.err, isTabEtu: lf.tab === 'etu', isTabProf: lf.tab === 'prof', tabEtuBg: lf.tab === 'etu' ? '#fff' : 'transparent', tabProfBg: lf.tab === 'prof' ? '#fff' : 'transparent',
       tabEtu: () => this.setLf({ tab: 'etu', err: '' }), tabProf: () => this.setLf({ tab: 'prof', err: '' }),
-      onCls: e => this.setLf({ cls: e.target.value }), onPseudo: e => this.setLf({ pseudo: e.target.value }), onPin: e => { const AZ = { '&': '1', 'é': '2', '"': '3', "'": '4', '(': '5', '§': '6', '-': '6', 'è': '7', '!': '8', '_': '8', 'ç': '9', 'à': '0' }; this.setLf({ pin: [...e.target.value].map(c => AZ[c] || c).join('').replace(/\D/g, '').slice(0, 4) }); }, onCode: e => this.setLf({ code: e.target.value }),
+      onCls: e => this.setLf({ cls: e.target.value }), onPseudo: e => this.setLf({ pseudo: e.target.value }), onPin: e => { const AZ = { '&': '1', 'é': '2', '"': '3', "'": '4', '(': '5', '§': '6', '-': '6', 'è': '7', '!': '8', '_': '8', 'ç': '9', 'à': '0' }; this.setLf({ pin: [...e.target.value].map(c => AZ[c] || c).join('').replace(/\D/g, '').slice(0, 4) }); }, onCode: e => this.setLf({ code: e.target.value }), onEmail: e => this.setLf({ email: e.target.value }), onNomEtu: e => this.setLf({ nom: e.target.value }),
       login: this.login, logout: this.logout, demoEtu: () => this.setLf({ cls: 'B2-EIDM', pseudo: 'demo', pin: '0000', err: '' }),
       goHome: () => this.setState({ screen: 'home' }), quit: () => { if (confirm('Quitter la partie ? Elle ne sera pas enregistrée.')) this.setState({ screen: 'home', quiz: null }); },
       user: user || {}, exportCsv: this.exportCsv,

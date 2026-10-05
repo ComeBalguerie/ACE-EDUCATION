@@ -86,8 +86,8 @@ input,button,select,textarea{font-family:inherit}
 
     <div style="display:flex;flex-direction:column;gap:18px;background:#c6f432;color:#17131f;border-radius:22px;padding:24px;border:2px solid #17131f;box-shadow:5px 5px 0 #17131f">
       <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
-        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:34px;line-height:1">Infographie</div>
-        <div style="font-size:13px;font-weight:600">Dossier et planche de concours · 6 séances</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:34px;line-height:1">Portfolio</div>
+        <div style="font-size:13px;font-weight:600">Portfolio, réseaux et pitch · 4 séances</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:8px">
         <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600"><span>{{ prog.label }}</span><span>{{ prog.points }} pts</span></div>
@@ -96,7 +96,7 @@ input,button,select,textarea{font-family:inherit}
         </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:14px 8px">
-        <sc-for list="{{ badges }}" as="b" hint-placeholder-count="6">
+        <sc-for list="{{ badges }}" as="b" hint-placeholder-count="4">
           <div style="display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center">
             <div style="width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:19px;background:{{ b.bg }};border:1.5px {{ b.border }};color:{{ b.fg }}">{{ b.mark }}</div>
             <div style="font-size:11px;line-height:1.25;color:{{ b.label }}">{{ b.name }}</div>
@@ -107,7 +107,7 @@ input,button,select,textarea{font-family:inherit}
 
     <div style="display:flex;flex-direction:column;gap:10px">
       <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5d5670;font-weight:600">Séances</div>
-      <sc-for list="{{ sessions }}" as="s" hint-placeholder-count="6">
+      <sc-for list="{{ sessions }}" as="s" hint-placeholder-count="4">
         <div style="display:flex;align-items:center;gap:14px;background:#fff;border-radius:14px;padding:14px 16px;border:2px solid #17131f;box-shadow:4px 4px 0 #17131f;opacity:{{ s.op }}">
           <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:26px;width:34px;color:#ff3d7f">{{ s.n }}</div>
           <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
@@ -134,7 +134,7 @@ input,button,select,textarea{font-family:inherit}
         </div>
       </div>
       <div style="display:flex;gap:4px">
-        <sc-for list="{{ qz.dots }}" as="d" hint-placeholder-count="6">
+        <sc-for list="{{ qz.dots }}" as="d" hint-placeholder-count="4">
           <div style="flex:1;height:8px;border-radius:99px;background:{{ d.bg }}"></div>
         </sc-for>
       </div>
@@ -249,7 +249,7 @@ input,button,select,textarea{font-family:inherit}
       <div style="font-size:14px;color:#5d5670;text-align:center">Le badge « {{ res.badgeName }} » s'obtient à partir de 14/20. Rejouez pour l'obtenir : seule votre première note compte pour le contrôle continu.</div>
     </sc-if>
     <div style="display:flex;flex-direction:column;gap:6px">
-      <sc-for list="{{ res.lines }}" as="ln" hint-placeholder-count="6">
+      <sc-for list="{{ res.lines }}" as="ln" hint-placeholder-count="4">
         <div style="display:flex;gap:12px;align-items:center;padding:10px 14px;background:#fff;border-radius:10px;border:2px solid #17131f;box-shadow:4px 4px 0 #17131f;font-size:14px">
           <span style="flex:none;width:22px;height:22px;border-radius:50%;background:{{ ln.bg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">{{ ln.mark }}</span>
           <span style="flex:1;min-width:0;line-height:1.35">{{ ln.q }}</span>
@@ -269,7 +269,7 @@ input,button,select,textarea{font-family:inherit}
     <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
       <div style="display:flex;flex-direction:column;gap:2px">
         <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#ff3d7f;font-weight:600">Espace enseignant</div>
-        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:32px;line-height:1.1">Infographie · Quiz de fin de séance</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:32px;line-height:1.1">Portfolio · Quiz de fin de séance</div>
       </div>
       <button onClick="{{ logout }}" style="padding:8px 14px;border:1.5px solid #c9c0e6;border-radius:999px;background:none;font-size:13px;cursor:pointer;color:#17131f">Déconnexion</button>
     </div>
@@ -289,7 +289,7 @@ input,button,select,textarea{font-family:inherit}
           <div style="min-width:860px;display:flex;flex-direction:column">
             <div style="display:grid;grid-template-columns:minmax(110px,1fr) 90px minmax(150px,1.3fr) repeat(6,58px) 70px;gap:8px;padding:12px 16px;font-size:12px;font-weight:600;color:#5d5670;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #d9d2ef">
               <div>Pseudo</div><div>Classe</div><div>Nom (local)</div>
-              <sc-for list="{{ sessCols }}" as="c" hint-placeholder-count="6"><div style="text-align:center">{{ c }}</div></sc-for>
+              <sc-for list="{{ sessCols }}" as="c" hint-placeholder-count="4"><div style="text-align:center">{{ c }}</div></sc-for>
               <div style="text-align:right">Moy.</div>
             </div>
             <sc-for list="{{ rows }}" as="r" hint-placeholder-count="5">
@@ -297,7 +297,7 @@ input,button,select,textarea{font-family:inherit}
                 <div style="font-weight:600">{{ r.pseudo }}</div>
                 <div style="font-size:12px;color:#5d5670">{{ r.cls }}</div>
                 <input value="{{ r.nom }}" onChange="{{ r.onNom }}" placeholder="NOM Prénom" style="padding:7px 9px;border:1px solid #d9d2ef;border-radius:7px;font-size:13px;background:#faf8ff;min-width:0">
-                <sc-for list="{{ r.notes }}" as="nt" hint-placeholder-count="6"><div style="text-align:center;font-variant-numeric:tabular-nums;color:{{ nt.fg }}">{{ nt.v }}</div></sc-for>
+                <sc-for list="{{ r.notes }}" as="nt" hint-placeholder-count="4"><div style="text-align:center;font-variant-numeric:tabular-nums;color:{{ nt.fg }}">{{ nt.v }}</div></sc-for>
                 <div style="text-align:right;font-weight:600;font-variant-numeric:tabular-nums">{{ r.moy }}</div>
               </div>
             </sc-for>
@@ -309,7 +309,7 @@ input,button,select,textarea{font-family:inherit}
     <sc-if value="{{ pt.isSeances }}" hint-placeholder-val="{{ false }}">
       <div style="display:flex;flex-direction:column;gap:10px;max-width:720px">
         <div style="font-size:14px;color:#5d5670;line-height:1.5">Ouvrez le quiz à la fin de chaque séance. Une séance fermée reste visible mais ne peut pas être jouée.</div>
-        <sc-for list="{{ openList }}" as="o" hint-placeholder-count="6">
+        <sc-for list="{{ openList }}" as="o" hint-placeholder-count="4">
           <div style="display:flex;align-items:center;gap:14px;background:#fff;border-radius:12px;padding:12px 16px;border:2px solid #17131f;box-shadow:4px 4px 0 #17131f">
             <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:24px;width:30px;color:#ff3d7f">{{ o.n }}</div>
             <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><div style="font-size:15px;font-weight:600">{{ o.t }}</div><div style="font-size:13px;color:#5d5670">{{ o.info }}</div></div>
@@ -322,7 +322,7 @@ input,button,select,textarea{font-family:inherit}
     <sc-if value="{{ pt.isQs }}" hint-placeholder-val="{{ false }}">
       <div style="display:flex;flex-direction:column;gap:16px;max-width:820px">
         <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <sc-for list="{{ edSess }}" as="es" hint-placeholder-count="6">
+          <sc-for list="{{ edSess }}" as="es" hint-placeholder-count="4">
             <button onClick="{{ es.onClick }}" style="padding:8px 14px;border-radius:999px;border:1.5px solid {{ es.bd }};background:{{ es.bg }};color:{{ es.fg }};font-size:13px;font-weight:600;cursor:pointer">S{{ es.n }}</button>
           </sc-for>
         </div>
@@ -397,8 +397,8 @@ input,button,select,textarea{font-family:inherit}
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
-const DBK = 'quiz-infographie-v1', USK = 'quiz-infographie-user', NOMK = 'quiz-infographie-noms-local';
-const MOD = 'infographie';
+const DBK = 'quiz-portfolio-v1', USK = 'quiz-portfolio-user', NOMK = 'quiz-portfolio-noms-local';
+const MOD = 'portfolio';
 const QCw = () => window.QuizCloud ? Promise.resolve(window.QuizCloud) : new Promise(r => { const t = setInterval(() => { if (window.QuizCloud) { clearInterval(t); r(window.QuizCloud); } }, 50); });
 const ACC = '#ff3d7f', INK = '#17131f', OK = '#1f8a4c', OKBG = '#dcf8c6', KO = '#d6361f', KOBG = '#ffe1d8', LINE = '#d9d2ef';
 const TLIM = 30;
@@ -444,488 +444,415 @@ const DIA = {
 const SESS = [
  {
   "id": "s1",
-  "t": "Fondamentaux de la mise en page",
-  "badge": "Modulor",
+  "t": "Identité créative",
+  "badge": "Storyteller",
   "qs": [
    {
-    "type": "zone",
-    "mode": "place",
-    "dia": "margins",
-    "q": "Touchez le blanc de tête.",
-    "a": [
-     "tete"
-    ],
-    "why": "Le blanc de tête est la marge du haut. Petit fond côté reliure, grand fond à l’extérieur, blanc de pied en bas."
-   },
-   {
     "type": "qcm",
-    "q": "Quel est le rapport des formats ISO A ?",
+    "q": "Qui a popularisé l’idée de « marque personnelle » avec l’article « The Brand Called You » (1997) ?",
     "opts": [
-     "1:√2",
-     "2:3",
-     "3:4",
-     "1:1,618"
+     "William Arruda",
+     "Simon Sinek",
+     "Tom Peters",
+     "Philip Kotler"
     ],
-    "a": 0,
-    "why": "Plier une feuille en deux donne le format suivant, aux mêmes proportions."
-   },
-   {
-    "type": "match",
-    "q": "Associez chaque format à ses dimensions.",
-    "pairs": [
-     [
-      "A4",
-      "210 × 297 mm"
-     ],
-     [
-      "A3",
-      "297 × 420 mm"
-     ],
-     [
-      "A2",
-      "420 × 594 mm"
-     ],
-     [
-      "A1",
-      "594 × 841 mm"
-     ]
-    ],
-    "why": "L’A1 est le format de la planche de concours."
+    "a": 2,
+    "why": "Tom Peters, dans Fast Company, en 1997. Arruda a développé la méthode ensuite."
    },
    {
     "type": "vf",
-    "q": "L’A0 mesure 1 m².",
-    "a": true,
-    "why": "841 × 1189 mm."
+    "q": "Pour William Arruda, une marque personnelle forte s’invente de toutes pièces.",
+    "a": false,
+    "why": "Au contraire : les marques solides se découvrent. On cherche ce qui est déjà là et on le rend visible."
    },
    {
     "type": "qcm",
-    "q": "À quoi sert la grille de ligne de base ?",
+    "q": "Laquelle de ces phrases de positionnement est la plus efficace ?",
     "opts": [
-     "Aligner les lignes de texte d’une colonne à l’autre",
-     "Placer les images",
-     "Numéroter les pages",
-     "Régler les fonds perdus"
-    ],
-    "a": 0,
-    "why": "Toutes les lignes tombent sur le même pas."
-   },
-   {
-    "type": "qcm",
-    "q": "2 marges de 13,5 mm, 6 colonnes de 40 mm, 5 gouttières de 6 mm : quelle largeur ?",
-    "opts": [
-     "210 mm",
-     "297 mm",
-     "420 mm",
-     "280 mm"
+     "Je suis un designer passionné, créatif et polyvalent.",
+     "Je suis designer d’espace et je conçois des boutiques éphémères pour la mode, en matériaux de réemploi.",
+     "Je maîtrise SketchUp, Rhino, Photoshop et InDesign.",
+     "J’aime créer depuis toute petite."
     ],
     "a": 1,
-    "why": "27 + 240 + 30 = 297 mm : un A4 paysage."
+    "why": "Elle dit la spécialité, ce que l’on fait, pour qui, et ce qui distingue. Sans adjectif creux."
+   },
+   {
+    "type": "order",
+    "q": "Remettez dans l’ordre les quatre temps du storytelling personnel.",
+    "items": [
+     "Le déclic",
+     "Le parcours",
+     "Ce qui me guide",
+     "Où je vais"
+    ],
+    "why": "D’où vient l’envie, les étapes, la conviction, puis ce que l’on cherche maintenant."
+   },
+   {
+    "type": "match",
+    "q": "Associez chaque zone de la fenêtre de Johari à sa définition.",
+    "pairs": [
+     [
+      "Zone publique",
+      "Connu de moi et des autres"
+     ],
+     [
+      "Angle mort",
+      "Vu par les autres, ignoré de moi"
+     ],
+     [
+      "Zone cachée",
+      "Connu de moi, caché aux autres"
+     ],
+     [
+      "Zone inconnue",
+      "Ignoré de tous"
+     ]
+    ],
+    "why": "L’exercice image voulue / image perçue sert à découvrir l’angle mort."
    },
    {
     "type": "qcm",
-    "q": "Le Modulor (1948) est un système de proportions de…",
+    "q": "Quelle longueur viser pour une bio courte (Instagram, Behance) ?",
     "opts": [
-     "Le Corbusier",
-     "Mies van der Rohe",
-     "Jean Prouvé",
-     "Charlotte Perriand"
+     "Environ 1 000 signes",
+     "Une page",
+     "Un seul mot",
+     "Environ 300 signes"
+    ],
+    "a": 3,
+    "why": "300 signes pour la bio courte, environ 1 000 pour la bio longue."
+   },
+   {
+    "type": "vf",
+    "q": "Toute compétence annoncée doit pouvoir être prouvée par un projet du portfolio.",
+    "a": true,
+    "why": "C’est la règle de preuve. Les barres de niveau du type « Photoshop ●●●●○ » ne prouvent rien."
+   },
+   {
+    "type": "qcm",
+    "q": "Selon Arruda, où se trouve réellement votre marque ?",
+    "opts": [
+     "Dans l’esprit des gens qui vous connaissent",
+     "Dans votre logo",
+     "Dans votre CV",
+     "Dans le nombre de vos abonnés"
     ],
     "a": 0,
-    "why": "La mesure du corps appliquée à l’espace."
+    "why": "Sans retour extérieur, on n’a que la moitié de l’image. D’où l’intérêt de demander aux autres ce qu’ils perçoivent."
    }
   ]
  },
  {
   "id": "s2",
-  "t": "Typographie et lisibilité",
-  "badge": "Typographe",
+  "t": "Portfolio cohérent et impactant",
+  "badge": "Curateur",
   "qs": [
    {
     "type": "qcm",
-    "q": "Combien de signes par ligne pour une lecture confortable ?",
+    "q": "Combien de projets viser dans un portfolio de fin de B3 ?",
     "opts": [
-     "30",
-     "Environ 60",
-     "90",
-     "120"
+     "2 ou 3",
+     "6 à 10",
+     "15 à 20",
+     "Tous les projets réalisés"
     ],
     "a": 1,
-    "why": "C’est ce que montre l’exercice en 30, 60 et 90 signes."
+    "why": "Un projet faible fait baisser l’impression d’ensemble. Mieux vaut 6 projets forts que 12 inégaux."
+   },
+   {
+    "type": "qcm",
+    "q": "Où placer son projet le plus fort ?",
+    "opts": [
+     "Au milieu",
+     "En dernier",
+     "Peu importe",
+     "En ouverture"
+    ],
+    "a": 3,
+    "why": "On ouvre avec le plus fort et on termine avec le deuxième plus fort."
+   },
+   {
+    "type": "order",
+    "q": "Remettez dans l’ordre la présentation d’un projet.",
+    "items": [
+     "Image d’ouverture",
+     "Contexte et demande",
+     "Problématique",
+     "Process",
+     "Résultat"
+    ],
+    "why": "On donne envie, on situe, on pose la question, on montre le cheminement, puis la réponse."
    },
    {
     "type": "match",
-    "q": "Associez chaque famille à un caractère.",
+    "q": "Associez chaque lettre de la méthode STAR à son contenu.",
     "pairs": [
      [
-      "Garalde",
-      "Garamond"
+      "S · Situation",
+      "Le contexte du projet"
      ],
      [
-      "Didone",
-      "Bodoni"
+      "T · Tâche",
+      "Ce qui était demandé"
      ],
      [
-      "Linéale",
-      "Univers"
+      "A · Action",
+      "Ce que j’ai fait"
      ],
      [
-      "Mécane",
-      "Rockwell"
+      "R · Résultat",
+      "Ce que ça a donné"
      ]
     ],
-    "why": "La classification Vox-ATypI (Gautier p. 51)."
+    "why": "Méthode d’entretien d’embauche, utile pour rédiger chaque projet."
    },
    {
     "type": "vf",
-    "q": "Une seule famille bien déclinée peut suffire à tout un dossier.",
+    "q": "Le process (croquis, maquettes, essais) est secondaire : seules les images finales comptent.",
+    "a": false,
+    "why": "Le recruteur veut comprendre comment vous pensez. Le process est souvent la partie la plus regardée."
+   },
+   {
+    "type": "qcm",
+    "q": "Quel poids maximum pour un portfolio PDF envoyé par mail ?",
+    "opts": [
+     "Environ 100 Mo",
+     "1 Go",
+     "Environ 10 Mo",
+     "Aucune limite"
+    ],
+    "a": 2,
+    "why": "Au-delà, le mail risque d’être bloqué ou de ne jamais être ouvert."
+   },
+   {
+    "type": "qcm",
+    "q": "Vous présentez un projet réalisé à trois. Que faire ?",
+    "opts": [
+     "Indiquer votre rôle et créditer les autres",
+     "Le présenter comme un projet personnel",
+     "Ne pas en parler",
+     "Retirer les noms des autres"
+    ],
+    "a": 0,
+    "why": "Le monde du design est petit. Créditer est une question d’éthique et de crédibilité."
+   },
+   {
+    "type": "vf",
+    "q": "La loi de Pareto appliquée au portfolio : quelques projets forts font l’essentiel de l’impression laissée.",
     "a": true,
-    "why": "L’Univers existe en 21 variantes."
-   },
-   {
-    "type": "qcm",
-    "q": "Quel style pour le texte sous une image ?",
-    "opts": [
-     "Chapô",
-     "Légende",
-     "Intertitre",
-     "Folio"
-    ],
-    "a": 1,
-    "why": "La légende a son propre style, proche de l’image."
-   },
-   {
-    "type": "qcm",
-    "q": "Dans quelle famille le contraste pleins/déliés est-il le plus fort ?",
-    "opts": [
-     "Didones",
-     "Linéales",
-     "Mécanes",
-     "Humanes"
-    ],
-    "a": 0,
-    "why": "Bodoni, Didot : contraste très marqué."
-   },
-   {
-    "type": "qcm",
-    "q": "Jean Widmer a conçu la signalétique…",
-    "opts": [
-     "Des autoroutes françaises et du Centre Pompidou",
-     "Du métro de Londres",
-     "Des JO de Munich",
-     "De l’aéroport de Schiphol"
-    ],
-    "a": 0,
-    "why": "Lire à distance et en mouvement."
+    "why": "Environ 80 % des résultats viennent de 20 % des efforts. On soigne en priorité les meilleurs projets."
    }
   ]
  },
  {
   "id": "s3",
-  "t": "Image et composition éditoriale",
-  "badge": "Iconographe",
+  "t": "Présence en ligne et réseau",
+  "badge": "Connecteur",
   "qs": [
    {
-    "type": "zone",
-    "mode": "erreur",
-    "dia": "spreadErr",
-    "q": "Trouvez l’erreur sur cette double-page.",
-    "a": [
-     "err"
+    "type": "match",
+    "q": "Associez les trois C d’Arruda à leur sens.",
+    "pairs": [
+     [
+      "Clarté",
+      "On comprend ce que vous faites"
+     ],
+     [
+      "Cohérence",
+      "Le même message partout"
+     ],
+     [
+      "Constance",
+      "Visible dans la durée"
+     ]
     ],
-    "why": "Un bloc de texte posé sur la reliure : il sera avalé par le pli."
+    "why": "Une grille d’audit simple : notez chaque profil de 1 à 3 sur chaque C."
    },
    {
     "type": "match",
-    "q": "Associez chaque image à son rôle.",
+    "q": "Associez chaque plateforme à son usage principal.",
     "pairs": [
      [
-      "Plan, coupe",
-      "Informer"
+      "LinkedIn",
+      "Recruteurs et entreprises"
      ],
      [
-      "Photo de site",
-      "Situer"
+      "Behance",
+      "Projets complets pour les studios"
      ],
      [
-      "Perspective, rendu",
-      "Faire ressentir"
+      "Instagram",
+      "Marques et grand public"
      ],
      [
-      "Échantillon de matière",
-      "Montrer la texture"
+      "Site personnel",
+      "Référence stable vers laquelle tout renvoie"
      ]
     ],
-    "why": "Chaque image du dossier a un rôle."
+    "why": "Un seul message, plusieurs formats."
    },
    {
     "type": "qcm",
-    "q": "Une bonne légende indique…",
+    "q": "Que veut dire Arruda par « être sélectivement célèbre » ?",
     "opts": [
-     "Quoi, où, échelle, crédit",
-     "Le titre du dossier",
-     "Le folio",
-     "Rien : l’image suffit"
+     "Avoir le plus d’abonnés possible",
+     "Être célèbre dans un seul pays",
+     "Être connu des bonnes personnes",
+     "Publier tous les jours"
     ],
-    "a": 0,
-    "why": "Proche de l’image, dans un style dédié."
+    "a": 2,
+    "why": "Il parle de communauté de marque : les bonnes personnes plutôt que le plus grand nombre."
    },
    {
     "type": "qcm",
-    "q": "Quels rapports image/image teste-t-on dans l’exercice ?",
+    "q": "Selon Granovetter (1973), d’où viennent le plus souvent les opportunités d’emploi ?",
     "opts": [
-     "Égalité, dominant/dominé, narration",
-     "Grand, moyen, petit",
-     "RVB, CMJN, gris",
-     "Plan, coupe, façade"
+     "Des amis proches",
+     "Des liens faibles (connaissances éloignées)",
+     "De la famille",
+     "Des offres d’emploi en ligne"
     ],
-    "a": 0,
-    "why": "Même grille, mêmes styles, trois compositions."
+    "a": 1,
+    "why": "Les connaissances éloignées ouvrent sur d’autres milieux et d’autres informations."
+   },
+   {
+    "type": "qcm",
+    "q": "Quel format pour un carrousel Instagram ?",
+    "opts": [
+     "1920 × 1080 px (16:9)",
+     "800 × 800 px",
+     "A4 portrait",
+     "1080 × 1350 px (4:5)"
+    ],
+    "a": 3,
+    "why": "Le 4:5 occupe le plus de place dans le fil. Garder le sujet au centre pour la grille du profil."
    },
    {
     "type": "vf",
-    "q": "Le chemin de fer se fait après la composition des pages.",
+    "q": "Mieux vaut publier dix posts la première semaine, puis s’arrêter, que publier une fois par semaine.",
     "a": false,
-    "why": "Il vient avant : c’est la vue d’ensemble qui organise le dossier."
+    "why": "C’est la constance qui compte. Un compte abandonné fait plus mauvaise impression qu’un compte discret mais régulier."
    },
    {
     "type": "qcm",
-    "q": "La Case Study House #22 (1960) a été photographiée par…",
+    "q": "Quel est le meilleur premier message à une agence que vous ne connaissez pas ?",
     "opts": [
-     "Julius Shulman",
-     "Ezra Stoller",
-     "Hélène Binet",
-     "Iwan Baan"
+     "Se présenter en une ligne, citer un de leurs projets, demander 15 min d’échange",
+     "Demander directement un stage",
+     "Envoyer le même message à cinquante agences",
+     "Envoyer seulement le portfolio sans texte"
     ],
     "a": 0,
-    "why": "La photographie qui construit l’image d’une architecture."
+    "why": "Personnalisé, court, une demande claire et limitée. Demander un conseil ouvre plus de portes."
+   },
+   {
+    "type": "order",
+    "q": "Remettez dans l’ordre le modèle AIDA pour une publication.",
+    "items": [
+     "Attention",
+     "Intérêt",
+     "Désir",
+     "Action"
+    ],
+    "why": "L’image et l’accroche, ce que ça montre, pourquoi c’est singulier, puis l’appel à l’action."
    }
   ]
  },
  {
   "id": "s4",
-  "t": "Identité graphique et planche de concours",
-  "badge": "Concours",
+  "t": "Pitch personnel et réalisation",
+  "badge": "Pitcheur",
   "qs": [
    {
     "type": "order",
-    "q": "Remettez dans l’ordre la lecture d’une planche de concours.",
+    "q": "Remettez dans l’ordre la structure du pitch.",
     "items": [
-     "De loin : titre et image principale",
-     "À un mètre : plans et coupes",
-     "De près : textes et légendes"
+     "L’accroche",
+     "La preuve",
+     "La singularité",
+     "La demande"
     ],
-    "why": "La planche se lit en trois temps."
+    "why": "Qui je suis, un projet qui le montre, ce que j’apporte, ce que je cherche."
    },
    {
     "type": "qcm",
-    "q": "Quel format pour la planche de concours ?",
+    "q": "Combien de mots environ pour un pitch oral de 90 secondes ?",
     "opts": [
-     "A3 paysage",
-     "A1 portrait",
-     "A2 paysage",
-     "A0 portrait"
+     "50",
+     "200",
+     "500",
+     "1 000"
     ],
     "a": 1,
-    "why": "594 × 841 mm."
+    "why": "À l’oral, on parle à environ 130 à 150 mots par minute."
    },
    {
     "type": "qcm",
-    "q": "Quelle part de la surface pour l’image principale ?",
+    "q": "Le format PechaKucha, c’est…",
     "opts": [
-     "10 à 15 %",
-     "35 à 40 %",
-     "70 %",
-     "5 %"
+     "10 images d’une minute",
+     "Un pitch d’une seule phrase",
+     "Une vidéo de 90 secondes",
+     "20 images de 20 secondes chacune"
     ],
-    "a": 1,
-    "why": "Titre 10 à 15 %, image principale 35 à 40 %."
+    "a": 3,
+    "why": "Créé à Tokyo en 2003 par les architectes Klein et Dytham : 6 minutes 40 au total."
    },
    {
     "type": "vf",
-    "q": "La couverture et les pages intérieures partagent les mêmes règles de charte.",
-    "a": true,
-    "why": "Gautier p. 186–187."
-   },
-   {
-    "type": "match",
-    "q": "Associez chaque élément de la charte.",
-    "pairs": [
-     [
-      "Palette",
-      "2 à 3 couleurs et des neutres"
-     ],
-     [
-      "Typographie",
-      "Issue de la séance 2"
-     ],
-     [
-      "Grille",
-      "Organise toutes les pages"
-     ],
-     [
-      "Pictogrammes",
-      "Même trait, même style"
-     ]
-    ],
-    "why": "Une charte est un ensemble de règles."
-   },
-   {
-    "type": "qcm",
-    "q": "Wim Crouwel a fait de la grille l’identité du…",
-    "opts": [
-     "Stedelijk Museum Amsterdam",
-     "MoMA",
-     "Centre Pompidou",
-     "Bauhaus de Dessau"
-    ],
-    "a": 0,
-    "why": "La grille comme identité."
-   }
-  ]
- },
- {
-  "id": "s5",
-  "t": "Chaîne de production",
-  "badge": "Fabricant",
-  "qs": [
-   {
-    "type": "qcm",
-    "q": "Quel PDF pour l’imprimeur ?",
-    "opts": [
-     "PDF/X-4",
-     "PDF écran",
-     "JPEG",
-     "PNG"
-    ],
-    "a": 0,
-    "why": "Avec fonds perdus et repères."
-   },
-   {
-    "type": "match",
-    "q": "Associez chaque problème à sa correction.",
-    "pairs": [
-     [
-      "Images RVB basse définition",
-      "Remplacer et convertir"
-     ],
-     [
-      "Police manquante",
-      "Installer ou remplacer"
-     ],
-     [
-      "Pas de fond perdu",
-      "Étendre les images de 3 mm"
-     ],
-     [
-      "Texte noir en quadri",
-      "Passer en 100 % K"
-     ]
-    ],
-    "why": "Les pièges du fichier fourni en exercice."
-   },
-   {
-    "type": "vf",
-    "q": "Fichier › Assemblage rassemble le document, ses liens et ses polices.",
-    "a": true,
-    "why": "C’est ce dossier qu’on transmet."
-   },
-   {
-    "type": "order",
-    "q": "Remettez dans l’ordre les phases d’un projet imprimé.",
-    "items": [
-     "Brief et contraintes",
-     "Recherche",
-     "Chemin de fer et maquette",
-     "Conception détaillée",
-     "Préparation des fichiers",
-     "Impression et vérification"
-    ],
-    "why": "Du fichier à l’objet."
-   },
-   {
-    "type": "qcm",
-    "q": "Pourquoi imprimer une double-page test à 100 % ?",
-    "opts": [
-     "Vérifier la taille réelle du texte et des images",
-     "Économiser l’encre",
-     "Tester le RVB",
-     "Pour l’archive"
-    ],
-    "a": 0,
-    "why": "L’écran trompe sur les tailles."
-   },
-   {
-    "type": "qcm",
-    "q": "Irma Boom est connue pour…",
-    "opts": [
-     "Des livres où la fabrication fait partie du projet",
-     "Des affiches de cinéma",
-     "Des logos",
-     "La photographie"
-    ],
-    "a": 0,
-    "why": "La fabrication comme partie du projet."
-   }
-  ]
- },
- {
-  "id": "s6",
-  "t": "Présentation et soutenance",
-  "badge": "Orateur",
-  "qs": [
-   {
-    "type": "vf",
-    "q": "« J’ai mis une grande image à gauche » est une argumentation.",
+    "q": "Un bon pitch récite son parcours dans l’ordre chronologique.",
     "a": false,
-    "why": "C’est une description. « L’image domine parce que l’ambiance est le cœur du projet » est un argument."
+    "why": "Le pitch ne raconte pas tout : il donne envie d’en savoir plus."
    },
    {
-    "type": "order",
-    "q": "Remettez dans l’ordre la structure de la présentation.",
-    "items": [
-     "Le projet en une phrase",
-     "Le parti pris graphique",
-     "Un choix difficile et pourquoi",
-     "Ce qu’on referait autrement"
+    "type": "match",
+    "q": "Associez chaque version du pitch à sa situation.",
+    "pairs": [
+     [
+      "Une phrase",
+      "Salon ou vernissage"
+     ],
+     [
+      "90 secondes",
+      "Début d’entretien, jury"
+     ],
+     [
+      "4 à 5 lignes écrites",
+      "Message LinkedIn ou mail"
+     ]
     ],
-    "why": "5 minutes, puis 2 minutes de questions."
+    "why": "On prépare les trois versions à l’avance."
    },
    {
     "type": "qcm",
-    "q": "Combien de temps dure la présentation ?",
+    "q": "Que faire avant d’envoyer son portfolio à un recruteur ?",
     "opts": [
-     "2 minutes",
-     "5 minutes",
-     "15 minutes",
-     "30 minutes"
+     "Supprimer son compte LinkedIn",
+     "Changer de pseudo partout",
+     "Taper son nom dans Google en navigation privée",
+     "Rien de particulier"
     ],
-    "a": 1,
-    "why": "Suivie de 2 minutes de questions."
+    "a": 2,
+    "why": "Le recruteur le fera. Autant savoir ce qu’il va trouver."
+   },
+   {
+    "type": "vf",
+    "q": "La troisième répétition à voix haute est généralement meilleure que la première.",
+    "a": true,
+    "why": "Un pitch se répète à voix haute, pas dans sa tête."
    },
    {
     "type": "qcm",
-    "q": "Argumenter, c’est…",
+    "q": "Quel est le titre de l’ouvrage de William Arruda cité dans le syllabus ?",
     "opts": [
-     "Expliquer pourquoi un choix sert le projet",
-     "Décrire ce qu’on voit",
-     "Lire son texte",
-     "Montrer toutes les pages"
+     "Digital You",
+     "Start with Why",
+     "Show Your Work!",
+     "La boîte à outils du Personal Branding"
     ],
     "a": 0,
-    "why": "Le jury voit déjà la page : il veut comprendre l’intention."
-   },
-   {
-    "type": "qcm",
-    "q": "S,M,L,XL (1995) est le livre de…",
-    "opts": [
-     "OMA et Bruce Mau",
-     "Le Corbusier",
-     "Irma Boom",
-     "Wim Crouwel"
-    ],
-    "a": 0,
-    "why": "Le livre comme manifeste d’agence."
+    "why": "Digital You: Real Personal Branding in the Virtual Age (2019). Le second ouvrage est celui de Moran et Van Laethem (Dunod, 2021)."
    }
   ]
  }
@@ -1124,7 +1051,7 @@ class Component extends DCLogic {
     return {
       prog: { label: done + ' séance' + (done > 1 ? 's' : '') + ' sur ' + SESS.length, pct: (done / SESS.length * 100) + '%', points: sess.reduce((t, x) => t + x.bestPts, 0) },
       badges: [...sess.map(x => ({ mark: 'S' + (x.i + 1), name: x.s.badge, bg: x.badge ? ACC : 'rgba(255,255,255,.5)', border: x.badge ? 'solid ' + INK : 'dashed ' + INK, fg: INK, label: INK })),
-        { mark: 'IG', name: 'Éditeur', bg: all ? INK : 'rgba(255,255,255,.5)', border: 'solid ' + INK, fg: all ? '#c6f432' : INK, label: INK }],
+        { mark: 'PF', name: 'Portfolio complet', bg: all ? INK : 'rgba(255,255,255,.5)', border: 'solid ' + INK, fg: all ? '#c6f432' : INK, label: INK }],
       sessions: sess.map(x => ({ n: x.i + 1, t: x.s.t, op: x.open ? 1 : 0.55,
         status: !x.open ? 'Pas encore ouverte' : !x.graded ? 'À faire · ' + this.qsOf(x.s.id).length + ' questions' : 'Note CC ' + fr(x.graded.note) + '/20' + (x.best > x.graded.note ? ' · meilleur ' + fr(x.best) : ''),
         canPlay: x.open, btn: x.graded ? 'Rejouer' : 'Jouer', btnBg: x.graded ? '#fff' : ACC, btnFg: INK, play: () => this.start(x.s.id) }))
@@ -1151,7 +1078,7 @@ class Component extends DCLogic {
     const lines = [head, ...this.rowsData().map(r => [r.u.pseudo, r.u.cls, this.state.noms[r.k] || r.u.nom || '', ...r.notes.map(fr), fr(r.moy)].map(fr))];
     const csv = '\ufeff' + lines.map(l => l.map(c => '"' + String(c === '–' ? '' : c).replace(/"/g, '""') + '"').join(';')).join('\r\n');
     const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
-    const el = document.createElement('a'); el.href = url; el.download = 'Quiz_Infographie_notes.csv'; document.body.appendChild(el); el.click(); el.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    const el = document.createElement('a'); el.href = url; el.download = 'Quiz_Portfolio_notes.csv'; document.body.appendChild(el); el.click(); el.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
   editQs = fn => { const sid = this.state.edS; this.setDb(d => { d.qedit[sid] = d.qedit[sid] || clone(SESS.find(s => s.id === sid).qs); fn(d.qedit[sid]); }); };
 

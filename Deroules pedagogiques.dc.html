@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><style>body{margin:0;background:#f3f0e8;color:#1d1c1a;font-family:'IBM Plex Sans',sans-serif}a{color:#1d1c1a}a:hover{color:#6b675e}</style></helmet>
+<div style="max-width:980px;margin:0 auto;padding:40px 24px 80px;display:flex;flex-direction:column;gap:28px">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <a href="Sommaire.dc.html" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none">← Sommaire</a>
+    <h1 style="margin:0;font-size:34px;font-weight:600;letter-spacing:-.01em">Déroulés pédagogiques 2026-27</h1>
+    <p style="margin:0;max-width:640px;line-height:1.55;color:#4a4740;text-wrap:pretty">Les champs suivent l'ordre du formulaire Qualtrics. Copiez chaque bloc dans la case du même nom, un module et une école à la fois. Sept modules. Les cases « Objectif séance » au-delà du nombre de séances restent vides.</p>
+  </header>
+  <nav style="display:flex;flex-wrap:wrap;gap:8px">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6">
+      <button onClick="{{ t.go }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 14px;border:1px solid #1d1c1a;background:{{ t.bg }};color:{{ t.fg }};font:inherit;cursor:pointer;text-align:left">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase">{{ t.school }}</span>
+        <span style="font-size:14px;font-weight:500">{{ t.name }}</span>
+      </button>
+    </sc-for>
+  </nav>
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:flex-end;border-bottom:2px solid #1d1c1a;padding-bottom:12px">
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">{{ m.school }} · {{ m.programme }}</span>
+        <h2 style="margin:0;font-size:26px;font-weight:600">{{ m.module }}</h2>
+      </div>
+      <button onClick="{{ copyAll }}" style="padding:9px 14px;background:#1d1c1a;color:#f3f0e8;border:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer">{{ copyAllLabel }}</button>
+    </div>
+    <sc-for list="{{ fields }}" as="f" hint-placeholder-count="8">
+      <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr) auto;gap:16px;align-items:start;padding:14px 0;border-bottom:1px solid #d6d1c4">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6b675e;padding-top:3px">{{ f.label }}</span>
+        <div style="white-space:pre-line;line-height:1.55;font-size:15px;text-wrap:pretty">{{ f.text }}</div>
+        <button onClick="{{ f.copy }}" style="padding:5px 10px;background:none;border:1px solid #1d1c1a;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer">{{ f.btn }}</button>
+      </div>
+    </sc-for>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const EVAL = (tech) => `Contrôle continu, deux notes sur 20 :
+• Note théorique : moyenne des quiz de fin de séance (QCM individuel, pseudo + code classe).
+• Note technique : ${tech}
+Barème communiqué en début de module, grille d'auto-évaluation remise à chaque séance. Sujet de rattrapage et variante disponibles.`;
+const MODS = [
+ {id:'couleur',school:'EIDM',programme:'B1 Fashion Business & Styling',module:'Fondamentaux de la couleur et culture visuelle',ue:'Communication mode & luxe',sem:'—',vol:'14 h présentiel · 2,75 h FOAD',prereq:'Aucun',
+  obj:`• Identifier les propriétés fondamentales de la couleur (teinte, valeur, saturation) et utiliser la nomenclature professionnelle (Pantone, NCS, cercle chromatique).
+• Décrire les effets psychologiques et symboliques de la couleur en contexte de mode, en tenant compte des variations culturelles.
+• Produire une palette colorielle cohérente et justifier ses choix au regard d'un positionnement de marque.
+• Présenter une analyse visuelle structurée d'un visuel de mode ou d'une campagne.`,
+  meth:'Ateliers pratiques, études de cas (maisons de mode), critique collective.',
+  tech:'palette et identité colorielle d\'une marque, présentée et justifiée oralement (S4).',
+  ses:[
+   ['Fondements physiques de la couleur','Lumière et perception ; teinte, valeur, saturation ; cercle chromatique ; systèmes Pantone, NCS, RVB, CMJN ; contrastes.','Cas Schiaparelli × Dalí. Atelier 1 : créer 3 palettes pour 3 positionnements.','3 palettes + justifications écrites'],
+   ['La couleur comme langage','Effets psychologiques, symbolique culturelle selon les marchés, codes saisonniers et palettes signature.','Cas YSL × Matisse. Atelier 2 : psychologie appliquée sur un brief de marque.','Palette argumentée pour le brief'],
+   ['La couleur au service de la marque','Couleurs institutionnelles, territoire chromatique, cohérence sur les supports.','Atelier 3 : créer l\'identité colorielle d\'une marque (projet).','Avancement du projet'],
+   ['Analyse et critique','Méthode d\'analyse visuelle d\'une campagne, vocabulaire professionnel.','Atelier 4 : présentations et critique collective.','Rendu final + soutenance']]},
+ {id:'photoshop',school:'EIDM',programme:'B1 Fashion Business & Styling',module:'Infographie : Photoshop et initiation InDesign',ue:'Communication mode & luxe',sem:'2',vol:'28 h présentiel (8 × 3 h 30) · 8 h FOAD',prereq:'Aucun',
+  obj:`Photoshop :
+• Maîtriser les outils de retouche et de correction d'image (nettoyage, recadrage, redressement).
+• Réaliser des détourages et montages photo avec les outils de sélection appropriés.
+• Composer un visuel structuré intégrant texte, image et hiérarchie graphique.
+• Appliquer la symbolique des couleurs et la typographie à une composition.
+• Préparer un fichier pour un imprimeur ou un webdesigner.
+Initiation InDesign :
+• Identifier l'interface et la logique du logiciel.
+• Distinguer les usages de Photoshop et d'InDesign.
+• Créer un document simple structuré sur une grille basique.`,
+  meth:'Workshops encadrés : apport théorique, cas d\'étude, atelier pratique, synthèse.',
+  tech:'communication de lancement d\'une collection (affiche, couverture de magazine, invitation InDesign) livrée en versions imprimeur et web. Exercices imposés S1 à S4 et flyer S7 : 30 % ; affiche et couverture : 35 % ; invitation : 15 % ; fichiers de sortie et présentation : 20 %.',
+  ses:[
+   ['Fondations : image, pixels, calques','Image matricielle et vectorielle, résolution, modes RVB/CMJN, formats, interface, calques, taille de l\'image et zone de travail.','Référence : Photoshop 1.0 (frères Knoll). Exercices imposés : planche de calques, une photo en trois formats. Lancement du fil rouge (moodboard).','Planche calques + 3 formats + moodboard'],
+   ['Cadrer, redresser, corriger','Recadrage, redressement, correction de perspective, règle des tiers ; calques de réglage (niveaux, courbes, teinte/saturation).','Référence : Avedon. Exercice imposé : harmoniser une série de 6 photos. Correction des photos de campagne.','Série harmonisée'],
+   ['Retouche et nettoyage d\'image','Correcteur localisé, correcteur, pièce, tampon, remplissage d\'après le contenu, gommes ; retouche non destructive ; éthique et loi de 2017.','Cas : retouche d\'un packshot. Exercice imposé : trois retouches. Nettoyage des photos de campagne.','Trois retouches avant/après'],
+   ['Sélections et détourage','Sélection d\'objet, sélection rapide, baguette magique, plume, mode masque, masques de fusion, sélectionner et masquer.','Référence : Hannah Höch. Exercice imposé : quatre détourages de difficulté croissante. Détourage des sujets de campagne.','Quatre détourages'],
+   ['Montage et composition : l\'affiche de campagne','Couleurs primaires, secondaires, complémentaires ; composition, hiérarchie, familles typographiques ; raccords lumière, couleur, netteté.','Référence : Guy Bourdin. Production de l\'affiche de campagne 40 × 60 cm.','Affiche de campagne'],
+   ['La couverture de magazine','Anatomie d\'une couverture, hiérarchie typographique, texte et styles de calque, sujet devant le titre.','Référence : Brodovitch. Cas : comparaison de trois couvertures. Production de la couverture.','Couverture de magazine'],
+   ['Initiation InDesign : l\'invitation','Rôles de Photoshop et d\'InDesign ; interface, document (format, marges, colonnes, fonds perdus), blocs texte et image, liens.','Exercice imposé : flyer A5. Production de l\'invitation recto verso.','Flyer + invitation'],
+   ['Préparer, exporter, présenter','Préparation imprimeur (CMJN, 300 ppi, fonds perdus, PDF/X-4, assemblage) et web (sRVB, dimensions, formats).','Exercice imposé : livraisons imprimeur et web des trois supports. Présentations orales, bilan du module.','Dossier final + présentation']]},
+ {id:'indesign',school:'EIDM',programme:'B2 Fashion Art Direction & Styling',module:'InDesign',ue:'Communication mode & luxe',sem:'1',vol:'21 h présentiel · 3,5 h FOAD',prereq:'Prépare au projet magazine',
+  obj:`• Acquérir les bases essentielles du logiciel InDesign.
+• Savoir envisager la composition d'un visuel.
+• Préparer les images pour les imprimeurs ou webdesigners.
+• Concevoir une maquette de magazine.
+• Structurer l'information visuellement (grilles, colonnes, marges, alignements).
+• Décliner une charte graphique éditoriale sur différents formats.
+• Construire une hiérarchie de lecture fluide.`,
+  meth:'Workshops encadrés, exercices techniques imposés, projet fil rouge, e-learning.',
+  tech:'maquette de magazine (projet fil rouge) exportée et soutenue (S6).',
+  ses:[
+   ['La grille comme fondation','Logique de grille (Müller-Brockmann), interface et logique de document, construction d\'une grille.','Démonstration, construction guidée, lancement du projet fil rouge.','Grille du projet'],
+   ['La typographie comme système','Principes typographiques dans InDesign, styles de paragraphe et caractère, gabarits de base.','Construction d\'un système typographique, application au projet.','Feuille de styles'],
+   ['L\'image et la composition','Gestion des images, composition texte-image, habillage.','Exercice imposé : composition de page. Application au projet.','Double page'],
+   ['Cohérence et gabarits avancés','Gabarits avancés, styles d\'objet.','Exercice imposé : gabarits multiples. Application au projet.','Gabarits du magazine'],
+   ['Automatisation et production','Bibliothèques CC, objets ancrés, vérification et nettoyage du document.','Exercice imposé : audit de document. Finalisation du projet.','Document contrôlé'],
+   ['Export et présentation','Export PDF impression et écran, chaîne de production.','Exports du projet, soutenance orale, bilan du module.','PDF + soutenance']]},
+ {id:'marque',school:'EIDM',programme:'B2 Fashion Art Direction & Styling',module:'Introduction à l\'image de marque',ue:'Mode & merchandising',sem:'2',vol:'14 h présentiel',prereq:'Aucun',
+  obj:`• Identifier les éléments constitutifs de l'image de marque (univers visuel, ton, codes esthétiques).
+• Distinguer image de marque et identité de marque dans une approche orientée perception consommateur.
+• Décrire comment une offre produit traduit une image de marque.
+• Analyser comment un point de vente matérialise une image de marque.
+• Repérer les écarts de cohérence entre image affichée et expression concrète sur les points de contact.`,
+  meth:'Cours magistral, étude de cas, analyse comparative de points de vente et de vitrines.',
+  tech:'brief de marque complet (Fleur de marque, cible, promesse, territoire visuel) présenté oralement (S4).',
+  ses:[
+   ['Pourquoi une marque existe','Marque : définition et limites ; valeurs et raison d\'être ; Golden Circle ; Fleur de marque.','Apports, application guidée, lancement du brief de marque, debrief collectif.','Racines du brief'],
+   ['Ce que la marque dit et ce que les gens entendent','Identité vs image ; positionnement et cible ; persona ; promesse de marque.','Exercices sur la tige de la Fleur, avancement du brief.','Positionnement + persona'],
+   ['La marque vécue','Identité verbale et visuelle, moodboard, territoire visuel, ton de voix.','Ateliers moodboard et ton de voix, avancement du brief.','Territoire visuel'],
+   ['La marque dans le temps','Image perçue, bad buzz et incohérence de marque, points de contact.','Finalisation du brief, présentations orales, bilan du module.','Brief final + soutenance']]},
+ {id:'illustrator',school:'ESDAC',programme:'B2 Design',module:'Illustrator Perfectionnement',ue:'Créativité et technique',sem:'1',vol:'14 h présentiel · 11 h FOAD',prereq:'Aucun en dehors de l\'admission',
+  obj:`• Manipuler les outils de dessin vectoriel avancés (Bézier, dégradés, motifs, symboles).
+• Organiser efficacement un fichier (calques, groupes, bibliothèques, styles).
+• Intégrer la typographie dans des compositions vectorielles (logos, titrages, systèmes de signes).
+• Utiliser les effets et filtres de manière contrôlée selon le support.
+• Préparer et exporter des fichiers compatibles print, web et autres outils Adobe.`,
+  meth:'Apports théoriques, ateliers pratiques, exercices techniques imposés, projet fil rouge, e-learning LinkedIn Learning (Maîtriser Illustrator).',
+  tech:'identité vectorielle (signe, logotype, pattern, pictogrammes) sur planche de présentation, exportée multi-support (S5).',
+  ses:[
+   ['Introduction et éducation du regard','Lecture du vectoriel, logique des courbes de Bézier.','Exercices Bézier, lancement du projet fil rouge.','Moodboard projet'],
+   ['Le trait parfait','Bézier approfondi, points de contrôle, alignement.','Exercice imposé : reproduire un logo au trait pur. Début du signe.','Logo redessiné'],
+   ['La forme complexe','Formes dynamiques, organisation du fichier, dégradés, motifs.','Exercice imposé : organisation et formes dynamiques. Pattern de marque.','Pattern'],
+   ['Typographie, pictogrammes et système de formes','Texte dans Illustrator, chemins de texte, système de pictogrammes.','Exercice imposé : typographie. Logotype et pictogrammes du projet.','Logotype + pictos'],
+   ['Production, export et présentation','Export et chaîne de production, liens avec Photoshop et InDesign.','Exercice imposé : export multi-support. Planche finale, présentations orales.','Planche + exports + soutenance']]},
+ {id:'infographie',school:'ESDAC',programme:'B3 Design d\'espace',module:'Infographie & édition',ue:'—',sem:'—',vol:'14 h présentiel (4 × 3 h 30)',prereq:'—',
+  obj:`• Construire une mise en page à partir d'un format, d'une grille et de marges justifiés.
+• Établir une hiérarchie typographique lisible.
+• Composer texte et image selon des rapports de proportion maîtrisés.
+• Préparer un document pour la chaîne graphique (logiciels, export, impression).`,
+  meth:'Cours magistral illustré (planches Gautier & Gautier), cas d\'étude, exercices pratiques, correction collective.',
+  tech:'projet final de mise en page éditoriale (S4).',
+  ses:[
+   ['Fondamentaux de la mise en page','Formats et proportions, grilles et construction modulaire, hiérarchie spatiale, marges.','Construction d\'une grille 3 colonnes, redécoupage d\'une maquette, correction collective.','Grille + layout'],
+   ['Typographie & traitement visuel','Hiérarchie typographique, paires de polices, échelle typographique, traitement de l\'image.','Analyse de pages, exercice de hiérarchie sur texte court.','Hiérarchie typographique'],
+   ['Composition & cas d\'étude','Principes de composition, analyse de maquettes réelles.','Cas d\'étude, exercices de composition sur grille.','Composition'],
+   ['Logiciels, chaîne graphique & projet final','Logiciels de mise en page, chaîne graphique, export.','Réalisation et présentation du projet final.','Projet final']]},
+ {id:'portfolio',school:'ESDAC',programme:'B3 Design d\'espace · Design produit · Design mode',module:'Portfolio et communication digitale',ue:'Gestion & promotion de projet',sem:'2',vol:'14 h présentiel (4 × 3 h 30)',prereq:'Aucun en dehors de l\'admission',
+  obj:`• Identifier et construire des réseaux de partenaires pertinents en repérant les contributeurs possibles à l'activité de design pour assurer sa pérennisation.
+• Valoriser les créations en mettant en avant la qualité et la singularité des réalisations, afin de promouvoir le projet de design, d'en renforcer l'impact et de soutenir sa reconnaissance professionnelle.
+• Élaborer et diffuser une communication attractive, adaptée et percutante pour les réseaux sociaux, en tenant compte des publics et des codes de chaque plateforme.`,
+  meth:'Apports théoriques, études de cas (bios, portfolios et profils de jeunes designers en espace, produit et mode), exercices imposés en binôme (image voulue / image perçue, audit de profil, pitch chronométré), application sur projet fil rouge. Référence culturelle en ouverture de chaque séance (Virgil Abloh, Charles et Ray Eames, Simon Porte Jacquemus, PechaKucha). Ressources : Arruda, Digital You (ATD Press, 2019) ; Moran & Van Laethem, La boîte à outils du Personal Branding (Dunod, 2021).',
+  tech:'portfolio PDF de 16 à 24 pages, présence en ligne (LinkedIn, Behance ou site, Instagram) et pitch de 90 secondes, présentés en S4. Rendus S1 à S3 : 30 % ; portfolio final : 35 % ; communication digitale : 15 % ; pitch et présentation : 20 %.',
+  ses:[
+   ['Identité créative','Personal branding et promesse de valeur ; valeurs, compétences (métier, outils, qualités transversales), cible ; phrase de positionnement ; storytelling personnel en quatre temps (déclic, parcours, ce qui me guide, où je vais) ; bio courte et bio longue.','Référence : Virgil Abloh. Cas : comparaison de trois bios de designers. Exercice imposé : image voulue / image perçue en binôme. Atelier : positionnement, bios, inventaire noté des projets. Lancement du projet portfolio.','Fiche identité créative + bios + inventaire des projets'],
+   ['Portfolio cohérent et impactant','Sélection de 6 à 10 projets et ordre (ouverture et fin) ; structure d\'un projet (ouverture, contexte, problématique, process, résultat, rôle) ; spécificités espace, produit, mode ; qualité des images ; formats écran, imprimé et en ligne.','Référence : Charles et Ray Eames. Cas : analyse de trois portfolios. Exercice imposé : chemin de fer sur planche A3. Atelier : gabarit (InDesign ou Figma) et mise en page de deux projets.','Chemin de fer + gabarit + 2 projets mis en page'],
+   ['Présence en ligne et réseau','Codes de LinkedIn, Behance, Dribbble, Instagram et du site personnel ; plan éditorial (fréquence, quatre piliers de contenu, formats, structure d\'une publication) ; cartographie des partenaires (proches, professionnels, prescripteurs, contributeurs) ; networking créatif, feedbacks, co-création, prise de contact.','Référence : Simon Porte Jacquemus. Cas : deux messages de prise de contact à comparer. Exercice imposé : audit croisé de profil. Atelier : optimisation des profils, plan éditorial sur 4 semaines, carte réseau de 20 contacts.','Profils avant / après + plan éditorial + carte réseau'],
+   ['Pitch personnel et réalisation','Structure du pitch (accroche, preuve, singularité, demande) en 90 secondes ; trois versions (une phrase, orale, écrite) ; posture ; vérifications finales du portfolio et des profils.','Référence : PechaKucha. Exercice imposé : pitch en binôme, trois passages chronométrés avec grille. Finalisation, présentations (pitch + portfolio + questions), bilan du module.','Portfolio final + profils + publication + pitch']]}
+];
+const EXTRA = {
+ couleur:{tech:'vidéoprojecteur, ordinateurs (Figma, Illustrator ou Canva), nuanciers Pantone, papier et crayons.',perso:'Exercice ou recherche à rendre entre chaque séance (palettes, analyse de campagne). Projet d\'identité colorielle mené de S3 à S4, présenté oralement en S4.'},
+ photoshop:{tech:'salle informatique, Adobe Photoshop et InDesign installés, vidéoprojecteur, banque d\'images fournie.',perso:'Finalisation de l\'atelier entre chaque séance (retouche, détourage, composition). Affiche en S5, couverture en S6, invitation InDesign en S7, livraisons et présentation orale en S8. Environ 1 h de FOAD entre chaque séance.'},
+ indesign:{tech:'salle informatique, Adobe InDesign et Photoshop, accès Bibliothèques Creative Cloud, vidéoprojecteur.',perso:'Avancement hebdomadaire du projet fil rouge (maquette magazine) et exercices techniques à terminer entre les séances. Export PDF et soutenance orale en S6.'},
+ marque:{tech:'vidéoprojecteur, accès internet, supports visuels (vitrines, campagnes) fournis.',perso:'Brief de marque mené en groupe sur les 4 séances (une partie de la Fleur de marque par séance), recherches terrain sur points de vente. Présentation orale en S4.'},
+ illustrator:{tech:'salle informatique, Adobe Illustrator (avec Photoshop et InDesign), tablette graphique conseillée, vidéoprojecteur.',perso:'Avancement du projet fil rouge entre chaque séance (signe, pattern, logotype, pictogrammes) + modules e-learning LinkedIn Learning. Planche finale et présentation orale en S5.'},
+ infographie:{tech:'vidéoprojecteur, InDesign ou Figma, papier, équerre et crayon pour les exercices de grille.',perso:'Exercice de mise en page à terminer entre chaque séance. Projet final de mise en page présenté en S4.'},
+ portfolio:{tech:'salle informatique avec accès internet, InDesign ou Figma, vidéoprojecteur, planches A3 pour le chemin de fer, minuteur ; les étudiants utilisent leurs propres comptes LinkedIn, Behance et Instagram.',perso:'Entre S1 et S2 : rassembler les fichiers HD des projets retenus et refaire les photos insuffisantes. Entre S2 et S3 : mettre en page tous les projets, rédiger chapôs et légendes, créer les pages À propos et contact. Entre S3 et S4 : première publication selon le plan éditorial, deux prises de contact, portfolio complet. Préparation et répétition du pitch pour la présentation en S4.'},
+};
+const DUR = {couleur:'3 h 30',photoshop:'3 h 30',indesign:'3 h 30',marque:'3 h 30',illustrator:'2–3 h',infographie:'3 h 30',portfolio:'3 h 30'};
+class Component extends DCLogic {
+  state = { cur: 0, copied: null };
+  copy(key, text) {
+    navigator.clipboard.writeText(text).then(() => { this.setState({ copied: key }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ copied: null }), 1400); });
+  }
+  renderVals() {
+    const m = MODS[this.state.cur], c = this.state.copied;
+    const btn = k => c === k ? 'Copié ✓' : 'Copier';
+    const X = EXTRA[m.id];
+    const fieldList = [
+      ['Objectifs globaux du module', m.obj],
+      ...m.ses.map((s, i) => ['Objectif séance ' + (i + 1), s[0] + ' : ' + s[1]]),
+      ['Objectif séance 11 et plus', '(laisser vide)'],
+      ['Méthodes et outils pédagogiques', m.meth + '\nSupports écrits par séance : fiche méthode, exemple commenté, consignes balisées, document modèle. Quiz interactif en fin de séance.'],
+      ['Supports de cours / besoins techniques', 'Supports : fiches de séance et quiz en ligne (cours-aceeducation.vercel.app), diaporama projeté.\nBesoins techniques : ' + X.tech],
+      ['Méthodes d\'évaluation', EVAL(m.tech)],
+      ['Travail personnel', X.perso]
+    ];
+    const sesText = (s, i) => `Séance ${i + 1} (${DUR[m.id]}) : ${s[0]}\nContenus : ${s[1]}\nActivités : ${s[2]}\nLivrable : ${s[3]}\nÉvaluation : quiz de fin de séance + auto-évaluation`;
+    const all = fieldList.map(([k, v]) => k + ' : ' + v).join('\n\n') + '\n\n' + m.ses.map(sesText).join('\n\n');
+    return {
+      m,
+      tabs: MODS.map((x, i) => ({ school: x.school, name: x.module.replace('Infographie : ', ''), bg: i === this.state.cur ? '#1d1c1a' : 'transparent', fg: i === this.state.cur ? '#f3f0e8' : '#1d1c1a', go: () => this.setState({ cur: i }) })),
+      fields: fieldList.map(([label, text], i) => ({ label, text, btn: btn('f' + i), copy: () => this.copy('f' + i, text) })),
+      sessions: m.ses.map((s, i) => ({ n: i + 1, dur: DUR[m.id], title: s[0], btn: btn('s' + i), copy: () => this.copy('s' + i, sesText(s, i)),
+        rows: [{ k: 'Contenus', v: s[1] }, { k: 'Activités', v: s[2] }, { k: 'Livrable', v: s[3] }, { k: 'Évaluation', v: 'Quiz de fin de séance + auto-évaluation' }] })),
+      copyAll: () => this.copy('all', all), copyAllLabel: c === 'all' ? 'Tout copié ✓' : 'Copier tout le module'
+    };
+  }
+}
+</script>
+</body>
+</html>

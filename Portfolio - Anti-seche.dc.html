@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#f5f3ee;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:oklch(0.45 0.13 250)}
+@media (max-width:760px){[data-aside]{position:static !important;flex:1 1 100% !important}[data-aside] nav{display:none !important}}
+@media print{
+  [data-noprint]{display:none !important}
+  body{background:#fff}
+  [data-chapter]{break-before:page}
+  [data-avoid]{break-inside:avoid}
+  [data-main]{max-width:none !important}
+}
+</style>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;gap:40px 48px;max-width:1240px;margin:0 auto;padding:48px 32px 120px;box-sizing:border-box">
+
+  <aside data-noprint="1" data-aside="1" style="flex:0 0 232px;position:sticky;top:32px;align-self:flex-start;display:flex;flex-direction:column;gap:32px;font-size:13.5px">
+    <a data-noprint="1" href="Sommaire.dc.html" title="Retour au sommaire" style="align-self:flex-start;display:flex;align-items:center;gap:6px;padding:7px 12px;background:#1d1c1a;color:#f3f0e8;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none" style-hover="background:#4a4740;color:#f3f0e8">← Sommaire</a>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Anti-sèche · B3 ESDAC</div>
+      <div style="font-family:Newsreader,serif;font-size:22px;line-height:1.1">Portfolio et communication digitale</div>
+    </div>
+    <nav style="display:flex;flex-direction:column;gap:2px">
+      <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="8">
+        <a href="{{ c.href }}" style="display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid #e3dfd5;line-height:1.3">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;flex:none">{{ c.num }}</span>
+          <span style="flex:1">{{ c.t }}</span>
+          <sc-if value="{{ c.done }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;flex:none" title="Révisé">✓</span></sc-if>
+        </a>
+      </sc-for>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Afficher les encadrés</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+          <button onClick="{{ f.toggle }}" style="display:flex;align-items:center;gap:10px;background:none;border:0;padding:4px 0;font:inherit;color:inherit;cursor:pointer;text-align:left">
+            <sc-if value="{{ f.on }}" hint-placeholder-val="{{ true }}"><span style="width:16px;height:16px;border:1.5px solid #1d1c1a;background:#1d1c1a;color:#f5f3ee;font-size:11px;line-height:16px;text-align:center;border-radius:3px;flex:none">✓</span></sc-if>
+            <sc-if value="{{ f.off }}" hint-placeholder-val="{{ false }}"><span style="width:16px;height:16px;border:1.5px solid #8a857a;border-radius:3px;flex:none;box-sizing:border-box"></span></sc-if>
+            <span style="font-size:12px;width:14px;text-align:center">{{ f.glyph }}</span>
+            <span>{{ f.label }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Progression · {{ doneLabel }}</div>
+      <div style="height:4px;background:#e3dfd5;border-radius:2px;overflow:hidden"><div style="height:100%;width:{{ donePct }};background:#1d1c1a"></div></div>
+    </div>
+  </aside>
+
+  <main data-main="1" style="flex:1 1 420px;min-width:0;max-width:760px">
+    <header style="display:flex;flex-direction:column;gap:20px;padding-bottom:48px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b675e">Document de révision personnel · Cliclac Studio · usage privé</div>
+      <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(48px,7vw,84px);line-height:.95;letter-spacing:-.02em;margin:0;text-wrap:balance">Portfolio et communication digitale</h1>
+      <div style="font-family:Newsreader,serif;font-style:italic;font-size:22px;color:#4a4740">Personal branding, portfolio, présence en ligne, réseau et pitch : les notions du module et des deux ouvrages du syllabus, expliquées simplement</div>
+    </header>
+
+    <section data-avoid="1" style="display:flex;flex-direction:column;gap:16px;padding:28px 0;border-top:2px solid #1d1c1a;border-bottom:1px solid #d9d4c7;margin-bottom:24px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase">Comment utiliser ce document</div>
+      <p style="margin:0;font-size:16.5px;line-height:1.65;text-wrap:pretty;color:#2a2926">Ce document est ton antisèche. Chaque notion enseignée est expliquée clairement avec le pourquoi et le comment. Les encadrés « En clair » vulgarisent les concepts des deux ouvrages du syllabus ; les encadrés « Source » indiquent d’où vient chaque notion, pour pouvoir la citer en cours. Les astuces sont des raccourcis de pensée pour expliquer rapidement. Les erreurs courantes te préparent aux questions et aux problèmes que les étudiants vont inévitablement rencontrer.</p>
+      <p style="margin:0;font-size:16.5px;line-height:1.65;text-wrap:pretty;color:#2a2926">Lis ce document une fois avant chaque séance. Tu n’as pas besoin de tout mémoriser : tu as besoin de te souvenir que ça existe et de savoir où chercher si besoin.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4"><span>{{ f.glyph }} {{ f.one }}</span></sc-for>
+      </div>
+    </section>
+
+    <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="2">
+      <section id="{{ c.id }}" data-chapter="1" style="padding-top:72px;scroll-margin-top:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:2px solid #1d1c1a;padding-top:14px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em">CHAPITRE {{ c.num }}</span>
+          <sc-if value="{{ c.notDone }}" hint-placeholder-val="{{ true }}">
+            <button data-noprint="1" onClick="{{ c.toggle }}" style="font:500 12px 'IBM Plex Sans',sans-serif;background:none;border:1px solid #b9b2a2;border-radius:999px;padding:6px 14px;cursor:pointer;color:#4a4740" style-hover="border-color:#1d1c1a;color:#1d1c1a">Marquer comme révisé</button>
+          </sc-if>
+          <sc-if value="{{ c.done }}" hint-placeholder-val="{{ false }}">
+            <button data-noprint="1" onClick="{{ c.toggle }}" style="font:500 12px 'IBM Plex Sans',sans-serif;background:#1d1c1a;border:1px solid #1d1c1a;border-radius:999px;padding:6px 14px;cursor:pointer;color:#f5f3ee">✓ Révisé</button>
+          </sc-if>
+        </div>
+        <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(34px,4.6vw,48px);line-height:1.02;letter-spacing:-.015em;margin:28px 0 10px;text-wrap:balance">{{ c.t }}</h2>
+        <div style="font-family:Newsreader,serif;font-style:italic;font-size:20px;color:#6b675e">{{ c.sub }}</div>
+
+        <sc-for list="{{ c.sections }}" as="s" hint-placeholder-count="2">
+          <div style="display:flex;flex-direction:column;gap:18px;margin-top:44px">
+            <h3 style="font-family:Newsreader,serif;font-weight:500;font-size:25px;line-height:1.2;margin:0">{{ s.h }}</h3>
+            <sc-for list="{{ s.blocks }}" as="b" hint-placeholder-count="3">
+              <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+                <p style="margin:0;font-size:16.5px;line-height:1.68;text-wrap:pretty;color:#2a2926">{{ b.text }}</p>
+              </sc-if>
+              <sc-if value="{{ b.isD }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-wrap:wrap;gap:4px 20px;padding:12px 0;border-top:1px solid #e3dfd5;font-size:16px;line-height:1.6">
+                  <div style="flex:0 0 150px;font-weight:600">{{ b.term }}</div>
+                  <div style="flex:1 1 300px;min-width:0;color:#2a2926;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isQuote }}" hint-placeholder-val="{{ false }}">
+                <figure data-avoid="1" style="margin:12px 0;padding:28px 0 24px;border-top:2px solid #1d1c1a;border-bottom:1px solid #d9d4c7;display:flex;flex-direction:column;gap:14px">
+                  <blockquote style="margin:0;font-family:Newsreader,serif;font-size:clamp(26px,3.4vw,34px);line-height:1.2;letter-spacing:-.01em;text-wrap:balance">« {{ b.text }} »</blockquote>
+                  <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#4a4740">❝ {{ b.term }}</figcaption>
+                </figure>
+              </sc-if>
+              <sc-if value="{{ b.isEx }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 0;border-top:1px dotted #a39c8c;border-bottom:1px dotted #a39c8c">
+                  <div style="flex:0 0 150px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.42 0.1 55);padding-top:4px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-family:Newsreader,serif;font-style:italic;font-size:18.5px;line-height:1.5;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isDire }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.94 0.035 250);border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.38 0.13 250);padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isDal }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.93 0.09 95);border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.36 0.07 85);padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isConf }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:15px 19px;border:1.5px dashed #8a857a;border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1d1c1a;padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isAtt }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:#e8e4da;border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#1d1c1a;padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isKey }}" hint-placeholder-val="{{ false }}">
+                <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:14px 20px;background:#1d1c1a;color:#f5f3ee;border-radius:4px">
+                  <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding-top:3px">{{ b.label }}</div>
+                  <div style="flex:1 1 300px;min-width:0;font-family:'IBM Plex Mono',monospace;font-size:14px;line-height:1.65;text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
+            </sc-for>
+          </div>
+        </sc-for>
+      </section>
+    </sc-for>
+
+    <footer style="margin-top:96px;padding-top:16px;border-top:1px solid #d9d4c7;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6b675e">Cliclac Studio · cliclac.studio · Document de révision privé v1</footer>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/*META*/
+const KEY = 'antiseche-portfolio-b3-v1';
+const TYPES = { dire: ['≈', 'En clair', 'En clair'], dal: ['§', 'Source', 'Sources'], att: ['!', 'Astuce', 'Astuces'], conf: ['▲', 'Erreur courante', 'Erreurs courantes'], key: ['⌘', 'Formule', 'Formules'] };
+/*DATA*/
+const DATA = [
+{t:'Le personal branding', sub:'D’où vient l’idée, ce qu’elle veut dire aujourd’hui', s:[
+ ['Origine',
+  ['p','Le terme est popularisé à la fin des années 1990 par le consultant américain Tom Peters, dans un article de Fast Company intitulé « The Brand Called You » (1997). L’idée : chaque professionnel peut se penser comme une marque, avec une promesse, une cible et une réputation à entretenir.'],
+  ['p','À l’époque, on changeait rarement d’employeur et Internet ne servait pas encore à se présenter. L’instabilité des carrières et la communication numérique ont rendu la démarche utile à tout le monde, et pas seulement aux dirigeants ou aux indépendants.'],
+  ['dire','Le personal branding, c’est gérer volontairement l’image qu’on laisse, au lieu de la subir. Tout le monde a déjà une image professionnelle ; la seule question est de savoir si on l’a choisie.','En clair'],
+  ['dal','Arruda résume les débuts du concept en introduction de Digital You. Moran et Van Laethem y consacrent l’outil 33, « Le Personal Branding » (p. 96–99).','Arruda · Moran']],
+ ['Les définitions à retenir',
+  ['d','Personal branding','Démarche qui consiste à identifier ce qui rend une personne singulière et utile, puis à l’exprimer de façon cohérente partout où on la rencontre.'],
+  ['d','Marketing de soi','Expression française proche, utilisée par Moran et Van Laethem (leur première édition, en 2016, s’appelait La boîte à outils du marketing de soi). On applique à soi-même les outils du marketing : cible, positionnement, offre, communication.'],
+  ['d','Promesse de valeur','Ce qu’on apporte de particulier à ceux qui travaillent avec nous. Notion centrale chez Arruda (« unique promise of value »).'],
+  ['d','Image voulue / image perçue','Ce qu’on pense projeter, et ce que les autres retiennent réellement. Le travail de branding réduit l’écart entre les deux.'],
+  ['d','E-réputation','Ce qu’on trouve sur une personne en ligne : résultats Google, profils, publications, commentaires, tags.'],
+  ['quote','Votre marque, c’est ce que les gens disent de vous quand vous n’êtes pas dans la pièce.','Formule attribuée à Jeff Bezos, très citée en personal branding'],
+  ['conf','Confondre personal branding et autopromotion. Le but n’est pas de se vanter ni d’être partout, mais d’être reconnu pour quelque chose de précis par les bonnes personnes.']],
+ ['Pourquoi c’est utile à un designer',
+  ['p','Un designer vend une manière de voir et de résoudre des problèmes. Deux portfolios techniquement aussi bons se départagent sur la clarté du regard qu’ils expriment. Les recruteurs d’agences et de studios consultent souvent le portfolio et les profils avant même de lire le CV.'],
+  ['p','En fin de B3, les étudiants cherchent un master, une alternance, un premier poste ou des premiers clients. Dans tous les cas, ils seront comparés à d’autres profils proches : la singularité devient l’argument principal.'],
+  ['att','Pour démarrer la séance 1 : demander aux étudiants de taper leur nom dans Google, en navigation privée. Ce qu’ils trouvent (ou ne trouvent pas) lance la discussion mieux qu’un long discours.']]
+]},
+{t:'Digital You — William Arruda', sub:'Ressource 1 du syllabus · ATD Press, 2019', s:[
+ ['Le livre et l’auteur',
+  ['d','Référence','William Arruda, Digital You: Real Personal Branding in the Virtual Age, Association for Talent Development (ATD Press), octobre 2019, 232 pages. En anglais, pas de traduction française.'],
+  ['d','L’auteur','Consultant américain, présenté comme un pionnier du personal branding. Il a fondé l’agence Reach Personal Branding en 2001 et créé 360Reach, un questionnaire en ligne qui recueille l’avis de l’entourage sur une personne. Autres livres : Career Distinction (2007) et Ditch. Dare. Do! (2013).'],
+  ['d','Le propos','Comment définir, exprimer et développer sa marque personnelle dans un monde où la première impression se fait en ligne.'],
+  ['att','Le livre est très pratique et centré sur LinkedIn et le monde de l’entreprise. Pour des designers, on garde la méthode et on transpose les exemples : le portfolio, Behance et Instagram jouent le rôle que LinkedIn joue pour un cadre.']],
+ ['« Le personal branding est mort »',
+  ['p','L’introduction du livre s’ouvre sur une provocation : le personal branding tel qu’on le définissait à ses débuts est dépassé. La marque reste l’atout de carrière le plus précieux, à condition de savoir la découvrir, l’exprimer et l’entretenir.'],
+  ['p','Arruda décrit neuf tendances qui obligent à repenser sa marque. La première, qu’il appelle « nexting », est le fait de changer souvent de poste : les plus jeunes actifs auront probablement 15 emplois ou plus au cours de leur vie. Chaque changement oblige à se présenter de nouveau.'],
+  ['dire','On ne construit plus sa réputation une fois pour toutes dans une seule entreprise. On la transporte avec soi, d’un stage à une alternance, d’un studio à un autre. Le portfolio et les profils en ligne sont ce bagage.','En clair']],
+ ['Les marques se découvrent, elles ne s’inventent pas',
+  ['p','Pour Arruda, les marques les plus solides ne sont pas créées mais mises au jour, et une bonne marque repose sur l’authenticité. On commence donc par s’interroger soi-même. Trois questions servent de point de départ : qu’est-ce que je fais mieux que les autres ? de quoi suis-je le plus fier ? qu’est-ce qui me fait perdre la notion du temps ?'],
+  ['p','Les pièces du puzzle de la marque, selon lui : objectifs, valeurs, passions, éléments de différenciation, talents naturels (qu’il appelle « superpouvoirs ») et raison d’être.'],
+  ['dire','On ne se fabrique pas un personnage. On cherche ce qui est déjà là et on le rend visible. Un étudiant qui s’invente un style qu’il ne pratique pas sera démasqué au premier entretien.','En clair'],
+  ['att','Ces trois questions fonctionnent très bien à l’oral en début de séance 1. Les faire noter individuellement, en silence, pendant 5 minutes.']],
+ ['Être « sélectivement célèbre »',
+  ['p','Arruda insiste : l’objectif n’est pas d’être célèbre, mais d’être sélectivement célèbre. Il ne s’agit pas non plus de publier à outrance sur les réseaux.'],
+  ['p','Il parle de « communauté de marque » : se concentrer sur les bonnes personnes plutôt que sur le plus grand nombre de personnes.'],
+  ['dire','Mieux vaut 300 abonnés qui sont des architectes d’intérieur, des chefs de studio et des camarades de promo que 10 000 inconnus. Le chiffre d’abonnés n’est pas un indicateur de réussite pour un designer qui cherche un poste.','En clair'],
+  ['conf','Acheter des abonnés ou multiplier les hashtags génériques (#design, #art) pour gonfler les chiffres. Cela n’attire pas la bonne communauté et se repère vite.']],
+ ['Les trois C : clarté, cohérence, constance',
+  ['d','Clarté (clarity)','Savoir ce qu’on est et ce qu’on n’est pas, et connaître sa promesse de valeur. C’est elle qui distingue des autres.'],
+  ['d','Cohérence (consistency)','Être toujours ce qu’on dit qu’on est. Le même message partout : portfolio, LinkedIn, Instagram, entretien.'],
+  ['d','Constance (constancy)','Rester visible dans la durée auprès de ceux qu’on veut toucher. Une marque forte ne disparaît pas.'],
+  ['dire','Clair : on comprend ce que tu fais en dix secondes. Cohérent : on te reconnaît d’un support à l’autre. Constant : on ne t’oublie pas trois mois après.','En clair'],
+  ['att','Les trois C font une grille d’audit très simple pour la séance 3 : on note chaque profil de 1 à 3 sur chaque C.'],
+  ['dal','Les trois C sont un cadre qu’Arruda utilise depuis le début des années 2000 dans ses articles ; il le reprend dans Digital You.','Arruda']],
+ ['Le numérique passe avant le réel',
+  ['p','Aujourd’hui, la plupart des premières impressions se forment en ligne : en un clic, une recherche, les gens se font une idée de vous. Si on n’apparaît pas dans Google, on n’existe pas ; mais être visible ne suffit pas.'],
+  ['p','Arruda oppose la marque « en bits et en octets » (ce qu’on voit de vous en ligne) à la personne « en chair et en os » (ce qu’on découvre en vous rencontrant). Les deux doivent concorder.'],
+  ['dire','Si ton Instagram montre un univers minimaliste et noir et blanc, et que tu arrives en entretien avec un portfolio fluo et chargé, le recruteur se demande lequel des deux est le vrai.','En clair'],
+  ['conf','Un profil en ligne laissé à l’abandon (dernière publication il y a deux ans, photo de vacances, bio d’ancien lycéen) produit une première impression négative avant même la rencontre.']],
+ ['La marque se trouve dans la tête des autres',
+  ['p','Une idée qu’Arruda répète : votre marque existe dans l’esprit des gens qui vous connaissent. L’introspection ne suffit pas ; sans retour extérieur, on n’a que la moitié de l’image. C’est le principe de son questionnaire 360Reach, qui compare l’image qu’on a de soi à celle que perçoit l’entourage.'],
+  ['dire','On ne peut pas décider seul de son image. Il faut demander aux autres ce qu’ils voient, et accepter que la réponse surprenne.','En clair'],
+  ['att','L’exercice « image voulue, image perçue » de la séance 1 est une version simplifiée et gratuite de cette démarche.']],
+ ['La méthode en trois temps',
+  ['d','Définir','Découvrir sa marque : valeurs, talents, différence, retours de l’entourage.'],
+  ['d','Exprimer','La traduire en supports : bio, profils, portfolio, photo, ton, visuels.'],
+  ['d','Développer','L’étendre : réseau, publications régulières, prise de parole, recommandations.'],
+  ['att','Ces trois temps correspondent au déroulé du module : S1 définir, S2 et S3 exprimer, S3 et S4 développer.']]
+]},
+{t:'La boîte à outils du personal branding', sub:'Ressource 2 du syllabus · Moran et Van Laethem, Dunod, 2021', s:[
+ ['Le livre et les autrices',
+  ['d','Référence','Stéphanie Moran et Nathalie Van Laethem, La boîte à outils du Personal Branding, Dunod, collection « La Boîte à Outils », janvier 2021, 192 pages. 64 outils, quelques vidéos accessibles par QR code et des fichiers téléchargeables.'],
+  ['d','Les autrices','Stéphanie Moran : consultante en marketing et communication, partenaire de la Cegos. Nathalie Van Laethem : formatrice et coach en personal branding, management et stratégie, autrice d’autres titres de la collection.'],
+  ['d','Le format','Chaque outil tient sur 2 ou 4 pages : l’essentiel en français et en anglais, les objectifs, le contexte d’utilisation, les étapes, les avantages et les précautions. Certains sont complétés par un cas d’entreprise.'],
+  ['conf','Le syllabus cite l’ouvrage « s. d. » (sans date). L’édition actuelle date de 2021. Pour une bibliographie propre : Moran, S., & Van Laethem, N. (2021). La boîte à outils du Personal Branding. Dunod.'],
+  ['att','C’est un livre à picorer, pas à lire d’une traite. On peut photocopier ou projeter une fiche outil par séance.']],
+ ['Les 8 objectifs du livre',
+  ['d','1. Définir sa stratégie marketing de soi','Intention personnelle, choix stratégiques, réalisation positive, sphères de vie, positionnement personnel, mix-marketing de soi, fleur des services.'],
+  ['d','2. Révéler ses talents','Confiance en soi, matrice des compétences…'],
+  ['d','3. S’adapter à son contexte','Benchmark concurrentiel, matrice des ressources…'],
+  ['d','4. Réaliser ses projets','SWOT personnel, plan marketing de soi, Lean Canvas, loi de Pareto, facteurs clés de succès…'],
+  ['d','5. Image de soi et notoriété','Personal branding, e-réputation, storytelling, brand content, plan de communication multicanal…'],
+  ['d','6. Se présenter et convaincre','Présence attentive, pitch, art du slogan, argumentaire, mots-clés pour le web…'],
+  ['d','7. Communiquer efficacement','CV, lettre de motivation, slide de synthèse, e-mailing, assertivité, picture marketing, inbound marketing…'],
+  ['d','8. Présence sur les réseaux','Check-list des bonnes pratiques, LinkedIn, Instagram, recommandation sociale, blog personnel, monitoring et mesure…'],
+  ['att','Correspondance avec le module : objectifs 1 et 2 en S1, objectif 5 en S2 et S3, objectif 8 en S3, objectif 6 en S4. Les objectifs 3, 4 et 7 servent de compléments.']],
+ ['Outils clés, vulgarisés',
+  ['d','Intention personnelle (outil 1, p. 12–13)','Formuler ce qu’on veut vraiment, avant de choisir comment se montrer.'],
+  ['dire','Avant de faire un portfolio, savoir pour quoi on le fait : un master ? une agence d’archi ? une marque de mode ? Le même portfolio ne sert pas les trois.','En clair'],
+  ['d','Sphères de vie (outil 4, p. 18–19)','Regarder l’équilibre entre les différents domaines de sa vie (études, travail, proches, loisirs, santé) pour que le projet professionnel reste tenable.'],
+  ['d','Positionnement personnel (outil 5)','Définir la place qu’on veut occuper dans l’esprit de sa cible, par rapport aux autres profils comparables.'],
+  ['dire','Si dix camarades de promo postulent dans le même studio, qu’est-ce qui fait qu’on se souviendra de toi ? C’est ça, ton positionnement.','En clair'],
+  ['d','Mix-marketing de soi (outil 6)','Adaptation à la personne des « 4 P » du marketing (produit, prix, place, promotion).'],
+  ['dire','Produit : ce que tu sais faire. Prix : la valeur que tu apportes et ce que tu peux demander. Place : là où on peut te trouver (salons, plateformes, écoles). Promotion : la façon dont tu le fais savoir.','En clair'],
+  ['d','Fleur des services (outil 7)','Issue du marketing des services : un service principal au centre, entouré de « pétales » de services complémentaires.'],
+  ['dire','Au centre : ta compétence principale (par exemple l’aménagement de petits espaces). Les pétales : ce que tu ajoutes autour (rendus 3D, sourcing de mobilier, suivi de chantier). C’est l’ensemble qui fait la différence.','En clair'],
+  ['d','Matrice des compétences (outil 9, p. 34–37)','Lister et classer ses compétences pour voir lesquelles sont fortes, à développer ou à mettre en avant. Le fichier est téléchargeable.'],
+  ['d','SWOT personnel (outil 23, p. 72–75)','Forces et faiblesses (internes), opportunités et menaces (externes), sur une seule grille. On consolide les forces, on réduit les faiblesses, on saisit les opportunités, on anticipe les menaces.'],
+  ['dire','Forces : je maîtrise Rhino et le croquis. Faiblesses : je parle mal en public. Opportunités : beaucoup de studios cherchent des profils 3D. Menaces : l’IA générative banalise les rendus. Conclusion : miser sur la 3D, travailler le pitch, montrer le croquis comme signature.','En clair'],
+  ['d','Lean Canvas','Fiche d’une page venue des start-up : problème, cible, solution, proposition de valeur unique, canaux… Adaptée à soi, elle aide à résumer son projet professionnel.'],
+  ['d','Loi de Pareto','Environ 80 % des résultats viennent de 20 % des efforts.'],
+  ['dire','Quelques projets forts font l’essentiel de l’impression laissée par un portfolio. Mieux vaut soigner ces projets que tout présenter.','En clair'],
+  ['d','Storytelling','Raconter son parcours comme une histoire, avec un fil conducteur, plutôt que comme une liste.'],
+  ['d','Brand content','Contenu qui apporte quelque chose au public (conseil, coulisses, inspiration) au lieu de dire seulement « regardez ce que je fais ».'],
+  ['d','Pitch (outil 42, p. 122–123)','Présentation orale courte et préparée.'],
+  ['d','Inbound marketing','Attirer les gens grâce à des contenus utiles plutôt que d’aller les solliciter un par un.'],
+  ['dire','Publier régulièrement ses process et ses recherches finit par amener des studios à te contacter, sans démarchage.','En clair'],
+  ['d','Picture marketing','Communiquer par l’image. Pour un designer, c’est naturel : le visuel porte le message avant le texte.'],
+  ['d','Recommandation sociale','Ce que les autres disent de vous publiquement : recommandations LinkedIn, mentions, partages, citations.'],
+  ['d','Monitoring et mesure','Suivre ce qui fonctionne (vues, clics vers le portfolio, messages reçus) pour ajuster sa présence en ligne.'],
+  ['conf','Présenter ces outils comme des formulaires à remplir. Ce sont des appuis à la réflexion : un SWOT bâclé en cinq minutes ne produit rien.']]
+]},
+{t:'Identité créative', sub:'Séance 1 · valeurs, compétences, storytelling', s:[
+ ['Trois questions de départ',
+  ['d','Qui je suis','Valeurs, convictions, sujets qui reviennent dans mes projets.'],
+  ['d','Ce que je sais faire','Compétences métier, outils, qualités transversales.'],
+  ['d','Pour qui','Agences, studios, marques, écoles de master, clients particuliers ou entreprises.'],
+  ['att','Les valeurs se repèrent dans les projets, pas dans une liste toute faite. Faire chercher : quels choix ai-je refaits d’un projet à l’autre ? (matériaux bruts, réemploi, couleurs vives, ergonomie, accessibilité…)']],
+ ['Les compétences',
+  ['d','Compétences métier','Conception, croquis, maquette, plans, modélisation 3D, prototypage, patronage, moulage, scénographie…'],
+  ['d','Outils','Suite Adobe, SketchUp, Rhino, Blender, AutoCAD, Revit, CLO 3D, Figma…'],
+  ['d','Qualités transversales','Gestion de projet, travail en équipe, curiosité, rigueur, aisance orale.'],
+  ['key','Règle de preuve : toute compétence annoncée doit être visible dans au moins un projet du portfolio.'],
+  ['conf','Les barres de niveau (« Photoshop ●●●●○ ») ne veulent rien dire pour un recruteur. Mieux vaut citer le logiciel dans la légende du projet où il a servi.']],
+ ['Image voulue, image perçue : la fenêtre de Johari',
+  ['p','Modèle proposé par les psychologues Joseph Luft et Harrington Ingham en 1955. Quatre zones : ce que je sais de moi et que les autres voient aussi (zone publique) ; ce que les autres voient et que j’ignore (angle mort) ; ce que je sais et que je cache (zone cachée) ; ce que personne ne sait encore (zone inconnue).'],
+  ['dire','L’exercice de la séance 1 sert à découvrir l’angle mort : ce que tes projets disent de toi sans que tu t’en rendes compte. Parfois c’est une qualité que tu n’avais pas vue, parfois un défaut à corriger.','En clair'],
+  ['att','Fait le lien direct avec Arruda : la marque existe dans la tête des autres, il faut aller la chercher.']],
+ ['Se positionner',
+  ['key','Je suis designer [spécialité] et je [ce que je fais] pour [qui], avec [ce qui me distingue].'],
+  ['ex','« Je suis designer d’espace et je conçois des lieux de vente temporaires pour des marques de mode, avec des structures démontables en matériaux de réemploi. »','Exemple'],
+  ['ex','« Je suis designer produit et je dessine des objets du quotidien pour les personnes âgées, en partant d’observations à domicile. »','Exemple'],
+  ['conf','Adjectifs creux à bannir : passionné, créatif, polyvalent, dynamique, motivé. Tout le monde les utilise, ils ne distinguent personne.'],
+  ['att','Le Golden Circle de Simon Sinek (Start with Why, 2009) aide les étudiants bloqués : commencer par le pourquoi (ce qui me motive), puis le comment (ma méthode), puis le quoi (ce que je produis).']],
+ ['Le storytelling personnel',
+  ['d','Le déclic','D’où vient l’envie de faire ce métier.'],
+  ['d','Le parcours','Les étapes et ce que chacune a apporté.'],
+  ['d','Ce qui me guide','Une conviction, un sujet récurrent.'],
+  ['d','Où je vais','Ce que je cherche maintenant.'],
+  ['p','On garde les faits concrets : un lieu, un objet, une rencontre. Un détail précis rend un récit crédible ; une généralité le rend banal.'],
+  ['dire','« Depuis toute petite j’aime créer » ne raconte rien. « J’ai grandi dans la quincaillerie de mes parents, entourée de vis et de charnières » raconte déjà un designer produit.','En clair']],
+ ['Les bios',
+  ['d','Bio courte','300 signes environ. Instagram, Behance, signature de mail. Positionnement + une singularité + ce qu’on cherche.'],
+  ['d','Bio longue','1 000 signes environ. Page « À propos » du portfolio, résumé LinkedIn. Le récit en quatre temps.'],
+  ['att','Écrire à la première personne sur LinkedIn et Instagram, plus naturel. La troisième personne passe mieux dans un dossier de presse ou un catalogue d’exposition.'],
+  ['conf','Copier-coller une bio générée par IA sans la retravailler. Le ton générique se repère tout de suite, et la bio ne ressemble plus à l’étudiant.']]
+]},
+{t:'Le portfolio', sub:'Séance 2 · sélection, mise en scène, storytelling visuel', s:[
+ ['Sélectionner',
+  ['p','Entre 6 et 10 projets. Critères : qualité, pertinence pour la cible, singularité, diversité maîtrisée.'],
+  ['key','Ouvrir avec le projet le plus fort, finir avec le deuxième plus fort. Le milieu alterne les rythmes.'],
+  ['p','Adapter la sélection à chaque candidature : une agence d’architecture intérieure, un studio de design produit et une maison de mode n’attendent pas la même chose. On garde un portfolio « maître » complet et on en tire des versions ciblées.'],
+  ['conf','Tout montrer, du B1 au B3, par peur d’oublier quelque chose. Un projet faible fait baisser l’impression d’ensemble (application directe de la loi de Pareto).']],
+ ['Raconter un projet',
+  ['d','Ouverture','Une image forte, en grand.'],['d','Contexte','Le lieu, le client ou l’exercice, la demande.'],['d','Problématique','La question à laquelle le projet répond.'],['d','Process','Recherches, croquis, maquettes, prototypes, essais ratés.'],['d','Réponse','Le résultat : rendus, photos, plans, fiches techniques.'],['d','Rôle','Sa part exacte dans un projet de groupe.'],
+  ['p','La méthode STAR, utilisée en entretien d’embauche, aide à rédiger : Situation (le contexte), Tâche (ce qui était demandé), Action (ce que j’ai fait), Résultat (ce que ça a donné).'],
+  ['dire','Un recruteur ne cherche pas seulement à savoir si l’image finale est belle. Il veut comprendre comment tu penses. Le process est souvent la partie la plus regardée.','En clair'],
+  ['att','Texte court : un titre, un chapô de 2 à 3 lignes, des légendes. Si l’image a besoin d’un long texte pour être comprise, c’est l’image qu’il faut changer.']],
+ ['Selon la spécialité',
+  ['d','Design d’espace','Plans, coupes, axonométries, perspectives, photos de maquette, planches matériaux, photos du lieu réalisé.'],
+  ['d','Design produit','Croquis de recherche, vues éclatées, prototypes, tests d’usage, packshots, mises en situation.'],
+  ['d','Design mode','Planches de tendances, recherches matières, croquis, fiches techniques, photos de silhouettes portées, lookbook.']],
+ ['Mise en scène et qualité',
+  ['p','Fond neutre, lumière homogène, cadrage soigné. Une seule grille et deux familles de caractères au maximum pour tout le portfolio. Le portfolio est lui-même un projet de design : sa mise en page est jugée.'],
+  ['p','Mockups : utiles pour montrer un objet en situation, à condition qu’ils soient crédibles et cohérents entre eux. Un mockup gratuit trop reconnaissable fait amateur.'],
+  ['conf','Mélanger photos au téléphone mal éclairées et rendus 3D léchés. L’écart de qualité fait douter du sérieux.']],
+ ['Formats et diffusion',
+  ['d','PDF écran','A4 ou A3 paysage, proche du ratio d’un écran. Moins de 10 Mo pour l’envoi par mail. Liens cliquables vers les profils.'],
+  ['d','Version imprimée','Pour les entretiens. Papier de qualité, reliure simple. Permet de montrer des détails et de laisser le recruteur feuilleter.'],
+  ['d','Version en ligne','Site personnel (Adobe Portfolio, Cargo, Squarespace…) ou Behance. Référence stable vers laquelle tout renvoie.'],
+  ['d','Extrait','3 à 5 pages, à joindre à une candidature spontanée pour donner envie de demander la suite.'],
+  ['key','Nommage : NOM_Prenom_Portfolio_2027.pdf. Jamais « portfolio_final_v3.pdf ».']],
+ ['Droits et éthique',
+  ['p','Projets réalisés en stage ou pour un client : vérifier qu’on a le droit de les montrer. Certains sont sous accord de confidentialité, ou ne peuvent être publiés qu’après leur lancement.'],
+  ['p','Projets de groupe : indiquer clairement sa part et créditer les autres membres. Photos : créditer le photographe ; obtenir l’accord des personnes reconnaissables (droit à l’image).'],
+  ['conf','Présenter seul un projet collectif. Le monde du design est petit et l’information circule.']]
+]},
+{t:'Présence en ligne', sub:'Séance 3 · plateformes, contenus, e-réputation', s:[
+ ['Les plateformes',
+  ['d','LinkedIn','Recruteurs, agences, entreprises. Photo professionnelle, titre qui reprend le positionnement, bannière, résumé (bio longue), section « Sélection » avec le portfolio, expériences détaillées.'],
+  ['d','Behance','Plateforme d’Adobe. Projets présentés en entier, comme des études de cas. Très consultée par les studios créatifs.'],
+  ['d','Dribbble','Formats courts, surtout graphisme, illustration et interface. Moins adaptée à l’espace et à la mode.'],
+  ['d','Instagram','Marques, grand public, mode et décoration. Grille cohérente, carrousels, reels, stories, bio avec lien.'],
+  ['d','Pinterest','Plus un outil de veille qu’une vitrine, mais certains designers y gagnent en visibilité grâce aux épingles qui renvoient vers leur site.'],
+  ['d','Site personnel','Seul espace qu’on contrôle entièrement. Tout le reste doit y renvoyer.'],
+  ['key','Un seul message, plusieurs formats. Même nom d’utilisateur, même photo, même phrase de positionnement partout.'],
+  ['dal','Moran et Van Laethem consacrent un objectif entier aux réseaux, avec une fiche par plateforme et une check-list des bonnes pratiques.','Moran']],
+ ['Formats utiles',
+  ['d','Instagram','Carrousel 1080 × 1350 px (4:5). Depuis 2025, la grille du profil affiche des vignettes verticales : garder le sujet au centre pour qu’il reste visible.'],
+  ['d','LinkedIn','Image de publication 1200 × 627 px ou carrée 1080 × 1080 px. Bannière de profil 1584 × 396 px.'],
+  ['d','Behance','Image de couverture du projet 808 × 632 px. Images du projet en 1400 px de large minimum.'],
+  ['att','Les dimensions changent régulièrement. Vérifier dans l’aide de la plateforme avant la séance.']],
+ ['Le plan éditorial',
+  ['p','Fréquence réaliste : une à deux publications par semaine, tenue dans la durée. C’est la « constance » d’Arruda.'],
+  ['d','Projet fini','Le résultat, bien photographié.'],['d','Process','Croquis, maquettes, coulisses, ratés. Souvent ce qui suscite le plus d’échanges.'],['d','Veille','Expositions, lectures, références commentées. Montre une culture.'],['d','Actualité','Stage, concours, exposition, diplôme.'],
+  ['p','Structure d’une publication : une accroche dans la première ligne (c’est la seule visible avant « voir plus »), une légende courte, quelques hashtags ciblés, un appel à l’action.'],
+  ['att','Modèle AIDA, classique de la publicité : Attention (l’image et l’accroche), Intérêt (ce que ça montre), Désir (pourquoi c’est singulier), Action (voir le projet, écrire).'],
+  ['conf','Publier dix posts la première semaine puis plus rien pendant trois mois. Un compte abandonné fait plus mauvaise impression qu’un compte discret mais régulier.']],
+ ['E-réputation',
+  ['p','Taper son nom dans Google en navigation privée, régulièrement. Vérifier les images, les anciens comptes, les tags.'],
+  ['p','Séparer compte personnel et compte professionnel, ou passer le personnel en privé. Supprimer ou archiver ce qui ne correspond plus.'],
+  ['dire','Un recruteur ne fera pas la différence entre ton compte de lycée oublié et ton compte pro. S’il les trouve tous les deux, les deux te représentent.','En clair'],
+  ['att','Un nom de domaine à son nom (prenomnom.fr ou .com) coûte quelques euros par an et remonte bien dans les résultats de recherche.']]
+]},
+{t:'Réseau', sub:'Séance 3 · networking, feedbacks, co-création', s:[
+ ['La force des liens faibles',
+  ['p','Le sociologue Mark Granovetter publie en 1973 « The Strength of Weak Ties ». Il montre que les gens trouvent plus souvent un emploi grâce à des connaissances éloignées qu’à leurs amis proches. Les proches connaissent les mêmes personnes et les mêmes informations que nous ; les connaissances éloignées ouvrent sur d’autres milieux.'],
+  ['dire','Ton meilleur ami de promo a les mêmes contacts que toi. L’ancien élève croisé une fois à un jury, le fournisseur rencontré en stage ou le photographe d’un shooting, eux, connaissent des gens que tu ne connais pas.','En clair'],
+  ['att','Argument fort pour convaincre les étudiants qui pensent « je n’ai pas de réseau » : ils en ont un, il est juste distendu.']],
+ ['Cartographier ses partenaires',
+  ['d','Proches','Camarades, enseignants, anciens élèves, famille.'],
+  ['d','Professionnels','Maîtres de stage, agences, studios, fabricants, artisans, fournisseurs de matériaux.'],
+  ['d','Prescripteurs','Journalistes, comptes spécialisés, organisateurs de salons et d’événements (Maison&Objet, Paris Design Week, Première Vision, Salone del Mobile à Milan).'],
+  ['d','Contributeurs possibles','Photographe, développeur web, imprimeur, maquettiste, modéliste : ceux qui peuvent contribuer à l’activité et la faire durer.'],
+  ['dal','Le syllabus demande d’identifier les « contributeurs possibles à l’activité de design pour assurer sa pérennisation ». La cartographie y répond directement.','Syllabus']],
+ ['Entretenir son réseau',
+  ['p','Commenter avec pertinence plutôt que de « liker ». Partager le travail des autres en le créditant. Féliciter, relayer, recommander : la réciprocité fait vivre un réseau.'],
+  ['p','Feedback : demander un avis précis (« la page d’ouverture de ce projet est-elle assez forte ? ») plutôt qu’un avis général (« tu en penses quoi ? »). Remercier, puis dire ce qu’on a changé.'],
+  ['p','Co-création : répondre à un concours à plusieurs, monter une exposition collective, s’associer avec un étudiant d’une autre spécialité. Cela crée des liens et des projets à montrer.'],
+  ['key','Message de prise de contact : qui je suis (une ligne) + pourquoi cette personne (un projet d’elle cité) + une demande claire et limitée (15 minutes d’échange, un avis sur mon portfolio).'],
+  ['conf','Le message générique copié-collé à cinquante agences. Personne n’y répond.'],
+  ['conf','Demander directement un stage à quelqu’un qu’on ne connaît pas. Demander un conseil ouvre plus de portes.']]
+]},
+{t:'Le pitch', sub:'Séance 4 · se présenter en 90 secondes', s:[
+ ['Structure',
+  ['d','Accroche','Qui je suis, en une phrase (la phrase de positionnement).'],
+  ['d','Preuve','Un projet qui me représente, en deux phrases.'],
+  ['d','Singularité','Ce que j’apporte qu’un autre profil n’apporte pas.'],
+  ['d','Demande','Ce que je cherche : stage, alternance, collaboration, conseil.'],
+  ['key','90 secondes ≈ 200 mots à l’oral, au débit d’environ 130 à 150 mots par minute.'],
+  ['dal','Moran et Van Laethem traitent le pitch dans l’outil 42 (p. 122–123), aux côtés de l’art du slogan et de l’argumentaire.','Moran']],
+ ['Trois versions',
+  ['d','Une phrase','Pour se présenter dans un salon ou un vernissage.'],
+  ['d','90 secondes','Début d’entretien, présentation devant un jury.'],
+  ['d','Écrite','Message LinkedIn ou mail de candidature : 4 à 5 lignes.'],
+  ['p','On parle d’« elevator pitch » : le temps d’un trajet en ascenseur avec quelqu’un qu’on voudrait convaincre.']],
+ ['Posture',
+  ['p','Regarder l’interlocuteur, voix posée, débit lent, pauses. Ne pas lire. Montrer une image (portfolio ouvert, téléphone) au moment de la preuve.'],
+  ['att','La troisième répétition à voix haute est toujours meilleure que la première. Faire répéter en binôme, chronométré.'],
+  ['conf','Réciter son CV dans l’ordre chronologique. Le pitch ne raconte pas tout : il donne envie d’en savoir plus.']],
+ ['Le format PechaKucha',
+  ['p','Créé à Tokyo en 2003 par les architectes Astrid Klein et Mark Dytham : 20 images, 20 secondes chacune, défilement automatique, 6 minutes 40 au total. Utile en entraînement pour apprendre à choisir et à hiérarchiser.']]
+]},
+{t:'Références', sub:'Ouvrages, designers et ressources vérifiés', s:[
+ ['Ouvrages du syllabus',
+  ['d','William Arruda','Digital You: Real Personal Branding in the Virtual Age, ATD Press, 2019.'],
+  ['d','Stéphanie Moran et Nathalie Van Laethem','La boîte à outils du Personal Branding, Dunod, 2021.']],
+ ['Pour aller plus loin',
+  ['d','Tom Peters','« The Brand Called You », Fast Company, 1997. Article fondateur.'],
+  ['d','William Arruda et Kirsten Dixson','Career Distinction: Stand Out by Building Your Brand, Wiley, 2007.'],
+  ['d','Simon Sinek','Start with Why, 2009. Le Golden Circle.'],
+  ['d','Austin Kleon','Show Your Work!, 2014 (Montrez votre travail !). Partager son process plutôt que seulement le résultat. Très accessible pour des étudiants.'],
+  ['d','Mark Granovetter','« The Strength of Weak Ties », American Journal of Sociology, 1973.'],
+  ['conf','Ne pas attribuer à Arruda la formule « votre marque, c’est ce que les gens disent de vous quand vous n’êtes pas dans la pièce » : elle est généralement attribuée à Jeff Bezos.']],
+ ['Références culturelles du module',
+  ['d','Virgil Abloh','Architecte de formation (master à l’IIT de Chicago, 2006), fondateur d’Off-White, directeur artistique homme chez Louis Vuitton à partir de 2018. Approche « 3 % ». Exposition « Figures of Speech », MCA Chicago, 2019.'],
+  ['d','Charles et Ray Eames','Mobilier, expositions, plus d’une centaine de courts films, dont Powers of Ten (1977).'],
+  ['d','Simon Porte Jacquemus','Marque lancée en 2009, à 19 ans. Instagram comme récit de marque ; défilé dans un champ de lavande en 2019.'],
+  ['d','PechaKucha','Tokyo, 2003, Klein Dytham architecture.']],
+ ['Ressources pratiques',
+  ['d','Behance, Adobe Portfolio','Vitrine et site inclus dans l’abonnement Creative Cloud.'],
+  ['d','Cargo, Squarespace','Sites de portfolio appréciés des designers.'],
+  ['d','Canva, Figma','Gabarits de publications et de carrousels.'],
+  ['d','Google en navigation privée','Audit d’e-réputation gratuit.']]
+]},
+{t:'Pièges et checklist', sub:'Avant de rendre', s:[
+ ['Pièges courants',
+  ['conf','Bio pleine d’adjectifs creux, sans cible ni singularité.'],['conf','Portfolio trop long, avec des projets faibles.'],['conf','Images de qualité inégale, mockups gratuits reconnaissables.'],['conf','Process absent : seulement des images finales.'],['conf','Projet de groupe présenté comme individuel.'],['conf','Profils incohérents entre eux (photo, nom, ton, univers visuel).'],['conf','Compte Instagram personnel public et visible des recruteurs.'],['conf','Pitch récité, trop long, sans demande claire.'],['conf','PDF trop lourd pour être envoyé par mail.']],
+ ['Checklist finale',
+  ['p','☐ Phrase de positionnement claire, sans adjectif creux.'],['p','☐ Bio courte et bio longue rédigées.'],['p','☐ 6 à 10 projets, le plus fort en ouverture.'],['p','☐ Chaque projet : contexte, problématique, process, résultat, rôle.'],['p','☐ Une grille, deux familles de caractères maximum.'],['p','☐ Images homogènes et de qualité.'],['p','☐ Droits vérifiés, co-auteurs et photographes crédités.'],['p','☐ PDF écran de moins de 10 Mo, liens cliquables.'],['p','☐ Profils cohérents : même nom, même photo, même positionnement.'],['p','☐ Plan éditorial sur 4 semaines, première publication faite.'],['p','☐ Carte du réseau et deux prises de contact envoyées.'],['p','☐ Pitch de 90 secondes répété à voix haute.'],['p','☐ Recherche Google sur son nom vérifiée.']]
+]}
+];
+/*END*/
+class Component extends DCLogic {
+  state = { show: Object.fromEntries(Object.keys(TYPES).map(k => [k, true])), done: {} };
+  componentDidMount() {
+    try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) this.setState({ show: { ...this.state.show, ...s.show }, done: s.done || {} }); } catch (e) {}
+  }
+  save = () => { try { localStorage.setItem(KEY, JSON.stringify({ show: this.state.show, done: this.state.done })); } catch (e) {} };
+  renderVals() {
+    const { show, done } = this.state;
+    const vis = t => !TYPES[t] || show[t] !== false;
+    const chapters = DATA.map((c, i) => ({
+      t: c.t, sub: c.sub, id: 'ch' + (i + 1), href: '#ch' + (i + 1), num: String(i + 1).padStart(2, '0'),
+      done: !!done[i], notDone: !done[i],
+      toggle: () => this.setState(s => ({ done: { ...s.done, [i]: !s.done[i] } }), this.save),
+      sections: c.s.map(sec => ({
+        h: sec[0],
+        blocks: sec.slice(1).map(([t, a, b]) => {
+          const T = TYPES[t] || ['!', 'Attention'];
+          const v = vis(t);
+          return {
+            text: t === 'd' ? b : a, term: t === 'd' ? a : b,
+            label: T[0] + ' ' + (t === 'd' || t === 'quote' ? T[1] : (b || T[1])),
+            isP: t === 'p', isD: t === 'd', isQuote: t === 'quote' && v,
+            isEx: t === 'ex' && v, isDire: t === 'dire' && v, isDal: t === 'dal' && v,
+            isConf: t === 'conf' && v, isAtt: t === 'att' && v, isKey: t === 'key' && v
+          };
+        })
+      }))
+    }));
+    const n = DATA.filter((_, i) => done[i]).length;
+    const filters = Object.keys(TYPES).map(k => ({
+      glyph: TYPES[k][0], one: TYPES[k][1], label: TYPES[k][2], on: show[k] !== false, off: show[k] === false,
+      toggle: () => this.setState(s => ({ show: { ...s.show, [k]: s.show[k] === false } }), this.save)
+    }));
+    return { chapters, filters, doneLabel: n + ' / ' + DATA.length, donePct: Math.round(n / DATA.length * 100) + '%' };
+  }
+}
+</script>
+</body>
+</html>
