@@ -41,11 +41,12 @@
     if (r.error) throw r.error.code === '23505' ? new Error('Ce pseudo existe déjà dans la classe ' + cls + '.') : nice(r.error);
   };
 
-  Q.studentLogin = async function (cls, pseudo, pin, nom) {
+  Q.studentLogin = async function (cls, pseudo, pin, nom, mode) {
     await Q.ready;
     var password = pwOf(pin), r, email;
     var ex = await Q.sb.rpc('quiz_login_email', { p_cls: cls, p_pseudo: pseudo });
     if (ex.error) throw nice(ex.error);
+    if (!ex.data && mode === 'login') throw new Error('Aucun compte « ' + pseudo + ' » en ' + cls + '. Vérifiez la classe ou créez votre compte.');
     email = ex.data || emailOf(cls, pseudo).replace('@', '.' + Math.random().toString(36).slice(2, 6) + '@');
     if (!ex.data) {
       if (!nom || nom.length < 3) throw new Error('Première connexion : indiquez votre nom et prénom.');

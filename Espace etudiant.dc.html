@@ -8,33 +8,36 @@
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#f5f3ee;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif}
-a{color:inherit;text-decoration:none}
-a:hover{color:oklch(0.45 0.13 250)}
+body{margin:0;background:#f2eefc;color:#17131f;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#ff3d7f}a:hover{color:#d81b60}
 input,button{font-family:inherit}
 </style>
 <script src="./quiz-cloud.js"></script>
 </helmet>
-<main style="max-width:880px;margin:0 auto;padding:56px 24px 96px;display:flex;flex-direction:column;gap:36px">
-  <header style="display:flex;flex-direction:column;gap:14px">
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b675e">EIDM &amp; ESDAC Nice · 2026-2027</div>
-    <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(40px,7vw,64px);line-height:.98;letter-spacing:-.02em;margin:0">Espace étudiant</h1>
+<main style="width:100%;max-width:560px;margin:0 auto;padding:40px 20px 64px;box-sizing:border-box;display:flex;flex-direction:column;gap:28px">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#ff3d7f;font-weight:600">EIDM &amp; ESDAC Nice · 2026-2027</div>
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:44px;line-height:1.02">Espace<br><span style="color:#ff3d7f">étudiant</span></div>
   </header>
 
   <sc-if value="{{ isBoot }}" hint-placeholder-val="{{ false }}">
-    <div style="font-size:15px;color:#6b675e">Chargement…</div>
+    <div style="font-size:15px;color:#5d5670">Chargement…</div>
   </sc-if>
 
   <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
-    <div style="display:flex;flex-direction:column;gap:22px;max-width:440px">
-      <p style="margin:0;font-size:16px;line-height:1.55;color:#4a4740;text-wrap:pretty">Connectez-vous pour retrouver les quiz et les fiches de révision de votre classe. Le compte est créé à la première connexion.</p>
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;gap:4px;background:#e4ddf7;padding:4px;border-radius:10px">
+        <button onClick="{{ toLogin }}" style="flex:1;padding:10px;border:0;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;background:{{ tabLoginBg }};color:#17131f">J'ai déjà un compte</button>
+        <button onClick="{{ toCreate }}" style="flex:1;padding:10px;border:0;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;background:{{ tabCreateBg }};color:#17131f">Créer mon compte</button>
+      </div>
       <div style="display:flex;flex-direction:column;gap:8px">
         <div style="font-size:13px;font-weight:600">École</div>
         <div style="display:flex;gap:8px">
           <sc-for list="{{ ecoles }}" as="e" hint-placeholder-count="2">
-            <button onClick="{{ e.onClick }}" style="flex:1;padding:13px;border-radius:6px;font-size:16px;font-weight:500;cursor:pointer;border:1.5px solid {{ e.bd }};background:{{ e.bg }};color:{{ e.fg }}">{{ e.label }}</button>
+            <button onClick="{{ e.onClick }}" style="flex:1;padding:13px;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;border:2px solid #17131f;background:{{ e.bg }};color:#17131f;box-shadow:{{ e.sh }}">{{ e.label }}</button>
           </sc-for>
         </div>
       </div>
@@ -42,46 +45,53 @@ input,button{font-family:inherit}
         <div style="font-size:13px;font-weight:600">Niveau</div>
         <div style="display:flex;gap:8px">
           <sc-for list="{{ niveaux }}" as="n" hint-placeholder-count="3">
-            <button onClick="{{ n.onClick }}" style="flex:1;padding:13px;border-radius:6px;font-size:16px;font-weight:500;cursor:pointer;border:1.5px solid {{ n.bd }};background:{{ n.bg }};color:{{ n.fg }}">{{ n.label }}</button>
+            <button onClick="{{ n.onClick }}" style="flex:1;padding:13px;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;border:2px solid #17131f;background:{{ n.bg }};color:#17131f;box-shadow:{{ n.sh }}">{{ n.label }}</button>
           </sc-for>
         </div>
       </div>
       <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Pseudo
-        <input value="{{ f.pseudo }}" onChange="{{ onPseudo }}" placeholder="ex. lune, pli42…" autoComplete="username" style="padding:13px;border:1.5px solid #bfb8a8;border-radius:6px;font-size:16px;background:#fff">
+        <input value="{{ f.pseudo }}" onChange="{{ onPseudo }}" placeholder="ex. lune, pli42…" autoComplete="username" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff">
       </label>
-      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600"><span>Nom et prénom <span style="font-weight:400;color:#6b675e">(première connexion)</span></span>
-        <input value="{{ f.nom }}" onChange="{{ onNom }}" placeholder="DUPONT Camille" autoComplete="name" style="padding:13px;border:1.5px solid #bfb8a8;border-radius:6px;font-size:16px;background:#fff">
-      </label>
-      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Code secret (4 chiffres)
-        <input value="{{ f.pin }}" onChange="{{ onPin }}" inputMode="numeric" autoComplete="off" placeholder="1234" style="padding:13px;border:1.5px solid #bfb8a8;border-radius:6px;font-size:16px;background:#fff;letter-spacing:.3em">
-      </label>
-      <div style="font-size:13px;line-height:1.5;color:#6b675e">Seul le pseudo est affiché. Votre nom n'est visible que par l'enseignant. Notez votre code : il n'y a pas d'e-mail pour le retrouver.</div>
-      <sc-if value="{{ hasErr }}" hint-placeholder-val="{{ false }}">
-        <div style="font-size:14px;color:#8a3b2b;background:#f3e1db;padding:10px 14px;border-radius:6px">{{ err }}</div>
+      <sc-if value="{{ isCreate }}" hint-placeholder-val="{{ false }}">
+        <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Nom et prénom
+          <input value="{{ f.nom }}" onChange="{{ onNom }}" placeholder="DUPONT Camille" autoComplete="name" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff">
+        </label>
       </sc-if>
-      <button onClick="{{ login }}" style="padding:15px;border:0;border-radius:6px;background:#1d1c1a;color:#f5f3ee;font-size:16px;font-weight:500;cursor:pointer" style-hover="background:#4a4740">{{ loginLabel }}</button>
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Code secret (4 chiffres)
+        <input value="{{ f.pin }}" onChange="{{ onPin }}" inputMode="numeric" autoComplete="off" placeholder="1234" style="padding:14px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:16px;background:#fff;letter-spacing:.3em">
+      </label>
+      <sc-if value="{{ isCreate }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:13px;line-height:1.5;color:#5d5670">Seul le pseudo est affiché. Votre nom n'est visible que par l'enseignant. Notez votre code : il n'y a pas d'e-mail pour le retrouver.</div>
+      </sc-if>
+      <sc-if value="{{ hasErr }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:14px;color:#d6361f;background:#ffe1d8;padding:10px 14px;border-radius:8px">{{ err }}</div>
+      </sc-if>
+      <button onClick="{{ login }}" style="padding:16px;border:2px solid #17131f;border-radius:14px;background:#ff3d7f;color:#17131f;font-size:17px;font-weight:700;cursor:pointer;box-shadow:4px 4px 0 #17131f" style-hover="transform:translate(-1px,-1px);box-shadow:5px 5px 0 #17131f" style-active="transform:translate(3px,3px);box-shadow:1px 1px 0 #17131f">{{ loginLabel }}</button>
     </div>
   </sc-if>
 
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
-    <div style="display:flex;flex-direction:column;gap:28px">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:14px;border-bottom:1px solid #1d1c1a">
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
         <div style="display:flex;flex-direction:column;gap:2px">
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">{{ me.cls }}</span>
-          <span style="font-size:18px;font-weight:500">{{ me.pseudo }}</span>
+          <div style="font-size:12px;color:#5d5670;letter-spacing:.08em;text-transform:uppercase">{{ me.cls }}</div>
+          <div style="font-size:18px;font-weight:600">{{ me.pseudo }}</div>
         </div>
-        <button onClick="{{ logout }}" style="padding:8px 14px;border:1px solid #bfb8a8;border-radius:999px;background:none;font-size:13px;cursor:pointer;color:#1d1c1a">Déconnexion</button>
+        <button onClick="{{ logout }}" style="padding:8px 14px;border:1.5px solid #c9c0e6;border-radius:999px;background:none;font-size:13px;cursor:pointer;color:#17131f">Déconnexion</button>
       </div>
       <sc-if value="{{ noMods }}" hint-placeholder-val="{{ false }}">
-        <div style="font-size:15px;line-height:1.55;color:#4a4740">Aucun module n'est encore disponible pour votre classe. Si vous pensez vous être trompé de classe, prévenez votre enseignant.</div>
+        <div style="font-size:15px;line-height:1.55;color:#5d5670">Aucun module n'est encore disponible pour votre classe. Si vous pensez vous être trompé de classe, prévenez votre enseignant.</div>
       </sc-if>
-      <div style="display:flex;flex-direction:column">
+      <div style="display:flex;flex-direction:column;gap:14px">
         <sc-for list="{{ mods }}" as="m" hint-placeholder-count="2">
-          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding:20px 0;border-bottom:1px solid #d9d4c7">
-            <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:2px"><span style="font-family:Newsreader,serif;font-size:26px;line-height:1.1">{{ m.name }}</span><span style="font-size:13.5px;color:#6b675e">{{ m.sub }}</span></div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <a href="{{ m.quiz }}" style="padding:10px 16px;background:#1d1c1a;color:#f5f3ee;border-radius:999px;font-size:14px;font-weight:500" style-hover="background:#4a4740;color:#f5f3ee">Quiz</a>
-              <a href="{{ m.kit }}" style="padding:10px 16px;border:1px solid #bfb8a8;border-radius:999px;font-size:14px;font-weight:500">Fiches de révision</a>
+          <div style="display:flex;flex-direction:column;gap:16px;background:#fff;border-radius:18px;padding:20px;border:2px solid #17131f;box-shadow:5px 5px 0 #17131f">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#ff3d7f;font-weight:600">{{ m.sub }}</div>
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:26px;line-height:1.1">{{ m.name }}</div>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <a href="{{ m.quiz }}" style="flex:1;min-width:130px;text-align:center;padding:12px 16px;border:2px solid #17131f;border-radius:999px;background:#ff3d7f;color:#17131f;font-size:15px;font-weight:700;text-decoration:none;box-shadow:3px 3px 0 #17131f" style-hover="color:#17131f;transform:translate(-1px,-1px);box-shadow:4px 4px 0 #17131f">Jouer au quiz</a>
+              <a href="{{ m.kit }}" style="flex:1;min-width:130px;text-align:center;padding:12px 16px;border:2px solid #17131f;border-radius:999px;background:#c6f432;color:#17131f;font-size:15px;font-weight:700;text-decoration:none;box-shadow:3px 3px 0 #17131f" style-hover="color:#17131f;transform:translate(-1px,-1px);box-shadow:4px 4px 0 #17131f">Fiches de révision</a>
             </div>
           </div>
         </sc-for>
@@ -100,11 +110,13 @@ const MODS = [
   { name: 'Infographie & édition', sub: 'B3 ESDAC', cls: ['B3 ESDAC'], quiz: 'Quiz Infographie.dc.html', kit: 'Infographie - Kit de seance.dc.html?eleves' },
   { name: 'Portfolio et communication digitale', sub: 'B3 ESDAC', cls: ['B3 ESDAC'], quiz: 'Quiz Portfolio.dc.html', kit: 'Portfolio - Kit de seance.dc.html?eleves' }
 ];
+const LAST = 'espace-etudiant-last';
 const QCw = () => window.QuizCloud ? Promise.resolve(window.QuizCloud) : new Promise(r => { const t = setInterval(() => { if (window.QuizCloud) { clearInterval(t); r(window.QuizCloud); } }, 50); });
 const ret = () => { const r = new URLSearchParams(location.search).get('r'); return r && /^[\w %\-.]+\.dc\.html$/.test(r) ? r : null; };
+const last = () => { try { return JSON.parse(localStorage.getItem(LAST) || 'null'); } catch (e) { return null; } };
 
 class Component extends DCLogic {
-  state = { boot: true, busy: false, me: null, err: '', f: { ecole: '', niveau: '', pseudo: '', nom: '', pin: '' } };
+  state = { boot: true, busy: false, me: null, err: '', mode: last() ? 'login' : 'create', f: { ecole: '', niveau: '', pseudo: '', nom: '', pin: '', ...(last() || {}) } };
   async componentDidMount() {
     try {
       const me = await (await QCw()).me();
@@ -114,27 +126,31 @@ class Component extends DCLogic {
   }
   setF = p => this.setState(st => ({ f: { ...st.f, ...p }, err: '' }));
   login = async () => {
-    const { f, busy } = this.state; if (busy) return;
+    const { f, busy, mode } = this.state; if (busy) return;
     const pseudo = f.pseudo.trim();
     if (!f.ecole || !f.niveau) return this.setState({ err: 'Choisissez votre école et votre niveau.' });
     if (!/^[\w\-]{3,16}$/.test(pseudo)) return this.setState({ err: 'Pseudo : 3 à 16 caractères, lettres, chiffres ou tiret.' });
+    if (mode === 'create' && f.nom.trim().length < 3) return this.setState({ err: 'Indiquez votre nom et prénom.' });
     if (!/^\d{4}$/.test(f.pin)) return this.setState({ err: 'Le code secret fait 4 chiffres.' });
     this.setState({ busy: true, err: '' });
     try {
-      const me = await (await QCw()).studentLogin(f.niveau + ' ' + f.ecole, pseudo, f.pin, f.nom.trim());
+      const me = await (await QCw()).studentLogin(f.niveau + ' ' + f.ecole, pseudo, f.pin, f.nom.trim(), mode);
+      try { localStorage.setItem(LAST, JSON.stringify({ ecole: f.ecole, niveau: f.niveau, pseudo })); } catch (e) {}
       if (ret()) return location.replace(ret());
       this.setState({ me, busy: false, f: { ...f, pin: '' } });
     } catch (e) { this.setState({ busy: false, err: e.message || 'Connexion impossible.' }); }
   };
-  logout = () => { window.QuizCloud && window.QuizCloud.logout(); this.setState({ me: null }); };
+  logout = () => { window.QuizCloud && window.QuizCloud.logout(); this.setState({ me: null, mode: 'login' }); };
   renderVals() {
-    const { boot, me, f, err, busy } = this.state;
-    const pick = (list, key) => list.map(v => { const on = f[key] === v; return { label: v, bd: on ? '#1d1c1a' : '#bfb8a8', bg: on ? '#1d1c1a' : '#fff', fg: on ? '#f5f3ee' : '#1d1c1a', onClick: () => this.setF({ [key]: v }) }; });
+    const { boot, me, f, err, busy, mode } = this.state;
+    const pick = (list, key) => list.map(v => { const on = f[key] === v; return { label: v, bg: on ? '#c6f432' : '#fff', sh: on ? '3px 3px 0 #17131f' : 'none', onClick: () => this.setF({ [key]: v }) }; });
     const mods = !me ? [] : MODS.filter(m => me.prof || m.cls.includes(me.cls));
     return {
-      isBoot: boot, isLogin: !boot && !me, isHome: !boot && !!me,
+      isBoot: boot, isLogin: !boot && !me, isHome: !boot && !!me, isCreate: mode === 'create',
+      tabLoginBg: mode === 'login' ? '#fff' : 'transparent', tabCreateBg: mode === 'create' ? '#fff' : 'transparent',
+      toLogin: () => this.setState({ mode: 'login', err: '' }), toCreate: () => this.setState({ mode: 'create', err: '' }),
       ecoles: pick(['EIDM', 'ESDAC'], 'ecole'), niveaux: pick(['B1', 'B2', 'B3'], 'niveau'),
-      f, err, hasErr: !!err, loginLabel: busy ? 'Connexion…' : 'Entrer',
+      f, err, hasErr: !!err, loginLabel: busy ? 'Connexion…' : mode === 'create' ? 'Créer mon compte' : 'Se connecter',
       onPseudo: e => this.setF({ pseudo: e.target.value }), onNom: e => this.setF({ nom: e.target.value }),
       onPin: e => { const AZ = { '&': '1', 'é': '2', '"': '3', "'": '4', '(': '5', '§': '6', '-': '6', 'è': '7', '!': '8', '_': '8', 'ç': '9', 'à': '0' }; this.setF({ pin: [...e.target.value].map(c => AZ[c] || c).join('').replace(/\D/g, '').slice(0, 4) }); },
       login: this.login, logout: this.logout,
