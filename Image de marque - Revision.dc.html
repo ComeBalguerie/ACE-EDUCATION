@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f2eefc;color:#17131f;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#ff3d7f}a:hover{color:#d81b60}
+</style>
+</helmet>
+<nav style="position:sticky;top:0;z-index:5;background:rgba(242,238,252,.95);backdrop-filter:blur(8px);border-bottom:2px solid #17131f">
+  <div style="max-width:760px;margin:0 auto;display:flex;gap:8px;overflow-x:auto;padding:10px 20px;box-sizing:border-box">
+    <a href="Espace etudiant.dc.html" style="flex:none;padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#17131f;color:#fff;font-size:13px;font-weight:600;text-decoration:none">← Mes modules</a>
+    <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="6">
+      <a href="{{ c.href }}" style="flex:none;padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#fff;color:#17131f;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap" style-hover="background:#c6f432;color:#17131f">{{ c.num }} {{ c.short }}</a>
+    </sc-for>
+  </div>
+</nav>
+
+<main style="max-width:760px;margin:0 auto;padding:36px 20px 96px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+  <header style="display:flex;flex-direction:column;gap:14px">
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#ff3d7f;font-weight:600">Fiche de révision · B2 EIDM</div>
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:clamp(44px,9vw,68px);line-height:.98">L'image<br><span style="color:#ff3d7f">de marque</span></div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#2e2938;max-width:600px;text-wrap:pretty">Identité, signes visibles, offre produit, point de vente : tout ce qu'il faut pour analyser une marque de mode et réussir votre audit. Les schémas vous aident à visualiser, les encadrés vous signalent les astuces et les pièges.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+      <span style="padding:5px 10px;border-radius:8px;background:#c6f432;border:1.5px solid #17131f;font-size:13px;font-weight:600">Astuce</span>
+      <span style="padding:5px 10px;border-radius:8px;background:#ffe1d8;border:1.5px solid #17131f;font-size:13px;font-weight:600">Attention</span>
+    </div>
+  </header>
+
+  <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="2">
+    <section id="{{ c.id }}" data-screen-label="{{ c.label }}" style="display:flex;flex-direction:column;gap:30px;scroll-margin-top:70px">
+      <div style="display:flex;gap:16px;align-items:flex-end;padding-bottom:14px;border-bottom:2px solid #17131f">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:56px;line-height:.85;color:#ff3d7f">{{ c.num }}</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <h2 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:30px;line-height:1.05">{{ c.t }}</h2>
+          <div style="font-size:15px;color:#5d5670">{{ c.sub }}</div>
+        </div>
+      </div>
+
+      <sc-for list="{{ c.sections }}" as="sec" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <h3 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:22px;line-height:1.15">{{ sec.h }}</h3>
+
+          <sc-if value="{{ sec.figEmission }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:1fr auto 1.2fr auto 1fr;gap:8px;align-items:center;text-align:center">
+                <div style="padding:14px 8px;border-radius:12px;background:#ff3d7f;border:2px solid #17131f;display:flex;flex-direction:column;gap:2px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px">Identité</span><span style="font-size:12px;font-weight:600">la marque émet</span></div>
+                <span style="font-size:22px;font-weight:800">→</span>
+                <div style="padding:10px 8px;border-radius:12px;background:#f2eefc;border:2px dashed #17131f;font-size:12px;font-weight:600;line-height:1.35">Points de contact<br><span style="font-weight:400;color:#5d5670">produit, boutique, site, campagne, vendeur…</span></div>
+                <span style="font-size:22px;font-weight:800">→</span>
+                <div style="padding:14px 8px;border-radius:12px;background:#c6f432;border:2px solid #17131f;display:flex;flex-direction:column;gap:2px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px">Image</span><span style="font-size:12px;font-weight:600">le public perçoit</span></div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Entre ce que la marque émet et ce que le public retient, il y a toujours un écart. L'audit sert à le mesurer.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figFleur }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="position:relative;width:100%;max-width:520px;aspect-ratio:1.05;margin:0 auto;font-size:12px;line-height:1.2;container-type:inline-size">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible"><path d="M54 16 Q 64 8, 72 15" fill="none" stroke="#ff3d7f" strokeWidth="0.8" strokeDasharray="2 1.5"></path><path d="M70.5 12.5 L 72.5 15.3 L 69.2 15.6" fill="none" stroke="#ff3d7f" strokeWidth="0.8"></path></svg>
+                <div style="position:absolute;left:55%;top:2%;font-size:2.2cqw;font-weight:700;color:#d81b60">points de contact</div>
+                <div style="position:absolute;left:12%;width:42%;top:3%;height:25%;background:#ff3d7f;border:2px solid #17131f;border-radius:6px 6px 50% 50% / 6px 6px 70% 70%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-sizing:border-box;padding:0 1.5cqw"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:3cqw">7. Identité de marque</span><span style="font-size:2.2cqw;font-weight:600">ce que la marque émet</span></div>
+                <div style="position:absolute;right:1%;top:10%;width:27%;aspect-ratio:1;border-radius:50%;background:#c6f432;border:2px solid #17131f;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-sizing:border-box;padding:6px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:2.8cqw">Public</span><span style="font-size:2.2cqw;font-weight:600">image de marque : ce qu'il perçoit</span></div>
+                <div style="position:absolute;left:30%;width:6%;top:27%;bottom:17%;background:#c6f432;border:2px solid #17131f;box-sizing:border-box;display:flex;align-items:center;justify-content:center"><span style="writing-mode:vertical-rl;transform:rotate(180deg);font-weight:800;font-size:2.3cqw;white-space:nowrap">2. Positionnement · cible, promesse</span></div>
+                <div style="position:absolute;left:1%;width:28%;top:34%;height:10%;border-radius:50%;background:#e4ddf7;border:2px solid #17131f;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:2.4cqw;box-sizing:border-box">6. Activation</div>
+                <div style="position:absolute;left:37%;width:30%;top:43%;height:10%;border-radius:50%;background:#e4ddf7;border:2px solid #17131f;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:2.4cqw;box-sizing:border-box">5. Communication</div>
+                <div style="position:absolute;left:1%;width:28%;top:53%;height:10%;border-radius:50%;background:#e4ddf7;border:2px solid #17131f;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:2.4cqw;box-sizing:border-box">4. Identité visuelle</div>
+                <div style="position:absolute;left:37%;width:30%;top:63%;height:10%;border-radius:50%;background:#e4ddf7;border:2px solid #17131f;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:2.4cqw;box-sizing:border-box">3. Identité verbale</div>
+                <div style="position:absolute;left:6%;width:54%;bottom:0;height:16%;background:#17131f;color:#fff;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-sizing:border-box;padding:0 8px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:2.8cqw">1. Stratégie de marque</span><span style="font-size:2.2cqw">valeurs, raison d'être, marché, concurrence</span></div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">De la racine à la fleur, la marque construit son identité. Le public, lui, n'en perçoit que ce qui lui parvient par les points de contact.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figPrisme }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:grid;grid-template-columns:86px 1fr 1fr;gap:8px;max-width:480px;margin:0 auto;width:100%">
+                <div></div>
+                <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#5d5670;text-align:center">Ce qui se voit</div>
+                <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#5d5670;text-align:center">Ce qui se ressent</div>
+                <div style="font-size:12px;font-weight:700;color:#ff3d7f;display:flex;align-items:center">La marque</div>
+                <div style="padding:12px 8px;border-radius:10px;background:#ff3d7f;border:2px solid #17131f;text-align:center;font-weight:700;font-size:14px">Physique</div>
+                <div style="padding:12px 8px;border-radius:10px;background:#ff3d7f;border:2px solid #17131f;text-align:center;font-weight:700;font-size:14px">Personnalité</div>
+                <div style="font-size:12px;font-weight:700;color:#5d5670;display:flex;align-items:center">Le lien</div>
+                <div style="padding:12px 8px;border-radius:10px;background:#e4ddf7;border:2px solid #17131f;text-align:center;font-weight:700;font-size:14px">Relation</div>
+                <div style="padding:12px 8px;border-radius:10px;background:#e4ddf7;border:2px solid #17131f;text-align:center;font-weight:700;font-size:14px">Culture</div>
+                <div style="font-size:12px;font-weight:700;color:#5c7a00;display:flex;align-items:center">Le client</div>
+                <div style="padding:12px 8px;border-radius:10px;background:#c6f432;border:2px solid #17131f;text-align:center;font-weight:700;font-size:14px">Reflet</div>
+                <div style="padding:12px 8px;border-radius:10px;background:#c6f432;border:2px solid #17131f;text-align:center;font-weight:700;font-size:14px">Mentalisation</div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Le prisme de Kapferer, déplié : en haut ce que la marque construit, en bas l'image qu'elle renvoie du client.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figContacts }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px;align-items:center">
+              <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:520px">
+                <sc-for list="{{ contacts }}" as="t" hint-placeholder-count="8">
+                  <span style="padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#f2eefc;font-size:13px;font-weight:600">{{ t }}</span>
+                </sc-for>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Chaque point de contact compte. Un seul qui contredit les autres suffit à brouiller l'image.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figPyramide }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:6px;align-items:center">
+              <div style="width:28%;padding:10px 4px;background:#17131f;color:#fff;text-align:center;font-size:12px;font-weight:700;border-radius:6px 6px 0 0">Pièces image</div>
+              <div style="width:50%;padding:10px 4px;background:#4a4360;color:#fff;text-align:center;font-size:12px;font-weight:700">Cœur de gamme</div>
+              <div style="width:72%;padding:10px 4px;background:#8a82a3;color:#fff;text-align:center;font-size:12px;font-weight:700">Produits d'accès</div>
+              <div style="width:94%;padding:10px 4px;background:#c9c0e6;text-align:center;font-size:12px;font-weight:700;border-radius:0 0 6px 6px">Basiques et carry-over</div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center;margin-top:8px">En haut, peu de pièces qui font l'image. En bas, beaucoup de produits qui font le volume. Les capsules et collaborations viennent s'ajouter ponctuellement.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figVitrine }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="position:relative;width:100%;max-width:440px;aspect-ratio:2;margin:0 auto;background:#f2eefc;border:2px solid #17131f;border-radius:6px;overflow:hidden">
+                <div style="position:absolute;left:0;right:0;top:0;height:20%;background:linear-gradient(#fff6c2,transparent)"></div>
+                <div style="position:absolute;left:43%;bottom:12%;width:14%;height:64%;background:#ff3d7f;border:2px solid #17131f;border-radius:6px 6px 0 0"></div>
+                <div style="position:absolute;left:28%;bottom:12%;width:11%;height:40%;background:#8a82a3;border:2px solid #17131f;border-radius:6px 6px 0 0"></div>
+                <div style="position:absolute;left:61%;bottom:12%;width:11%;height:40%;background:#8a82a3;border:2px solid #17131f;border-radius:6px 6px 0 0"></div>
+                <div style="position:absolute;left:0;right:0;bottom:0;height:12%;background:#17131f"></div>
+                <div style="position:absolute;left:44%;top:6%;font-size:11px;font-weight:700;color:#d81b60">point focal</div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Un point focal, un groupe impair, des hauteurs en pyramide, une lumière qui hiérarchise.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figPlan }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="position:relative;width:100%;max-width:380px;aspect-ratio:1.15;margin:0 auto;background:#faf8ff;border:2px solid #17131f">
+                <div style="position:absolute;left:8%;right:8%;top:4%;height:16%;background:#c6f432;border:2px solid #17131f;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;text-align:center">Produits d'appel au fond</div>
+                <div style="position:absolute;right:3%;top:28%;width:24%;height:42%;background:rgba(255,61,127,.25);border:2px solid #17131f;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;text-align:center">Zone chaude<br>(à droite)</div>
+                <div style="position:absolute;left:3%;top:28%;width:22%;height:30%;background:#e4ddf7;border:2px solid #17131f;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;text-align:center">Zone froide</div>
+                <div style="position:absolute;left:3%;top:62%;width:22%;height:14%;background:#fff;border:2px solid #17131f;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">Caisse</div>
+                <div style="position:absolute;left:28%;right:28%;bottom:4%;height:20%;background:repeating-linear-gradient(45deg,#f2eefc 0 6px,#fff 6px 12px);border:2px dashed #17131f;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;text-align:center">Zone de décompression</div>
+                <div style="position:absolute;left:44%;bottom:-14px;padding:2px 8px;background:#17131f;color:#fff;font-size:11px;font-weight:700;border-radius:4px">Entrée</div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center;margin-top:10px">Le client ralentit à l'entrée, tourne naturellement à droite, et traverse la boutique pour atteindre les produits d'appel.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figSegments }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:minmax(80px,auto) 1fr 1fr 1fr;gap:6px;font-size:13px;align-items:center">
+                <div></div><div style="text-align:center;font-weight:800;padding:8px;border-radius:8px;background:#e4ddf7;border:2px solid #17131f">Mass</div><div style="text-align:center;font-weight:800;padding:8px;border-radius:8px;background:#c6f432;border:2px solid #17131f">Premium</div><div style="text-align:center;font-weight:800;padding:8px;border-radius:8px;background:#ff3d7f;border:2px solid #17131f">Luxe</div>
+                <sc-for list="{{ segRows }}" as="r" hint-placeholder-count="5">
+                  <div style="font-weight:700">{{ r.n }}</div><div style="text-align:center;padding:6px 4px;border-bottom:1px solid #c9c0e6">{{ r.a }}</div><div style="text-align:center;padding:6px 4px;border-bottom:1px solid #c9c0e6">{{ r.b }}</div><div style="text-align:center;padding:6px 4px;border-bottom:1px solid #c9c0e6">{{ r.c }}</div>
+                </sc-for>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figAudit }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center">
+              <sc-for list="{{ audit }}" as="a" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;gap:8px"><div style="padding:10px 12px;border-radius:12px;border:2px solid #17131f;background:{{ a.bg }};font-size:13px;font-weight:700;text-align:center;line-height:1.2"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;color:#d81b60">{{ a.n }}</span><br>{{ a.t }}</div><span style="font-weight:800">{{ a.arrow }}</span></div>
+              </sc-for>
+            </figure>
+          </sc-if>
+
+          <sc-for list="{{ sec.blocks }}" as="b" hint-placeholder-count="2">
+            <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+              <p style="margin:0;font-size:16.5px;line-height:1.65;color:#2e2938;text-wrap:pretty">{{ b.a }}</p>
+            </sc-if>
+            <sc-if value="{{ b.isD }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:minmax(110px,30%) minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px solid #c9c0e6">
+                <div style="font-weight:700;font-size:15px;line-height:1.4">{{ b.a }}</div>
+                <div style="font-size:15.5px;line-height:1.5;color:#2e2938">{{ b.b }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isAtt }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#c6f432;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Astuce</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isConf }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#ffe1d8;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#b3261e">Attention</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+      </sc-for>
+    </section>
+  </sc-for>
+
+  <div style="display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:18px;background:#fff;border:2px solid #17131f;box-shadow:5px 5px 0 #17131f">
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px">Testez-vous</div>
+    <div style="font-size:15.5px;line-height:1.55;color:#2e2938">Le quiz de chaque séance reprend ces notions. Vous pouvez le rejouer autant de fois que vous voulez pour vous entraîner.</div>
+    <a href="Quiz Image de marque.dc.html" style="align-self:flex-start;padding:12px 20px;border:2px solid #17131f;border-radius:999px;background:#ff3d7f;color:#17131f;font-size:15px;font-weight:700;text-decoration:none;box-shadow:3px 3px 0 #17131f" style-hover="color:#17131f">Jouer au quiz Image de marque</a>
+  </div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DATA = [
+{t:'Identité et image', short:'Identité', sub:'Ce que la marque émet, ce que le public reçoit', s:[
+ {h:'Les définitions', fig:'Emission', b:[
+  ['d','Identité de marque','Ce que la marque émet : ses valeurs, son histoire, son discours, ses codes visuels, ses produits. C’est elle qui la décide.'],
+  ['d','Image de marque','Ce que le public perçoit et retient. Elle se construit dans la tête du consommateur, à partir de tous ses contacts avec la marque.'],
+  ['p','Jean-Noël Kapferer, dans Les marques, capital de l’entreprise, distingue ainsi l’émission (l’identité) et la réception (l’image). Les deux ne coïncident jamais complètement.'],
+  ['conf','Ne confondez pas les deux. « La marque se veut audacieuse » décrit son identité. « Les clients la trouvent chère et distante » décrit son image.']]},
+ {h:'La fleur de marque', fig:'Fleur', b:[
+  ['p','La fleur de marque résume comment une marque se construit, de la racine à la fleur, et comment le public la perçoit.'],
+  ['d','1. Stratégie de marque','Le travail de fond, invisible comme des racines : valeurs, raison d’être, analyse du marché et de la concurrence.'],
+  ['d','2. Positionnement','La traduction claire de la stratégie : la cible et la promesse. Tout le reste s’appuie dessus, comme les feuilles sur la tige.'],
+  ['d','3. Identité verbale','Le nom, le ton, les mots, la signature.'],
+  ['d','4. Identité visuelle','Logo, couleurs, typographie, style photographique.'],
+  ['d','5. Communication','Campagnes, réseaux sociaux, relations presse.'],
+  ['d','6. Activation','Événements, boutiques éphémères, collaborations : les moments où le public vit la marque.'],
+  ['d','7. Identité de marque','La fleur : la somme de tout ce qui précède, ce que la marque émet.'],
+  ['d','Image de marque','Ce que le public perçoit à travers les points de contact. La marque ne la contrôle pas directement.'],
+  ['att','Le branding, c’est tout le processus : faire pousser la plante entière. Si la tige est fragile, c’est-à-dire si le positionnement est flou, les plus belles feuilles ne suffisent pas.']]},
+ {h:'Les points de contact', fig:'Contacts', b:[
+  ['p','Un point de contact est tout moment où le public rencontre la marque. L’image est la somme de toutes ces rencontres, y compris celles que la marque ne contrôle pas, comme le bouche-à-oreille ou les avis en ligne.']]},
+ {h:'Le prisme d’identité de Kapferer', fig:'Prisme', b:[
+  ['p','Le prisme décrit l’identité d’une marque en six facettes. Il sert de grille pour analyser une marque de façon complète.'],
+  ['d','Physique','Ce que l’on voit et touche : produits, logo, couleurs, matières.'],
+  ['d','Personnalité','Le caractère qu’on prête à la marque, comme à une personne : audacieuse, discrète, joyeuse…'],
+  ['d','Relation','Le type de lien proposé au client : complicité, admiration, service.'],
+  ['d','Culture','Les valeurs, l’origine, l’histoire de la marque.'],
+  ['d','Reflet','L’image du client type telle que la marque la renvoie, notamment dans ses campagnes.'],
+  ['d','Mentalisation','Ce que le client pense de lui-même en achetant la marque.'],
+  ['att','Pour un audit, remplissez les six cases avec des preuves : une photo, une citation du site, un prix. Si une case reste vide ou contredit les autres, vous tenez un point d’analyse.']]}
+]},
+{t:'Les signes visibles', short:'Signes', sub:'Ce que l’on analyse', s:[
+ {h:'L’inventaire des signes', b:[
+  ['d','Univers visuel','Logo, couleurs, typographie, style photographique, direction artistique.'],
+  ['d','Ton','Le registre de langage : humour ou gravité, tutoiement ou vouvoiement.'],
+  ['d','Codes esthétiques','Pièces emblématiques, motifs, matières, silhouettes.'],
+  ['d','Codes sensoriels','Musique, parfum, lumière, toucher, température en boutique.'],
+  ['att','Une image forte repose sur peu de codes, répétés partout. Demandez-vous : si on cache le logo, reconnaît-on encore la marque ?']]},
+ {h:'Cas à retenir', b:[
+  ['d','Chanel, 31 rue Cambon','Le lieu, le noir et blanc, le beige, le tweed : l’image se lit sans un mot.'],
+  ['d','Burberry','Au début des années 2000, le motif check, surexposé et massivement copié, dégrade l’image. La marque réduit son usage et se recentre sur le trench et son héritage.'],
+  ['d','Jacquemus et Hermès','Même secteur, images opposées : spontanéité solaire d’un côté, maîtrise et rareté de l’autre.']]}
+]},
+{t:'L’offre produit', short:'Offre', sub:'La collection comme message', s:[
+ {h:'La structure d’une offre', fig:'Pyramide', b:[
+  ['d','Pièces image','Défilé, campagne. Peu vendues, elles fixent l’image de la marque.'],
+  ['d','Cœur de gamme','L’essentiel du chiffre d’affaires.'],
+  ['d','Produits d’accès','Accessoires, petite maroquinerie, parfum, beauté. Ils font entrer de nouveaux clients.'],
+  ['d','Basiques et carry-over','Les pièces reconduites de saison en saison.'],
+  ['d','Capsules et collaborations','Des offres limitées dans le temps, souvent pour créer l’événement.']]},
+ {h:'Ce que l’offre dit de la marque', b:[
+  ['p','Pour lire une offre, observez la largeur et la profondeur de la gamme, le niveau et les écarts de prix, les matières et le lieu de fabrication, le rythme de renouvellement et les pièces emblématiques reconduites.'],
+  ['att','Le prix est un signe. Deux produits proches en apparence racontent deux marques différentes selon leur prix.'],
+  ['conf','Une marque premium qui multiplie les promotions et les collaborations bon marché rend son offre illisible.']]},
+ {h:'Cas à retenir', b:[
+  ['d','Saint Laurent Rive Gauche (1966)','Le premier prêt-à-porter de couturier vendu dans sa propre boutique : l’offre rend la maison moderne.'],
+  ['d','Jacquemus, Le Chiquito','Un produit image devenu viral, puis décliné en produit d’accès.'],
+  ['d','Hermès, le Birkin','Une rareté organisée. Les parfums et les accessoires rendent la marque accessible sans diluer le sac.']]}
+]},
+{t:'Le point de vente', short:'Boutique', sub:'Vitrine, scénographie, parcours', s:[
+ {h:'La vitrine', fig:'Vitrine', b:[
+  ['d','Vitrine fermée','Elle a un fond : on ne voit pas l’intérieur. La vitrine est une scène.'],
+  ['d','Vitrine ouverte','Sans fond : toute la boutique fait vitrine.'],
+  ['d','Thématique ou produit','Elle raconte une histoire, ou met un produit en avant.'],
+  ['p','Les règles du visual merchandising : un point focal, des groupes impairs, une pyramide de hauteurs, un éclairage qui hiérarchise, un renouvellement régulier.'],
+  ['d','Leïla Menchari','Ses vitrines Hermès du faubourg Saint-Honoré (1978-2013) ont fait de la vitrine un véritable récit.']]},
+ {h:'La scénographie', b:[
+  ['p','Matériaux, couleurs, mobilier, lumière, musique, odeur, température : tout participe à l’image. Le marketing sensoriel agit sans que le client en ait conscience.'],
+  ['att','Le personnel fait partie de la scénographie : sa tenue, sa posture et son discours sont des points de contact à part entière.']]},
+ {h:'Le parcours client', fig:'Plan', b:[
+  ['d','Zone de décompression','Les premiers mètres après l’entrée, où le client ralentit et regarde peu (Paco Underhill, Why We Buy, 1999).'],
+  ['d','Zones chaudes et froides','Les zones naturellement fréquentées, et celles qui sont délaissées.'],
+  ['d','Produits d’appel','Placés en fond de boutique pour faire traverser tout l’espace.'],
+  ['d','Cabines et caisse','Les moments de décision et de dernière impression.'],
+  ['conf','Placer un produit important juste derrière la porte : dans la zone de décompression, le client ne le voit pas.']]},
+ {h:'Les formats de boutique', b:[
+  ['d','Flagship','La boutique vitrine de la marque, sur un emplacement prestigieux.'],
+  ['d','Corner','Un espace de la marque dans un grand magasin.'],
+  ['d','Pop-up','Une boutique éphémère.'],
+  ['d','Outlet','Le déstockage, souvent loin des centres-villes.']]},
+ {h:'Cas à retenir', b:[
+  ['d','Aesop','Chaque boutique est différente mais reconnaissable : la cohérence tient aux règles, pas à un décor répété.'],
+  ['d','Abercrombie & Fitch','Pénombre, parfum, musique forte : une image très marquée, jugée excluante. Les magasins ont été revus dans les années 2010.'],
+  ['d','Prada Epicenter (OMA, 2001)','La boutique devient un espace culturel.']]}
+]},
+{t:'Mass, premium, luxe', short:'Segments', sub:'Comparer les segments', s:[
+ {h:'La grille de comparaison', fig:'Segments', b:[
+  ['d','Mass','Zara, Uniqlo, H&M : volume, renouvellement rapide, boutiques sur les meilleurs emplacements. Zara a longtemps très peu investi en publicité.'],
+  ['d','Premium','COS, Sandro, Sézane, A.P.C. : qualité perçue, codes du luxe à prix intermédiaire.'],
+  ['d','Luxe','Hermès, Chanel, Loewe : rareté, artisanat, distribution maîtrisée, service.'],
+  ['att','Le segment se lit dans la cohérence de tous les points de contact, pas seulement dans le prix.']]},
+ {h:'Quand l’image se fissure', b:[
+  ['p','Un seul point de contact peut contredire des années de construction. Fin 2022, une campagne Balenciaga mettant en scène des enfants provoque un scandale mondial. Elle est retirée, avec des excuses publiques.']]}
+]},
+{t:'Méthode d’audit', short:'Audit', sub:'Pour le dossier et l’oral', s:[
+ {h:'Les cinq étapes', fig:'Audit', b:[
+  ['d','1. Identité déclarée','Ce que la marque dit d’elle-même : site, manifeste, campagnes, compte officiel.'],
+  ['d','2. Offre produit','Un relevé d’une trentaine de produits, la pyramide de l’offre, les prix.'],
+  ['d','3. Point de vente','La vitrine, le parcours, la scénographie, le personnel.'],
+  ['d','4. Écarts','Ce qui confirme le discours de la marque, et ce qui le contredit.'],
+  ['d','5. Recommandation','Ce que la marque devrait faire pour réduire les écarts.'],
+  ['att','Appuyez chaque affirmation sur une preuve visuelle : photo, capture d’écran, relevé de prix.'],
+  ['conf','Décrire sans analyser. « La boutique est blanche » est une observation. « Le blanc et le vide renforcent l’image d’exclusivité » est une analyse.']]}
+]}
+];
+const CONTACTS = ['Produit','Boutique','Vitrine','Vendeur','Site','Réseaux sociaux','Campagne','Packaging','Presse','Bouche-à-oreille'];
+const SEG = [{n:'Prix',a:'bas',b:'moyen',c:'élevé'},{n:'Rareté',a:'faible',b:'moyenne',c:'forte'},{n:'Collections',a:'très rapides',b:'saisonnières',c:'lentes, pièces permanentes'},{n:'Distribution',a:'partout',b:'sélective',c:'très maîtrisée'},{n:'Rapport au temps',a:'tendance',b:'entre les deux',c:'permanence'}];
+const AUD = ['Identité déclarée','Offre produit','Point de vente','Écarts','Recommandation'];
+
+class Component extends DCLogic {
+  renderVals() {
+    const chapters = DATA.map((c, i) => ({
+      t: c.t, short: c.short, sub: c.sub, id: 'ch' + (i + 1), href: '#ch' + (i + 1), num: String(i + 1).padStart(2, '0'),
+      label: String(i + 1).padStart(2, '0') + ' ' + c.t,
+      sections: c.s.map(sec => ({
+        h: sec.h, ['fig' + (sec.fig || 'None')]: true,
+        blocks: sec.b.map(([t, a, b]) => ({ a, b, isP: t === 'p', isD: t === 'd', isAtt: t === 'att', isConf: t === 'conf' }))
+      }))
+    }));
+    return { chapters, contacts: CONTACTS, segRows: SEG, audit: AUD.map((t, i) => ({ n: i + 1, t, bg: i === 4 ? '#c6f432' : i === 3 ? '#ffe1d8' : '#f2eefc', arrow: i < 4 ? '→' : '' })) };
+  }
+}
+</script>
+</body>
+</html>

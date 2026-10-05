@@ -102,13 +102,13 @@ input,button{font-family:inherit}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 const MODS = [
-  { name: 'Fondamentaux de la couleur', sub: 'B1 EIDM', cls: ['B1 EIDM'], quiz: 'Quiz Couleur.dc.html', kit: 'Couleur - Kit de seance.dc.html?eleves' },
-  { name: 'Photoshop', sub: 'B1 EIDM', cls: ['B1 EIDM'], quiz: 'Quiz Photoshop.dc.html', kit: 'Photoshop - Kit de seance.dc.html?eleves' },
-  { name: 'Image de marque', sub: 'B2 EIDM', cls: ['B2 EIDM'], quiz: 'Quiz Image de marque.dc.html', kit: 'Image de marque - Kit de seance.dc.html?eleves' },
-  { name: 'InDesign', sub: 'B2 EIDM', cls: ['B2 EIDM'], quiz: 'Quiz EIDM.dc.html', kit: 'InDesign - Kit de seance.dc.html?eleves' },
-  { name: 'Illustrator', sub: 'B2 ESDAC', cls: ['B2 ESDAC'], quiz: 'Quiz Illustrator.dc.html', kit: 'Illustrator - Kit de seance.dc.html?eleves' },
-  { name: 'Infographie & édition', sub: 'B3 ESDAC', cls: ['B3 ESDAC'], quiz: 'Quiz Infographie.dc.html', kit: 'Infographie - Kit de seance.dc.html?eleves' },
-  { name: 'Portfolio et communication digitale', sub: 'B3 ESDAC', cls: ['B3 ESDAC'], quiz: 'Quiz Portfolio.dc.html', kit: 'Portfolio - Kit de seance.dc.html?eleves' }
+  { name: 'Fondamentaux de la couleur', sub: 'B1 EIDM', cls: ['B1 EIDM'], quiz: 'Quiz Couleur.dc.html', kit: 'Couleur - Revision.dc.html' },
+  { name: 'Photoshop', sub: 'B1 EIDM', cls: ['B1 EIDM'], quiz: 'Quiz Photoshop.dc.html', kit: 'Photoshop - Revision.dc.html' },
+  { name: 'Image de marque', sub: 'B2 EIDM', cls: ['B2 EIDM'], quiz: 'Quiz Image de marque.dc.html', kit: 'Image de marque - Revision.dc.html' },
+  { name: 'InDesign', sub: 'B2 EIDM', cls: ['B2 EIDM'], quiz: 'Quiz EIDM.dc.html', kit: 'InDesign - Revision.dc.html' },
+  { name: 'Illustrator', sub: 'B2 ESDAC', cls: ['B2 ESDAC'], quiz: 'Quiz Illustrator.dc.html', kit: 'Illustrator - Revision.dc.html' },
+  { name: 'Infographie & édition', sub: 'B3 ESDAC', cls: ['B3 ESDAC'], quiz: 'Quiz Infographie.dc.html', kit: 'Infographie - Revision.dc.html' },
+  { name: 'Portfolio et communication digitale', sub: 'B3 ESDAC', cls: ['B3 ESDAC'], quiz: 'Quiz Portfolio.dc.html', kit: 'Portfolio - Revision.dc.html' }
 ];
 const LAST = 'espace-etudiant-last';
 const QCw = () => window.QuizCloud ? Promise.resolve(window.QuizCloud) : new Promise(r => { const t = setInterval(() => { if (window.QuizCloud) { clearInterval(t); r(window.QuizCloud); } }, 50); });

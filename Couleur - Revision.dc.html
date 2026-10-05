@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f2eefc;color:#17131f;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#ff3d7f}a:hover{color:#d81b60}
+</style>
+</helmet>
+<nav style="position:sticky;top:0;z-index:5;background:rgba(242,238,252,.95);backdrop-filter:blur(8px);border-bottom:2px solid #17131f">
+  <div style="max-width:760px;margin:0 auto;display:flex;gap:8px;overflow-x:auto;padding:10px 20px;box-sizing:border-box">
+    <a href="Espace etudiant.dc.html" style="flex:none;padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#17131f;color:#fff;font-size:13px;font-weight:600;text-decoration:none">← Mes modules</a>
+    <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="6">
+      <a href="{{ c.href }}" style="flex:none;padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#fff;color:#17131f;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap" style-hover="background:#c6f432;color:#17131f">{{ c.num }} {{ c.short }}</a>
+    </sc-for>
+  </div>
+</nav>
+
+<main style="max-width:760px;margin:0 auto;padding:36px 20px 96px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+  <header style="display:flex;flex-direction:column;gap:14px">
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#ff3d7f;font-weight:600">Fiche de révision · B1 EIDM</div>
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:clamp(44px,9vw,68px);line-height:.98">La couleur<br><span style="color:#ff3d7f">de A à Z</span></div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#2e2938;max-width:600px;text-wrap:pretty">De la lumière à l'identité de marque, toutes les notions du module Fondamentaux de la couleur et culture visuelle. Les schémas vous aident à visualiser, les encadrés vous signalent les astuces et les pièges.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+      <span style="padding:5px 10px;border-radius:8px;background:#c6f432;border:1.5px solid #17131f;font-size:13px;font-weight:600">Astuce</span>
+      <span style="padding:5px 10px;border-radius:8px;background:#ffe1d8;border:1.5px solid #17131f;font-size:13px;font-weight:600">Attention</span>
+      <span style="padding:5px 10px;font-size:13px;color:#5d5670">Les couleurs affichées à l'écran sont des approximations.</span>
+    </div>
+  </header>
+
+  <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="2">
+    <section id="{{ c.id }}" data-screen-label="{{ c.label }}" style="display:flex;flex-direction:column;gap:30px;scroll-margin-top:70px">
+      <div style="display:flex;gap:16px;align-items:flex-end;padding-bottom:14px;border-bottom:2px solid #17131f">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:56px;line-height:.85;color:#ff3d7f">{{ c.num }}</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <h2 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:30px;line-height:1.05">{{ c.t }}</h2>
+          <div style="font-size:15px;color:#5d5670">{{ c.sub }}</div>
+        </div>
+      </div>
+
+      <sc-for list="{{ c.sections }}" as="sec" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <h3 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:22px;line-height:1.15">{{ sec.h }}</h3>
+
+          <sc-if value="{{ sec.figSpectre }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="height:46px;border-radius:8px;border:1.5px solid #17131f;background:linear-gradient(90deg,#5b00a8,#2a3cff 16%,#00a8ff 30%,#00c853 46%,#e8f000 60%,#ff9800 74%,#ff1a00 88%,#9b0000)"></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600"><span>380 nm · violet</span><span>lumière visible</span><span>rouge · 780 nm</span></div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Le prisme de Newton décompose la lumière blanche en ces couleurs. Au-delà : ultraviolet d'un côté, infrarouge de l'autre, invisibles pour l'œil.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figSyntheses }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+                  <div style="position:relative;width:150px;height:140px;background:#000;border-radius:10px;isolation:isolate">
+                    <div style="position:absolute;left:22px;top:12px;width:70px;height:70px;border-radius:50%;background:#ff0000;mix-blend-mode:screen"></div>
+                    <div style="position:absolute;left:58px;top:12px;width:70px;height:70px;border-radius:50%;background:#00ff00;mix-blend-mode:screen"></div>
+                    <div style="position:absolute;left:40px;top:52px;width:70px;height:70px;border-radius:50%;background:#0000ff;mix-blend-mode:screen"></div>
+                  </div>
+                  <div style="font-size:13px;font-weight:700;text-align:center">Additive · RVB<br><span style="font-weight:400;color:#5d5670">lumière, écrans : le mélange donne du blanc</span></div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+                  <div style="position:relative;width:150px;height:140px;background:#fff;border:1.5px solid #c9c0e6;border-radius:10px;isolation:isolate">
+                    <div style="position:absolute;left:22px;top:12px;width:70px;height:70px;border-radius:50%;background:#00aeef;mix-blend-mode:multiply"></div>
+                    <div style="position:absolute;left:58px;top:12px;width:70px;height:70px;border-radius:50%;background:#ec008c;mix-blend-mode:multiply"></div>
+                    <div style="position:absolute;left:40px;top:52px;width:70px;height:70px;border-radius:50%;background:#fff200;mix-blend-mode:multiply"></div>
+                  </div>
+                  <div style="font-size:13px;font-weight:700;text-align:center">Soustractive · CMJ(N)<br><span style="font-weight:400;color:#5d5670">encres, pigments : le mélange tend vers le noir</span></div>
+                </div>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figTvs }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;flex-direction:column;gap:5px"><div style="font-size:13px;font-weight:700">Teinte <span style="font-weight:400;color:#5d5670">· la famille</span></div><div style="height:28px;border-radius:6px;border:1.5px solid #17131f;background:linear-gradient(90deg,#e53935,#fb8c00,#fdd835,#43a047,#1e88e5,#8e24aa,#e53935)"></div></div>
+              <div style="display:flex;flex-direction:column;gap:5px"><div style="font-size:13px;font-weight:700">Valeur <span style="font-weight:400;color:#5d5670">· du clair au foncé</span></div><div style="height:28px;border-radius:6px;border:1.5px solid #17131f;background:linear-gradient(90deg,#e3edfb,#1e5bb8,#0a1f40)"></div></div>
+              <div style="display:flex;flex-direction:column;gap:5px"><div style="font-size:13px;font-weight:700">Saturation <span style="font-weight:400;color:#5d5670">· du terne au vif</span></div><div style="height:28px;border-radius:6px;border:1.5px solid #17131f;background:linear-gradient(90deg,#7a7f88,#2f6fd8 60%,#0057ff)"></div></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figMelanges }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;text-align:center">
+                <sc-for list="{{ melanges }}" as="m" hint-placeholder-count="5">
+                  <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1;border-radius:8px;border:1.5px solid #17131f;background:{{ m.c }}"></div><div style="font-size:12px;font-weight:700;line-height:1.2">{{ m.n }}</div><div style="font-size:11px;color:#5d5670;line-height:1.25">{{ m.d }}</div></div>
+                </sc-for>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figCercle }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;gap:20px;align-items:center;justify-content:center;flex-wrap:wrap">
+                <div style="position:relative;width:180px;height:180px;border-radius:50%;border:2px solid #17131f;background:conic-gradient(#f6d31b 0 30deg,#f5a81c 30deg 60deg,#ef7d1a 60deg 90deg,#e4521f 90deg 120deg,#d42a2a 120deg 150deg,#a8246a 150deg 180deg,#6e2a8c 180deg 210deg,#463a99 210deg 240deg,#2457a8 240deg 270deg,#1a8a8a 270deg 300deg,#2f9a3a 300deg 330deg,#9cc32a 330deg 360deg)">
+                  <div style="position:absolute;inset:34%;border-radius:50%;background:#fff;border:2px solid #17131f;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px">Itten</div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.35;max-width:220px">
+                  <span><b>Primaires</b> : jaune, rouge, bleu (tous les 120°)</span>
+                  <span><b>Secondaires</b> : orange, violet, vert, entre deux primaires</span>
+                  <span><b>Complémentaires</b> : face à face (jaune et violet, rouge et vert, bleu et orange)</span>
+                </div>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figHarmonies }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px">
+              <sc-for list="{{ harmonies }}" as="h" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;height:40px;border-radius:8px;overflow:hidden;border:1.5px solid #17131f"><sc-for list="{{ h.cs }}" as="c"><div style="flex:1;background:{{ c }}"></div></sc-for></div>
+                  <div style="font-size:13px;font-weight:700">{{ h.n }}</div><div style="font-size:12px;color:#5d5670;line-height:1.3">{{ h.d }}</div>
+                </div>
+              </sc-for>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figGamut }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;gap:18px;justify-content:center;align-items:center;flex-wrap:wrap">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:110px;height:110px;border-radius:10px;border:1.5px solid #17131f;background:#00ff66"></div><span style="font-size:12px;font-weight:700">À l'écran (RVB)</span></div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:28px;color:#ff3d7f">→</div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:110px;height:110px;border-radius:10px;border:1.5px solid #17131f;background:#3fae5f"></div><span style="font-size:12px;font-weight:700">Imprimé (CMJN)</span></div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Les verts et les bleus très vifs de l'écran perdent de leur éclat à l'impression : ils sont hors de la gamme des encres.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figItten7 }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px">
+              <sc-for list="{{ contrastes }}" as="k" hint-placeholder-count="7">
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;height:48px;border-radius:8px;overflow:hidden;border:1.5px solid #17131f"><sc-for list="{{ k.cs }}" as="c"><div style="flex:{{ c.f }};background:{{ c.c }}"></div></sc-for></div>
+                  <div style="font-size:13px;font-weight:700">{{ k.n }}</div>
+                </div>
+              </sc-for>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figAlbers }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
+                <div style="aspect-ratio:1;background:#111;display:flex;align-items:center;justify-content:center;border:1.5px solid #17131f"><div style="width:44%;height:44%;background:#808080"></div></div>
+                <div style="aspect-ratio:1;background:#f5f5f5;display:flex;align-items:center;justify-content:center;border:1.5px solid #17131f"><div style="width:44%;height:44%;background:#808080"></div></div>
+                <div style="aspect-ratio:1;background:#2fa84f;display:flex;align-items:center;justify-content:center;border:1.5px solid #17131f"><div style="width:44%;height:44%;background:#808080"></div></div>
+                <div style="aspect-ratio:1;background:#e2332b;display:flex;align-items:center;justify-content:center;border:1.5px solid #17131f"><div style="width:44%;height:44%;background:#808080"></div></div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Les quatre petits carrés sont exactement du même gris. Il paraît plus clair sur le noir, plus foncé sur le blanc, rosé sur le vert et verdâtre sur le rouge.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figSignatures }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:12px">
+              <sc-for list="{{ signatures }}" as="g" hint-placeholder-count="7">
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;aspect-ratio:1.3;border-radius:8px;overflow:hidden;border:1.5px solid #17131f"><sc-for list="{{ g.cs }}" as="c"><div style="flex:1;background:{{ c }}"></div></sc-for></div>
+                  <div style="font-size:12px;font-weight:700;line-height:1.2">{{ g.n }}</div>
+                </div>
+              </sc-for>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figPalette }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;height:70px;border-radius:10px;overflow:hidden;border:1.5px solid #17131f">
+                <div style="flex:6;background:#e9e1d3;display:flex;align-items:flex-end;padding:8px;font-size:13px;font-weight:700">Dominante 60 %</div>
+                <div style="flex:3;background:#1f2a44;color:#fff;display:flex;align-items:flex-end;padding:8px;font-size:13px;font-weight:700">30 %</div>
+                <div style="flex:1;background:#d4492a;color:#fff;display:flex;align-items:flex-end;padding:8px;font-size:13px;font-weight:700">10</div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Une dominante pour l'atmosphère, une secondaire pour la structure, un accent pour attirer l'œil.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figEsthetiques }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px">
+              <sc-for list="{{ esthetiques }}" as="h" hint-placeholder-count="6">
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;height:36px;border-radius:8px;overflow:hidden;border:1.5px solid #17131f"><sc-for list="{{ h.cs }}" as="c"><div style="flex:1;background:{{ c }}"></div></sc-for></div>
+                  <div style="font-size:13px;font-weight:700">{{ h.n }}</div>
+                </div>
+              </sc-for>
+            </figure>
+          </sc-if>
+
+          <sc-for list="{{ sec.blocks }}" as="b" hint-placeholder-count="2">
+            <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+              <p style="margin:0;font-size:16.5px;line-height:1.65;color:#2e2938;text-wrap:pretty">{{ b.a }}</p>
+            </sc-if>
+            <sc-if value="{{ b.isD }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:minmax(110px,30%) minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px solid #c9c0e6">
+                <div style="font-weight:700;font-size:15px;line-height:1.4">{{ b.a }}</div>
+                <div style="font-size:15.5px;line-height:1.5;color:#2e2938">{{ b.b }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isAtt }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#c6f432;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Astuce</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isConf }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#ffe1d8;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#b3261e">Attention</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+      </sc-for>
+    </section>
+  </sc-for>
+
+  <div style="display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:18px;background:#fff;border:2px solid #17131f;box-shadow:5px 5px 0 #17131f">
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px">Testez-vous</div>
+    <div style="font-size:15.5px;line-height:1.55;color:#2e2938">Le quiz de chaque séance reprend ces notions. Vous pouvez le rejouer autant de fois que vous voulez pour vous entraîner.</div>
+    <a href="Quiz Couleur.dc.html" style="align-self:flex-start;padding:12px 20px;border:2px solid #17131f;border-radius:999px;background:#ff3d7f;color:#17131f;font-size:15px;font-weight:700;text-decoration:none;box-shadow:3px 3px 0 #17131f" style-hover="color:#17131f">Jouer au quiz Couleur</a>
+  </div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DATA = [
+{t:'Lumière et perception', short:'Lumière', sub:'Comment on voit la couleur', s:[
+ {h:'La lumière', fig:'Spectre', b:[
+  ['p','La lumière blanche contient toutes les couleurs visibles, des longueurs d’onde comprises entre environ 380 et 780 nanomètres. Isaac Newton l’a montré vers 1666 en la décomposant avec un prisme.'],
+  ['p','Un objet n’a pas de couleur en lui-même : il absorbe une partie de la lumière qu’il reçoit et renvoie le reste. Une pomme paraît rouge parce qu’elle renvoie surtout les longueurs d’onde rouges.'],
+  ['p','Dans l’œil, trois types de cônes captent principalement le rouge, le vert et le bleu. Le cerveau combine leurs signaux. Goethe, dans son Traité des couleurs (1810), insistait déjà sur cette dimension perçue et vécue de la couleur, au-delà de la physique.']]},
+ {h:'Les deux synthèses', fig:'Syntheses', b:[
+  ['d','Synthèse additive','La lumière : écrans, projecteurs. Rouge + vert + bleu = blanc. C’est le système RVB.'],
+  ['d','Synthèse soustractive','La matière : encres, pigments, teintures. Cyan + magenta + jaune = noir théorique. C’est le système CMJN, le N (noir) étant ajouté pour obtenir un vrai noir.'],
+  ['att','Retenez : écran = lumière = RVB ; papier ou tissu = matière = CMJN.']]},
+ {h:'Le métamérisme', b:[
+  ['p','Deux couleurs identiques sous une lumière peuvent paraître différentes sous une autre. Un pull et un pantalon assortis en boutique peuvent ne plus l’être à la lumière du jour.'],
+  ['p','C’est pour ça que les coloris textiles se valident dans une cabine de lumière normalisée, qui reproduit plusieurs éclairages.'],
+  ['att','Vérifiez toujours une photo de produit sous la lumière où le client le verra : boutique, lumière du jour, écran.']]}
+]},
+{t:'Décrire une couleur', short:'Décrire', sub:'Le vocabulaire professionnel', s:[
+ {h:'Les trois propriétés', fig:'Tvs', b:[
+  ['d','Teinte','La famille de couleur : rouge, bleu, jaune…'],
+  ['d','Valeur','Aussi appelée luminosité : du clair au foncé.'],
+  ['d','Saturation','Aussi appelée intensité : du terne au vif.'],
+  ['att','Décrivez avec les trois : « un bleu sombre et peu saturé » est plus précis que « bleu marine », que chacun imagine différemment.']]},
+ {h:'Les mélanges', fig:'Melanges', b:[
+  ['d','Couleur rompue','Mélangée avec un peu de sa complémentaire : elle devient moins vive, plus sourde.'],
+  ['d','Couleur rabattue','Mélangée avec du noir : plus sombre.'],
+  ['d','Couleur dégradée','Mélangée avec du blanc : plus claire.'],
+  ['d','Pastel','Claire et peu saturée.'],
+  ['d','Neutres','Noir, blanc, gris, et par extension beige, écru, taupe.']]},
+ {h:'Le cercle chromatique d’Itten', fig:'Cercle', b:[
+  ['p','Johannes Itten, enseignant au Bauhaus, organise les couleurs sur un cercle de 12 teintes.'],
+  ['d','Primaires','Jaune, rouge, bleu : on ne peut pas les obtenir par mélange.'],
+  ['d','Secondaires','Orange, violet, vert : mélange de deux primaires.'],
+  ['d','Tertiaires','Mélange d’une primaire et d’une secondaire voisine (jaune-orangé, bleu-vert…).'],
+  ['d','Complémentaires','Opposées sur le cercle. Côte à côte, elles se renforcent.'],
+  ['d','Analogues','Voisines sur le cercle. Ensemble, elles sont douces et cohérentes.']]},
+ {h:'Les harmonies', fig:'Harmonies', b:[
+  ['p','Une harmonie est une façon d’associer des couleurs qui fonctionnent ensemble. Les quatre principales se lisent directement sur le cercle.']]}
+]},
+{t:'Les systèmes de référence', short:'Systèmes', sub:'Nommer et reproduire une couleur', s:[
+ {h:'Les systèmes', b:[
+  ['d','Pantone','Des couleurs numérotées, avec des nuanciers dédiés au textile (références TCX pour le coton). Il sert à transmettre une couleur exacte à un fournisseur.'],
+  ['d','NCS','Natural Color System, suédois : il décrit une couleur par sa ressemblance avec six couleurs élémentaires. Très utilisé en architecture intérieure et pour les boutiques.'],
+  ['d','RVB et hexadécimal','Les couleurs d’écran : site, réseaux sociaux. Un code hexadécimal ressemble à #1F2A44.'],
+  ['d','CMJN','L’impression en quadrichromie : affiches, catalogues, packagings.'],
+  ['att','Une couleur de marque se définit dans tous les systèmes à la fois : une référence Pantone, une valeur CMJN, une valeur RVB et un code hexadécimal.']]},
+ {h:'Écran et impression', fig:'Gamut', b:[
+  ['p','L’écran peut afficher des couleurs plus lumineuses que ce que les encres savent imprimer. Une couleur hors de la gamme CMJN sera convertie vers la plus proche possible, souvent plus terne.'],
+  ['conf','Une couleur très vive à l’écran n’est pas toujours imprimable. Vérifiez-la en CMJN avant d’en faire une couleur de marque.']]}
+]},
+{t:'Les contrastes', short:'Contrastes', sub:'Une couleur n’existe jamais seule', s:[
+ {h:'Les sept contrastes d’Itten', fig:'Itten7', b:[
+  ['d','Couleur en soi','Des couleurs pures et vives juxtaposées.'],
+  ['d','Clair-obscur','Une différence de valeur, du clair au foncé.'],
+  ['d','Chaud-froid','Les oranges et les rouges contre les bleus et les verts.'],
+  ['d','Complémentaires','Deux couleurs opposées sur le cercle, qui s’exaltent l’une l’autre.'],
+  ['d','Simultané','L’œil ajoute de lui-même la complémentaire autour d’une couleur.'],
+  ['d','Qualité','Une couleur saturée contre une couleur terne.'],
+  ['d','Quantité','Les proportions : une petite touche de couleur vive sur une grande surface neutre.']]},
+ {h:'Josef Albers et l’interaction des couleurs', fig:'Albers', b:[
+  ['p','Dans Interaction of Color (1963), Josef Albers montre que la perception d’une couleur dépend de ses voisines. Une même couleur peut sembler en être deux, et deux couleurs différentes peuvent sembler identiques.'],
+  ['att','C’est pour ça qu’un même vêtement paraît différent selon la carnation de la personne et les autres pièces de la tenue.']]}
+]},
+{t:'La couleur comme langage', short:'Langage', sub:'Symbolique, tendances, signatures', s:[
+ {h:'La symbolique', b:[
+  ['p','Les associations entre une couleur et une idée sont apprises : elles varient selon les cultures et les époques. L’historien Michel Pastoureau montre par exemple que le bleu, peu valorisé dans l’Antiquité, est devenu la couleur préférée des Européens.'],
+  ['d','Europe','Noir : deuil, élégance, luxe. Blanc : pureté, mariage. Rouge : passion, danger.'],
+  ['d','Chine, Inde','Rouge : fête, chance, mariage. Blanc : traditionnellement associé au deuil.'],
+  ['d','Monde musulman','Vert : forte dimension religieuse.'],
+  ['conf','Une couleur n’a pas de sens universel. Avant de lancer une collection ou une campagne sur un marché, vérifiez ce qu’elle y signifie.']]},
+ {h:'Saisons et tendances', b:[
+  ['p','Les palettes sont plutôt claires et vives au printemps-été, plus sombres et profondes en automne-hiver.'],
+  ['p','Les tendances couleur sont définies 18 à 24 mois à l’avance par des salons comme Première Vision, des bureaux de style (Carlin, Nelly Rodi, WGSN) et Pantone, avec sa couleur de l’année et ses rapports tendances.']]},
+ {h:'Les palettes signature', fig:'Signatures', b:[
+  ['d','Schiaparelli','Le rose Shocking, lancé en 1937.'],
+  ['d','Chanel','Noir, blanc, beige.'],
+  ['d','Hermès','L’orange, né de la pénurie de carton pendant la Seconde Guerre mondiale.'],
+  ['d','Tiffany','Un bleu défini par une référence Pantone sur mesure et protégé comme marque.'],
+  ['d','Valentino','Le rouge Valentino, puis le Pink PP (2022) avec Pierpaolo Piccioli.'],
+  ['d','Bottega Veneta','Un vert vif sous la direction de Daniel Lee.'],
+  ['d','Comme des Garçons','Le noir radical du début des années 1980.']]}
+]},
+{t:'La couleur au service de la marque', short:'Marque', sub:'Identité et esthétiques', s:[
+ {h:'L’identité de couleur', fig:'Palette', b:[
+  ['d','Couleurs institutionnelles','Une ou deux couleurs fixes, présentes sur tous les supports de la marque.'],
+  ['d','Territoire chromatique','L’ensemble des couleurs que la marque s’autorise pour ses collections et ses campagnes.'],
+  ['p','Une palette se structure souvent selon la règle 60-30-10 : une dominante à 60 %, une secondaire à 30 %, un accent à 10 %, complétés par une gamme de neutres.'],
+  ['att','Moins une marque utilise de couleurs, plus elle est reconnaissable.']]},
+ {h:'Les esthétiques contemporaines', fig:'Esthetiques', b:[
+  ['d','Quiet luxury','Neutres, beige, camel, gris, marine (The Row, Loro Piana).'],
+  ['d','Minimalisme','Noir, blanc, écru (Jil Sander, COS).'],
+  ['d','Gorpcore','Couleurs techniques de l’outdoor : orange de sécurité, kaki.'],
+  ['d','Dopamine dressing','Couleurs très saturées et joyeuses (Barbiecore).'],
+  ['d','Y2K','Argenté, rose, bleu glacier des années 2000.'],
+  ['d','Heritage','Vert anglais, bordeaux, tartans.']]}
+]},
+{t:'Analyser un visuel', short:'Analyser', sub:'La grille en cinq temps', s:[
+ {h:'La méthode', b:[
+  ['p','Pour analyser une campagne, une affiche ou une page de magazine, suivez toujours les cinq étapes dans l’ordre. La méthode s’inspire de Roland Barthes, Rhétorique de l’image (1964).'],
+  ['d','1. Contexte','La marque, la date, le support, la cible.'],
+  ['d','2. Description','Ce que l’on voit, sans interpréter.'],
+  ['d','3. Couleur','La dominante, les secondaires, l’accent, leurs propriétés et leurs contrastes.'],
+  ['d','4. Composition','Le point focal, le sens de lecture, la typographie et la hiérarchie.'],
+  ['d','5. Interprétation','Ce que l’image cherche à faire ressentir, et si elle y parvient.'],
+  ['conf','L’erreur la plus fréquente : sauter la description et interpréter tout de suite. On rate alors des éléments que l’on n’a pas vraiment regardés.'],
+  ['att','Utilisez le vocabulaire de ce cours : teinte, valeur, saturation, contraste chaud-froid, harmonie analogue… Votre analyse sera plus précise et plus professionnelle.']]}
+]}
+];
+const MEL = [{n:'Pure',d:'la couleur de départ',c:'#c8372d'},{n:'Rompue',d:'+ un peu de vert',c:'#8f5a48'},{n:'Rabattue',d:'+ noir',c:'#6e1f1a'},{n:'Dégradée',d:'+ blanc',c:'#e89a94'},{n:'Pastel',d:'claire, peu saturée',c:'#f2cbc6'}];
+const HAR = [{n:'Monochrome',d:'une teinte, plusieurs valeurs',cs:['#0d2547','#1e4e8c','#5a8fd1','#bcd4f2']},{n:'Analogue',d:'des voisines sur le cercle',cs:['#f6d31b','#f5a81c','#ef7d1a','#e4521f']},{n:'Complémentaire',d:'deux opposées',cs:['#2457a8','#2457a8','#ef7d1a']},{n:'Triade',d:'trois à égale distance',cs:['#f6d31b','#d42a2a','#2457a8']}];
+const CON = [{n:'Couleur en soi',cs:[{c:'#f6d31b',f:1},{c:'#d42a2a',f:1},{c:'#2457a8',f:1}]},{n:'Clair-obscur',cs:[{c:'#111',f:1},{c:'#777',f:1},{c:'#eee',f:1}]},{n:'Chaud-froid',cs:[{c:'#ef7d1a',f:1},{c:'#1a8a8a',f:1}]},{n:'Complémentaires',cs:[{c:'#d42a2a',f:1},{c:'#2f9a3a',f:1}]},{n:'Simultané',cs:[{c:'#2f9a3a',f:1},{c:'#888',f:1},{c:'#2f9a3a',f:1}]},{n:'Qualité',cs:[{c:'#2457a8',f:1},{c:'#6c7a90',f:1}]},{n:'Quantité',cs:[{c:'#e9e1d3',f:8},{c:'#d42a2a',f:1}]}];
+const SIG = [{n:'Schiaparelli',cs:['#e5007e']},{n:'Chanel',cs:['#111','#fff','#e3d5c0']},{n:'Hermès',cs:['#f37021']},{n:'Tiffany',cs:['#81d8d0']},{n:'Valentino',cs:['#c8102e','#e0218a']},{n:'Bottega Veneta',cs:['#3a9a3c']},{n:'Comme des Garçons',cs:['#0a0a0a']}];
+const EST = [{n:'Quiet luxury',cs:['#e8dfd0','#c19a6b','#8c8c8c','#1f2a44']},{n:'Minimalisme',cs:['#0d0d0d','#ffffff','#efe8da']},{n:'Gorpcore',cs:['#ff6a13','#5b6236','#2d2d2d','#c9c3b0']},{n:'Dopamine',cs:['#ff3db4','#ffe500','#00c2ff','#7cff4f']},{n:'Y2K',cs:['#c0c0c8','#ff9ed2','#bfe6ff']},{n:'Heritage',cs:['#1f4d36','#6b1e2e','#c8a96b','#2b2b3a']}];
+
+class Component extends DCLogic {
+  renderVals() {
+    const chapters = DATA.map((c, i) => ({
+      t: c.t, short: c.short, sub: c.sub, id: 'ch' + (i + 1), href: '#ch' + (i + 1), num: String(i + 1).padStart(2, '0'),
+      label: String(i + 1).padStart(2, '0') + ' ' + c.t,
+      sections: c.s.map(sec => ({
+        h: sec.h, ['fig' + (sec.fig || 'None')]: true,
+        blocks: sec.b.map(([t, a, b]) => ({ a, b, isP: t === 'p', isD: t === 'd', isAtt: t === 'att', isConf: t === 'conf' }))
+      }))
+    }));
+    return { chapters, melanges: MEL, harmonies: HAR, contrastes: CON, signatures: SIG, esthetiques: EST };
+  }
+}
+</script>
+</body>
+</html>

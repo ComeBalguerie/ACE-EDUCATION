@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f2eefc;color:#17131f;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#ff3d7f}a:hover{color:#d81b60}
+</style>
+</helmet>
+<nav style="position:sticky;top:0;z-index:5;background:rgba(242,238,252,.95);backdrop-filter:blur(8px);border-bottom:2px solid #17131f">
+  <div style="max-width:760px;margin:0 auto;display:flex;gap:8px;overflow-x:auto;padding:10px 20px;box-sizing:border-box">
+    <a href="Espace etudiant.dc.html" style="flex:none;padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#17131f;color:#fff;font-size:13px;font-weight:600;text-decoration:none">← Mes modules</a>
+    <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="6">
+      <a href="{{ c.href }}" style="flex:none;padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#fff;color:#17131f;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap" style-hover="background:#c6f432;color:#17131f">{{ c.num }} {{ c.short }}</a>
+    </sc-for>
+  </div>
+</nav>
+
+<main style="max-width:760px;margin:0 auto;padding:36px 20px 96px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+  <header style="display:flex;flex-direction:column;gap:14px">
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#ff3d7f;font-weight:600">Fiche de révision · B2 EIDM</div>
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:clamp(44px,9vw,68px);line-height:.98">InDesign<br><span style="color:#ff3d7f">de A à Z</span></div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#2e2938;max-width:600px;text-wrap:pretty">Toutes les notions du module, de la création du document à l'export. Chaque chapitre correspond à ce que vous avez vu en séance. Les schémas vous aident à visualiser, les encadrés vous signalent les astuces, les pièges et les raccourcis.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+      <span style="padding:5px 10px;border-radius:8px;background:#c6f432;border:1.5px solid #17131f;font-size:13px;font-weight:600">Astuce</span>
+      <span style="padding:5px 10px;border-radius:8px;background:#ffe1d8;border:1.5px solid #17131f;font-size:13px;font-weight:600">Attention</span>
+      <span style="padding:5px 10px;border-radius:8px;background:#fff;border:1.5px solid #17131f;font-size:13px;font-weight:600">Raccourci</span>
+      <span style="padding:5px 10px;font-size:13px;color:#5d5670">Sur Windows, remplacez Cmd par Ctrl et Alt reste Alt.</span>
+    </div>
+  </header>
+
+  <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="2">
+    <section id="{{ c.id }}" data-screen-label="{{ c.label }}" style="display:flex;flex-direction:column;gap:30px;scroll-margin-top:70px">
+      <div style="display:flex;gap:16px;align-items:flex-end;padding-bottom:14px;border-bottom:2px solid #17131f">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:56px;line-height:.85;color:#ff3d7f">{{ c.num }}</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <h2 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:30px;line-height:1.05">{{ c.t }}</h2>
+          <div style="font-size:15px;color:#5d5670">{{ c.sub }}</div>
+        </div>
+      </div>
+
+      <sc-for list="{{ c.sections }}" as="sec" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <h3 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:22px;line-height:1.15">{{ sec.h }}</h3>
+
+          <sc-if value="{{ sec.figMarges }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="position:relative;width:100%;max-width:520px;aspect-ratio:1.414;margin:0 auto;display:flex;gap:0">
+                <div style="flex:1;position:relative;background:#faf8ff;border:1.5px solid #17131f;border-right:0">
+                  <div style="position:absolute;left:18%;right:7%;top:10%;bottom:22%;background:#e4ddf7;border:1.5px dashed #ff3d7f"></div>
+                  <div style="position:absolute;left:2%;top:46%;font-size:11px;font-weight:600;color:#ff3d7f">ext.</div>
+                  <div style="position:absolute;right:1%;top:46%;font-size:11px;font-weight:600;color:#ff3d7f">int.</div>
+                  <div style="position:absolute;left:44%;top:2%;font-size:11px;font-weight:600;color:#ff3d7f">haut</div>
+                  <div style="position:absolute;left:44%;bottom:7%;font-size:11px;font-weight:600;color:#ff3d7f">bas</div>
+                </div>
+                <div style="width:2px;background:#17131f"></div>
+                <div style="flex:1;position:relative;background:#faf8ff;border:1.5px solid #17131f;border-left:0">
+                  <div style="position:absolute;left:7%;right:18%;top:10%;bottom:22%;background:#e4ddf7;border:1.5px dashed #ff3d7f"></div>
+                  <div style="position:absolute;left:1%;top:46%;font-size:11px;font-weight:600;color:#ff3d7f">int.</div>
+                  <div style="position:absolute;right:2%;top:46%;font-size:11px;font-weight:600;color:#ff3d7f">ext.</div>
+                </div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Marges en miroir : petite marge intérieure (côté reliure), plus grande en haut, encore plus à l'extérieur, la plus grande en bas.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figColonnes }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="position:relative;width:100%;max-width:260px;aspect-ratio:.707;margin:0 auto;background:#faf8ff;border:1.5px solid #17131f">
+                <div style="position:absolute;left:12%;right:12%;top:9%;bottom:12%;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6%">
+                  <div style="background:repeating-linear-gradient(#b8b0d6 0 2px,transparent 2px 7px)"></div>
+                  <div style="background:repeating-linear-gradient(#b8b0d6 0 2px,transparent 2px 7px)"></div>
+                  <div style="background:repeating-linear-gradient(#b8b0d6 0 2px,transparent 2px 7px)"></div>
+                </div>
+                <div style="position:absolute;left:36%;width:6%;top:9%;bottom:12%;background:rgba(255,61,127,.18)"></div>
+                <div style="position:absolute;left:24%;bottom:3%;font-size:11px;font-weight:700;color:#ff3d7f">↑ gouttière</div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Trois colonnes séparées par des gouttières. Visez 45 à 75 caractères par ligne.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figFondPerdu }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="position:relative;width:100%;max-width:280px;aspect-ratio:.75;margin:0 auto">
+                <div style="position:absolute;inset:0;border:1.5px dashed #d6361f"></div>
+                <div style="position:absolute;inset:6%;border:1.5px solid #17131f;background:#faf8ff"></div>
+                <div style="position:absolute;left:0;right:0;top:0;height:52%;background:#8a82a3"></div>
+                <div style="position:absolute;inset:6%;border:1.5px solid #17131f"></div>
+                <div style="position:absolute;inset:12%;border:1.5px dotted #1f8a4c"></div>
+                <div style="position:absolute;left:14%;top:58%;right:14%;display:flex;flex-direction:column;gap:6px;font-size:11px;line-height:1.3;font-weight:600">
+                  <span style="color:#d6361f">- - fond perdu (3 mm au-delà)</span>
+                  <span>— format fini (ligne de coupe)</span>
+                  <span style="color:#1f8a4c">··· zone de sécurité</span>
+                </div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">L'image qui touche le bord déborde jusqu'au trait rouge. Le texte important reste dans la zone verte.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figLdb }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <div style="font-size:12px;font-weight:700;color:#d6361f;text-transform:uppercase;letter-spacing:.06em">Sans grille</div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;height:120px;background:repeating-linear-gradient(transparent 0 11px,#e4ddf7 11px 12px)">
+                    <div style="padding-top:2px;background:repeating-linear-gradient(transparent 0 7px,#17131f 7px 9px,transparent 9px 12px)"></div>
+                    <div style="margin-top:17px;background:repeating-linear-gradient(transparent 0 7px,#17131f 7px 9px,transparent 9px 13px)"></div>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <div style="font-size:12px;font-weight:700;color:#1f8a4c;text-transform:uppercase;letter-spacing:.06em">Avec grille</div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;height:120px;background:repeating-linear-gradient(transparent 0 11px,#ff3d7f 11px 12px)">
+                    <div style="background:repeating-linear-gradient(transparent 0 8px,#17131f 8px 10px,transparent 10px 12px)"></div>
+                    <div style="margin-top:24px;background:repeating-linear-gradient(transparent 0 8px,#17131f 8px 10px,transparent 10px 12px)"></div>
+                  </div>
+                </div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">À droite, chaque ligne de texte repose sur une ligne de la grille (en rose) : les deux colonnes sont alignées, même après un intertitre.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figModules }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;gap:14px;align-items:stretch;max-width:420px;margin:0 auto;width:100%">
+                <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:60px 60px;row-gap:12px;column-gap:10px;background:repeating-linear-gradient(transparent 0 11px,#ff3d7f 11px 12px);padding:0">
+                  <div style="background:#8a82a3;grid-row:1 / 3"></div>
+                  <div style="background:repeating-linear-gradient(transparent 0 8px,#17131f 8px 10px,transparent 10px 12px)"></div>
+                  <div style="background:repeating-linear-gradient(transparent 0 8px,#17131f 8px 10px,transparent 10px 12px)"></div>
+                </div>
+                <div style="flex:none;width:118px;display:flex;flex-direction:column;justify-content:space-between;font-size:12px;line-height:1.35;font-weight:600">
+                  <span>Module = 5 lignes de 12 pt (60 pt)</span>
+                  <span style="color:#ff3d7f">Espace entre modules = 1 ligne</span>
+                  <span>L'image de 2 modules finit sur la ligne du texte voisin</span>
+                </div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Les colonnes gèrent l'horizontal, la grille de ligne de base gère le vertical.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figHierarchie }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:12px;max-width:460px;margin:0 auto;width:100%;align-items:start">
+                <div style="background:#faf8ff;border:1.5px solid #17131f;padding:14px;display:flex;flex-direction:column;gap:8px;aspect-ratio:.72">
+                  <div style="width:30%;height:6px;background:#ff3d7f"></div>
+                  <div style="width:90%;height:22px;background:#17131f"></div>
+                  <div style="width:80%;height:30px;background:repeating-linear-gradient(#4a4360 0 4px,transparent 4px 9px)"></div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1">
+                    <div style="display:flex;flex-direction:column;gap:6px"><div style="flex:1;background:repeating-linear-gradient(#b8b0d6 0 2px,transparent 2px 6px)"></div><div style="width:60%;height:5px;background:#17131f"></div><div style="flex:1;background:repeating-linear-gradient(#b8b0d6 0 2px,transparent 2px 6px)"></div></div>
+                    <div style="display:flex;flex-direction:column;gap:6px"><div style="height:44px;background:repeating-linear-gradient(#ff3d7f 0 4px,transparent 4px 10px)"></div><div style="flex:1;background:#8a82a3"></div><div style="height:6px;background:repeating-linear-gradient(#8a82a3 0 1px,transparent 1px 3px)"></div></div>
+                  </div>
+                  <div style="width:20%;height:4px;background:#5d5670"></div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;line-height:1.3;font-weight:600;padding-top:8px">
+                  <span style="color:#ff3d7f">Surtitre</span><span>Titre</span><span>Chapô</span><span>Texte courant</span><span>Intertitre</span><span style="color:#ff3d7f">Exergue</span><span>Image et légende</span><span>Folio</span>
+                </div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Plissez les yeux : si vous distinguez encore les niveaux, la hiérarchie fonctionne.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figApproche }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:14px">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;text-align:center">
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:30px;letter-spacing:0">MODE</div><div style="font-size:12px;color:#d6361f;font-weight:600">Capitales serrées : lourd</div></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:30px;letter-spacing:.22em">MODE</div><div style="font-size:12px;color:#1f8a4c;font-weight:600">Capitales espacées : aéré</div></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:26px;letter-spacing:.2em">mode</div><div style="font-size:12px;color:#d6361f;font-weight:600">Minuscules espacées : à éviter</div></div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">L'approche agit sur tout un mot ou un bloc. Le crénage corrige une seule paire de lettres (AV, To, Wa).</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figVeuves }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:380px;margin:0 auto;width:100%">
+                <div style="display:flex;flex-direction:column;gap:5px">
+                  <div style="height:70px;background:repeating-linear-gradient(#b8b0d6 0 3px,transparent 3px 9px)"></div>
+                  <div style="height:9px"></div>
+                  <div style="height:3px;width:100%;background:#d6361f;box-shadow:0 0 0 3px rgba(214,54,31,.18)"></div>
+                  <div style="font-size:11px;font-weight:700;color:#d6361f">Orpheline : 1re ligne seule en bas</div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:5px">
+                  <div style="height:3px;width:40%;background:#d6361f;box-shadow:0 0 0 3px rgba(214,54,31,.18)"></div>
+                  <div style="font-size:11px;font-weight:700;color:#d6361f">Veuve : dernière ligne seule en haut</div>
+                  <div style="height:9px"></div>
+                  <div style="height:60px;background:repeating-linear-gradient(#b8b0d6 0 3px,transparent 3px 9px)"></div>
+                </div>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figGabarit }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;flex-wrap:wrap">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+                  <div style="width:70px;height:96px;background:#c6f432;border:2px solid #17131f;position:relative"><div style="position:absolute;left:8px;right:8px;top:8px;height:3px;background:#17131f"></div><div style="position:absolute;right:8px;bottom:8px;font-size:10px;font-weight:700">A</div></div>
+                  <span style="font-size:12px;font-weight:700">Gabarit A</span>
+                </div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:28px;color:#ff3d7f">→</div>
+                <div style="display:flex;gap:6px">
+                  <sc-for list="{{ folios }}" as="n" hint-placeholder-count="4">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+                      <div style="width:52px;height:72px;background:#faf8ff;border:1.5px solid #17131f;position:relative"><div style="position:absolute;left:6px;right:6px;top:6px;height:2px;background:#17131f"></div><div style="position:absolute;left:10px;right:10px;top:18px;bottom:16px;background:#e4ddf7"></div><div style="position:absolute;right:6px;bottom:4px;font-size:10px;font-weight:700">{{ n }}</div></div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Le filet et le folio placés dans le gabarit apparaissent sur toutes les pages. Le « A » devient le vrai numéro de chaque page.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figAjuster }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px">
+                <div style="display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center"><div style="width:100px;height:70px;border:2px solid #ff3d7f;overflow:hidden;position:relative;background:#8a82a3"><div style="position:absolute;left:30px;top:0;width:40px;height:70px;border-radius:50%;background:#c6f432"></div></div><span style="font-size:12px;font-weight:600;line-height:1.3">Remplir le cadre proportionnellement<br><span style="font-weight:400;color:#1f8a4c">recadre sans déformer</span></span></div>
+                <div style="display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center"><div style="width:100px;height:70px;border:2px solid #ff3d7f;display:flex;justify-content:center;background:#fff"><div style="width:52px;height:66px;background:#8a82a3;position:relative"><div style="position:absolute;left:6px;top:7px;width:40px;height:52px;border-radius:50%;background:#c6f432"></div></div></div><span style="font-size:12px;font-weight:600;line-height:1.3">Ajuster le contenu proportionnellement<br><span style="font-weight:400;color:#5d5670">bandes vides possibles</span></span></div>
+                <div style="display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center"><div style="width:100px;height:70px;border:2px solid #ff3d7f;background:#8a82a3;position:relative"><div style="position:absolute;left:12px;top:4px;width:76px;height:58px;border-radius:50%;background:#c6f432"></div></div><span style="font-size:12px;font-weight:600;line-height:1.3">Ajuster le contenu au cadre<br><span style="font-weight:400;color:#d6361f">déforme l'image</span></span></div>
+                <div style="display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center"><div style="width:100px;height:70px;display:flex;justify-content:center"><div style="width:52px;height:70px;border:2px solid #ff3d7f;box-sizing:border-box;background:#8a82a3;position:relative"><div style="position:absolute;left:4px;top:6px;width:40px;height:52px;border-radius:50%;background:#c6f432"></div></div></div><span style="font-size:12px;font-weight:600;line-height:1.3">Ajuster le cadre au contenu<br><span style="font-weight:400;color:#5d5670">le bloc prend la taille de l'image</span></span></div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Le cadre (en rose) et l'image sont deux choses distinctes.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figCouverture }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:minmax(0,200px) 1fr;gap:16px;align-items:center;max-width:440px;margin:0 auto;width:100%">
+                <div style="position:relative;aspect-ratio:.75;background:#8a82a3;border:1.5px solid #17131f">
+                  <div style="position:absolute;inset:6%;border:1.5px dashed #fff"></div>
+                  <div style="position:absolute;left:10%;right:10%;top:7%;height:13%;background:#fff"></div>
+                  <div style="position:absolute;left:10%;top:42%;width:42%;height:8px;background:#fff"></div>
+                  <div style="position:absolute;left:10%;top:48%;width:30%;height:8px;background:#fff"></div>
+                  <div style="position:absolute;right:10%;bottom:8%;width:18%;height:10%;background:repeating-linear-gradient(90deg,#17131f 0 2px,#fff 2px 4px)"></div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;line-height:1.35;font-weight:600">
+                  <span>Logo du titre en haut</span><span>Accroches : 2 ou 3, pas plus</span><span>Date, numéro, prix</span><span>Code-barres en bas</span><span style="color:#ff3d7f">Pointillés : zone de sécurité 5 mm</span><span>Image à fond perdu 3 mm</span>
+                </div>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figFormats }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;gap:14px;align-items:flex-end;justify-content:center;flex-wrap:wrap">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:150px;height:106px;display:flex;border:1.5px solid #17131f"><div style="flex:1;background:#8a82a3"></div><div style="flex:1;background:repeating-linear-gradient(#b8b0d6 0 2px,transparent 2px 6px);background-color:#faf8ff"></div></div><span style="font-size:12px;font-weight:600">Double-page</span></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:64px;height:80px;border:1.5px solid #17131f;background:#8a82a3;position:relative"><div style="position:absolute;left:6px;right:6px;bottom:6px;height:10px;background:#fff"></div></div><span style="font-size:12px;font-weight:600">Post 4:5</span></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:50px;height:89px;border:1.5px solid #17131f;background:#8a82a3;position:relative"><div style="position:absolute;left:6px;right:6px;top:30px;height:14px;background:#fff"></div></div><span style="font-size:12px;font-weight:600">Story 9:16</span></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:76px;height:107px;border:1.5px solid #17131f;background:#8a82a3;position:relative"><div style="position:absolute;left:8px;right:8px;top:8px;height:18px;background:#fff"></div></div><span style="font-size:12px;font-weight:600">Affiche A3</span></div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Mêmes styles et mêmes couleurs, mais une composition repensée pour chaque format.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-for list="{{ sec.blocks }}" as="b" hint-placeholder-count="2">
+            <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+              <p style="margin:0;font-size:16.5px;line-height:1.65;color:#2e2938;text-wrap:pretty">{{ b.a }}</p>
+            </sc-if>
+            <sc-if value="{{ b.isD }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:minmax(110px,30%) minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px solid #c9c0e6">
+                <div style="font-weight:700;font-size:15px;line-height:1.4">{{ b.a }}</div>
+                <div style="font-size:15.5px;line-height:1.5;color:#2e2938">{{ b.b }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isKbd }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-top:1px solid #c9c0e6">
+                <span style="flex:none;min-width:120px;font-family:ui-monospace,Menlo,monospace;font-size:13.5px;font-weight:600;padding:5px 9px;border:1.5px solid #17131f;border-radius:7px;background:#fff;box-shadow:2px 2px 0 #17131f;text-align:center">{{ b.a }}</span>
+                <span style="font-size:15.5px;line-height:1.4">{{ b.b }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isAtt }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#c6f432;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Astuce</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isConf }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#ffe1d8;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#b3261e">Attention</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isKey }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:12px;align-items:center;padding:12px 16px;border-radius:12px;background:#fff;border:2px solid #17131f">
+                <span style="flex:none;font-family:ui-monospace,Menlo,monospace;font-size:13.5px;font-weight:600;padding:5px 9px;border:1.5px solid #17131f;border-radius:7px;background:#f2eefc;box-shadow:2px 2px 0 #17131f">{{ b.a }}</span>
+                <span style="font-size:15px;line-height:1.45">{{ b.b }}</span>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+      </sc-for>
+    </section>
+  </sc-for>
+
+  <div style="display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:18px;background:#fff;border:2px solid #17131f;box-shadow:5px 5px 0 #17131f">
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px">Testez-vous</div>
+    <div style="font-size:15.5px;line-height:1.55;color:#2e2938">Le quiz de chaque séance reprend ces notions. Vous pouvez le rejouer autant de fois que vous voulez pour vous entraîner.</div>
+    <a href="Quiz EIDM.dc.html" style="align-self:flex-start;padding:12px 20px;border:2px solid #17131f;border-radius:999px;background:#ff3d7f;color:#17131f;font-size:15px;font-weight:700;text-decoration:none;box-shadow:3px 3px 0 #17131f" style-hover="color:#17131f">Jouer au quiz InDesign</a>
+  </div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DATA = [
+{t:'Le document et la grille', short:'Document', sub:'Format, marges, colonnes, fond perdu, repères', s:[
+ {h:'Le format et les unités', b:[
+  ['p','Avant de créer votre premier document, réglez les unités en millimètres : c’est l’unité de l’édition et de l’imprimerie en France. Le réglage se trouve dans Préférences, rubrique Unités et incréments.'],
+  ['p','Le format le plus courant est l’A4 (210 × 297 mm), mais un lookbook peut aussi être carré (210 × 210 mm) ou à l’italienne (297 × 210 mm). Le format raconte déjà quelque chose : un portrait sobre évoque souvent le luxe, un carré une marque plus contemporaine.'],
+  ['key','Cmd + K','Ouvrir les Préférences']]},
+ {h:'Les marges', fig:'Marges', b:[
+  ['p','Les marges délimitent la zone où vous placez le contenu. Rien d’important ne doit en sortir, sauf les images qui vont jusqu’au bord de la page. Elles ne sont pas décoratives : elles donnent sa respiration et son rythme à la page.'],
+  ['p','Une marge large évoque l’élégance et le luxe. Une marge étroite donne de la densité et de l’énergie. Dans le luxe, on prévoit souvent 15 à 20 mm minimum.'],
+  ['p','Sur un document en doubles-pages, on utilise des marges en miroir : la marge intérieure (côté reliure) est la plus petite, la marge extérieure plus grande. La proportion classique, reprise par Müller-Brockmann : intérieur, puis haut, puis extérieur, puis bas, du plus petit au plus grand.'],
+  ['conf','Des marges identiques sur les quatre côtés donnent une page plate, sans intention. Des marges trop petites étouffent le contenu.']]},
+ {h:'Les colonnes et les gouttières', fig:'Colonnes', b:[
+  ['p','Les colonnes découpent la zone de texte en bandes verticales. La gouttière est l’espace entre deux colonnes. Ensemble, elles forment la grille de la page.'],
+  ['d','Une colonne','Textes longs et continus, élégance sobre.'],
+  ['d','Deux colonnes','Bonne lisibilité, équilibre entre texte et image.'],
+  ['d','Trois colonnes ou plus','Densité éditoriale, esprit magazine.'],
+  ['p','La largeur de colonne fixe la longueur de ligne. Une ligne confortable contient entre 45 et 75 caractères : en dessous, l’œil saute trop souvent, au-dessus, il se perd au retour à la ligne.'],
+  ['att','Vous pouvez modifier les colonnes à tout moment : Page, puis Marges et colonnes.'],
+  ['conf','Une gouttière trop étroite colle les colonnes entre elles et gêne la lecture. Trop large, elle casse l’unité de la page.']]},
+ {h:'Le fond perdu', fig:'FondPerdu', b:[
+  ['p','Le fond perdu est une zone de 3 mm qui dépasse tout autour de la page. Toute image ou couleur qui doit toucher le bord de la page après la coupe doit déborder jusqu’au bout de cette zone.'],
+  ['p','Pourquoi ? La coupe chez l’imprimeur n’est jamais parfaitement précise. Sans fond perdu, un millimètre de décalage suffit à faire apparaître un filet blanc sur le bord.'],
+  ['att','Le fond perdu se règle à la création du document, dans la rubrique Fond perdu et ligne-bloc : 3 mm sur tous les côtés, ou 5 mm si l’imprimeur le demande.'],
+  ['conf','C’est l’oubli le plus fréquent. À l’écran, l’image semble aller jusqu’au bord, mais à l’impression un filet blanc apparaît.']]},
+ {h:'Les repères', b:[
+  ['p','Les repères sont des lignes qui ne s’impriment pas. Vous les tirez depuis les règles pour aligner des éléments en dehors des colonnes.'],
+  ['att','Cliquez-glissez depuis une règle pour créer un repère. Pour le placer précisément, sélectionnez-le et tapez sa position dans le panneau Contrôle.'],
+  ['key','W','Basculer en mode Aperçu : repères, grilles et cadres disparaissent, vous voyez la page telle qu’elle sera imprimée']]}
+]},
+{t:'La grille de ligne de base', short:'Ligne de base', sub:'Le rythme vertical de la page', s:[
+ {h:'C’est quoi, et à quoi ça sert ?', fig:'Ldb', b:[
+  ['p','Ce sont des lignes horizontales régulières, comme dans un cahier, sur lesquelles le texte vient s’asseoir. La ligne de base d’un texte est la ligne invisible sur laquelle reposent les lettres.'],
+  ['p','La grille aligne les lignes de texte d’une colonne à l’autre et d’une page à l’autre. Elle se règle pour tout le document, pas pour un bloc. Un bloc peut avoir sa propre grille (Options de bloc de texte, puis Options de ligne de base), mais c’est l’exception.']]},
+ {h:'Les réglages', b:[
+  ['p','Ils se trouvent dans Préférences, rubrique Grilles.'],
+  ['d','Pas','L’espacement entre deux lignes de grille. C’est le réglage clé : il doit être égal à l’interlignage de votre texte courant. Texte en 9/12 pt (corps 9, interlignage 12) : pas de 12 pt.'],
+  ['d','Relative à','Le point de départ de la grille : le haut de la page ou le haut de la marge.'],
+  ['d','Début','La distance entre ce point de départ et la première ligne.'],
+  ['d','Seuil','Le zoom à partir duquel la grille s’affiche (75 % par défaut).'],
+  ['att','Réglage conseillé : Relative à Haut de la marge, Début 0 mm. La grille démarre alors pile sur la marge.'],
+  ['conf','Ne confondez pas avec la grille du document, le quadrillage de 25,4 mm. Elle sert à aligner des objets et n’a aucun rapport avec le texte.']]},
+ {h:'Avec une grille modulaire', fig:'Modules', b:[
+  ['p','Dans une grille à la Müller-Brockmann, la grille de ligne de base devient centrale. La hauteur d’un module vaut un nombre entier de lignes, par exemple 5 lignes de 12 pt, soit 60 pt. L’espace entre deux modules vaut une ligne.'],
+  ['p','Résultat : une image haute de deux modules se termine exactement sur la ligne d’un texte voisin, sans ajustement à l’œil.'],
+  ['p','Elle est moins utile sur une affiche très expressive avec peu de texte. Pour tout ce qui se lit (brochure, magazine, étude de cas), elle est indispensable.']]},
+ {h:'Les titres plus gros que le texte', b:[
+  ['p','La taille du caractère et l’interlignage sont deux réglages indépendants. Un titre en 40 pt reste possible : seul son interlignage doit être un multiple du pas de la grille.'],
+  ['d','Titre 24 pt','Interlignage 24 pt, soit 2 lignes de grille.'],
+  ['d','Titre 36 pt','Interlignage 36 pt, soit 3 lignes.'],
+  ['d','Titre 60 pt','Interlignage 60 pt, soit 5 lignes.'],
+  ['d','Titre 30 pt sur 2 lignes','Interlignage 36 pt, soit 3 lignes par ligne de titre.'],
+  ['p','Les espaces avant et après les titres doivent aussi être des multiples de 12 pt, sinon le texte qui suit retombe à côté de la grille.'],
+  ['att','Pour un gros titre très serré dont l’interlignage ne peut pas être un multiple : dans le style de paragraphe, rubrique Retraits et espacement, choisissez Aligner sur la grille : Première ligne uniquement. Ajustez ensuite l’espace après.'],
+  ['conf','Ne mettez jamais « Toutes les lignes » sur un titre dont l’interlignage n’est pas un multiple : InDesign pousse chaque ligne sur la ligne de grille suivante et laisse des trous énormes.'],
+  ['p','Pour les petits textes (légendes, notes), prenez 7/12 ou 8/12 pour rester sur la grille. Autre option, très utilisée : un pas de 6 pt avec un texte courant à 12 pt d’interlignage. Le texte tombe une ligne sur deux et vous gagnez en souplesse pour les titres et les légendes.']]},
+ {h:'Monter un document en 7 étapes', b:[
+  ['d','1','Choisissez votre texte courant, par exemple 9/12 pt. Le pas de la grille sera de 12 pt.'],
+  ['d','2','Ajustez les marges pour que la hauteur de la zone de texte soit un multiple de 12 pt.'],
+  ['d','3','Préférences, Grilles : Relative à Haut de la marge, Début 0, Pas 12 pt.'],
+  ['d','4','Placez les repères de modules sur des multiples de 12 pt.'],
+  ['d','5','Affichage, Grilles et repères, Afficher la grille de ligne de base.'],
+  ['d','6','Dans vos styles de paragraphe, activez Aligner sur la grille de ligne de base.'],
+  ['d','7','Titres : interlignage et espacements en multiples de 12 pt.'],
+  ['conf','L’étape 6 est la plus oubliée. Sans elle, la grille est affichée mais le texte l’ignore.']]}
+]},
+{t:'La typographie', short:'Typographie', sub:'Styles, hiérarchie et lisibilité', s:[
+ {h:'Les styles de paragraphe et de caractère', b:[
+  ['p','Un style est un ensemble de réglages typographiques enregistré sous un nom.'],
+  ['d','Style de paragraphe','S’applique à tout un paragraphe : police, corps, interlignage, alignement, espaces avant et après, retraits.'],
+  ['d','Style de caractère','S’applique à quelques mots dans un paragraphe : un italique, un gras, une couleur.'],
+  ['p','Leur grand intérêt : si vous modifiez un style, tout le texte qui l’utilise se met à jour. Sur un magazine de 50 pages, changer la couleur des titres prend deux secondes au lieu de deux heures.'],
+  ['p','Dans un document professionnel, toute la mise en forme passe par les styles. Basez vos styles les uns sur les autres (Texte courant, puis Légende basée sur Texte courant…) : modifier la police du style de base la change partout.'],
+  ['att','Nommez vos styles clairement : Titre, Chapô, Texte courant, Légende, Crédit. Vous les retrouverez plus vite, et la personne qui reprendra votre fichier aussi.'],
+  ['conf','Mettre du gras ou de l’italique à la main crée des remplacements locaux, signalés par un + à côté du nom du style. Ils compliquent toute modification ultérieure.'],
+  ['key','Alt + clic sur un style','L’appliquer en supprimant les remplacements locaux']]},
+ {h:'La hiérarchie typographique', fig:'Hierarchie', b:[
+  ['p','La hiérarchie indique au lecteur dans quel ordre lire : surtitre, titre, chapô, texte, intertitre, légende. Chaque niveau a sa taille, sa graisse et ses espacements.'],
+  ['p','Une bonne hiérarchie se lit de loin, sans lire les mots. Si tous les textes semblent avoir la même importance, elle ne fonctionne pas.'],
+  ['p','Dans le luxe, elle est souvent subtile : de petits écarts de taille, des différences de graisse légères. L’élégance vient de la retenue plutôt que du contraste brutal.']]},
+ {h:'Le corps et l’interlignage', b:[
+  ['p','Le corps est la taille du caractère, en points (1 pt = 0,353 mm). Un texte courant se compose généralement entre 8 et 11 pt. En dessous de 7 pt, il devient difficile à lire une fois imprimé.'],
+  ['p','L’interlignage est la distance entre deux lignes de base. En règle générale, il vaut 20 à 30 % de plus que le corps : un texte en 10 pt aura un interlignage de 12 à 13 pt. Trop serré, le texte étouffe. Trop lâche, il se fragmente.'],
+  ['conf','L’interlignage automatique (120 % du corps) est un point de départ, pas un réglage final. Fixez une valeur précise dans chaque style, surtout si vous utilisez la grille de ligne de base.']]},
+ {h:'L’approche et le crénage', fig:'Approche', b:[
+  ['d','Approche','L’espacement de toutes les lettres d’un mot ou d’un bloc. On l’augmente pour aérer un titre en capitales.'],
+  ['d','Crénage','L’espace entre deux lettres précises, pour corriger les paires qui paraissent trop écartées : AV, To, Wa.'],
+  ['p','On n’espace jamais les minuscules. On peut en revanche espacer les capitales et les petites capitales : un mot en capitales sans approche supplémentaire paraît lourd.'],
+  ['att','Pour les titres, choisissez le crénage Optique plutôt que Métrique, dans le panneau Caractère : InDesign ajuste lui-même les paires difficiles.'],
+  ['key','Alt + ← / →','Crénage si le curseur est entre deux lettres, approche si du texte est sélectionné'],
+  ['key','Cmd + Alt + Q','Remettre crénage et approche à zéro']]},
+ {h:'Les veuves et les orphelines', fig:'Veuves', b:[
+  ['d','Orpheline','La première ligne d’un paragraphe, restée seule en bas d’une colonne.'],
+  ['d','Veuve','La dernière ligne d’un paragraphe, restée seule en haut de la colonne suivante.'],
+  ['p','Corrigez-les avant tout export : ajustez légèrement l’approche du paragraphe pour gagner ou perdre une ligne, modifiez la largeur du bloc, ou forcez un saut de colonne.'],
+  ['att','Dans les Options d’enchaînement du style de paragraphe, cochez Conserver les lignes ensemble, avec au moins 2 lignes au début et à la fin. Ça règle la plupart des cas.']]},
+ {h:'Les guillemets et la ponctuation', b:[
+  ['p','En français, on utilise les guillemets « » et non les guillemets anglais “ ”. InDesign les met automatiquement si la langue du texte est bien le français.'],
+  ['p','Le tiret cadratin (—) sert aux dialogues et aux incises, le demi-cadratin (–) aux intervalles (2020–2026), le trait d’union (-) aux mots composés et à la coupure.'],
+  ['att','Sélectionnez tout le texte, puis choisissez Français dans le menu Langue du panneau Caractère. La correction orthographique et la coupure des mots se font alors en français.']]}
+]},
+{t:'Les gabarits', short:'Gabarits', sub:'La cohérence sur tout le document', s:[
+ {h:'À quoi sert un gabarit', fig:'Gabarit', b:[
+  ['p','Un gabarit est une page modèle. Ce que vous y placez apparaît sur toutes les pages qui l’utilisent, et toute modification se répercute sur ces pages.'],
+  ['d','On y place','La grille, les marges et les colonnes, le folio, les filets, les en-têtes, le titre courant.'],
+  ['d','On n’y place pas','Le contenu propre à chaque page : images, articles, légendes.'],
+  ['att','Double-cliquez sur un gabarit dans le panneau Pages pour le modifier.'],
+  ['key','Cmd + Maj + clic','Libérer un élément de gabarit sur une page pour le modifier à cet endroit seulement']]},
+ {h:'Plusieurs gabarits', b:[
+  ['p','Un magazine utilise plusieurs gabarits : ouverture d’article, page courante en 3 colonnes, page avec une colonne de légendes… Chacun peut avoir sa grille et ses éléments.'],
+  ['p','Un gabarit peut être basé sur un autre : le gabarit B hérite de tout ce que contient A et y ajoute ses propres éléments. Si vous modifiez A, B suit automatiquement.'],
+  ['att','Pour appliquer un gabarit, faites-le glisser sur une page du panneau Pages, ou sur plusieurs pages sélectionnées.']]},
+ {h:'La numérotation automatique', b:[
+  ['p','Dans le gabarit, créez un bloc de texte à l’emplacement du folio, puis insérez le numéro automatique : Texte, Insérer un caractère spécial, Marques, Numéro de page actif.'],
+  ['p','Dans le gabarit, il apparaît sous la forme d’une lettre (A, B…). Sur chaque page, il affiche le vrai numéro. Vous le mettez en forme comme n’importe quel texte.'],
+  ['att','Pour faire commencer la numérotation à une autre page : clic droit sur la page dans le panneau Pages, puis Options de numérotation et de section.']]}
+]},
+{t:'Les images', short:'Images', sub:'Importer, cadrer, vérifier la qualité', s:[
+ {h:'Les liens', b:[
+  ['p','InDesign ne contient pas vos images : il crée un lien vers chaque fichier sur votre disque. Si vous déplacez ou renommez une image après l’avoir placée, le lien est rompu.'],
+  ['p','C’est pour ça qu’on ne transmet jamais un fichier .indd seul, mais un assemblage complet (voir le chapitre Export).'],
+  ['att','Le panneau Liens (Fenêtre, Liens) liste toutes les images, avec leur état : à jour, modifiée, manquante. C’est aussi là que vous les remplacez ou les mettez à jour.'],
+  ['conf','Rangez vos images dans un dossier Liens à côté du fichier InDesign avant de commencer, et n’y touchez plus.'],
+  ['key','Cmd + D','Importer une image. Un clic la place à sa taille d’origine, un cliquer-glisser définit la taille du bloc']]},
+ {h:'La résolution', b:[
+  ['p','Pour l’impression, une image doit faire au moins 300 ppi à sa taille finale dans la page. Pour l’écran, 72 à 150 ppi suffisent.'],
+  ['p','Agrandir une image dans InDesign fait baisser sa résolution réelle. Le panneau Liens affiche cette valeur dans la colonne PPI effectif : en dessous de 250, l’image sera floue à l’impression.'],
+  ['conf','Une image récupérée sur le web (souvent 72 ppi) paraît nette à l’écran mais sera pixelisée une fois imprimée.']]},
+ {h:'Le cadre et l’image', fig:'Ajuster', b:[
+  ['p','Dans InDesign, le cadre et l’image sont deux éléments distincts. Le cadre définit la partie visible. L’image, à l’intérieur, peut être plus grande et se déplacer indépendamment.'],
+  ['att','Un clic sélectionne le cadre. Un double-clic sélectionne l’image à l’intérieur, pour la déplacer ou la redimensionner dans son cadre.'],
+  ['key','Cmd + Alt + Maj + C','Remplir le cadre proportionnellement, l’option la plus utile'],
+  ['key','Cmd + Alt + Maj + E','Ajuster le contenu proportionnellement']]},
+ {h:'L’habillage', b:[
+  ['p','L’habillage fait contourner une image par le texte (Fenêtre, Habillage). Les options : aucun habillage, habillage du cadre (rectangle), habillage de la forme de l’objet, saut d’objet (le texte reprend sous l’image).'],
+  ['p','En mode et en luxe, on l’utilise peu : images et textes ont chacun leur espace. Organiser la grille pour séparer les zones donne souvent un résultat plus propre.'],
+  ['conf','L’habillage de forme n’a de sens que pour une image détourée (fond transparent). Sur une photo rectangulaire, il ne sert à rien.']]},
+ {h:'Retoucher dans Photoshop', b:[
+  ['p','On corrige une image dans Photoshop, jamais dans InDesign : recadrage, exposition, nettoyage, détourage. Clic droit sur l’image, Modifier l’original : elle s’ouvre dans Photoshop et se met à jour dans InDesign dès que vous enregistrez.']]}
+]},
+{t:'Styles d’objet et vérifications', short:'Vérifier', sub:'Standardiser et éviter les erreurs', s:[
+ {h:'Les styles d’objet', b:[
+  ['p','C’est le même principe que les styles de texte, appliqué aux blocs : filet, couleur de fond, habillage, marges internes. Un encadré, une citation sur fond coloré ou un bloc de crédit se créent ainsi en un clic, et restent identiques partout.'],
+  ['att','Fenêtre, Styles, Styles d’objet. Sélectionnez un bloc déjà mis en forme et créez un nouveau style à partir de lui.']]},
+ {h:'Le texte en excès', b:[
+  ['p','Quand un bloc contient plus de texte qu’il ne peut en afficher, un petit carré rouge marqué d’un + apparaît en bas à droite. Le texte caché n’est pas perdu, mais il ne sera ni visible ni imprimé.'],
+  ['p','Solutions : agrandir le bloc, relier le bloc à un autre (cliquez sur le carré rouge, puis sur un autre bloc ou une zone vide), ou raccourcir le texte.'],
+  ['conf','Le PDF n’affiche aucun avertissement : le texte en excès disparaît simplement.']]},
+ {h:'Le contrôle en amont', b:[
+  ['p','Le contrôle en amont vérifie le document en continu : liens manquants, images en basse résolution, polices absentes, texte en excès. Le voyant en bas à gauche de la fenêtre est vert quand tout va bien, rouge sinon. Cliquez dessus pour voir le détail.'],
+  ['conf','N’exportez jamais tant que le voyant est rouge.']]}
+]},
+{t:'L’export', short:'Export', sub:'Préparer les fichiers de sortie', s:[
+ {h:'PDF impression ou PDF écran', b:[
+  ['d','Destination','Impression : l’imprimeur. Écran : un ordinateur, une tablette, un mail.'],
+  ['d','Couleurs','Impression : CMJN. Écran : RVB, plus vif.'],
+  ['d','Images','Impression : 300 ppi. Écran : 150 ppi suffisent.'],
+  ['d','Fond perdu et traits de coupe','Impression : oui. Écran : non.'],
+  ['d','Réglage','Impression : PDF/X-4 (ou celui que demande l’imprimeur). Écran : Plus petite taille de fichier ou PDF interactif.'],
+  ['p','Pour l’impression, activez le fond perdu et les traits de coupe dans la rubrique Repères et fonds perdus de la fenêtre d’export.'],
+  ['att','Demandez toujours ses spécifications à l’imprimeur avant d’exporter : chacun peut avoir ses exigences.'],
+  ['conf','Un PDF en RVB envoyé à un imprimeur sera converti en CMJN, avec des couleurs parfois très différentes de ce que vous voyiez à l’écran.'],
+  ['key','Cmd + E','Exporter']]},
+ {h:'L’assemblage', b:[
+  ['p','Fichier, Assemblage rassemble dans un seul dossier le fichier InDesign, toutes les images liées et les polices. C’est la seule façon de transmettre un fichier InDesign qui s’ouvrira correctement ailleurs.'],
+  ['att','Faites un assemblage à chaque rendu et à chaque archivage. Dans six mois, vous retrouverez tout sans chercher.'],
+  ['conf','Envoyer le .indd seul : le destinataire verra des liens rompus et des polices de remplacement.'],
+  ['key','Cmd + Alt + Maj + P','Assembler']]},
+ {h:'Les polices manquantes', b:[
+  ['p','Si une police n’est pas installée, InDesign la remplace par une autre et surligne le texte en rose. La mise en page peut alors changer.'],
+  ['p','Les polices Adobe Fonts ne sont pas copiées dans l’assemblage : elles sont liées au compte Adobe. La personne qui ouvre le fichier doit les activer depuis son propre compte.']]}
+]},
+{t:'Le magazine', short:'Magazine', sub:'Vocabulaire, charte et déclinaisons', s:[
+ {h:'Les niveaux de texte', b:[
+  ['d','Surtitre','Au-dessus du titre, il situe le sujet ou la rubrique.'],
+  ['d','Titre','L’accroche principale de l’article.'],
+  ['d','Chapô','Le paragraphe d’introduction, entre le titre et le texte.'],
+  ['d','Intertitre','Un petit titre qui relance la lecture dans un texte long.'],
+  ['d','Exergue','Une citation extraite du texte et mise en valeur.'],
+  ['d','Légende','Le texte qui accompagne une image.'],
+  ['d','Crédit','Le nom du photographe ou de l’ayant droit.'],
+  ['d','Folio','Le numéro de page, souvent accompagné du nom du magazine ou de la rubrique.'],
+  ['att','Un style de paragraphe par niveau, tous basés sur un même style de base.']]},
+ {h:'La charte éditoriale', b:[
+  ['p','La charte rassemble les règles du magazine : format et grille, typographies et styles, nuancier nommé, traitement des images, éléments récurrents (folio, titre courant, rubriques), règles d’ouverture d’article.'],
+  ['p','Le bon test : une autre personne doit pouvoir réaliser une page de votre magazine sans vous poser de question.']]},
+ {h:'Couverture et sommaire', fig:'Couverture', b:[
+  ['p','La couverture comprend le logo du titre, une image, les accroches, la date et le numéro, le prix et le code-barres. Gardez 3 mm de fond perdu et une zone de sécurité de 5 mm pour tout ce qui doit rester lisible.'],
+  ['p','Le sommaire peut se générer à partir de vos styles : Page, Table des matières. Si un titre change, le sommaire se met à jour.']]},
+ {h:'Décliner sur d’autres formats', fig:'Formats', b:[
+  ['p','Le même contenu se décline en post (1080 × 1350 px), en story (1080 × 1920 px) ou en affiche A3. Pour l’écran, créez un document en pixels et en RVB. Vous gardez les styles et les couleurs, mais vous recomposez.'],
+  ['conf','Réduire une double-page telle quelle sur un écran de téléphone rend le texte illisible.']]}
+]},
+{t:'Les raccourcis essentiels', short:'Raccourcis', sub:'Apprenez-en cinq par séance', s:[
+ {h:'Navigation et affichage', b:[
+  ['k','Cmd + 0','Afficher la page entière'],['k','Cmd + 1','Affichage à 100 %'],['k','Cmd + + / −','Zoomer et dézoomer'],['k','Espace + glisser','Déplacer la vue sans changer d’outil'],['k','W','Mode Aperçu'],['k','Tab','Masquer tous les panneaux']]},
+ {h:'Outils et objets', b:[
+  ['k','V','Sélection (flèche noire) : le bloc'],['k','A','Sélection directe (flèche blanche) : le contenu'],['k','T','Texte'],['k','F','Bloc rectangulaire'],['k','Cmd + D','Importer'],['k','Cmd + G','Grouper'],['k','Cmd + Maj + G','Dissocier'],['k','Cmd + L','Verrouiller']]},
+ {h:'Texte', b:[
+  ['k','Cmd + B','Options de bloc de texte'],['k','Alt + ← / →','Crénage ou approche'],['k','Cmd + Alt + Q','Crénage et approche à zéro'],['k','Alt + clic sur un style','Appliquer sans remplacements']]},
+ {h:'Document et sortie', b:[
+  ['k','Cmd + S','Enregistrer'],['k','Cmd + Alt + P','Format du document'],['k','Cmd + E','Exporter'],['k','Cmd + Alt + Maj + P','Assembler']]}
+]}
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    const chapters = DATA.map((c, i) => ({
+      t: c.t, short: c.short, sub: c.sub, id: 'ch' + (i + 1), href: '#ch' + (i + 1), num: String(i + 1).padStart(2, '0'),
+      label: String(i + 1).padStart(2, '0') + ' ' + c.t,
+      sections: c.s.map(sec => ({
+        h: sec.h, ['fig' + (sec.fig || 'None')]: true,
+        blocks: sec.b.map(([t, a, b]) => ({ a, b, isP: t === 'p', isD: t === 'd', isKbd: t === 'k', isAtt: t === 'att', isConf: t === 'conf', isKey: t === 'key' }))
+      }))
+    }));
+    return { chapters, folios: ['1', '2', '3', '4'] };
+  }
+}
+</script>
+</body>
+</html>

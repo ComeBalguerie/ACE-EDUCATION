@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f2eefc;color:#17131f;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#ff3d7f}a:hover{color:#d81b60}
+</style>
+</helmet>
+<nav style="position:sticky;top:0;z-index:5;background:rgba(242,238,252,.95);backdrop-filter:blur(8px);border-bottom:2px solid #17131f">
+  <div style="max-width:760px;margin:0 auto;display:flex;gap:8px;overflow-x:auto;padding:10px 20px;box-sizing:border-box">
+    <a href="Espace etudiant.dc.html" style="flex:none;padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#17131f;color:#fff;font-size:13px;font-weight:600;text-decoration:none">← Mes modules</a>
+    <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="6">
+      <a href="{{ c.href }}" style="flex:none;padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#fff;color:#17131f;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap" style-hover="background:#c6f432;color:#17131f">{{ c.num }} {{ c.short }}</a>
+    </sc-for>
+  </div>
+</nav>
+
+<main style="max-width:760px;margin:0 auto;padding:36px 20px 96px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+  <header style="display:flex;flex-direction:column;gap:14px">
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#ff3d7f;font-weight:600">Fiche de révision · B3 ESDAC</div>
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:clamp(44px,9vw,68px);line-height:.98">Portfolio<br><span style="color:#ff3d7f">&amp; présence en ligne</span></div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#2e2938;max-width:600px;text-wrap:pretty">Personal branding, portfolio, réseaux, contacts et pitch : toutes les notions du module Portfolio et communication digitale, avec les idées clés des deux livres du syllabus. Les schémas vous aident à visualiser, les encadrés vous signalent l'essentiel.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+      <span style="padding:5px 10px;border-radius:8px;background:#e4ddf7;border:1.5px solid #17131f;font-size:13px;font-weight:600">En clair</span>
+      <span style="padding:5px 10px;border-radius:8px;background:#fff;border:1.5px solid #17131f;font-size:13px;font-weight:600">À retenir</span>
+      <span style="padding:5px 10px;border-radius:8px;background:#c6f432;border:1.5px solid #17131f;font-size:13px;font-weight:600">Astuce</span>
+      <span style="padding:5px 10px;border-radius:8px;background:#ffe1d8;border:1.5px solid #17131f;font-size:13px;font-weight:600">Attention</span>
+    </div>
+  </header>
+
+  <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="2">
+    <section id="{{ c.id }}" data-screen-label="{{ c.label }}" style="display:flex;flex-direction:column;gap:30px;scroll-margin-top:70px">
+      <div style="display:flex;gap:16px;align-items:flex-end;padding-bottom:14px;border-bottom:2px solid #17131f">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:56px;line-height:.85;color:#ff3d7f">{{ c.num }}</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <h2 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:30px;line-height:1.05">{{ c.t }}</h2>
+          <div style="font-size:15px;color:#5d5670">{{ c.sub }}</div>
+        </div>
+      </div>
+
+      <sc-for list="{{ c.sections }}" as="sec" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <h3 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:22px;line-height:1.15">{{ sec.h }}</h3>
+
+          <sc-if value="{{ sec.figEcart }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px;align-items:center">
+              <div style="position:relative;width:280px;height:150px">
+                <div style="position:absolute;left:10px;top:10px;width:150px;height:130px;border-radius:50%;background:rgba(255,61,127,.55);border:2px solid #17131f;display:flex;align-items:center;padding-left:22px;box-sizing:border-box;font-size:13px;font-weight:700">Image<br>voulue</div>
+                <div style="position:absolute;right:10px;top:10px;width:150px;height:130px;border-radius:50%;background:rgba(198,244,50,.6);border:2px solid #17131f;display:flex;align-items:center;justify-content:flex-end;padding-right:22px;box-sizing:border-box;font-size:13px;font-weight:700;text-align:right">Image<br>perçue</div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Le travail de personal branding consiste à agrandir la zone commune.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figTemps }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:center;text-align:center">
+              <div style="padding:14px 8px;border-radius:12px;background:#ff3d7f;border:2px solid #17131f;display:flex;flex-direction:column;gap:2px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px">Définir</span><span style="font-size:12px;font-weight:600">séance 1</span></div>
+              <span style="font-size:22px;font-weight:800">→</span>
+              <div style="padding:14px 8px;border-radius:12px;background:#e4ddf7;border:2px solid #17131f;display:flex;flex-direction:column;gap:2px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px">Exprimer</span><span style="font-size:12px;font-weight:600">séances 2 et 3</span></div>
+              <span style="font-size:22px;font-weight:800">→</span>
+              <div style="padding:14px 8px;border-radius:12px;background:#c6f432;border:2px solid #17131f;display:flex;flex-direction:column;gap:2px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px">Développer</span><span style="font-size:12px;font-weight:600">séances 3 et 4</span></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.fig3c }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+              <div style="padding:14px;border-radius:12px;background:#ff3d7f;border:2px solid #17131f;display:flex;flex-direction:column;gap:4px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:30px;line-height:1">C</span><span style="font-weight:800">Clarté</span><span style="font-size:12.5px;line-height:1.35">on comprend en 10 secondes</span></div>
+              <div style="padding:14px;border-radius:12px;background:#e4ddf7;border:2px solid #17131f;display:flex;flex-direction:column;gap:4px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:30px;line-height:1">C</span><span style="font-weight:800">Cohérence</span><span style="font-size:12.5px;line-height:1.35">on vous reconnaît partout</span></div>
+              <div style="padding:14px;border-radius:12px;background:#c6f432;border:2px solid #17131f;display:flex;flex-direction:column;gap:4px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:30px;line-height:1">C</span><span style="font-weight:800">Constance</span><span style="font-size:12.5px;line-height:1.35">on ne vous oublie pas</span></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figJohari }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:grid;grid-template-columns:auto 1fr 1fr;gap:6px;max-width:440px;margin:0 auto;width:100%;font-size:12px">
+                <div></div><div style="text-align:center;font-weight:700;color:#5d5670">Connu de moi</div><div style="text-align:center;font-weight:700;color:#5d5670">Inconnu de moi</div>
+                <div style="writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-weight:700;color:#5d5670">Connu des autres</div>
+                <div style="padding:16px 10px;border-radius:10px;background:#c6f432;border:2px solid #17131f"><b style="font-size:14px">Zone publique</b><br>ce que tout le monde voit</div>
+                <div style="padding:16px 10px;border-radius:10px;background:#ff3d7f;border:2px solid #17131f"><b style="font-size:14px">Angle mort</b><br>ce que les autres voient et que j'ignore</div>
+                <div style="writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-weight:700;color:#5d5670">Inconnu des autres</div>
+                <div style="padding:16px 10px;border-radius:10px;background:#e4ddf7;border:2px solid #17131f"><b style="font-size:14px">Zone cachée</b><br>ce que je garde pour moi</div>
+                <div style="padding:16px 10px;border-radius:10px;background:#fff;border:2px dashed #17131f"><b style="font-size:14px">Zone inconnue</b><br>ce que personne ne sait encore</div>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figGolden }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap">
+              <div style="width:180px;height:180px;border-radius:50%;background:#e4ddf7;border:2px solid #17131f;display:flex;align-items:flex-start;justify-content:center;box-sizing:border-box;padding-top:10px;position:relative">
+                <span style="font-size:12px;font-weight:700">Quoi</span>
+                <div style="position:absolute;inset:30px;border-radius:50%;background:#c6f432;border:2px solid #17131f;display:flex;align-items:flex-start;justify-content:center;padding-top:8px;box-sizing:border-box"><span style="font-size:12px;font-weight:700">Comment</span>
+                  <div style="position:absolute;inset:30px;border-radius:50%;background:#ff3d7f;border:2px solid #17131f;display:flex;align-items:center;justify-content:center"><span style="font-size:13px;font-weight:800">Pourquoi</span></div>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.35;max-width:240px"><span><b>Pourquoi</b> : ce qui vous motive</span><span><b>Comment</b> : votre méthode</span><span><b>Quoi</b> : ce que vous produisez</span><span style="color:#5d5670">On part du centre vers l'extérieur.</span></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figRecit }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+              <sc-for list="{{ recit }}" as="r" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="height:8px;border-radius:99px;background:{{ r.c }};border:1.5px solid #17131f"></div><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;line-height:1.15">{{ r.n }}</span></div>
+              </sc-for>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figSwot }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:auto 1fr 1fr;gap:6px;font-size:12.5px">
+              <div></div><div style="text-align:center;font-weight:700;color:#1f8a4c">Positif</div><div style="text-align:center;font-weight:700;color:#d6361f">Négatif</div>
+              <div style="writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-weight:700;color:#5d5670">Interne · moi</div>
+              <div style="padding:12px;border-radius:10px;background:#dcf8c6;border:2px solid #17131f"><b style="font-size:15px">Forces</b><br>je maîtrise Rhino et le croquis</div>
+              <div style="padding:12px;border-radius:10px;background:#ffe1d8;border:2px solid #17131f"><b style="font-size:15px">Faiblesses</b><br>je parle mal en public</div>
+              <div style="writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-weight:700;color:#5d5670">Externe · le marché</div>
+              <div style="padding:12px;border-radius:10px;background:#c6f432;border:2px solid #17131f"><b style="font-size:15px">Opportunités</b><br>les studios cherchent des profils 3D</div>
+              <div style="padding:12px;border-radius:10px;background:#ffd0e0;border:2px solid #17131f"><b style="font-size:15px">Menaces</b><br>l'IA banalise les rendus</div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figFleur }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;justify-content:center">
+              <div style="position:relative;width:280px;height:230px">
+                <div style="position:absolute;left:90px;top:75px;width:100px;height:80px;border-radius:50%;background:#ff3d7f;border:2px solid #17131f;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;font-weight:800;line-height:1.2;z-index:2">Aménager de<br>petits espaces</div>
+                <div style="position:absolute;left:95px;top:6px;width:90px;height:60px;border-radius:50%;background:#e4ddf7;border:2px solid #17131f;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;text-align:center">Rendus 3D</div>
+                <div style="position:absolute;left:0;top:85px;width:90px;height:60px;border-radius:50%;background:#c6f432;border:2px solid #17131f;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;text-align:center">Sourcing<br>mobilier</div>
+                <div style="position:absolute;right:0;top:85px;width:90px;height:60px;border-radius:50%;background:#c6f432;border:2px solid #17131f;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;text-align:center">Suivi de<br>chantier</div>
+                <div style="position:absolute;left:95px;bottom:6px;width:90px;height:60px;border-radius:50%;background:#e4ddf7;border:2px solid #17131f;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;text-align:center">Planche<br>matériaux</div>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figOrdre }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;align-items:flex-end;gap:8px;height:120px;max-width:440px;margin:0 auto;width:100%">
+                <sc-for list="{{ ordre }}" as="o" hint-placeholder-count="8">
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end"><div style="width:100%;height:{{ o.h }}%;background:{{ o.c }};border:2px solid #17131f;border-radius:6px 6px 0 0"></div><span style="font-size:11px;font-weight:700">{{ o.n }}</span></div>
+                </sc-for>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Le projet le plus fort en ouverture, le deuxième plus fort à la fin. Le milieu alterne les rythmes.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figProjet }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center">
+              <sc-for list="{{ projet }}" as="p" hint-placeholder-count="6">
+                <div style="display:flex;align-items:center;gap:8px"><span style="padding:9px 12px;border-radius:10px;border:2px solid #17131f;background:{{ p.bg }};font-size:13px;font-weight:700">{{ p.t }}</span><span style="font-weight:800">{{ p.arrow }}</span></div>
+              </sc-for>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figHub }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px;align-items:center">
+              <div style="position:relative;width:300px;height:220px">
+                <svg viewBox="0 0 300 220" width="300" height="220" style="position:absolute;inset:0"><g stroke="#17131f" strokeWidth="2" strokeDasharray="5 4"><line x1="150" y1="110" x2="50" y2="30"></line><line x1="150" y1="110" x2="250" y2="30"></line><line x1="150" y1="110" x2="50" y2="190"></line><line x1="150" y1="110" x2="250" y2="190"></line></g></svg>
+                <div style="position:absolute;left:95px;top:82px;width:110px;padding:12px 0;border-radius:12px;background:#ff3d7f;border:2px solid #17131f;text-align:center;font-weight:800;font-size:14px">Site perso</div>
+                <div style="position:absolute;left:5px;top:12px;width:90px;padding:8px 0;border-radius:999px;background:#fff;border:2px solid #17131f;text-align:center;font-weight:700;font-size:13px">LinkedIn</div>
+                <div style="position:absolute;right:5px;top:12px;width:90px;padding:8px 0;border-radius:999px;background:#fff;border:2px solid #17131f;text-align:center;font-weight:700;font-size:13px">Behance</div>
+                <div style="position:absolute;left:5px;bottom:12px;width:90px;padding:8px 0;border-radius:999px;background:#fff;border:2px solid #17131f;text-align:center;font-weight:700;font-size:13px">Instagram</div>
+                <div style="position:absolute;right:5px;bottom:12px;width:90px;padding:8px 0;border-radius:999px;background:#fff;border:2px solid #17131f;text-align:center;font-weight:700;font-size:13px">PDF</div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Tout renvoie vers le site personnel, le seul espace que vous contrôlez entièrement.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figAida }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:6px;align-items:center">
+              <div style="width:100%;padding:10px;background:#ff3d7f;border:2px solid #17131f;border-radius:8px;text-align:center;font-size:13px;font-weight:700;box-sizing:border-box">A · Attention : l'image et la première ligne</div>
+              <div style="width:84%;padding:10px;background:#ffa3c3;border:2px solid #17131f;border-radius:8px;text-align:center;font-size:13px;font-weight:700;box-sizing:border-box">I · Intérêt : ce que ça montre</div>
+              <div style="width:68%;padding:10px;background:#e4ddf7;border:2px solid #17131f;border-radius:8px;text-align:center;font-size:13px;font-weight:700;box-sizing:border-box">D · Désir : pourquoi c'est singulier</div>
+              <div style="width:52%;padding:10px;background:#c6f432;border:2px solid #17131f;border-radius:8px;text-align:center;font-size:13px;font-weight:700;box-sizing:border-box">A · Action : voir, écrire</div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figLiens }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px;align-items:center">
+              <svg viewBox="0 0 320 170" width="100%" style="max-width:420px">
+                <g stroke="#17131f" strokeWidth="2.5"><line x1="70" y1="60" x2="40" y2="110"></line><line x1="70" y1="60" x2="100" y2="110"></line><line x1="40" y1="110" x2="100" y2="110"></line><line x1="70" y1="60" x2="70" y2="140"></line><line x1="40" y1="110" x2="70" y2="140"></line><line x1="100" y1="110" x2="70" y2="140"></line></g>
+                <g stroke="#17131f" strokeWidth="2.5"><line x1="250" y1="50" x2="220" y2="100"></line><line x1="250" y1="50" x2="285" y2="100"></line><line x1="220" y1="100" x2="285" y2="100"></line><line x1="220" y1="100" x2="255" y2="140"></line><line x1="285" y1="100" x2="255" y2="140"></line></g>
+                <line x1="100" y1="110" x2="220" y2="100" stroke="#ff3d7f" strokeWidth="3" strokeDasharray="7 5"></line>
+                <g fill="#e4ddf7" stroke="#17131f" strokeWidth="2"><circle cx="70" cy="60" r="10"></circle><circle cx="40" cy="110" r="10"></circle><circle cx="70" cy="140" r="10"></circle><circle cx="250" cy="50" r="10"></circle><circle cx="285" cy="100" r="10"></circle><circle cx="255" cy="140" r="10"></circle><circle cx="220" cy="100" r="10"></circle></g>
+                <circle cx="100" cy="110" r="13" fill="#ff3d7f" stroke="#17131f" strokeWidth="2"></circle>
+                <text x="100" y="135" fontSize="11" fontWeight="700" textAnchor="middle" fill="#17131f">vous</text>
+                <text x="70" y="25" fontSize="12" fontWeight="700" textAnchor="middle" fill="#5d5670">vos proches</text>
+                <text x="255" y="22" fontSize="12" fontWeight="700" textAnchor="middle" fill="#5d5670">un autre milieu</text>
+                <text x="160" y="92" fontSize="11" fontWeight="700" textAnchor="middle" fill="#d81b60">lien faible</text>
+              </svg>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Vos proches connaissent les mêmes personnes que vous. Le lien faible, lui, ouvre sur un autre milieu.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figPitch }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+              <div style="padding:12px 8px;border-radius:12px;background:#ff3d7f;border:2px solid #17131f;text-align:center"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px">Accroche</div><div style="font-size:11.5px;margin-top:3px">qui je suis</div></div>
+              <div style="padding:12px 8px;border-radius:12px;background:#ffa3c3;border:2px solid #17131f;text-align:center"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px">Preuve</div><div style="font-size:11.5px;margin-top:3px">un projet</div></div>
+              <div style="padding:12px 8px;border-radius:12px;background:#e4ddf7;border:2px solid #17131f;text-align:center"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px">Singularité</div><div style="font-size:11.5px;margin-top:3px">ce que j'apporte</div></div>
+              <div style="padding:12px 8px;border-radius:12px;background:#c6f432;border:2px solid #17131f;text-align:center"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px">Demande</div><div style="font-size:11.5px;margin-top:3px">ce que je cherche</div></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figPecha }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px;align-items:center">
+              <div style="display:grid;grid-template-columns:repeat(10,1fr);gap:5px;max-width:360px;width:100%">
+                <sc-for list="{{ pecha }}" as="p" hint-placeholder-count="20"><div style="aspect-ratio:1.4;background:{{ p }};border:1.5px solid #17131f;border-radius:3px"></div></sc-for>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">20 images × 20 secondes = 6 minutes 40.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-for list="{{ sec.blocks }}" as="b" hint-placeholder-count="2">
+            <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+              <p style="margin:0;font-size:16.5px;line-height:1.65;color:#2e2938;text-wrap:pretty">{{ b.a }}</p>
+            </sc-if>
+            <sc-if value="{{ b.isD }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:minmax(110px,30%) minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px solid #c9c0e6">
+                <div style="font-weight:700;font-size:15px;line-height:1.4">{{ b.a }}</div>
+                <div style="font-size:15.5px;line-height:1.5;color:#2e2938">{{ b.b }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isClair }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#e4ddf7;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4a3d8f">En clair</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isRet }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#fff;border:2px solid #17131f;box-shadow:3px 3px 0 #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#d81b60">À retenir</div>
+                <div style="font-size:15.5px;line-height:1.55;font-weight:600;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isEx }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:4px 0 4px 16px;border-left:4px solid #ff3d7f;font-size:16px;line-height:1.55;font-style:italic;color:#2e2938">{{ b.a }}</div>
+            </sc-if>
+            <sc-if value="{{ b.isAtt }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#c6f432;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Astuce</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isConf }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#ffe1d8;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#b3261e">Attention</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+      </sc-for>
+    </section>
+  </sc-for>
+
+  <div style="display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:18px;background:#fff;border:2px solid #17131f;box-shadow:5px 5px 0 #17131f">
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px">Testez-vous</div>
+    <div style="font-size:15.5px;line-height:1.55;color:#2e2938">Le quiz de chaque séance reprend ces notions. Vous pouvez le rejouer autant de fois que vous voulez pour vous entraîner.</div>
+    <a href="Quiz Portfolio.dc.html" style="align-self:flex-start;padding:12px 20px;border:2px solid #17131f;border-radius:999px;background:#ff3d7f;color:#17131f;font-size:15px;font-weight:700;text-decoration:none;box-shadow:3px 3px 0 #17131f" style-hover="color:#17131f">Jouer au quiz Portfolio</a>
+  </div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DATA = [
+{t:'Le personal branding', short:'Branding', sub:'D’où vient l’idée, ce qu’elle veut dire', s:[
+ {h:'L’origine', b:[
+  ['p','Le terme est popularisé en 1997 par le consultant américain Tom Peters, dans un article du magazine Fast Company intitulé « The Brand Called You ». L’idée : chaque professionnel peut se penser comme une marque, avec une promesse, une cible et une réputation à entretenir.'],
+  ['p','Les carrières sont devenues plus instables et la première impression se fait désormais en ligne. La démarche est donc utile à tout le monde, pas seulement aux dirigeants ou aux indépendants.'],
+  ['clair','Le personal branding, c’est gérer volontairement l’image que vous laissez au lieu de la subir. Vous avez déjà une image professionnelle ; la seule question est de savoir si vous l’avez choisie.']]},
+ {h:'Les définitions à retenir', fig:'Ecart', b:[
+  ['d','Personal branding','Identifier ce qui vous rend singulier et utile, puis l’exprimer de façon cohérente partout où l’on vous rencontre.'],
+  ['d','Marketing de soi','L’expression française proche : on applique à soi-même les outils du marketing (cible, positionnement, offre, communication).'],
+  ['d','Promesse de valeur','Ce que vous apportez de particulier à ceux qui travaillent avec vous.'],
+  ['d','Image voulue, image perçue','Ce que vous pensez projeter, et ce que les autres retiennent réellement.'],
+  ['d','E-réputation','Ce que l’on trouve sur vous en ligne : résultats Google, profils, publications, commentaires, tags.'],
+  ['ex','« Votre marque, c’est ce que les gens disent de vous quand vous n’êtes pas dans la pièce. » Formule attribuée à Jeff Bezos.'],
+  ['conf','Le personal branding n’est pas de l’autopromotion. Le but n’est pas de se vanter ni d’être partout, mais d’être reconnu pour quelque chose de précis par les bonnes personnes.']]},
+ {h:'Pourquoi c’est utile à un designer', b:[
+  ['p','Un designer vend une manière de voir et de résoudre des problèmes. Deux portfolios aussi bons techniquement se départagent sur la clarté du regard qu’ils expriment. Les recruteurs regardent souvent le portfolio et les profils avant même le CV.'],
+  ['p','En fin de B3, vous cherchez un master, une alternance, un premier poste ou des premiers clients. Vous serez comparé à des profils proches du vôtre : votre singularité devient votre principal argument.'],
+  ['att','Tapez votre nom dans Google, en navigation privée. Ce que vous trouvez, ou ne trouvez pas, est exactement ce que verra un recruteur.']]}
+]},
+{t:'Digital You', short:'Arruda', sub:'William Arruda, ATD Press, 2019', s:[
+ {h:'Le livre', b:[
+  ['p','William Arruda, consultant américain, est l’un des pionniers du personal branding. Digital You: Real Personal Branding in the Virtual Age (2019, en anglais) explique comment définir, exprimer et développer sa marque personnelle quand la première impression se fait en ligne.'],
+  ['p','Le livre parle surtout de LinkedIn et du monde de l’entreprise. Pour un designer, transposez : le portfolio, Behance et Instagram jouent le rôle que LinkedIn joue pour un cadre.']]},
+ {h:'Votre réputation voyage avec vous', b:[
+  ['p','Arruda observe que les jeunes actifs changeront souvent de poste au cours de leur vie, peut-être quinze fois ou plus. À chaque changement, il faut se présenter de nouveau.'],
+  ['clair','On ne construit plus sa réputation une fois pour toutes dans une seule entreprise. On l’emporte avec soi, d’un stage à une alternance, d’un studio à un autre. Votre portfolio et vos profils en ligne sont ce bagage.']]},
+ {h:'Une marque se découvre, elle ne s’invente pas', b:[
+  ['p','Pour Arruda, les marques les plus solides ne sont pas fabriquées mais mises au jour. Trois questions servent de point de départ : qu’est-ce que je fais mieux que les autres ? de quoi suis-je le plus fier ? qu’est-ce qui me fait perdre la notion du temps ?'],
+  ['p','Les pièces du puzzle : vos objectifs, vos valeurs, vos passions, ce qui vous différencie, vos talents naturels (qu’il appelle « superpouvoirs ») et votre raison d’être.'],
+  ['clair','Ne vous fabriquez pas un personnage. Cherchez ce qui est déjà là et rendez-le visible. Un style que vous ne pratiquez pas vraiment se voit au premier entretien.']]},
+ {h:'Être « sélectivement célèbre »', b:[
+  ['p','L’objectif n’est pas d’être célèbre, mais d’être connu des bonnes personnes. Arruda parle de « communauté de marque ».'],
+  ['clair','Mieux vaut 300 abonnés qui sont des architectes d’intérieur, des chefs de studio et des camarades de promo que 10 000 inconnus. Le nombre d’abonnés ne mesure pas la réussite d’un designer qui cherche un poste.'],
+  ['conf','Acheter des abonnés ou multiplier les hashtags génériques (#design, #art) n’attire pas la bonne communauté, et ça se repère vite.']]},
+ {h:'Les trois C', fig:'3c', b:[
+  ['d','Clarté','Savoir ce que vous êtes et ce que vous n’êtes pas, et connaître votre promesse de valeur.'],
+  ['d','Cohérence','Être toujours ce que vous dites être : le même message sur le portfolio, LinkedIn, Instagram et en entretien.'],
+  ['d','Constance','Rester visible dans la durée auprès de ceux que vous voulez toucher.'],
+  ['att','Une grille d’auto-évaluation simple : notez chacun de vos profils de 1 à 3 sur chaque C.']]},
+ {h:'En ligne et en vrai', b:[
+  ['p','La plupart des premières impressions se forment en ligne. Ne pas apparaître dans Google, c’est ne pas exister. Mais être visible ne suffit pas : ce qu’on voit de vous en ligne doit correspondre à ce qu’on découvre en vous rencontrant.'],
+  ['clair','Si votre Instagram montre un univers minimaliste en noir et blanc et que vous arrivez en entretien avec un portfolio fluo et chargé, le recruteur se demande lequel des deux est le vrai.'],
+  ['conf','Un profil laissé à l’abandon (dernière publication il y a deux ans, photo de vacances, bio de lycéen) produit une mauvaise première impression avant même la rencontre.']]},
+ {h:'Votre marque est dans la tête des autres', b:[
+  ['p','Votre marque existe dans l’esprit des gens qui vous connaissent. Sans leur regard, vous n’avez que la moitié de l’image.'],
+  ['clair','Vous ne pouvez pas décider seul de votre image. Demandez aux autres ce qu’ils voient, et acceptez que la réponse vous surprenne.']]},
+ {h:'La méthode en trois temps', fig:'Temps', b:[
+  ['d','Définir','Découvrir sa marque : valeurs, talents, différence, retours de l’entourage.'],
+  ['d','Exprimer','La traduire en supports : bio, profils, portfolio, photo, ton, visuels.'],
+  ['d','Développer','L’étendre : réseau, publications régulières, prise de parole, recommandations.'],
+  ['ret','Le module suit exactement ces trois temps, de la séance 1 à la séance 4.']]}
+]},
+{t:'La boîte à outils', short:'Outils', sub:'Moran et Van Laethem, Dunod, 2021', s:[
+ {h:'Le livre', b:[
+  ['p','La boîte à outils du Personal Branding, de Stéphanie Moran et Nathalie Van Laethem, rassemble 64 outils de 2 à 4 pages chacun : objectifs, étapes, avantages et précautions. C’est un livre à picorer, pas à lire d’une traite. Voici les outils les plus utiles pour le module.']]},
+ {h:'Intention et positionnement', b:[
+  ['d','Intention personnelle','Formuler ce que vous voulez vraiment, avant de choisir comment vous montrer.'],
+  ['clair','Avant de faire un portfolio, sachez pour quoi vous le faites : un master ? une agence d’architecture ? une marque de mode ? Le même portfolio ne sert pas les trois.'],
+  ['d','Positionnement personnel','La place que vous voulez occuper dans l’esprit de votre cible, par rapport aux profils comparables.'],
+  ['clair','Si dix camarades de promo postulent dans le même studio, qu’est-ce qui fera qu’on se souviendra de vous ? C’est ça, votre positionnement.'],
+  ['d','Mix-marketing de soi','Les « 4 P » du marketing appliqués à vous. Produit : ce que vous savez faire. Prix : la valeur que vous apportez. Place : là où l’on vous trouve. Promotion : la façon dont vous le faites savoir.']]},
+ {h:'La fleur des services', fig:'Fleur', b:[
+  ['p','Un service principal au centre, entouré de « pétales » de services complémentaires. C’est l’ensemble qui fait la différence.']]},
+ {h:'Le SWOT personnel', fig:'Swot', b:[
+  ['p','Forces et faiblesses (ce qui dépend de vous), opportunités et menaces (ce qui vient de l’extérieur), sur une seule grille.'],
+  ['clair','Conclusion de l’exemple : miser sur la 3D, travailler l’oral, et montrer le croquis comme signature.'],
+  ['conf','Un SWOT rempli en cinq minutes ne produit rien. C’est un appui à la réflexion, pas un formulaire.']]},
+ {h:'Autres outils utiles', b:[
+  ['d','Matrice des compétences','Lister et classer vos compétences : fortes, à développer, à mettre en avant.'],
+  ['d','Loi de Pareto','Environ 80 % des résultats viennent de 20 % des efforts. Quelques projets forts font l’essentiel de l’impression laissée par un portfolio.'],
+  ['d','Storytelling','Raconter votre parcours comme une histoire, avec un fil conducteur.'],
+  ['d','Brand content','Publier des contenus qui apportent quelque chose (conseils, coulisses, inspiration), pas seulement « regardez ce que je fais ».'],
+  ['d','Inbound marketing','Attirer les gens grâce à des contenus utiles plutôt que d’aller les solliciter un par un. Publier régulièrement vos process finit par amener des studios à vous contacter.'],
+  ['d','Recommandation sociale','Ce que les autres disent de vous publiquement : recommandations LinkedIn, mentions, partages.'],
+  ['d','Monitoring','Suivre ce qui fonctionne (vues, clics vers le portfolio, messages reçus) pour ajuster.']]}
+]},
+{t:'Identité créative', short:'Identité', sub:'Séance 1 · valeurs, compétences, récit', s:[
+ {h:'Trois questions de départ', b:[
+  ['d','Qui je suis','Valeurs, convictions, sujets qui reviennent dans mes projets.'],
+  ['d','Ce que je sais faire','Compétences métier, outils, qualités transversales.'],
+  ['d','Pour qui','Agences, studios, marques, écoles de master, clients.'],
+  ['att','Vos valeurs se repèrent dans vos projets, pas dans une liste toute faite. Cherchez les choix que vous avez refaits d’un projet à l’autre : matériaux bruts, réemploi, couleurs vives, ergonomie…']]},
+ {h:'Les compétences', b:[
+  ['d','Compétences métier','Conception, croquis, maquette, plans, 3D, prototypage, patronage, scénographie…'],
+  ['d','Outils','Suite Adobe, SketchUp, Rhino, Blender, AutoCAD, Revit, CLO 3D, Figma…'],
+  ['d','Qualités transversales','Gestion de projet, travail en équipe, curiosité, rigueur, aisance orale.'],
+  ['ret','Règle de preuve : toute compétence annoncée doit se voir dans au moins un projet du portfolio.'],
+  ['conf','Les barres de niveau (« Photoshop ●●●●○ ») ne veulent rien dire pour un recruteur. Citez plutôt le logiciel dans la légende du projet où il a servi.']]},
+ {h:'La fenêtre de Johari', fig:'Johari', b:[
+  ['p','Un modèle proposé par les psychologues Joseph Luft et Harrington Ingham en 1955, qui découpe l’image de soi en quatre zones.'],
+  ['clair','L’exercice « image voulue, image perçue » sert à découvrir votre angle mort : ce que vos projets disent de vous sans que vous vous en rendiez compte. Parfois une qualité que vous n’aviez pas vue, parfois un défaut à corriger.']]},
+ {h:'Se positionner en une phrase', fig:'Golden', b:[
+  ['ret','Je suis designer [spécialité] et je [ce que je fais] pour [qui], avec [ce qui me distingue].'],
+  ['ex','« Je suis designer d’espace et je conçois des lieux de vente temporaires pour des marques de mode, avec des structures démontables en matériaux de réemploi. »'],
+  ['ex','« Je suis designer produit et je dessine des objets du quotidien pour les personnes âgées, en partant d’observations à domicile. »'],
+  ['conf','Bannissez les adjectifs creux : passionné, créatif, polyvalent, dynamique, motivé. Tout le monde les utilise, ils ne distinguent personne.'],
+  ['att','Si vous bloquez, utilisez le Golden Circle de Simon Sinek (Start with Why, 2009) : partez du pourquoi, puis du comment, puis du quoi.']]},
+ {h:'Le storytelling personnel', fig:'Recit', b:[
+  ['d','Le déclic','D’où vient l’envie de faire ce métier.'],
+  ['d','Le parcours','Les étapes et ce que chacune a apporté.'],
+  ['d','Ce qui me guide','Une conviction, un sujet récurrent.'],
+  ['d','Où je vais','Ce que je cherche maintenant.'],
+  ['p','Gardez des faits concrets : un lieu, un objet, une rencontre. Un détail précis rend un récit crédible, une généralité le rend banal.'],
+  ['clair','« Depuis toute petite j’aime créer » ne raconte rien. « J’ai grandi dans la quincaillerie de mes parents, entourée de vis et de charnières » raconte déjà un designer produit.']]},
+ {h:'Les bios', b:[
+  ['d','Bio courte','Environ 300 signes : Instagram, Behance, signature de mail. Positionnement, une singularité, ce que vous cherchez.'],
+  ['d','Bio longue','Environ 1 000 signes : page « À propos », résumé LinkedIn. Le récit en quatre temps.'],
+  ['att','Écrivez à la première personne sur LinkedIn et Instagram. La troisième personne passe mieux dans un dossier de presse.'],
+  ['conf','Une bio générée par IA et collée sans retouche se repère tout de suite : le ton est générique et ne vous ressemble pas.']]}
+]},
+{t:'Le portfolio', short:'Portfolio', sub:'Séance 2 · sélection, mise en scène, diffusion', s:[
+ {h:'Sélectionner', fig:'Ordre', b:[
+  ['p','Entre 6 et 10 projets, choisis pour leur qualité, leur pertinence pour la cible, leur singularité, avec une diversité maîtrisée.'],
+  ['ret','Ouvrez avec votre projet le plus fort, finissez avec le deuxième plus fort.'],
+  ['p','Adaptez la sélection à chaque candidature : une agence d’architecture intérieure, un studio de design produit et une maison de mode n’attendent pas la même chose. Gardez un portfolio « maître » complet, et tirez-en des versions ciblées.'],
+  ['conf','Tout montrer, du B1 au B3, par peur d’oublier quelque chose. Un projet faible fait baisser l’impression d’ensemble.']]},
+ {h:'Raconter un projet', fig:'Projet', b:[
+  ['p','Pour rédiger, la méthode STAR, utilisée en entretien d’embauche, est très efficace : Situation (le contexte), Tâche (ce qui était demandé), Action (ce que j’ai fait), Résultat (ce que ça a donné).'],
+  ['clair','Un recruteur ne cherche pas seulement à savoir si l’image finale est belle. Il veut comprendre comment vous pensez. Le process est souvent la partie la plus regardée.'],
+  ['att','Texte court : un titre, un chapô de 2 à 3 lignes, des légendes. Si une image a besoin d’un long texte pour être comprise, c’est l’image qu’il faut changer.']]},
+ {h:'Selon votre spécialité', b:[
+  ['d','Design d’espace','Plans, coupes, axonométries, perspectives, photos de maquette, planches matériaux, photos du lieu réalisé.'],
+  ['d','Design produit','Croquis de recherche, vues éclatées, prototypes, tests d’usage, packshots, mises en situation.'],
+  ['d','Design mode','Planches de tendances, recherches matières, croquis, fiches techniques, silhouettes portées, lookbook.']]},
+ {h:'Mise en scène et qualité', b:[
+  ['p','Fond neutre, lumière homogène, cadrage soigné. Une seule grille et deux familles de caractères au maximum pour tout le portfolio. Le portfolio est lui-même un projet de design : sa mise en page est jugée.'],
+  ['conf','Mélanger des photos au téléphone mal éclairées et des rendus 3D léchés : l’écart de qualité fait douter du sérieux. Un mockup gratuit trop reconnaissable fait amateur.']]},
+ {h:'Formats et diffusion', b:[
+  ['d','PDF écran','A4 ou A3 paysage, moins de 10 Mo pour un envoi par mail, liens cliquables vers vos profils.'],
+  ['d','Version imprimée','Pour les entretiens : papier de qualité, reliure simple.'],
+  ['d','Version en ligne','Site personnel (Adobe Portfolio, Cargo, Squarespace…) ou Behance : la référence stable vers laquelle tout renvoie.'],
+  ['d','Extrait','3 à 5 pages à joindre à une candidature spontanée, pour donner envie de demander la suite.'],
+  ['ret','Nommez votre fichier NOM_Prenom_Portfolio_2027.pdf. Jamais « portfolio_final_v3.pdf ».']]},
+ {h:'Droits et éthique', b:[
+  ['p','Projets de stage ou de client : vérifiez que vous avez le droit de les montrer. Certains sont confidentiels, ou ne peuvent être publiés qu’après leur lancement.'],
+  ['p','Projets de groupe : indiquez clairement votre part et créditez les autres. Photos : créditez le photographe et obtenez l’accord des personnes reconnaissables.'],
+  ['conf','Présenter seul un projet collectif. Le monde du design est petit et l’information circule.']]}
+]},
+{t:'Présence en ligne', short:'En ligne', sub:'Séance 3 · plateformes, contenus, e-réputation', s:[
+ {h:'Les plateformes', fig:'Hub', b:[
+  ['d','LinkedIn','Recruteurs, agences, entreprises. Photo professionnelle, titre qui reprend votre positionnement, résumé, section « Sélection » avec le portfolio.'],
+  ['d','Behance','La plateforme d’Adobe. Projets présentés en entier, comme des études de cas. Très consultée par les studios.'],
+  ['d','Instagram','Marques, grand public, mode et décoration. Grille cohérente, carrousels, reels, bio avec lien.'],
+  ['d','Pinterest','Plutôt un outil de veille, mais les épingles peuvent renvoyer vers votre site.'],
+  ['d','Site personnel','Le seul espace que vous contrôlez entièrement.'],
+  ['ret','Un seul message, plusieurs formats : même nom d’utilisateur, même photo, même phrase de positionnement partout.']]},
+ {h:'Formats utiles', b:[
+  ['d','Instagram','Carrousel 1080 × 1350 px (4:5). Gardez le sujet au centre : la grille du profil affiche des vignettes recadrées.'],
+  ['d','LinkedIn','Image de publication 1200 × 627 px ou 1080 × 1080 px. Bannière de profil 1584 × 396 px.'],
+  ['d','Behance','Couverture de projet 808 × 632 px, images en 1400 px de large minimum.'],
+  ['att','Ces dimensions changent régulièrement : vérifiez dans l’aide de la plateforme avant de publier.']]},
+ {h:'Le plan éditorial', fig:'Aida', b:[
+  ['p','Visez une fréquence réaliste, une à deux publications par semaine, tenue dans la durée. C’est la constance d’Arruda.'],
+  ['d','Projet fini','Le résultat, bien photographié.'],
+  ['d','Process','Croquis, maquettes, coulisses, ratés : souvent ce qui suscite le plus d’échanges.'],
+  ['d','Veille','Expositions, lectures, références commentées : montre votre culture.'],
+  ['d','Actualité','Stage, concours, exposition, diplôme.'],
+  ['p','Une publication efficace suit le modèle AIDA. Soignez la première ligne : c’est la seule visible avant « voir plus ».'],
+  ['conf','Publier dix posts la première semaine puis plus rien pendant trois mois. Un compte abandonné fait plus mauvaise impression qu’un compte discret mais régulier.']]},
+ {h:'L’e-réputation', b:[
+  ['p','Tapez votre nom dans Google en navigation privée, régulièrement. Vérifiez les images, les anciens comptes, les tags.'],
+  ['p','Séparez compte personnel et compte professionnel, ou passez le personnel en privé. Supprimez ou archivez ce qui ne vous correspond plus.'],
+  ['clair','Un recruteur ne fera pas la différence entre votre compte de lycée oublié et votre compte pro. S’il trouve les deux, les deux vous représentent.'],
+  ['att','Un nom de domaine à votre nom (prenomnom.fr) coûte quelques euros par an et remonte bien dans les résultats de recherche.']]}
+]},
+{t:'Le réseau', short:'Réseau', sub:'Séance 3 · contacts, feedbacks, collaborations', s:[
+ {h:'La force des liens faibles', fig:'Liens', b:[
+  ['p','En 1973, le sociologue Mark Granovetter publie « The Strength of Weak Ties ». Il montre qu’on trouve plus souvent un emploi grâce à des connaissances éloignées que grâce à ses amis proches.'],
+  ['clair','Votre meilleur ami de promo a les mêmes contacts que vous. L’ancien élève croisé à un jury, le fournisseur rencontré en stage ou le photographe d’un shooting connaissent des gens que vous ne connaissez pas. Vous avez déjà un réseau : il est simplement distendu.']]},
+ {h:'Cartographier ses contacts', b:[
+  ['d','Proches','Camarades, enseignants, anciens élèves, famille.'],
+  ['d','Professionnels','Maîtres de stage, agences, studios, fabricants, artisans, fournisseurs.'],
+  ['d','Prescripteurs','Journalistes, comptes spécialisés, organisateurs de salons (Maison&Objet, Paris Design Week, Première Vision, Salone del Mobile).'],
+  ['d','Contributeurs','Photographe, développeur web, imprimeur, maquettiste, modéliste : ceux qui peuvent contribuer à votre activité et la faire durer.']]},
+ {h:'Entretenir son réseau', b:[
+  ['p','Commentez avec pertinence plutôt que de « liker ». Partagez le travail des autres en le créditant. Félicitez, relayez, recommandez : la réciprocité fait vivre un réseau.'],
+  ['p','Pour un retour utile, posez une question précise (« la page d’ouverture de ce projet est-elle assez forte ? ») plutôt que générale (« tu en penses quoi ? »). Remerciez, puis dites ce que vous avez changé.'],
+  ['p','Collaborez : un concours à plusieurs, une exposition collective, un projet avec un étudiant d’une autre spécialité. Cela crée des liens et des projets à montrer.'],
+  ['ret','Premier message : qui je suis (une ligne) + pourquoi vous (un de vos projets cité) + une demande claire et limitée (15 minutes d’échange, un avis sur mon portfolio).'],
+  ['conf','Le message générique copié-collé à cinquante agences : personne n’y répond. Et demander directement un stage à un inconnu ouvre moins de portes que demander un conseil.']]}
+]},
+{t:'Le pitch', short:'Pitch', sub:'Séance 4 · se présenter en 90 secondes', s:[
+ {h:'La structure', fig:'Pitch', b:[
+  ['d','Accroche','Qui je suis, en une phrase : votre phrase de positionnement.'],
+  ['d','Preuve','Un projet qui vous représente, en deux phrases.'],
+  ['d','Singularité','Ce que vous apportez qu’un autre profil n’apporte pas.'],
+  ['d','Demande','Ce que vous cherchez : stage, alternance, collaboration, conseil.'],
+  ['ret','90 secondes, c’est environ 200 mots à l’oral : on parle à 130 à 150 mots par minute.']]},
+ {h:'Trois versions à préparer', b:[
+  ['d','Une phrase','Pour vous présenter dans un salon ou un vernissage.'],
+  ['d','90 secondes','Début d’entretien, présentation devant un jury.'],
+  ['d','Écrite','Message LinkedIn ou mail de candidature : 4 à 5 lignes.'],
+  ['p','On parle d’« elevator pitch » : le temps d’un trajet en ascenseur avec quelqu’un que vous voudriez convaincre.']]},
+ {h:'La posture', b:[
+  ['p','Regardez votre interlocuteur, voix posée, débit lent, pauses. Ne lisez pas. Montrez une image (portfolio ouvert, téléphone) au moment de la preuve.'],
+  ['att','La troisième répétition à voix haute est toujours meilleure que la première. Entraînez-vous en binôme, chronométré.'],
+  ['conf','Réciter son CV dans l’ordre chronologique. Le pitch ne raconte pas tout : il donne envie d’en savoir plus.']]},
+ {h:'Le format PechaKucha', fig:'Pecha', b:[
+  ['p','Créé à Tokyo en 2003 par les architectes Astrid Klein et Mark Dytham : 20 images, 20 secondes chacune, défilement automatique. Un excellent entraînement pour apprendre à choisir et à hiérarchiser.']]}
+]},
+{t:'Pour aller plus loin', short:'Références', sub:'Livres et figures du module', s:[
+ {h:'Les livres du syllabus', b:[
+  ['d','William Arruda','Digital You: Real Personal Branding in the Virtual Age, ATD Press, 2019.'],
+  ['d','Stéphanie Moran et Nathalie Van Laethem','La boîte à outils du Personal Branding, Dunod, 2021.']]},
+ {h:'À lire aussi', b:[
+  ['d','Tom Peters','« The Brand Called You », Fast Company, 1997.'],
+  ['d','Simon Sinek','Start with Why, 2009.'],
+  ['d','Austin Kleon','Show Your Work! (Montrez votre travail !), 2014. Partager son process plutôt que seulement le résultat. Très accessible.'],
+  ['d','Mark Granovetter','« The Strength of Weak Ties », 1973.']]},
+ {h:'Les figures du module', b:[
+  ['d','Virgil Abloh','Architecte de formation, fondateur d’Off-White, directeur artistique homme chez Louis Vuitton à partir de 2018.'],
+  ['d','Charles et Ray Eames','Mobilier, expositions, plus d’une centaine de courts films, dont Powers of Ten (1977).'],
+  ['d','Simon Porte Jacquemus','Marque lancée en 2009, à 19 ans, avec Instagram comme récit de marque.']]}
+]},
+{t:'Pièges et checklist', short:'Checklist', sub:'Avant de rendre', s:[
+ {h:'Les pièges courants', b:[
+  ['conf','Une bio pleine d’adjectifs creux, sans cible ni singularité.'],
+  ['conf','Un portfolio trop long, avec des projets faibles, ou sans process.'],
+  ['conf','Des images de qualité inégale.'],
+  ['conf','Un projet de groupe présenté comme individuel.'],
+  ['conf','Des profils incohérents entre eux : photo, nom, ton, univers visuel.'],
+  ['conf','Un compte Instagram personnel public, visible des recruteurs.'],
+  ['conf','Un pitch récité, trop long, sans demande claire.'],
+  ['conf','Un PDF trop lourd pour être envoyé par mail.']]},
+ {h:'La checklist finale', b:[
+  ['d','Positionnement','Une phrase claire, sans adjectif creux. Bio courte et bio longue rédigées.'],
+  ['d','Sélection','6 à 10 projets, le plus fort en ouverture.'],
+  ['d','Projets','Contexte, problématique, process, résultat, rôle pour chacun.'],
+  ['d','Mise en page','Une grille, deux familles de caractères maximum, images homogènes.'],
+  ['d','Droits','Co-auteurs et photographes crédités.'],
+  ['d','Fichier','PDF de moins de 10 Mo, liens cliquables, bien nommé.'],
+  ['d','En ligne','Profils cohérents, plan éditorial sur 4 semaines, première publication faite, nom vérifié dans Google.'],
+  ['d','Réseau','Carte des contacts et deux prises de contact envoyées.'],
+  ['d','Pitch','90 secondes, répété à voix haute.']]}
+]}
+];
+const RECIT = [{n:'Le déclic',c:'#ff3d7f'},{n:'Le parcours',c:'#ffa3c3'},{n:'Ce qui me guide',c:'#e4ddf7'},{n:'Où je vais',c:'#c6f432'}];
+const ORDRE = [100,62,48,70,55,66,50,88].map((h, i, a) => ({ h, n: i + 1, c: i === 0 ? '#ff3d7f' : i === a.length - 1 ? '#c6f432' : '#e4ddf7' }));
+const PROJET = ['Ouverture','Contexte','Problématique','Process','Réponse','Rôle'];
+const PECHA = Array.from({ length: 20 }, (_, i) => ['#ff3d7f','#e4ddf7','#c6f432','#8a82a3'][i % 4]);
+
+class Component extends DCLogic {
+  renderVals() {
+    const chapters = DATA.map((c, i) => ({
+      t: c.t, short: c.short, sub: c.sub, id: 'ch' + (i + 1), href: '#ch' + (i + 1), num: String(i + 1).padStart(2, '0'),
+      label: String(i + 1).padStart(2, '0') + ' ' + c.t,
+      sections: c.s.map(sec => ({
+        h: sec.h, ['fig' + (sec.fig || 'None')]: true,
+        blocks: sec.b.map(([t, a, b]) => ({ a, b, isP: t === 'p', isD: t === 'd', isAtt: t === 'att', isConf: t === 'conf', isClair: t === 'clair', isRet: t === 'ret', isEx: t === 'ex' }))
+      }))
+    }));
+    return { chapters, recit: RECIT, ordre: ORDRE, projet: PROJET.map((t, i) => ({ t, bg: i === 3 ? '#c6f432' : '#f2eefc', arrow: i < PROJET.length - 1 ? '→' : '' })), pecha: PECHA };
+  }
+}
+</script>
+</body>
+</html>

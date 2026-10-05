@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f2eefc;color:#17131f;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#ff3d7f}a:hover{color:#d81b60}
+</style>
+</helmet>
+<nav style="position:sticky;top:0;z-index:5;background:rgba(242,238,252,.95);backdrop-filter:blur(8px);border-bottom:2px solid #17131f">
+  <div style="max-width:760px;margin:0 auto;display:flex;gap:8px;overflow-x:auto;padding:10px 20px;box-sizing:border-box">
+    <a href="Espace etudiant.dc.html" style="flex:none;padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#17131f;color:#fff;font-size:13px;font-weight:600;text-decoration:none">← Mes modules</a>
+    <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="6">
+      <a href="{{ c.href }}" style="flex:none;padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#fff;color:#17131f;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap" style-hover="background:#c6f432;color:#17131f">{{ c.num }} {{ c.short }}</a>
+    </sc-for>
+  </div>
+</nav>
+
+<main style="max-width:760px;margin:0 auto;padding:36px 20px 96px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+  <header style="display:flex;flex-direction:column;gap:14px">
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#ff3d7f;font-weight:600">Fiche de révision · B2 ESDAC</div>
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:clamp(44px,9vw,68px);line-height:.98">Illustrator<br><span style="color:#ff3d7f">de A à Z</span></div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#2e2938;max-width:600px;text-wrap:pretty">Courbes, formes, couleurs, typographie et export : toutes les notions du module Illustrator perfectionnement. Les schémas vous aident à visualiser, les encadrés vous signalent les astuces, les pièges et les raccourcis.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+      <span style="padding:5px 10px;border-radius:8px;background:#c6f432;border:1.5px solid #17131f;font-size:13px;font-weight:600">Astuce</span>
+      <span style="padding:5px 10px;border-radius:8px;background:#ffe1d8;border:1.5px solid #17131f;font-size:13px;font-weight:600">Attention</span>
+      <span style="padding:5px 10px;border-radius:8px;background:#fff;border:1.5px solid #17131f;font-size:13px;font-weight:600">Raccourci</span>
+      <span style="padding:5px 10px;font-size:13px;color:#5d5670">Sur Windows, remplacez Cmd par Ctrl.</span>
+    </div>
+  </header>
+
+  <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="2">
+    <section id="{{ c.id }}" data-screen-label="{{ c.label }}" style="display:flex;flex-direction:column;gap:30px;scroll-margin-top:70px">
+      <div style="display:flex;gap:16px;align-items:flex-end;padding-bottom:14px;border-bottom:2px solid #17131f">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:56px;line-height:.85;color:#ff3d7f">{{ c.num }}</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <h2 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:30px;line-height:1.05">{{ c.t }}</h2>
+          <div style="font-size:15px;color:#5d5670">{{ c.sub }}</div>
+        </div>
+      </div>
+
+      <sc-for list="{{ c.sections }}" as="sec" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <h3 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:22px;line-height:1.15">{{ sec.h }}</h3>
+
+          <sc-if value="{{ sec.figBezier }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px;align-items:center">
+              <svg viewBox="0 0 320 150" width="100%" style="max-width:440px">
+                <path d="M20 120 C 60 20, 140 20, 160 80 L 230 30 C 260 60, 280 100, 300 120" fill="none" stroke="#17131f" strokeWidth="3"></path>
+                <line x1="20" y1="120" x2="60" y2="20" stroke="#ff3d7f" strokeWidth="1.5"></line><circle cx="60" cy="20" r="5" fill="#ff3d7f"></circle>
+                <line x1="125" y1="30" x2="195" y2="130" stroke="#ff3d7f" strokeWidth="1.5"></line><circle cx="125" cy="30" r="5" fill="#ff3d7f"></circle><circle cx="195" cy="130" r="5" fill="#ff3d7f"></circle>
+                <line x1="230" y1="30" x2="260" y2="60" stroke="#ff3d7f" strokeWidth="1.5"></line><circle cx="260" cy="60" r="5" fill="#ff3d7f"></circle>
+                <rect x="14" y="114" width="12" height="12" fill="#fff" stroke="#17131f" strokeWidth="2"></rect>
+                <rect x="154" y="74" width="12" height="12" fill="#c6f432" stroke="#17131f" strokeWidth="2"></rect>
+                <rect x="224" y="24" width="12" height="12" fill="#fff" stroke="#17131f" strokeWidth="2"></rect>
+                <rect x="294" y="114" width="12" height="12" fill="#fff" stroke="#17131f" strokeWidth="2"></rect>
+                <text x="166" y="106" fontSize="11" fontWeight="700" fill="#17131f">point lisse</text>
+                <text x="238" y="22" fontSize="11" fontWeight="700" fill="#17131f">point angulaire</text>
+                <text x="66" y="16" fontSize="11" fontWeight="700" fill="#d81b60">poignée</text>
+              </svg>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Carrés : les points d'ancrage. En rose : les poignées. Au point lisse, les poignées sont alignées et la courbe passe sans cassure.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figPoints }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px;justify-items:center;text-align:center">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+                <svg viewBox="0 0 120 120" width="120" height="120"><path d="M60 12 C 80 14, 92 22, 100 34 C 106 46, 110 52, 108 62 C 107 76, 100 86, 92 96 C 80 106, 70 108, 60 108 C 46 107, 34 100, 24 92 C 16 80, 12 72, 12 60 C 13 46, 20 34, 30 24 C 40 16, 50 12, 60 12 Z" fill="none" stroke="#17131f" strokeWidth="3"></path>
+                <g fill="#d6361f"><circle cx="60" cy="12" r="4"></circle><circle cx="100" cy="34" r="4"></circle><circle cx="108" cy="62" r="4"></circle><circle cx="92" cy="96" r="4"></circle><circle cx="60" cy="108" r="4"></circle><circle cx="24" cy="92" r="4"></circle><circle cx="12" cy="60" r="4"></circle><circle cx="30" cy="24" r="4"></circle></g></svg>
+                <span style="font-size:12px;font-weight:700;color:#d6361f">Trop de points : bosselé</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+                <svg viewBox="0 0 120 120" width="120" height="120"><circle cx="60" cy="60" r="48" fill="none" stroke="#17131f" strokeWidth="3"></circle>
+                <g stroke="#ff3d7f" strokeWidth="1.5"><line x1="34" y1="12" x2="86" y2="12"></line><line x1="108" y1="34" x2="108" y2="86"></line></g>
+                <g fill="#1f8a4c"><circle cx="60" cy="12" r="4"></circle><circle cx="108" cy="60" r="4"></circle><circle cx="60" cy="108" r="4"></circle><circle cx="12" cy="60" r="4"></circle></g></svg>
+                <span style="font-size:12px;font-weight:700;color:#1f8a4c">4 points aux extrémités, poignées droites</span>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figPathfinder }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <svg viewBox="0 0 500 120" width="100%">
+                <defs>
+                  <clipPath id="pfA"><circle cx="0" cy="0" r="30"></circle></clipPath>
+                  <mask id="pfSub"><rect x="-60" y="-60" width="160" height="120" fill="#fff"></rect><circle cx="24" cy="0" r="30" fill="#000"></circle></mask>
+                </defs>
+                <g transform="translate(40,50)"><circle cx="0" cy="0" r="30" fill="#ff3d7f"></circle><circle cx="24" cy="0" r="30" fill="#ff3d7f"></circle></g>
+                <g transform="translate(140,50)"><circle cx="0" cy="0" r="30" fill="#ff3d7f" mask="url(#pfSub)"></circle><circle cx="24" cy="0" r="30" fill="none" stroke="#c9c0e6" strokeDasharray="3 3"></circle></g>
+                <g transform="translate(240,50)"><circle cx="0" cy="0" r="30" fill="none" stroke="#c9c0e6" strokeDasharray="3 3"></circle><circle cx="24" cy="0" r="30" fill="none" stroke="#c9c0e6" strokeDasharray="3 3"></circle><circle cx="24" cy="0" r="30" fill="#ff3d7f" clipPath="url(#pfA)"></circle></g>
+                <g transform="translate(340,50)"><circle cx="0" cy="0" r="30" fill="#ff3d7f"></circle><circle cx="24" cy="0" r="30" fill="#ff3d7f"></circle><circle cx="24" cy="0" r="30" fill="#fff" clipPath="url(#pfA)"></circle></g>
+                <g transform="translate(440,50)"><circle cx="0" cy="0" r="30" fill="#ff3d7f" stroke="#17131f" strokeWidth="2"></circle><circle cx="24" cy="0" r="30" fill="#c6f432" stroke="#17131f" strokeWidth="2"></circle><circle cx="24" cy="0" r="30" fill="#8a82a3" stroke="#17131f" strokeWidth="2" clipPath="url(#pfA)"></circle></g>
+                <g fontSize="13" fontWeight="700" textAnchor="middle" fill="#17131f"><text x="52" y="108">Unifier</text><text x="152" y="108">Soustraire</text><text x="252" y="108">Intersection</text><text x="352" y="108">Exclure</text><text x="452" y="108">Diviser</text></g>
+              </svg>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Deux cercles, cinq résultats. Diviser découpe en trois formes indépendantes.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figDegrades }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;text-align:center">
+              <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1;border-radius:10px;border:1.5px solid #17131f;background:linear-gradient(90deg,#ff3d7f,#463a99)"></div><span style="font-size:12px;font-weight:700">Linéaire</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1;border-radius:10px;border:1.5px solid #17131f;background:radial-gradient(circle,#c6f432,#1a8a8a)"></div><span style="font-size:12px;font-weight:700">Radial</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1;border-radius:10px;border:1.5px solid #17131f;background:radial-gradient(circle at 20% 25%,#ffe500,transparent 50%),radial-gradient(circle at 80% 30%,#ff3d7f,transparent 55%),radial-gradient(circle at 50% 85%,#2457a8,transparent 60%),#fff"></div><span style="font-size:12px;font-weight:700">De forme</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:100%;aspect-ratio:1;border-radius:50%;background:conic-gradient(#ff3d7f,#ffe500,#1a8a8a,#ff3d7f);-webkit-mask:radial-gradient(circle,transparent 52%,#000 53%);mask:radial-gradient(circle,transparent 52%,#000 53%)"></div><span style="font-size:12px;font-weight:700">Sur tracé</span></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figPavage }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;text-align:center">
+              <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1;border-radius:10px;border:1.5px solid #17131f;background:radial-gradient(circle,#ff3d7f 0 5px,transparent 6px) 0 0/22px 22px"></div><span style="font-size:12px;font-weight:700">Grille</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1;border-radius:10px;border:1.5px solid #17131f;background:radial-gradient(circle,#ff3d7f 0 5px,transparent 6px) 0 0/22px 22px,radial-gradient(circle,#ff3d7f 0 5px,transparent 6px) 11px 11px/22px 22px"></div><span style="font-size:12px;font-weight:700">Brique</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1;border-radius:10px;border:1.5px solid #17131f;background:radial-gradient(circle,#ff3d7f 0 5px,transparent 6px) 0 0/24px 14px,radial-gradient(circle,#ff3d7f 0 5px,transparent 6px) 12px 7px/24px 14px"></div><span style="font-size:12px;font-weight:700">Hexagone</span></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figAspect }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap">
+              <div style="width:220px;border:2px solid #17131f;border-radius:10px;overflow:hidden">
+                <div style="padding:7px 12px;background:#17131f;color:#fff;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Aspect</div>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-top:1px solid #c9c0e6;font-size:13px"><span style="width:16px;height:16px;border:3px solid #17131f;border-radius:3px"></span>Contour 3 pt noir</div>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-top:1px solid #c9c0e6;font-size:13px"><span style="width:16px;height:16px;border:3px solid #ff3d7f;border-radius:3px"></span>Contour 8 pt rose</div>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-top:1px solid #c9c0e6;font-size:13px"><span style="width:16px;height:16px;background:#c6f432;border:1px solid #17131f;border-radius:3px"></span>Fond vert</div>
+              </div>
+              <div style="width:96px;height:96px;border-radius:22px;background:#c6f432;box-shadow:0 0 0 3px #17131f,0 0 0 11px #ff3d7f"></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figLogo }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;text-align:center">
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1.4;border-radius:10px;border:1.5px solid #17131f;background:#fff;display:flex;align-items:center;justify-content:center"><div style="width:44px;height:44px;border-radius:50% 50% 0 50%;background:#ff3d7f"></div></div><span style="font-size:12px;font-weight:700">Couleur</span></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1.4;border-radius:10px;border:1.5px solid #17131f;background:#fff;display:flex;align-items:center;justify-content:center"><div style="width:44px;height:44px;border-radius:50% 50% 0 50%;background:#17131f"></div></div><span style="font-size:12px;font-weight:700">Noir</span></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1.4;border-radius:10px;border:1.5px solid #17131f;background:#17131f;display:flex;align-items:center;justify-content:center"><div style="width:44px;height:44px;border-radius:50% 50% 0 50%;background:#fff"></div></div><span style="font-size:12px;font-weight:700">Blanc (négatif)</span></div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Un logo doit tenir dans ces trois versions, en aplat, sans aucun effet.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figTextes }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;text-align:center;align-items:end">
+              <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;height:90px;display:flex;align-items:center">Titre</div><span style="font-size:12px;font-weight:700">Texte de point</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:90px;height:90px;border-radius:50%;border:1.5px dashed #ff3d7f;display:flex;align-items:center;justify-content:center;font-size:9.5px;line-height:1.25;text-align:center;padding:14px;box-sizing:border-box;overflow:hidden">Un texte qui remplit la forme qui le contient.</div><span style="font-size:12px;font-weight:700">Texte captif</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><svg viewBox="0 0 120 90" width="120" height="90"><defs><path id="txtArc" d="M10 75 Q 60 5, 110 75" fill="none"></path></defs><path d="M10 75 Q 60 5, 110 75" fill="none" stroke="#ff3d7f" strokeWidth="1.5" strokeDasharray="3 3"></path><text fontSize="13" fontWeight="700" fill="#17131f"><textPath href="#txtArc" startOffset="8">sur un tracé courbe</textPath></text></svg><span style="font-size:12px;font-weight:700">Texte curviligne</span></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figPictos }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+                <svg viewBox="0 0 48 48" width="88" height="88" style="background:repeating-linear-gradient(90deg,transparent 0 5.5px,#e4ddf7 5.5px 6px),repeating-linear-gradient(transparent 0 5.5px,#e4ddf7 5.5px 6px);border:1.5px solid #17131f"><g fill="none" stroke="#17131f" strokeWidth="3" strokeLinecap="round"><circle cx="24" cy="12" r="5"></circle><path d="M14 42 V 26 A 10 10 0 0 1 34 26 V 42"></path></g></svg>
+                <svg viewBox="0 0 48 48" width="88" height="88" style="background:repeating-linear-gradient(90deg,transparent 0 5.5px,#e4ddf7 5.5px 6px),repeating-linear-gradient(transparent 0 5.5px,#e4ddf7 5.5px 6px);border:1.5px solid #17131f"><g fill="none" stroke="#17131f" strokeWidth="3" strokeLinecap="round"><rect x="10" y="18" width="28" height="22" rx="3"></rect><path d="M18 18 V 13 A 6 6 0 0 1 30 13 V 18"></path></g></svg>
+                <svg viewBox="0 0 48 48" width="88" height="88" style="background:repeating-linear-gradient(90deg,transparent 0 5.5px,#e4ddf7 5.5px 6px),repeating-linear-gradient(transparent 0 5.5px,#e4ddf7 5.5px 6px);border:1.5px solid #17131f"><g fill="none" stroke="#17131f" strokeWidth="3" strokeLinecap="round"><path d="M10 40 V 20 L 24 9 L 38 20 V 40 Z"></path><path d="M20 40 V 29 H 28 V 40"></path></g></svg>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Même grille, même épaisseur de trait, mêmes arrondis : les trois pictogrammes forment une famille.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-for list="{{ sec.blocks }}" as="b" hint-placeholder-count="2">
+            <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+              <p style="margin:0;font-size:16.5px;line-height:1.65;color:#2e2938;text-wrap:pretty">{{ b.a }}</p>
+            </sc-if>
+            <sc-if value="{{ b.isD }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:minmax(110px,30%) minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px solid #c9c0e6">
+                <div style="font-weight:700;font-size:15px;line-height:1.4">{{ b.a }}</div>
+                <div style="font-size:15.5px;line-height:1.5;color:#2e2938">{{ b.b }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isAtt }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#c6f432;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Astuce</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isConf }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#ffe1d8;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#b3261e">Attention</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isKey }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:12px;align-items:center;padding:12px 16px;border-radius:12px;background:#fff;border:2px solid #17131f">
+                <span style="flex:none;font-family:ui-monospace,Menlo,monospace;font-size:13.5px;font-weight:600;padding:5px 9px;border:1.5px solid #17131f;border-radius:7px;background:#f2eefc;box-shadow:2px 2px 0 #17131f">{{ b.a }}</span>
+                <span style="font-size:15px;line-height:1.45">{{ b.b }}</span>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+      </sc-for>
+    </section>
+  </sc-for>
+
+  <div style="display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:18px;background:#fff;border:2px solid #17131f;box-shadow:5px 5px 0 #17131f">
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px">Testez-vous</div>
+    <div style="font-size:15.5px;line-height:1.55;color:#2e2938">Le quiz de chaque séance reprend ces notions. Vous pouvez le rejouer autant de fois que vous voulez pour vous entraîner.</div>
+    <a href="Quiz Illustrator.dc.html" style="align-self:flex-start;padding:12px 20px;border:2px solid #17131f;border-radius:999px;background:#ff3d7f;color:#17131f;font-size:15px;font-weight:700;text-decoration:none;box-shadow:3px 3px 0 #17131f" style-hover="color:#17131f">Jouer au quiz Illustrator</a>
+  </div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DATA = [
+{t:'Les courbes de Bézier', short:'Bézier', sub:'Le tracé parfait à la plume', s:[
+ {h:'Le vocabulaire', fig:'Bezier', b:[
+  ['d','Point d’ancrage','Un point par lequel passe le tracé.'],
+  ['d','Poignée directrice','Elle sort d’un point d’ancrage et définit la direction et la tension de la courbe.'],
+  ['d','Point lisse','Ses deux poignées sont alignées : la courbe passe sans cassure.'],
+  ['d','Point angulaire','Ses poignées sont indépendantes, ou absentes : il crée un angle net.'],
+  ['d','Tracé ouvert ou fermé','Avec deux extrémités libres (une ligne), ou refermé sur lui-même (une forme).']]},
+ {h:'Les règles d’un bon tracé', fig:'Points', b:[
+  ['p','Utilisez le moins de points possible. Placez-les aux extrémités des courbes (en haut, en bas, à gauche, à droite) et gardez les poignées horizontales ou verticales en maintenant Maj.'],
+  ['p','Une poignée ne doit pas dépasser environ un tiers de la longueur de la courbe qu’elle contrôle.'],
+  ['conf','Trop de points rendent la courbe molle et bosselée. Mieux vaut supprimer des points que d’en ajouter.'],
+  ['att','Activez les repères commentés : ils vous indiquent les alignements et les intersections pendant que vous tracez.'],
+  ['key','P','Outil Plume'],
+  ['key','A','Sélection directe : déplacer un point ou une poignée'],
+  ['key','Maj + C','Outil Conversion de point'],
+  ['key','Alt pendant le tracé','Casser la poignée pour créer un angle'],
+  ['key','Cmd + J','Joindre deux extrémités'],
+  ['key','Cmd + U','Activer les repères commentés']]}
+]},
+{t:'Construire par les formes', short:'Formes', sub:'Pathfinder et Concepteur de forme', s:[
+ {h:'Le Pathfinder', fig:'Pathfinder', b:[
+  ['d','Unifier','Fusionne les formes en une seule.'],
+  ['d','Soustraire la forme avant','La forme du dessus découpe celle du dessous.'],
+  ['d','Intersection','Garde uniquement la zone commune.'],
+  ['d','Exclure','Garde uniquement les zones qui ne se superposent pas.'],
+  ['d','Diviser','Découpe toutes les zones en formes séparées.'],
+  ['att','Alt + clic sur un bouton du Pathfinder crée une forme composée : le résultat reste modifiable, vous pouvez encore déplacer les formes d’origine.']]},
+ {h:'Le Concepteur de forme', b:[
+  ['p','Faites glisser l’outil sur plusieurs zones pour les fusionner, ou sur une zone avec Alt pour la supprimer. C’est la façon la plus rapide de construire un logo à partir de cercles et de rectangles.'],
+  ['key','Maj + M','Concepteur de forme']]}
+]},
+{t:'Couleur, dégradés, motifs', short:'Couleur', sub:'Remplir les formes', s:[
+ {h:'Les dégradés', fig:'Degrades', b:[
+  ['d','Linéaire','Les couleurs se suivent selon une direction.'],
+  ['d','Radial','Les couleurs partent d’un centre.'],
+  ['d','Dégradé de forme','Des points de couleur placés librement, pour un rendu doux et organique.'],
+  ['d','Dégradé sur tracé','Appliqué le long d’un contour, ou en travers.']]},
+ {h:'Les motifs', fig:'Pavage', b:[
+  ['p','Objet, Motif, Créer. Choisissez le mode de pavage (grille, brique, hexagone), la taille de la cellule et le chevauchement. Le motif s’enregistre dans le nuancier et s’applique comme une couleur.'],
+  ['att','Testez votre motif à trois échelles : il doit fonctionner sur une étiquette comme sur un papier cadeau.']]},
+ {h:'Le nuancier', b:[
+  ['p','Créez des couleurs globales : si vous modifiez la nuance, tous les objets qui l’utilisent se mettent à jour. Nommez les couleurs de la marque et définissez-les en CMJN et en RVB.']]}
+]},
+{t:'Formes dynamiques, aspect, effets', short:'Effets', sub:'Rester modifiable', s:[
+ {h:'Formes dynamiques et panneau Aspect', fig:'Aspect', b:[
+  ['p','Les rectangles, ellipses et polygones restent modifiables après coup : rayon des angles, nombre de côtés.'],
+  ['p','Le panneau Aspect permet d’empiler plusieurs fonds et plusieurs contours sur un même objet. Enregistrez un aspect en style graphique pour le réappliquer en un clic.'],
+  ['d','Symbole','Un objet réutilisable : modifiez le symbole, toutes ses copies se mettent à jour.']]},
+ {h:'Les effets', b:[
+  ['p','Le menu Effet propose Styliser (ombre portée, lueur, arrondis), Distorsion et transformation, et des effets de type Photoshop. Un effet reste modifiable dans le panneau Aspect. Objet, Décomposer l’aspect le rend définitif.'],
+  ['att','Avant d’imprimer, réglez Effet, Paramètres des effets de pixellisation du document sur 300 ppi.']]},
+ {h:'Le test du logo', fig:'Logo', b:[
+  ['conf','Un logo qui ne fonctionne qu’avec des effets n’est pas un bon logo. Il doit d’abord tenir en aplat, en une seule couleur.']]}
+]},
+{t:'Organiser le fichier', short:'Fichier', sub:'Pour vous et pour les autres', s:[
+ {h:'Calques, groupes, plans de travail', b:[
+  ['p','Créez un calque par type d’élément (repères, construction, version finale) et nommez-le. Groupez les ensembles. Utilisez un plan de travail nommé pour chaque déclinaison : logo couleur, logo noir, carte de visite…'],
+  ['key','Cmd + G','Grouper'],
+  ['key','Cmd + 2','Verrouiller la sélection'],
+  ['key','Cmd + 3','Masquer la sélection'],
+  ['key','Cmd + Alt + 2','Tout déverrouiller']]},
+ {h:'Les bibliothèques', b:[
+  ['p','Les bibliothèques Creative Cloud permettent de partager les couleurs, logos et styles d’un projet avec Photoshop et InDesign.']]}
+]},
+{t:'La typographie', short:'Typo', sub:'Texte, logotypes, systèmes', s:[
+ {h:'Le texte dans Illustrator', fig:'Textes', b:[
+  ['d','Texte de point','Un clic puis on tape : pour les titres et les mots isolés.'],
+  ['d','Texte captif','Le texte remplit une forme.'],
+  ['d','Texte curviligne','Le texte suit un tracé.'],
+  ['p','Les styles de paragraphe et de caractère fonctionnent comme dans InDesign. Le crénage règle l’espace entre deux lettres, l’approche règle l’espacement de tout le mot.']]},
+ {h:'Du texte au logotype', b:[
+  ['att','Une fois le logotype finalisé, vectorisez le texte, puis corrigez les formes des lettres à la main : ligatures, approches, détails.'],
+  ['conf','Livrer un logo non vectorisé : la police manquera chez le destinataire et le logo s’affichera dans une autre police.'],
+  ['key','Cmd + Maj + O','Vectoriser le texte']]},
+ {h:'Un système de signes', fig:'Pictos', b:[
+  ['p','Une famille de pictogrammes se construit sur une même grille, avec la même épaisseur de trait et les mêmes angles. C’est cette cohérence qui fait le système. L’exemple de référence : les pictogrammes d’Otl Aicher pour les Jeux olympiques de Munich en 1972.']]}
+]},
+{t:'Exporter', short:'Export', sub:'Écran, impression, réseaux', s:[
+ {h:'Les formats', b:[
+  ['d','AI','Le fichier de travail. Gardez-le toujours.'],
+  ['d','PDF','Impression et échange.'],
+  ['d','SVG','Web, en vectoriel.'],
+  ['d','EPS','Ancien format d’échange, encore demandé par certains imprimeurs.'],
+  ['d','PNG','Écran, avec transparence.'],
+  ['d','JPEG','Écran, sans transparence.']]},
+ {h:'La méthode', b:[
+  ['p','Fichier, Exporter, Exporter pour les écrans : vous exportez plusieurs plans de travail dans plusieurs formats en une seule fois. Pour l’impression : PDF/X-4, en CMJN, avec des fonds perdus si nécessaire.'],
+  ['p','Un logo se livre toujours en trois déclinaisons : couleur, noir, et blanc (en négatif, sur fond foncé).'],
+  ['att','Pour passer un élément dans Photoshop, copiez-collez-le en objet dynamique : le lien vectoriel est conservé et vous pourrez le modifier dans Illustrator.']]}
+]}
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    const chapters = DATA.map((c, i) => ({
+      t: c.t, short: c.short, sub: c.sub, id: 'ch' + (i + 1), href: '#ch' + (i + 1), num: String(i + 1).padStart(2, '0'),
+      label: String(i + 1).padStart(2, '0') + ' ' + c.t,
+      sections: c.s.map(sec => ({
+        h: sec.h, ['fig' + (sec.fig || 'None')]: true,
+        blocks: sec.b.map(([t, a, b]) => ({ a, b, isP: t === 'p', isD: t === 'd', isAtt: t === 'att', isConf: t === 'conf', isKey: t === 'key' }))
+      }))
+    }));
+    return { chapters };
+  }
+}
+</script>
+</body>
+</html>

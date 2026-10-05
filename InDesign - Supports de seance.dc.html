@@ -169,7 +169,7 @@ const DATE_DEVOIR = '___ / ___ / ______';
 /*DATA*/
 const MOD = {
   name: 'InDesign', classe: 'B2 EIDM', volume: '6 séances · 21 h + 3 h 30 FOAD', periode: 'Semestre 1',
-  fil: 'Chaque étudiant construit la charte éditoriale d’un magazine de mode et en réalise la maquette : couverture, sommaire, trois doubles-pages sur Yves Saint Laurent et la déclinaison d’une double-page sur d’autres formats.',
+  fil: 'Chaque étudiant construit la charte éditoriale d’un magazine de mode et en réalise la maquette : couverture, sommaire, trois doubles-pages sur Yves Saint Laurent (textes et images fournis) ou sur un sujet libre, et la déclinaison d’une double-page sur d’autres formats. Vous êtes invités à proposer un sujet libre. Dans ce cas, c’est à vous de fournir les éléments textuels et visuels, et de créer les titres, sous-titres et chapôs. Les photos devront être de bonne qualité. La note ne prend pas en compte la partie rédactionnelle, seulement la partie formelle.',
   cc: [["Note 1 · théorique","Moyenne des 6 quiz de fin de séance"],["Note 2 · technique","La maquette de magazine"],["   Exercices imposés S1 à S5","30 % de la note 2"],["   Maquette magazine","50 % de la note 2"],["   Fichiers de sortie et soutenance","20 % de la note 2"]],
   extra: 'Supports déjà réalisés. En séance 1, avec le projet YSL : la fiche méthode « Retrouver la grille cachée » et l’exemple commenté Intruso. Hors projet : les consignes « Ars longa, vita brevis » (article sur le défilé EIDM 2026) et leur document modèle servent uniquement de sujet de rattrapage. Le thème est volontairement différent d’YSL pour qu’un étudiant ne puisse pas réutiliser sa maquette.'
 };
@@ -191,14 +191,14 @@ const DOCS = [
   ['h', 'Les règles'],
   ['list', ['Deux familles de caractères au maximum. Le contraste vient du corps, de la graisse et de l’espace.', 'Aucun réglage manuel : tout passe par les styles de paragraphe et de caractère.', 'Les styles sont basés les uns sur les autres : modifier « Texte courant » met à jour ses dérivés.', 'Texte aligné sur la grille de ligne de base. Options d’enchaînement contre les veuves et orphelines.']],
   ['note', 'Plissez les yeux devant la page. Si vous ne distinguez plus que deux niveaux, la hiérarchie est trop faible.', 'Test rapide'],
-  ['bar', 'Exercice imposé : le jeu typographique (titre « Yves Saint Laurent »)', [['Cinq versions : classique, capitales espacées, pleine page, dialogue avec une forme, deux familles', 10], ['Contraintes respectées : noir et blanc, typographie seule', 4], ['Qualité typographique : approche, crénage, alignements', 6]]]
+  ['bar', 'Exercice imposé : le jeu typographique (titre « Yves Saint Laurent » ou titre du sujet libre)', [['Cinq versions : classique, capitales espacées, pleine page, dialogue avec une forme, deux familles', 10], ['Contraintes respectées : noir et blanc, typographie seule', 4], ['Qualité typographique : approche, crénage, alignements', 6]]]
  ]] },
  { s: 3, type: 'exemple', when: 'Analysé à l’oral à 1h05 (rapport texte/image)', pages: [[
   ['h1', 'Lire une double-page d’ouverture', 'Image pleine page à gauche, texte à droite : la composition la plus courante du magazine de mode. Chaque élément a une raison d’être là.'],
   ['img', 'id-s3-ouverture', 'Double-page d’ouverture à projeter et à annoter en séance', '290px'],
   ['annot', [['L’image domine', 'Pleine page en fonds perdus : elle installe l’ambiance avant tout texte.'], ['Le titre dialogue', 'Sur la page de droite, aligné sur une colonne, il reprend une ligne de force de la photo.'], ['Le chapô fait le lien', 'Corps intermédiaire : il conduit l’œil du titre vers le texte.'], ['Deux colonnes', 'En ouverture, moins de colonnes donnent de l’air. La page suivante passe à trois.'], ['Légende et crédit', 'Obligatoires. Le plus petit corps, toujours au même endroit.'], ['Petit fond libre', 'Aucun texte ne s’approche de la reliure.']]],
   ['note', 'Une double-page se lit comme un tout. On ouvre sur une grande image, puis on alterne les rapports : texte dominant, équilibre, image dominante.', 'À retenir'],
-  ['bar', 'Exercice imposé et application : images YSL et double-page d’ouverture', [['Images recadrées aux formats de la maquette, exposition corrigée', 5], ['Détourage d’une silhouette propre', 3], ['Images à 300 ppi effectifs, enregistrées dans le dossier Liens', 3], ['Double-page : grille et feuille de styles respectées', 6], ['Légendes et crédits présents', 3]]]
+  ['bar', 'Exercice imposé et application : images et double-page d’ouverture', [['Images recadrées aux formats de la maquette, exposition corrigée', 5], ['Détourage d’une silhouette propre', 3], ['Images à 300 ppi effectifs, enregistrées dans le dossier Liens', 3], ['Double-page : grille et feuille de styles respectées', 6], ['Légendes et crédits présents', 3]]]
  ]] },
  { s: 4, type: 'consignes', when: 'Distribué à 1h55, avant l’exercice imposé', pages: [[
   ['h1', 'Construire les gabarits du magazine', 'Une charte doit permettre à un autre maquettiste de faire une page du magazine sans vous demander.'],
@@ -216,7 +216,7 @@ const DOCS = [
   ['kv', [['Format', 'Celui de votre magazine (ex. 230 × 300 mm), fonds perdus 3 mm.'], ['Zone de sécurité', '5 mm du bord : aucun texte au-delà.'], ['Obligatoire', 'Logo du titre, image, 3 accroches minimum, date et numéro, prix, code-barres.'], ['Hiérarchie', 'Trois niveaux typographiques au maximum.']]],
   ['h', 'Sommaire'],
   ['kv', [['Génération', 'Page › Table des matières, à partir des styles. Rubriques, renvois de pages, une image d’appel.']]],
-  ['h', 'Déclinaisons d’une double-page YSL'],
+  ['h', 'Déclinaisons d’une double-page'],
   ['kv', [['Post Instagram', '1080 × 1350 px, RVB, unités en pixels.'], ['Story', '1080 × 1920 px, RVB.'], ['Affiche', 'A3, 297 × 420 mm, CMJN, fonds perdus 3 mm.']]],
   ['note', 'Décliner, ce n’est pas réduire. On garde la typographie, les couleurs et le traitement des images ; on recompose.', 'À retenir'],
   ['bar', 'Exercice imposé : déclinaisons', [['Trois formats aux bonnes dimensions et au bon mode', 6], ['Mêmes styles et mêmes couleurs que la double-page', 6], ['Composition adaptée au format', 8]]]
@@ -225,7 +225,7 @@ const DOCS = [
   ['h1', 'Avant de rendre : auto-évaluation', 'Cochez honnêtement. Ce qui n’est pas acquis se corrige avant l’export.'],
   ['check', 'Document', ['Contrôle en amont : aucun voyant rouge', 'Aucun texte en excès', 'Aucun remplacement local de style', 'Folios automatiques sur toutes les pages', 'Images à 300 ppi effectifs, liens à jour', 'Texte noir en 100 % K (aperçu des séparations)']],
   ['check', 'Exports', ['PDF/X-4 avec fonds perdus et traits de coupe', 'PDF écran : planches, RVB, images compressées', 'Assemblage : document, liens et polices', 'Nommage : NOM_Prenom_S6_Magazine.pdf']],
-  ['check', 'Soutenance (5 min + 3 min de questions)', ['Je présente la ligne éditoriale en une phrase', 'Je justifie ma grille et mes choix typographiques', 'J’explique le traitement des images YSL et la déclinaison', 'J’argumente au lieu de décrire ce qu’on voit']],
+  ['check', 'Soutenance (5 min + 3 min de questions)', ['Je présente la ligne éditoriale en une phrase', 'Je justifie ma grille et mes choix typographiques', 'J’explique le traitement des images et la déclinaison', 'J’argumente au lieu de décrire ce qu’on voit']],
   ['fill', 'Ce que je referais autrement :', 3]
  ], [
   ['h1', 'Grilles d’évaluation finales', 'Les critères ci-dessous sont communiqués avant la soutenance. Ils reprennent la répartition du contrôle continu.'],

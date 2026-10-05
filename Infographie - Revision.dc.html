@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=EB+Garamond:wght@400;600&family=Bodoni+Moda:opsz,wght@6..96,500&family=Arvo:wght@700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f2eefc;color:#17131f;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#ff3d7f}a:hover{color:#d81b60}
+</style>
+</helmet>
+<nav style="position:sticky;top:0;z-index:5;background:rgba(242,238,252,.95);backdrop-filter:blur(8px);border-bottom:2px solid #17131f">
+  <div style="max-width:760px;margin:0 auto;display:flex;gap:8px;overflow-x:auto;padding:10px 20px;box-sizing:border-box">
+    <a href="Espace etudiant.dc.html" style="flex:none;padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#17131f;color:#fff;font-size:13px;font-weight:600;text-decoration:none">← Mes modules</a>
+    <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="6">
+      <a href="{{ c.href }}" style="flex:none;padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#fff;color:#17131f;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap" style-hover="background:#c6f432;color:#17131f">{{ c.num }} {{ c.short }}</a>
+    </sc-for>
+  </div>
+</nav>
+
+<main style="max-width:760px;margin:0 auto;padding:36px 20px 96px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+  <header style="display:flex;flex-direction:column;gap:14px">
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#ff3d7f;font-weight:600">Fiche de révision · B3 ESDAC</div>
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:clamp(44px,9vw,68px);line-height:.98">Infographie<br><span style="color:#ff3d7f">&amp; édition</span></div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#2e2938;max-width:600px;text-wrap:pretty">Formats, grilles, typographie, image, composition et fabrication : tout ce qu'il faut pour mettre en page un dossier de projet ou une planche. Les références de pages renvoient à Mise en page(s), etc. de Damien et Claire Gautier.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+      <span style="padding:5px 10px;border-radius:8px;background:#c6f432;border:1.5px solid #17131f;font-size:13px;font-weight:600">Astuce</span>
+      <span style="padding:5px 10px;border-radius:8px;background:#ffe1d8;border:1.5px solid #17131f;font-size:13px;font-weight:600">Attention</span>
+      <span style="padding:5px 10px;border-radius:8px;background:#fff;border:1.5px solid #17131f;font-size:13px;font-weight:600">Raccourci</span>
+    </div>
+  </header>
+
+  <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="2">
+    <section id="{{ c.id }}" data-screen-label="{{ c.label }}" style="display:flex;flex-direction:column;gap:30px;scroll-margin-top:70px">
+      <div style="display:flex;gap:16px;align-items:flex-end;padding-bottom:14px;border-bottom:2px solid #17131f">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:56px;line-height:.85;color:#ff3d7f">{{ c.num }}</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <h2 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:30px;line-height:1.05">{{ c.t }}</h2>
+          <div style="font-size:15px;color:#5d5670">{{ c.sub }}</div>
+        </div>
+      </div>
+
+      <sc-for list="{{ c.sections }}" as="sec" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <h3 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:22px;line-height:1.15">{{ sec.h }}</h3>
+
+          <sc-if value="{{ sec.figIso }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="position:relative;width:100%;max-width:300px;aspect-ratio:.707;margin:0 auto;border:2px solid #17131f;background:#fff">
+                <div style="position:absolute;left:0;top:0;width:100%;height:50%;border-bottom:2px solid #17131f;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:28px;background:#f2eefc">A1</div>
+                <div style="position:absolute;left:0;top:50%;width:50%;height:50%;border-right:2px solid #17131f;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;background:#e4ddf7">A2</div>
+                <div style="position:absolute;left:50%;top:50%;width:50%;height:25%;border-bottom:2px solid #17131f;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px;background:#c9c0e6">A3</div>
+                <div style="position:absolute;left:50%;top:75%;width:25%;height:25%;border-right:2px solid #17131f;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;background:#ff3d7f">A4</div>
+                <div style="position:absolute;left:75%;top:75%;width:25%;height:12.5%;border-bottom:2px solid #17131f;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:12px;background:#c6f432">A5</div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Une feuille A0 coupée en deux donne deux A1, et ainsi de suite. Les proportions ne changent jamais.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figRapports }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:center">
+              <sc-for list="{{ rapports }}" as="r" hint-placeholder-count="6">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:{{ r.w }}px;height:{{ r.h }}px;border:2px solid #17131f;background:{{ r.bg }}"></div><span style="font-size:12px;font-weight:700">{{ r.n }}</span></div>
+              </sc-for>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figMarges }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;width:100%;max-width:480px;aspect-ratio:1.333;margin:0 auto">
+                <div style="flex:1;position:relative;background:#faf8ff;border:1.5px solid #17131f;border-right:0">
+                  <div style="position:absolute;left:22.2%;right:11.1%;top:11.1%;bottom:22.2%;background:#e4ddf7;border:1.5px dashed #ff3d7f;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;text-align:center;padding:4px">empagement</div>
+                  <div style="position:absolute;left:0;right:0;top:3%;text-align:center;font-size:10.5px;font-weight:700;color:#d81b60">blanc de tête · 3</div>
+                  <div style="position:absolute;left:0;right:0;bottom:8%;text-align:center;font-size:10.5px;font-weight:700;color:#d81b60">blanc de pied · 6</div>
+                  <div style="position:absolute;left:1%;top:42%;width:20%;text-align:center;font-size:10.5px;font-weight:700;color:#d81b60;line-height:1.2">grand fond · 4</div>
+                </div>
+                <div style="width:2px;background:#17131f"></div>
+                <div style="flex:1;position:relative;background:#faf8ff;border:1.5px solid #17131f;border-left:0">
+                  <div style="position:absolute;left:11.1%;right:22.2%;top:11.1%;bottom:22.2%;background:#e4ddf7;border:1.5px dashed #ff3d7f"></div>
+                  <div style="position:absolute;left:0;top:42%;width:11%;text-align:center;font-size:10.5px;font-weight:700;color:#d81b60;line-height:1.2">petit fond · 2</div>
+                </div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Le canon classique sur une page 2:3 : petit fond, tête, grand fond et pied dans un rapport 2:3:4:6.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figColonnes }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="position:relative;width:100%;max-width:520px;aspect-ratio:1.414;margin:0 auto;background:#faf8ff;border:2px solid #17131f">
+                <div style="position:absolute;left:4.5%;right:4.5%;top:7%;bottom:9%;display:grid;grid-template-columns:repeat(6,1fr);column-gap:2%">
+                  <div style="background:#8a82a3;grid-column:1 / 5"></div>
+                  <div style="background:repeating-linear-gradient(#b8b0d6 0 2px,transparent 2px 7px);grid-column:5 / 7"></div>
+                </div>
+                <div style="position:absolute;left:4.5%;right:4.5%;top:7%;bottom:9%;display:grid;grid-template-columns:repeat(6,1fr);column-gap:2%;pointer-events:none">
+                  <div style="border:1px dashed #ff3d7f"></div><div style="border:1px dashed #ff3d7f"></div><div style="border:1px dashed #ff3d7f"></div><div style="border:1px dashed #ff3d7f"></div><div style="border:1px dashed #ff3d7f"></div><div style="border:1px dashed #ff3d7f"></div>
+                </div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">A4 paysage en 6 colonnes : image sur 4 colonnes, texte sur 2. 6 × 40 + 5 × 6 + 2 × 13,5 = 297 mm.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figModules }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="position:relative;width:100%;max-width:260px;aspect-ratio:.707;margin:0 auto;background:#faf8ff;border:2px solid #17131f">
+                <div style="position:absolute;left:9%;right:9%;top:7%;bottom:9%;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,1fr);gap:4%">
+                  <div style="grid-column:1 / 4;grid-row:1 / 3;background:#8a82a3"></div>
+                  <div style="background:#17131f"></div><div style="grid-column:2 / 4;background:repeating-linear-gradient(#b8b0d6 0 2px,transparent 2px 6px)"></div>
+                  <div style="border:1px dashed #ff3d7f"></div><div style="background:#c6f432"></div><div style="background:repeating-linear-gradient(#b8b0d6 0 2px,transparent 2px 6px)"></div>
+                </div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Une grille de 3 × 4 modules. Chaque élément occupe un nombre entier de modules, même les blancs.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figFamilles }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;text-align:center">
+              <div style="display:flex;flex-direction:column;gap:4px"><div style="font-family:'EB Garamond',serif;font-size:48px;line-height:1.1">Ag</div><span style="font-size:12px;font-weight:700">Garalde</span><span style="font-size:11px;color:#5d5670">contraste modéré</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><div style="font-family:'Bodoni Moda',serif;font-size:48px;line-height:1.1">Ag</div><span style="font-size:12px;font-weight:700">Didone</span><span style="font-size:11px;color:#5d5670">contraste très fort</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><div style="font-family:'Arvo',serif;font-weight:700;font-size:44px;line-height:1.15">Ag</div><span style="font-size:12px;font-weight:700">Mécane</span><span style="font-size:11px;color:#5d5670">empattements carrés</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><div style="font-family:'Instrument Sans',sans-serif;font-weight:500;font-size:46px;line-height:1.12">Ag</div><span style="font-size:12px;font-weight:700">Linéale</span><span style="font-size:11px;color:#5d5670">sans empattement</span></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figEchelle }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:6px">
+              <sc-for list="{{ echelle }}" as="e" hint-placeholder-count="5">
+                <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #e4ddf7;padding:4px 0"><span style="flex:none;width:52px;font-size:12px;font-weight:700;color:#d81b60">{{ e.pt }} pt</span><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:{{ e.px }}px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ e.n }}</span></div>
+              </sc-for>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center;margin-top:6px">Une échelle en 1,5 : chaque niveau vaut le précédent multiplié par 1,5.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figJustif }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;flex-direction:column;gap:4px"><div style="width:30%;height:32px;background:repeating-linear-gradient(#d6361f 0 2px,transparent 2px 8px)"></div><span style="font-size:12px;font-weight:700;color:#d6361f">30 signes : lecture hachée</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><div style="width:62%;height:32px;background:repeating-linear-gradient(#1f8a4c 0 2px,transparent 2px 8px)"></div><span style="font-size:12px;font-weight:700;color:#1f8a4c">55 à 65 signes : lecture posée</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><div style="width:100%;height:32px;background:repeating-linear-gradient(#c08a2a 0 2px,transparent 2px 10px)"></div><span style="font-size:12px;font-weight:700;color:#8a5f12">80 à 90 signes : il faut plus d'interlignage</span></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figContraste }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+              <div style="padding:14px;border:1.5px solid #17131f;border-radius:10px;background:#fff;display:flex;flex-direction:column;gap:4px"><span style="font-size:18px;font-weight:600;color:#000">Texte</span><span style="font-size:12px;font-weight:700;color:#1f8a4c">21:1 · parfait</span></div>
+              <div style="padding:14px;border:1.5px solid #17131f;border-radius:10px;background:#fff;display:flex;flex-direction:column;gap:4px"><span style="font-size:18px;font-weight:600;color:#767676">Texte</span><span style="font-size:12px;font-weight:700;color:#1f8a4c">4,5:1 · minimum</span></div>
+              <div style="padding:14px;border:1.5px solid #17131f;border-radius:10px;background:#fff;display:flex;flex-direction:column;gap:4px"><span style="font-size:18px;font-weight:600;color:#b5b5b5">Texte</span><span style="font-size:12px;font-weight:700;color:#d6361f">2:1 · insuffisant</span></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figLignes }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;text-align:center">
+              <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><svg viewBox="0 0 60 60" width="60" height="60"><line x1="6" y1="54" x2="54" y2="6" stroke="#17131f" strokeWidth="4"></line></svg><span style="font-size:12px;font-weight:700">Diagonale<br><span style="font-weight:400;color:#5d5670">mouvement</span></span></div>
+              <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><svg viewBox="0 0 60 60" width="60" height="60"><line x1="4" y1="30" x2="56" y2="30" stroke="#17131f" strokeWidth="4"></line></svg><span style="font-size:12px;font-weight:700">Horizontale<br><span style="font-weight:400;color:#5d5670">calme</span></span></div>
+              <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><svg viewBox="0 0 60 60" width="60" height="60"><line x1="30" y1="4" x2="30" y2="56" stroke="#17131f" strokeWidth="4"></line></svg><span style="font-size:12px;font-weight:700">Verticale<br><span style="font-weight:400;color:#5d5670">élévation</span></span></div>
+              <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><svg viewBox="0 0 60 60" width="60" height="60"><path d="M4 40 C 18 6, 40 60, 56 22" fill="none" stroke="#17131f" strokeWidth="4"></path></svg><span style="font-size:12px;font-weight:700">Courbe<br><span style="font-weight:400;color:#5d5670">souplesse</span></span></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figNiveaux }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+              <div style="padding:14px;border-radius:12px;background:#ff3d7f;border:2px solid #17131f;display:flex;flex-direction:column;gap:4px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px">1. On regarde</span><span style="font-size:12.5px;line-height:1.35">point focal, titre</span></div>
+              <div style="padding:14px;border-radius:12px;background:#e4ddf7;border:2px solid #17131f;display:flex;flex-direction:column;gap:4px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px">2. On parcourt</span><span style="font-size:12.5px;line-height:1.35">intertitres, images, légendes</span></div>
+              <div style="padding:14px;border-radius:12px;background:#fff;border:2px solid #17131f;display:flex;flex-direction:column;gap:4px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px">3. On lit</span><span style="font-size:12.5px;line-height:1.35">le texte courant</span></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figPlanche }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="width:100%;max-width:240px;aspect-ratio:.707;margin:0 auto;border:2px solid #17131f;display:flex;flex-direction:column">
+                <div style="flex:12;background:#17131f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">Titre · 12 %</div>
+                <div style="flex:38;background:#8a82a3;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">Image principale · 38 %</div>
+                <div style="flex:35;background:#e4ddf7;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;text-align:center">Plans, coupes · 35 %</div>
+                <div style="flex:15;background:repeating-linear-gradient(#b8b0d6 0 2px,#fff 2px 6px);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">Textes · 15 %</div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Une planche A1 se lit en trois temps : de loin, à un mètre, de près.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figFondPerdu }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="position:relative;width:100%;max-width:280px;aspect-ratio:.75;margin:0 auto">
+                <div style="position:absolute;inset:0;border:1.5px dashed #d6361f"></div>
+                <div style="position:absolute;left:0;right:0;top:0;height:52%;background:#8a82a3"></div>
+                <div style="position:absolute;inset:6%;border:1.5px solid #17131f"></div>
+                <div style="position:absolute;inset:12%;border:1.5px dotted #1f8a4c"></div>
+                <div style="position:absolute;left:14%;top:58%;right:14%;display:flex;flex-direction:column;gap:6px;font-size:11px;line-height:1.3;font-weight:600">
+                  <span style="color:#d6361f">- - fond perdu (3 mm au-delà)</span>
+                  <span>— format fini (ligne de coupe)</span>
+                  <span style="color:#1f8a4c">··· textes à 5 mm de la coupe</span>
+                </div>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figReliures }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;text-align:center">
+              <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="position:relative;width:90px;height:64px;border:2px solid #17131f;background:#faf8ff"><div style="position:absolute;left:44px;top:0;bottom:0;width:2px;background:#17131f"></div><div style="position:absolute;left:41px;top:14px;width:8px;height:4px;background:#8a82a3"></div><div style="position:absolute;left:41px;bottom:14px;width:8px;height:4px;background:#8a82a3"></div></div><span style="font-size:12px;font-weight:700">Piqûre à cheval<br><span style="font-weight:400;color:#5d5670">agrafes au pli</span></span></div>
+              <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:90px;height:64px;border:2px solid #17131f;background:#faf8ff;display:flex"><div style="width:12px;background:#ff3d7f;border-right:2px solid #17131f"></div></div><span style="font-size:12px;font-weight:700">Dos carré collé<br><span style="font-weight:400;color:#5d5670">au-delà de 40 pages</span></span></div>
+              <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:90px;height:64px;border:2px solid #17131f;background:#faf8ff;position:relative"><div style="position:absolute;left:4px;top:4px;bottom:4px;width:10px;background:radial-gradient(circle,#17131f 0 3px,transparent 3.5px) 0 0/10px 9px"></div></div><span style="font-size:12px;font-weight:700">Wire-O<br><span style="font-weight:400;color:#5d5670">s'ouvre à plat</span></span></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figBellePage }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;width:100%;max-width:360px;aspect-ratio:1.414;margin:0 auto">
+                <div style="flex:1;border:2px solid #17131f;border-right:1px solid #17131f;background:#faf8ff;position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px">Fausse page</span><span style="font-size:12px;color:#5d5670">gauche, paire</span><span style="position:absolute;left:8px;bottom:6px;font-size:11px;font-weight:700">12</span></div>
+                <div style="flex:1;border:2px solid #17131f;border-left:1px solid #17131f;background:#c6f432;position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px">Belle page</span><span style="font-size:12px">droite, impaire</span><span style="position:absolute;right:8px;bottom:6px;font-size:11px;font-weight:700">13</span></div>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-for list="{{ sec.blocks }}" as="b" hint-placeholder-count="2">
+            <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+              <p style="margin:0;font-size:16.5px;line-height:1.65;color:#2e2938;text-wrap:pretty">{{ b.a }}</p>
+            </sc-if>
+            <sc-if value="{{ b.isD }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:minmax(110px,30%) minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px solid #c9c0e6">
+                <div style="font-weight:700;font-size:15px;line-height:1.4">{{ b.a }}</div>
+                <div style="font-size:15.5px;line-height:1.5;color:#2e2938">{{ b.b }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isAtt }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#c6f432;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Astuce</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isConf }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#ffe1d8;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#b3261e">Attention</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isKey }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:12px;align-items:center;padding:12px 16px;border-radius:12px;background:#fff;border:2px solid #17131f">
+                <span style="flex:none;font-family:ui-monospace,Menlo,monospace;font-size:13.5px;font-weight:600;padding:5px 9px;border:1.5px solid #17131f;border-radius:7px;background:#f2eefc;box-shadow:2px 2px 0 #17131f">{{ b.a }}</span>
+                <span style="font-size:15px;line-height:1.45">{{ b.b }}</span>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+      </sc-for>
+    </section>
+  </sc-for>
+
+  <div style="display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:18px;background:#fff;border:2px solid #17131f;box-shadow:5px 5px 0 #17131f">
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px">Testez-vous</div>
+    <div style="font-size:15.5px;line-height:1.55;color:#2e2938">Le quiz de chaque séance reprend ces notions. Vous pouvez le rejouer autant de fois que vous voulez pour vous entraîner.</div>
+    <a href="Quiz Infographie.dc.html" style="align-self:flex-start;padding:12px 20px;border:2px solid #17131f;border-radius:999px;background:#ff3d7f;color:#17131f;font-size:15px;font-weight:700;text-decoration:none;box-shadow:3px 3px 0 #17131f" style-hover="color:#17131f">Jouer au quiz Infographie</a>
+  </div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DATA = [
+{t:'Formats et proportions', short:'Formats', sub:'La surface de travail et ses rapports', s:[
+ {h:'La norme ISO 216', fig:'Iso', b:[
+  ['p','Les formats A ont tous le même rapport largeur/hauteur : 1:√2, soit 1:1,414. Quand on plie une feuille en deux, on obtient le format suivant, avec exactement les mêmes proportions. L’A0 mesure 1 m².'],
+  ['d','A0','841 × 1189 mm'],
+  ['d','A1','594 × 841 mm : planche de concours, grande affiche'],
+  ['d','A2','420 × 594 mm : affiche'],
+  ['d','A3','297 × 420 mm : petite affiche, planche réduite'],
+  ['d','A4','210 × 297 mm : dossier, brochure'],
+  ['d','A5','148 × 210 mm : livret, flyer'],
+  ['p','Vous croiserez aussi des formats américains : Letter (216 × 279 mm), Legal (216 × 356 mm), Tabloid (279 × 432 mm).'],
+  ['att','Pour retrouver un format, divisez le précédent par deux sur son grand côté : A3 = 297 × 420, donc A4 = 210 × 297.']]},
+ {h:'Les rapports de proportion', fig:'Rapports', b:[
+  ['d','1:1','Le carré : neutre, stable, peu courant en édition.'],
+  ['d','3:4','Proche de l’écran 4:3, un peu trapu.'],
+  ['d','2:3','Le format classique du livre.'],
+  ['d','1:√2','Le format ISO (A4, A3…).'],
+  ['d','1:1,618','Le nombre d’or, (1 + √5) ÷ 2. Approché par les rapports 5:8 et 3:5 (suite de Fibonacci).'],
+  ['d','16:9','Écran large, vidéo, présentation.'],
+  ['conf','Le format 4:5 (0,8) n’est pas proche du nombre d’or (0,618), contrairement à ce qu’on lit parfois.'],
+  ['att','Le Modulor de Le Corbusier applique le nombre d’or aux dimensions du corps humain et de l’architecture : un bon lien entre mise en page et design d’espace (Gautier, p. 16-17).']]},
+ {h:'Choisir un format', b:[
+  ['p','Le format dépend de la façon dont on consulte le document : tenu dans la main, posé sur une table, affiché au mur, lu à distance. Il dépend aussi de la fabrication : un format standard évite les chutes de papier et les surcoûts.'],
+  ['d','Dossier de projet','A4 ou A3 paysage : accueille bien les plans et les perspectives.'],
+  ['d','Planche de concours','A1 portrait le plus souvent, imposé par le règlement.'],
+  ['d','Affiche','A2, A1, ou 40 × 60 cm pour l’affichage de proximité.'],
+  ['d','Brochure','A4 ou A5 portrait.']]}
+]},
+{t:'Marges et grilles', short:'Grilles', sub:'Structurer la page', s:[
+ {h:'Le vocabulaire des marges', fig:'Marges', b:[
+  ['d','Petit fond','La marge intérieure, côté reliure.'],
+  ['d','Blanc de tête','La marge supérieure.'],
+  ['d','Grand fond','La marge extérieure.'],
+  ['d','Blanc de pied','La marge inférieure.'],
+  ['d','Empagement','La zone qui contient le texte, délimitée par les marges. On dit aussi bloc de composition.']]},
+ {h:'Les canons classiques', b:[
+  ['p','Van de Graaf et Tschichold ont formalisé les proportions des manuscrits et des premiers livres imprimés. Sur une page 2:3, les marges intérieure, supérieure, extérieure et inférieure suivent un rapport 2:3:4:6, et le bloc de composition a les mêmes proportions que la page. Rosarivo arrive au même résultat en divisant la page en 9 × 9.'],
+  ['p','Deux logiques s’opposent : les marges tournantes, symétriques autour de la reliure, et la translation, où la page de droite reprend celle de gauche à l’identique. La seconde vient de la Nouvelle Typographie et de l’école suisse (Gautier, p. 44-47).'],
+  ['att','Des marges identiques sur les quatre côtés donnent souvent une page plate. Un blanc de pied plus grand que le blanc de tête compense l’effet d’optique qui fait paraître le bloc trop bas.']]},
+ {h:'La grille multicolonne', fig:'Colonnes', b:[
+  ['p','La largeur utile est divisée en colonnes séparées par des gouttières. Chaque élément occupe 1, 2, 3 colonnes ou plus. Plus il y a de colonnes, plus les combinaisons possibles sont nombreuses.'],
+  ['p','Le calcul : largeur utile = format − marges latérales. Largeur de colonne = (largeur utile − gouttières) ÷ nombre de colonnes.'],
+  ['d','A4 paysage, 6 colonnes','Marges 13,5 mm, colonnes 40 mm, gouttières 6 mm.'],
+  ['d','A4 portrait, 3 colonnes','Marges 15 mm, gouttières 5 mm, colonnes de 56,67 mm : (210 − 30 − 10) ÷ 3.'],
+  ['att','Un nombre impair de colonnes favorise les compositions asymétriques, un nombre pair la symétrie.'],
+  ['conf','En impression, une gouttière fait en général 3 à 6 mm. Plus large, elle sépare trop les colonnes.']]},
+ {h:'La grille modulaire et la ligne de base', fig:'Modules', b:[
+  ['p','La grille modulaire ajoute des divisions horizontales : la page est découpée en modules séparés par des gouttières. Textes, images et blancs s’alignent sur ces modules (Gautier, p. 138-161).'],
+  ['p','La grille de ligne de base aligne tous les textes sur un pas vertical constant, égal à l’interlignage du texte courant. La hauteur des modules se calcule en nombre de lignes de base.'],
+  ['att','Une même grille déclinée sur tous les supports d’un projet crée l’unité. L’atelier d’architecture as+ir utilise le même module du papier à lettres jusqu’au site web (Gautier, p. 150-151).'],
+  ['key','Cmd + Alt + ’','Afficher la grille de ligne de base dans InDesign']]}
+]},
+{t:'La typographie', short:'Typo', sub:'Choisir, hiérarchiser, régler', s:[
+ {h:'Les familles de caractères', fig:'Familles', b:[
+  ['p','La classification Vox-ATypI (Gautier, p. 51) range les caractères en familles : humanes, garaldes, réales, didones, mécanes, linéales, incises, scriptes, manuaires, fractures et non latines.'],
+  ['d','Garalde','Garamond. Contraste modéré, axe incliné. Édition, textes longs.'],
+  ['d','Didone','Didot, Bodoni. Contraste très fort, axe vertical. Titres, luxe.'],
+  ['d','Mécane','Rockwell, Clarendon. Empattements épais et carrés.'],
+  ['d','Linéale','Helvetica, Univers, Futura, Frutiger. Sans empattement.']]},
+ {h:'Choisir un caractère', b:[
+  ['p','Regardez la hauteur d’x (plus elle est grande, plus le caractère paraît gros à taille égale), le contraste entre pleins et déliés, la chasse (la largeur des lettres), le nombre de graisses disponibles, la qualité des chiffres et des accents.'],
+  ['p','Une famille complète suffit souvent : l’Univers existe en 21 variantes. Utilisez deux familles au maximum, bien contrastées, par exemple une linéale pour les titres et une garalde pour le texte.'],
+  ['att','« Sans empattement » ne veut pas dire « plus lisible ». La lisibilité dépend du dessin, de la taille, de l’interlignage et de la longueur de ligne.']]},
+ {h:'Hiérarchie et échelle', fig:'Echelle', b:[
+  ['p','Pour différencier les niveaux, vous jouez sur la taille, la graisse, le style (italique, petites capitales), la couleur, la casse et l’espace autour. Trois à quatre niveaux suffisent : titre, intertitre, texte courant, légende.'],
+  ['p','Une échelle typographique multiplie chaque niveau par un rapport constant :'],
+  ['d','1,2','Contraste discret.'],
+  ['d','1,25','Contraste modéré.'],
+  ['d','1,5','Contraste net.'],
+  ['d','1,618','Le nombre d’or.'],
+  ['d','2','Contraste fort.']]},
+ {h:'Corps, interlignage, longueur de ligne', fig:'Justif', b:[
+  ['d','Texte courant imprimé','9 à 11 pt, interlignage autour de 120 % : 9/11, 10/12, 11/13,5.'],
+  ['d','Légende','7 à 8 pt.'],
+  ['d','Écran','16 px minimum pour le texte, interligne de 1,4 à 1,6.'],
+  ['p','Pour une lecture confortable, visez 55 à 65 signes par ligne (Gautier, p. 65).'],
+  ['p','En texte justifié, l’espace entre les mots peut varier de 75 à 125 %. On évite d’agrandir l’espace entre les lettres (Gautier, p. 67). Si les écarts sont trop grands, activez la césure ou passez en fer à gauche.'],
+  ['p','Plus le texte est gros, plus l’interlignage peut être serré : un titre supporte 100 à 110 %.'],
+  ['conf','Un interligne de 1,5 est une valeur pour l’écran. En impression, le texte devient trop aéré et perd sa cohésion.'],
+  ['att','Veuve : dernière ligne d’un paragraphe isolée en haut de colonne. Orpheline : première ligne isolée en bas. Elles se règlent dans les Options d’enchaînement du style de paragraphe.']]},
+ {h:'Lisibilité et contraste', fig:'Contraste', b:[
+  ['p','Le contraste entre le texte et le fond doit être d’au moins 4,5:1 pour le texte courant et 3:1 pour les grands titres (norme d’accessibilité WCAG). Le noir sur blanc atteint 21:1.'],
+  ['p','En signalétique, la hauteur des lettres dépend de la distance de lecture. Vérifiez toujours avec une impression à l’échelle 1.'],
+  ['att','Imprimez à 100 % et lisez à bout de bras. Puis imprimez en niveaux de gris : la hiérarchie doit tenir sans la couleur.'],
+  ['key','Cmd + Maj + > / <','Augmenter ou réduire la taille du texte dans InDesign'],
+  ['key','Alt + ← / →','Régler l’approche']]}
+]},
+{t:'L’image', short:'Image', sub:'Choisir, cadrer, préparer', s:[
+ {h:'Les images d’un projet d’espace', b:[
+  ['d','Plan, coupe, élévation','Informatifs. Exportez-les en vectoriel (PDF) depuis votre logiciel de dessin.'],
+  ['d','Axonométrie','Montre le volume et l’organisation.'],
+  ['d','Perspective, rendu','Fait ressentir l’ambiance.'],
+  ['d','Photo de maquette','Montre la matérialité et l’échelle.'],
+  ['d','Photo de site','Le contexte, l’existant.'],
+  ['d','Échantillons','Planche de matériaux et de couleurs.'],
+  ['p','Chaque image a un rôle : informer, situer, faire ressentir, identifier le projet.']]},
+ {h:'Cadrage et composition', fig:'Lignes', b:[
+  ['p','L’échelle des plans va du plan général au très gros plan, en passant par le plan d’ensemble, le plan moyen, le plan américain, le plan rapproché et le gros plan (Gautier, p. 76-79).'],
+  ['p','Règle des tiers : placez le sujet sur les lignes ou les intersections d’une grille 3 × 3. Le point focal est l’élément qui attire l’œil en premier, par son contraste, sa taille, sa netteté ou son isolement.'],
+  ['p','Les lignes de force donnent le caractère de l’image :'],
+  ['att','En photo d’architecture, redressez les verticales dans Photoshop : Filtre, Correction de l’objectif, ou outil Recadrage de la perspective.']]},
+ {h:'Retouche et traitement', b:[
+  ['d','Retouche','Exposition, contraste, couleurs, verticales, petits défauts. L’image reste fidèle.'],
+  ['d','Traitement graphique','Noir et blanc, duotone, silhouette, trame. L’image devient un élément de style.'],
+  ['p','La retouche sert l’authenticité. Le traitement crée une ambiance, ou une unité entre des images très différentes (Gautier, p. 86-87).']]},
+ {h:'Résolution et formats', b:[
+  ['p','Pixels nécessaires = taille d’impression en cm × résolution ÷ 2,54. Une image de 10 × 10 cm à 300 ppi doit faire 1 181 × 1 181 px. Une image pleine largeur en A4 paysage : environ 3 500 px.'],
+  ['d','300 ppi','Impression standard.'],
+  ['d','150 ppi','Grands formats vus de loin, PDF écran.'],
+  ['d','JPEG','Photos, compression avec perte.'],
+  ['d','PNG','Sans perte, avec transparence. Écran.'],
+  ['d','TIFF, PSD','Sans perte, calques. Impression.'],
+  ['d','PDF vectoriel','Plans, coupes, logos.'],
+  ['conf','Agrandir une image trop petite n’ajoute aucun détail. Vérifiez dans InDesign : panneau Liens, colonne PPI effectif.'],
+  ['att','Un plan réduit devient illisible si ses traits sont trop fins. Vérifiez les épaisseurs après réduction à l’échelle du dossier.']]}
+]},
+{t:'La composition', short:'Composition', sub:'Organiser la lecture', s:[
+ {h:'Hiérarchie et parcours', fig:'Niveaux', b:[
+  ['p','Une page se lit à trois niveaux. Le parcours en Z (haut gauche, haut droite, bas gauche, bas droite) convient aux doubles-pages structurées. Le parcours en S, plus sinueux, sert une lecture narrative.'],
+  ['p','Placez le point focal sur une section d’or, vers 62 % / 38 % de la largeur ou de la hauteur : c’est plus vivant que le centre exact.']]},
+ {h:'Le rapport texte/image', b:[
+  ['p','Le texte peut dominer (la réflexion d’abord), les deux peuvent s’équilibrer, ou l’image peut dominer (la sensibilité d’abord). C’est la composition qui décide de ce rapport (Gautier, p. 88-89).'],
+  ['p','Proximité : une légende proche de son image lui est associée. Alignement : textes et images partagent les mêmes lignes de la grille.']]},
+ {h:'Le rapport entre images', b:[
+  ['p','Égalité (même taille), narration (l’ordre compte), vignettes autour d’une grande image, dominant et dominé, imbrication (Gautier, p. 100-101). Sur plusieurs pages, garder ou faire varier ce rapport crée le rythme.']]},
+ {h:'Légendes et éléments techniques', b:[
+  ['p','Une légende dit ce que l’image ne dit pas : quoi, où, à quelle échelle, de qui. Donnez-lui un style dédié, toujours placé de la même façon.'],
+  ['p','Sur les documents techniques, n’oubliez pas la flèche du nord, l’échelle graphique, la légende des plans et le cartouche. Dessinez les pictogrammes sur une même grille, avec les mêmes épaisseurs.'],
+  ['p','Filets, cadres et encadrés (Gautier, p. 74-75) : uniquement s’ils structurent la page.']]},
+ {h:'Rythme et chemin de fer', b:[
+  ['p','Le chemin de fer présente toutes les pages en vignettes. Il sert à répartir les contenus et à alterner pages denses et pages de respiration.'],
+  ['att','Dans InDesign, le mode Aperçu en zoom très réduit donne un chemin de fer instantané.']]},
+ {h:'Formules de composition', fig:'Planche', b:[
+  ['d','Planche A1','Titre et identification 10 à 15 %, image principale 35 à 40 %, documents techniques 35 %, textes 10 à 15 %.'],
+  ['d','Double-page de dossier','Une grande image sur deux tiers de la page de gauche, le texte et les vignettes à droite, lecture en Z.'],
+  ['d','Affiche','Un point focal dominant, le reste hiérarchisé autour.']]}
+]},
+{t:'L’identité graphique', short:'Identité', sub:'La cohérence d’un projet', s:[
+ {h:'Le contenu d’une charte', b:[
+  ['d','Titre ou logotype','Le nom du projet, toujours dessiné ou composé de la même façon.'],
+  ['d','Palette','2 à 3 couleurs et des neutres, avec leurs valeurs CMJN, RVB et hexadécimales.'],
+  ['d','Typographie','Familles, styles, tailles, interlignages.'],
+  ['d','Grille','Format, marges, colonnes, modules.'],
+  ['d','Pictogrammes','Même grille, même épaisseur, mêmes angles.'],
+  ['d','Traitement de l’image','Couleur ou noir et blanc, cadrages types.']]},
+ {h:'Unité et variété', b:[
+  ['p','Une identité tient à la constance de quelques règles, pas à la répétition d’un logo. Des règles fortes laissent beaucoup de liberté au contenu : Kulturkeller im Schtei utilise un format, deux couleurs et une signature fixe pour des affiches toutes différentes (Gautier, p. 246-247).'],
+  ['p','La couverture et les pages intérieures partagent la même typographie, les mêmes marges et la même logique (Gautier, p. 186-187).'],
+  ['att','Le test : cachez le titre. Si les pages sont encore reconnaissables comme faisant partie du même projet, l’identité fonctionne.']]}
+]},
+{t:'La chaîne de production', short:'Fabrication', sub:'Du fichier à l’objet imprimé', s:[
+ {h:'Les étapes', b:[
+  ['d','1. Brief','Les contraintes : format, quantité, budget, délai.'],
+  ['d','2. Recherche','Références et pistes.'],
+  ['d','3. Chemin de fer','Répartition des contenus et maquette.'],
+  ['d','4. Conception','Mise en page détaillée.'],
+  ['d','5. Préparation','Fichiers contrôlés et exportés.'],
+  ['d','6. Impression','Épreuve, vérification, finition.'],
+  ['att','Contactez l’imprimeur avant de commencer : il vous indiquera le profil couleur, les fonds perdus, le papier et les contraintes de reliure.']]},
+ {h:'La couleur', b:[
+  ['d','RVB','Synthèse additive, pour l’écran.'],
+  ['d','CMJN','Synthèse soustractive, pour l’impression en quadrichromie.'],
+  ['d','Ton direct','Une encre spéciale (Pantone), pour une couleur exacte ou impossible à obtenir en CMJN.'],
+  ['p','Profils courants : Coated Fogra39 pour le papier couché, PSO Coated v3 (plus récent), Uncoated Fogra29 pour le papier non couché.'],
+  ['p','Le texte noir s’imprime en 100 % de noir seul. Pour les grands aplats noirs, utilisez un noir enrichi, par exemple C 40 M 30 J 30 N 100.'],
+  ['conf','Un texte fin en noir quadri (mélange des quatre encres) devient flou à cause des petits décalages entre les passages d’encre. Toujours 100 % de noir seul pour le texte.']]},
+ {h:'Préparer le document', fig:'FondPerdu', b:[
+  ['p','Prévoyez 3 mm de fonds perdus autour du format : toute image ou aplat qui touche le bord doit déborder. Gardez les textes à au moins 5 mm de la coupe. Les traits de coupe s’ajoutent à l’export.'],
+  ['p','Images à 300 ppi effectifs, liens à jour, polices disponibles.'],
+  ['key','Contrôle en amont','Le voyant en bas de la fenêtre InDesign : il doit être vert'],
+  ['key','Fichier, Assemblage','Rassembler le fichier, les images et les polices']]},
+ {h:'Exporter', b:[
+  ['d','PDF/X-4','Pour l’impression. Le standard actuel, conserve les transparences.'],
+  ['d','PDF/X-1a','Ancien standard d’impression : tout est converti en CMJN et aplati.'],
+  ['d','PDF écran','Pour le mail ou le web : RVB, images à 150 ppi, fichier léger.'],
+  ['att','Faites une impression test à 100 % d’une double-page avant de tout lancer. Ce qui passe à l’écran ne passe pas toujours sur papier.']]},
+ {h:'La finition', fig:'Reliures', b:[
+  ['d','Piqûre à cheval','Feuilles pliées et agrafées au pli. Le nombre de pages doit être un multiple de 4.'],
+  ['d','Dos carré collé','Cahiers collés au dos, au-delà d’une quarantaine de pages.'],
+  ['d','Wire-O','Reliure spirale qui s’ouvre à plat, pratique pour un dossier technique.'],
+  ['d','Cahier','Une feuille imprimée puis pliée, généralement en 8, 16 ou 32 pages.'],
+  ['d','Imposition','La disposition des pages sur la feuille d’impression, pour qu’elles soient dans l’ordre après pliage.'],
+  ['d','Grammage','Le poids du papier en g/m² : 80 g pour un papier de bureau, 120 à 170 g pour un dossier, 250 à 350 g pour une couverture.'],
+  ['d','Couché, non couché','Couché : surface lisse, images nettes. Non couché : plus mat, plus absorbant.'],
+  ['d','Rainage','Le marquage du pli, nécessaire pour les papiers épais.']]}
+]},
+{t:'Le vocabulaire éditorial', short:'Vocabulaire', sub:'Nommer les éléments', s:[
+ {h:'La page et le livre', fig:'BellePage', b:[
+  ['d','Belle page','La page de droite, impaire. Les chapitres y commencent.'],
+  ['d','Fausse page','La page de gauche, paire.'],
+  ['d','Folio','Le numéro de page.'],
+  ['d','Titre courant','Le titre répété en haut ou en bas de chaque page.'],
+  ['d','Note marginale','Une note placée dans la marge.'],
+  ['d','Appel de note','Le chiffre dans le texte qui renvoie à la note.'],
+  ['d','Pages liminaires','Faux-titre, titre, dédicace, sommaire.'],
+  ['d','Gardes','Les feuillets qui relient le livre à sa couverture.'],
+  ['d','1re à 4e de couverture','Le recto de la couverture, son verso, le verso de la dernière page de couverture, le dos du livre (Gautier, p. 182-183).']]},
+ {h:'Le magazine et la presse', b:[
+  ['d','Surtitre','Au-dessus du titre, il situe le sujet.'],
+  ['d','Chapô','Le paragraphe d’introduction entre le titre et le texte.'],
+  ['d','Intertitre','Un titre intermédiaire dans un texte long.'],
+  ['d','Exergue','Une citation mise en valeur.'],
+  ['d','Légende','Le texte qui accompagne une image.'],
+  ['d','Cabochon','Un petit élément qui signale une rubrique.'],
+  ['d','Ours','L’encadré des mentions légales et de l’équipe.'],
+  ['d','Manchette','Le bandeau de titre de la une (Gautier, p. 212-213).']]}
+]},
+{t:'Pour aller plus loin', short:'Références', sub:'Livres, designers, ressources', s:[
+ {h:'Livres', b:[
+  ['d','Damien et Claire Gautier','Mise en page(s), etc., Pyramyd. L’ouvrage de référence du module.'],
+  ['d','Josef Müller-Brockmann','Grid Systems in Graphic Design (Les systèmes de grille), 1981.'],
+  ['d','Jan Tschichold','La Nouvelle Typographie, 1928.'],
+  ['d','Robert Bringhurst','The Elements of Typographic Style.'],
+  ['d','Ellen Lupton','Thinking with Type.'],
+  ['d','Le Corbusier','Le Modulor, 1948.'],
+  ['d','Rem Koolhaas et Bruce Mau','S,M,L,XL, 1995.']]},
+ {h:'Designers', b:[
+  ['d','Josef Müller-Brockmann','Les grilles et les affiches de la Tonhalle de Zurich.'],
+  ['d','Adrian Frutiger','Les caractères Univers et Frutiger, la signalétique de Roissy-Charles-de-Gaulle.'],
+  ['d','Jean Widmer','L’identité du Centre Pompidou, les panneaux touristiques des autoroutes.'],
+  ['d','Wim Crouwel','Le Stedelijk Museum, les grilles, le New Alphabet.'],
+  ['d','Massimo Vignelli','La signalétique du métro de New York, The Vignelli Canon.'],
+  ['d','Irma Boom','Des livres objets.'],
+  ['d','Julius Shulman','La photographie d’architecture.']]},
+ {h:'Ressources', b:[
+  ['d','WebAIM Contrast Checker','Vérifier le contraste entre texte et fond.'],
+  ['d','Google Fonts, Adobe Fonts','Des caractères libres, ou inclus dans Creative Cloud.'],
+  ['d','Europan','Un concours d’architecture européen dont les planches A1 sont consultables en ligne.']]}
+]},
+{t:'Pièges et checklist', short:'Checklist', sub:'Avant de rendre', s:[
+ {h:'Les pièges courants', b:[
+  ['conf','Trop de polices : deux familles au maximum.'],
+  ['conf','Des marges trop serrées : le document étouffe et le texte frôle la coupe.'],
+  ['conf','Un contraste insuffisant : texte gris clair sur fond clair, texte sur une photo chargée.'],
+  ['conf','Tout centrer : la composition devient statique. Préférez une asymétrie maîtrisée.'],
+  ['conf','Un texte justifié sans césure : il se remplit de trous.'],
+  ['conf','Fond perdu oublié, images en RVB, polices manquantes.']]},
+ {h:'La checklist finale', b:[
+  ['d','Format','Choisi selon l’usage et la fabrication.'],
+  ['d','Grille','Construite et respectée sur toutes les pages, marges assez généreuses.'],
+  ['d','Lecture','Un point focal clair par page ou double-page.'],
+  ['d','Typographie','3 à 4 niveaux, 2 familles maximum, texte courant de 9 à 11 pt, 55 à 65 signes par ligne.'],
+  ['d','Images','300 ppi effectifs, bien cadrées, verticales redressées, légendes homogènes.'],
+  ['d','Rythme','Un rapport texte/image voulu, varié sur le chemin de fer.'],
+  ['d','Contraste','4,5:1 minimum.'],
+  ['d','Fichier','Contrôle en amont sans erreur, fonds perdus de 3 mm, textes à 5 mm de la coupe, noir 100 % pour le texte.'],
+  ['d','Export','PDF/X-4 pour l’impression, PDF écran pour la diffusion, impression test à 100 % relue.']]}
+]}
+];
+const RAP = [{n:'1:1',w:60,h:60,bg:'#f2eefc'},{n:'3:4',w:60,h:80,bg:'#e4ddf7'},{n:'2:3',w:60,h:90,bg:'#c9c0e6'},{n:'1:√2',w:60,h:85,bg:'#ff3d7f'},{n:'1:1,618',w:60,h:97,bg:'#c6f432'},{n:'16:9',w:107,h:60,bg:'#fff'}];
+const ECH = [{pt:'34',px:34,n:'Grand titre'},{pt:'22',px:24,n:'Titre'},{pt:'15',px:18,n:'Intertitre'},{pt:'10',px:14,n:'Texte courant'},{pt:'7',px:11,n:'Légende'}];
+
+class Component extends DCLogic {
+  renderVals() {
+    const chapters = DATA.map((c, i) => ({
+      t: c.t, short: c.short, sub: c.sub, id: 'ch' + (i + 1), href: '#ch' + (i + 1), num: String(i + 1).padStart(2, '0'),
+      label: String(i + 1).padStart(2, '0') + ' ' + c.t,
+      sections: c.s.map(sec => ({
+        h: sec.h, ['fig' + (sec.fig || 'None')]: true,
+        blocks: sec.b.map(([t, a, b]) => ({ a, b, isP: t === 'p', isD: t === 'd', isAtt: t === 'att', isConf: t === 'conf', isKey: t === 'key' }))
+      }))
+    }));
+    return { chapters, rapports: RAP, echelle: ECH };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f2eefc;color:#17131f;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#ff3d7f}a:hover{color:#d81b60}
+</style>
+</helmet>
+<nav style="position:sticky;top:0;z-index:5;background:rgba(242,238,252,.95);backdrop-filter:blur(8px);border-bottom:2px solid #17131f">
+  <div style="max-width:760px;margin:0 auto;display:flex;gap:8px;overflow-x:auto;padding:10px 20px;box-sizing:border-box">
+    <a href="Espace etudiant.dc.html" style="flex:none;padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#17131f;color:#fff;font-size:13px;font-weight:600;text-decoration:none">← Mes modules</a>
+    <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="6">
+      <a href="{{ c.href }}" style="flex:none;padding:7px 12px;border-radius:999px;border:2px solid #17131f;background:#fff;color:#17131f;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap" style-hover="background:#c6f432;color:#17131f">{{ c.num }} {{ c.short }}</a>
+    </sc-for>
+  </div>
+</nav>
+
+<main style="max-width:760px;margin:0 auto;padding:36px 20px 96px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+  <header style="display:flex;flex-direction:column;gap:14px">
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#ff3d7f;font-weight:600">Fiche de révision · B1 EIDM</div>
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:clamp(44px,9vw,68px);line-height:.98">Photoshop<br><span style="color:#ff3d7f">de A à Z</span></div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#2e2938;max-width:600px;text-wrap:pretty">De l'image numérique à la livraison des fichiers, toutes les notions du module, avec l'initiation à InDesign. Les schémas vous aident à visualiser, les encadrés vous signalent les astuces, les pièges et les raccourcis.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+      <span style="padding:5px 10px;border-radius:8px;background:#c6f432;border:1.5px solid #17131f;font-size:13px;font-weight:600">Astuce</span>
+      <span style="padding:5px 10px;border-radius:8px;background:#ffe1d8;border:1.5px solid #17131f;font-size:13px;font-weight:600">Attention</span>
+      <span style="padding:5px 10px;border-radius:8px;background:#fff;border:1.5px solid #17131f;font-size:13px;font-weight:600">Raccourci</span>
+      <span style="padding:5px 10px;font-size:13px;color:#5d5670">Sur Windows, remplacez Cmd par Ctrl.</span>
+    </div>
+  </header>
+
+  <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="2">
+    <section id="{{ c.id }}" data-screen-label="{{ c.label }}" style="display:flex;flex-direction:column;gap:30px;scroll-margin-top:70px">
+      <div style="display:flex;gap:16px;align-items:flex-end;padding-bottom:14px;border-bottom:2px solid #17131f">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:56px;line-height:.85;color:#ff3d7f">{{ c.num }}</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <h2 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:30px;line-height:1.05">{{ c.t }}</h2>
+          <div style="font-size:15px;color:#5d5670">{{ c.sub }}</div>
+        </div>
+      </div>
+
+      <sc-for list="{{ c.sections }}" as="sec" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <h3 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:22px;line-height:1.15">{{ sec.h }}</h3>
+
+          <sc-if value="{{ sec.figPixels }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;justify-items:center">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+                  <div style="display:grid;grid-template-columns:repeat(8,14px);grid-auto-rows:14px;gap:1px;background:#e4ddf7;padding:1px">
+                    <sc-for list="{{ pixels }}" as="px" hint-placeholder-count="64"><div style="background:{{ px }}"></div></sc-for>
+                  </div>
+                  <div style="font-size:13px;font-weight:700;text-align:center">Matriciel (Photoshop)<br><span style="font-weight:400;color:#5d5670">zoomé : on voit les pixels</span></div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+                  <div style="width:121px;height:121px;display:flex;align-items:center;justify-content:center"><div style="width:96px;height:96px;border-radius:50%;background:#ff3d7f"></div></div>
+                  <div style="font-size:13px;font-weight:700;text-align:center">Vectoriel (Illustrator)<br><span style="font-weight:400;color:#5d5670">zoomé : toujours net</span></div>
+                </div>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figCalcul }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px;align-items:center">
+              <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px">
+                <span style="padding:8px 12px;border-radius:10px;background:#f2eefc;border:2px solid #17131f">21 cm</span><span>×</span>
+                <span style="padding:8px 12px;border-radius:10px;background:#f2eefc;border:2px solid #17131f">300 ppi</span><span>÷</span>
+                <span style="padding:8px 12px;border-radius:10px;background:#f2eefc;border:2px solid #17131f">2,54</span><span>=</span>
+                <span style="padding:8px 12px;border-radius:10px;background:#c6f432;border:2px solid #17131f">2480 px</span>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">La largeur d'un A4 imprimé à 300 ppi. 2,54, c'est le nombre de centimètres dans un pouce.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figCalques }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="max-width:360px;width:100%;margin:0 auto;border:2px solid #17131f;border-radius:10px;overflow:hidden">
+                <div style="padding:7px 12px;background:#17131f;color:#fff;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Calques</div>
+                <sc-for list="{{ calques }}" as="l" hint-placeholder-count="5">
+                  <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-top:1px solid #c9c0e6;background:{{ l.bg }}">
+                    <div style="flex:none;width:30px;height:24px;border:1.5px solid #17131f;background:{{ l.th }}"></div>
+                    <sc-if value="{{ l.mask }}" hint-placeholder-val="{{ false }}"><div style="flex:none;width:30px;height:24px;border:1.5px solid #17131f;background:linear-gradient(90deg,#000 50%,#fff 50%)"></div></sc-if>
+                    <div style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font-size:13px;font-weight:700">{{ l.n }}</span><span style="font-size:11.5px;color:#5d5670">{{ l.d }}</span></div>
+                  </div>
+                </sc-for>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Un fichier propre : chaque élément sur son calque nommé, l'original intact tout en bas.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figMasque }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:90px;height:90px;border:2px solid #17131f;background:#ff3d7f"></div><span style="font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:700">Calque</span></div>
+                <span>+</span>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:90px;height:90px;border:2px solid #17131f;background:radial-gradient(circle,#fff 0 40%,#000 41%)"></div><span style="font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:700">Masque</span></div>
+                <span>=</span>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:90px;height:90px;border:2px solid #17131f;background:repeating-conic-gradient(#e4ddf7 0 25%,#fff 0 50%) 0 0/16px 16px;display:flex;align-items:center;justify-content:center"><div style="width:74px;height:74px;border-radius:50%;background:#ff3d7f"></div></div><span style="font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:700">Résultat</span></div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Le blanc révèle, le noir masque. Rien n'est effacé : peignez en blanc pour faire revenir une zone.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figZone }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:end;text-align:center">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:70px;height:90px;border:2px solid #17131f;background:#8a82a3;display:flex;align-items:center;justify-content:center"><div style="width:30px;height:30px;border-radius:50%;background:#c6f432"></div></div><span style="font-size:12px;font-weight:700">Original</span></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:86px;height:100px;border:2px solid #d6361f;background:#8a82a3;display:flex;align-items:center;justify-content:center"><div style="width:37px;height:33px;border-radius:50%;background:#c6f432"></div></div><span style="font-size:12px;font-weight:700;color:#d6361f">Taille de l'image<br><span style="font-weight:400">étirée, déformée</span></span></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:86px;height:106px;border:2px dashed #1f8a4c;display:flex;align-items:center;justify-content:center"><div style="width:70px;height:90px;border:2px solid #17131f;background:#8a82a3;display:flex;align-items:center;justify-content:center"><div style="width:30px;height:30px;border-radius:50%;background:#c6f432"></div></div></div><span style="font-size:12px;font-weight:700;color:#1f8a4c">Taille de la zone de travail<br><span style="font-weight:400">surface ajoutée autour</span></span></div>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figTiers }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="position:relative;width:100%;max-width:360px;aspect-ratio:1.5;margin:0 auto;background:linear-gradient(#bcd4f2 0 62%,#c9b48a 62%);border:2px solid #17131f">
+                <div style="position:absolute;left:33.3%;top:0;bottom:0;width:1.5px;background:#fff"></div><div style="position:absolute;left:66.6%;top:0;bottom:0;width:1.5px;background:#fff"></div>
+                <div style="position:absolute;top:33.3%;left:0;right:0;height:1.5px;background:#fff"></div><div style="position:absolute;top:66.6%;left:0;right:0;height:1.5px;background:#fff"></div>
+                <div style="position:absolute;left:calc(66.6% - 16px);top:calc(33.3% - 6px);width:32px;height:62px;border-radius:16px 16px 4px 4px;background:#17131f"></div>
+                <div style="position:absolute;left:calc(66.6% - 6px);top:calc(33.3% - 6px);width:12px;height:12px;border-radius:50%;background:#ff3d7f"></div>
+              </div>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center">Le sujet sur une intersection des tiers, l'horizon sur une ligne : l'image respire et l'espace libre accueille le texte.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figCourbe }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px;align-items:center">
+              <svg viewBox="0 0 160 160" width="180" height="180" style="border:2px solid #17131f;background:repeating-linear-gradient(90deg,transparent 0 39px,#e4ddf7 39px 40px),repeating-linear-gradient(transparent 0 39px,#e4ddf7 39px 40px)">
+                <line x1="0" y1="160" x2="160" y2="0" stroke="#c9c0e6" strokeWidth="1.5" strokeDasharray="4 4"></line>
+                <path d="M0 160 C 50 160, 40 110, 80 80 S 110 0, 160 0" fill="none" stroke="#ff3d7f" strokeWidth="3.5"></path>
+              </svg>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center;max-width:420px">La courbe en S : on assombrit les tons foncés et on éclaircit les tons clairs. Le contraste augmente. En pointillés, la courbe neutre.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figRaccords }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px">
+              <div style="padding:14px;border-radius:12px;background:#fff6c2;border:2px solid #17131f;display:flex;flex-direction:column;gap:4px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px">1. Lumière</span><span style="font-size:13px;line-height:1.4">Même direction, même dureté d'ombre.</span></div>
+              <div style="padding:14px;border-radius:12px;background:#ffe3ee;border:2px solid #17131f;display:flex;flex-direction:column;gap:4px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px">2. Couleur</span><span style="font-size:13px;line-height:1.4">Même température, même dominante.</span></div>
+              <div style="padding:14px;border-radius:12px;background:#e4ddf7;border:2px solid #17131f;display:flex;flex-direction:column;gap:4px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px">3. Netteté</span><span style="font-size:13px;line-height:1.4">Même flou, même grain.</span></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figLectureZ }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px;align-items:center">
+              <svg viewBox="0 0 200 140" width="260" height="182" style="border:2px solid #17131f;background:#faf8ff">
+                <rect x="14" y="14" width="60" height="16" fill="#17131f"></rect>
+                <rect x="140" y="12" width="46" height="46" fill="#8a82a3"></rect>
+                <rect x="14" y="104" width="70" height="8" fill="#b8b0d6"></rect>
+                <rect x="146" y="106" width="40" height="20" fill="#ff3d7f"></rect>
+                <path d="M30 22 L 165 22 L 30 112 L 168 116" fill="none" stroke="#ff3d7f" strokeWidth="3" strokeDasharray="6 5"></path>
+              </svg>
+              <figcaption style="font-size:13px;color:#5d5670;line-height:1.45;text-align:center;max-width:420px">L'œil parcourt la page en Z : en haut à gauche, en haut à droite, en diagonale, puis en bas à droite, où l'on place souvent l'appel à l'action ou le logo.</figcaption>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figPsId }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="padding:14px;border-radius:12px;background:#bcd4f2;border:2px solid #17131f;display:flex;flex-direction:column;gap:6px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px">Photoshop</span><span style="font-size:13px;line-height:1.45">Une image : retoucher, détourer, monter, corriger la couleur.</span></div>
+              <div style="padding:14px;border-radius:12px;background:#ffd0e0;border:2px solid #17131f;display:flex;flex-direction:column;gap:6px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px">InDesign</span><span style="font-size:13px;line-height:1.45">Des pages : assembler du texte et des images, sur une ou plusieurs pages.</span></div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ sec.figFondPerdu }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin:0;background:#fff;border:2px solid #17131f;border-radius:16px;box-shadow:4px 4px 0 #17131f;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="position:relative;width:100%;max-width:280px;aspect-ratio:.75;margin:0 auto">
+                <div style="position:absolute;inset:0;border:1.5px dashed #d6361f"></div>
+                <div style="position:absolute;left:0;right:0;top:0;height:52%;background:#8a82a3"></div>
+                <div style="position:absolute;inset:6%;border:1.5px solid #17131f"></div>
+                <div style="position:absolute;inset:12%;border:1.5px dotted #1f8a4c"></div>
+                <div style="position:absolute;left:14%;top:58%;right:14%;display:flex;flex-direction:column;gap:6px;font-size:11px;line-height:1.3;font-weight:600">
+                  <span style="color:#d6361f">- - fond perdu (3 mm au-delà)</span>
+                  <span>— format fini (ligne de coupe)</span>
+                  <span style="color:#1f8a4c">··· textes à 5 mm de la coupe</span>
+                </div>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-for list="{{ sec.blocks }}" as="b" hint-placeholder-count="2">
+            <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+              <p style="margin:0;font-size:16.5px;line-height:1.65;color:#2e2938;text-wrap:pretty">{{ b.a }}</p>
+            </sc-if>
+            <sc-if value="{{ b.isD }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:minmax(110px,30%) minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px solid #c9c0e6">
+                <div style="font-weight:700;font-size:15px;line-height:1.4">{{ b.a }}</div>
+                <div style="font-size:15.5px;line-height:1.5;color:#2e2938">{{ b.b }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isAtt }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#c6f432;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Astuce</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isConf }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#ffe1d8;border:2px solid #17131f">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#b3261e">Attention</div>
+                <div style="font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ b.a }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ b.isKey }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:12px;align-items:center;padding:12px 16px;border-radius:12px;background:#fff;border:2px solid #17131f">
+                <span style="flex:none;font-family:ui-monospace,Menlo,monospace;font-size:13.5px;font-weight:600;padding:5px 9px;border:1.5px solid #17131f;border-radius:7px;background:#f2eefc;box-shadow:2px 2px 0 #17131f">{{ b.a }}</span>
+                <span style="font-size:15px;line-height:1.45">{{ b.b }}</span>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+      </sc-for>
+    </section>
+  </sc-for>
+
+  <div style="display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:18px;background:#fff;border:2px solid #17131f;box-shadow:5px 5px 0 #17131f">
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px">Testez-vous</div>
+    <div style="font-size:15.5px;line-height:1.55;color:#2e2938">Le quiz de chaque séance reprend ces notions. Vous pouvez le rejouer autant de fois que vous voulez pour vous entraîner.</div>
+    <a href="Quiz Photoshop.dc.html" style="align-self:flex-start;padding:12px 20px;border:2px solid #17131f;border-radius:999px;background:#ff3d7f;color:#17131f;font-size:15px;font-weight:700;text-decoration:none;box-shadow:3px 3px 0 #17131f" style-hover="color:#17131f">Jouer au quiz Photoshop</a>
+  </div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DATA = [
+{t:'L’image numérique', short:'Image', sub:'Pixels, résolution, couleurs, formats', s:[
+ {h:'Matriciel et vectoriel', fig:'Pixels', b:[
+  ['d','Image matricielle','Faite de pixels, de petits carrés de couleur. C’est le domaine de Photoshop. Agrandie, elle perd en qualité.'],
+  ['d','Image vectorielle','Faite de courbes calculées. C’est le domaine d’Illustrator. On peut l’agrandir sans aucune perte : logos, pictogrammes, typographies.']]},
+ {h:'La résolution', fig:'Calcul', b:[
+  ['p','La résolution fait le lien entre le nombre de pixels d’une image et sa taille une fois imprimée. Elle s’exprime en ppi (pixels par pouce).'],
+  ['p','Pour savoir combien de pixels il vous faut : taille en cm × résolution ÷ 2,54.'],
+  ['d','Impression','300 ppi à la taille finale. Un A4 fait donc 2480 × 3508 px.'],
+  ['d','Écran','Seule la taille en pixels compte : post 1080 × 1350 px, story 1080 × 1920 px.'],
+  ['conf','Agrandir une image trop petite ne crée aucun détail : Photoshop invente des pixels et l’image devient floue.']]},
+ {h:'Modes colorimétriques', b:[
+  ['d','RVB','Pour l’écran. Choisissez le profil sRVB pour le web.'],
+  ['d','CMJN','Pour l’impression, avec le profil demandé par l’imprimeur (souvent Coated Fogra39).'],
+  ['att','Travaillez en RVB et convertissez en CMJN à la fin, juste avant de livrer à l’imprimeur.']]},
+ {h:'Les formats de fichier', b:[
+  ['d','PSD','Le fichier de travail, avec tous ses calques. Gardez-le toujours.'],
+  ['d','JPEG','Photos. Compression avec perte, pas de transparence.'],
+  ['d','PNG','Sans perte, avec transparence : logos, détourages pour le web.'],
+  ['d','TIFF','Impression, sans perte.'],
+  ['d','WebP','Images de site web, très légères.']]}
+]},
+{t:'Calques et non destructif', short:'Calques', sub:'Travailler proprement', s:[
+ {h:'Les calques', fig:'Calques', b:[
+  ['p','Placez chaque élément sur son propre calque et nommez-le. Vous pouvez grouper, verrouiller, masquer, régler l’opacité et choisir un mode de fusion.'],
+  ['d','Produit','Assombrit : idéal pour les ombres.'],
+  ['d','Écran','Éclaircit : idéal pour les lumières.'],
+  ['d','Incrustation','Renforce le contraste.'],
+  ['d','Objet dynamique','Un calque qui conserve l’image d’origine : vous pouvez le redimensionner autant de fois que vous voulez sans perte.'],
+  ['d','Calque de réglage','Une correction (Courbes, Teinte/Saturation…) modifiable à tout moment, avec son propre masque.'],
+  ['att','Ne travaillez jamais directement sur l’arrière-plan : dupliquez-le d’abord.'],
+  ['key','Cmd + J','Dupliquer le calque'],
+  ['key','Cmd + G','Grouper les calques'],
+  ['key','Cmd + Maj + N','Nouveau calque']]},
+ {h:'Le masque de fusion', fig:'Masque', b:[
+  ['p','Un masque cache une partie d’un calque sans l’effacer. Vous peignez dessus en noir pour masquer, en blanc pour révéler, en gris pour une transparence partielle.'],
+  ['d','Masque d’écrêtage','Le calque du dessus ne s’applique qu’à la forme du calque du dessous. Très utile pour corriger seulement la couleur d’un sujet.'],
+  ['key','Cmd + Alt + G','Créer un masque d’écrêtage'],
+  ['key','X','Inverser couleur de premier plan et d’arrière-plan (noir et blanc) pendant que vous peignez le masque']]}
+]},
+{t:'Cadrer et corriger', short:'Corriger', sub:'Recadrage, taille, réglages', s:[
+ {h:'Taille de l’image ou de la zone de travail', fig:'Zone', b:[
+  ['d','Taille de l’image','Change le nombre de pixels ou la résolution de l’image elle-même.'],
+  ['d','Taille de la zone de travail','Ajoute ou retire de la surface autour de l’image, sans la déformer. C’est cette commande qui sert à ajouter des fonds perdus.'],
+  ['conf','Ajouter des fonds perdus avec Taille de l’image : l’image est étirée ou déformée.']]},
+ {h:'Recadrer et redresser', fig:'Tiers', b:[
+  ['p','L’outil Recadrage permet d’imposer un ratio (4:5, 9:16…) et affiche une grille des tiers. Décochez « Supprimer les pixels recadrés » : vous pourrez revenir sur votre cadrage.'],
+  ['p','L’option Redresser corrige un horizon penché. Pour des verticales qui convergent (un bâtiment pris d’en bas), utilisez le recadrage de perspective ou Filtre, Correction de l’objectif.'],
+  ['key','C','Outil Recadrage'],
+  ['key','Cmd + T','Transformation manuelle']]},
+ {h:'Les corrections', fig:'Courbe', b:[
+  ['d','Niveaux','Règle le point noir, le point blanc et les tons moyens.'],
+  ['d','Courbes','Le réglage le plus précis : contraste avec une courbe en S, corrections fines par zone de tons.'],
+  ['d','Teinte/Saturation','Modifie une gamme de couleurs précise.'],
+  ['d','Balance des couleurs','Corrige une dominante, par exemple une photo trop jaune.'],
+  ['d','Noir et blanc','Une conversion où vous réglez la luminosité de chaque couleur.'],
+  ['att','Passez toujours par des calques de réglage. Le menu Image, Réglages modifie les pixels définitivement.']]}
+]},
+{t:'La retouche', short:'Retouche', sub:'Nettoyer une image', s:[
+ {h:'Les outils', b:[
+  ['d','Correcteur localisé','Petits défauts, poussières, boutons. Un simple clic.'],
+  ['d','Correcteur','Comme le localisé, mais vous choisissez la zone source (Alt + clic).'],
+  ['d','Pièce','Pour les grandes zones : on entoure et on déplace vers une zone propre.'],
+  ['d','Tampon de duplication','Une copie exacte : pour les bords nets et les textures régulières.'],
+  ['d','Remplissage d’après le contenu','Supprime un objet en recréant le fond autour.'],
+  ['d','Gomme','Efface définitivement. Préférez-lui le masque.'],
+  ['att','Retouchez sur un calque vide, avec l’option « Échantillonner : tous les calques ». Votre photo d’origine reste intacte.'],
+  ['key','J','Outils correcteurs'],
+  ['key','S','Tampon de duplication'],
+  ['key','Alt + clic','Choisir la zone source'],
+  ['key','[  et  ]','Réduire ou agrandir l’outil']]},
+ {h:'L’éthique de la retouche', b:[
+  ['p','Depuis le 1er octobre 2017 en France, une photographie commerciale dont la silhouette du mannequin a été modifiée (affinée ou épaissie) doit porter la mention « photographie retouchée ».']]}
+]},
+{t:'Sélection et détourage', short:'Détourage', sub:'Isoler un sujet', s:[
+ {h:'Les outils de sélection', b:[
+  ['d','Sélectionner le sujet','Automatique : un bon point de départ.'],
+  ['d','Sélection rapide','Vous peignez la zone à sélectionner.'],
+  ['d','Baguette magique','Pour les zones de couleur uniforme. Réglez la tolérance.'],
+  ['d','Lasso polygonal','Pour les formes à bords droits.'],
+  ['d','Plume','Pour les bords nets et réguliers : flacons, chaussures, sacs.'],
+  ['d','Mode masque','Vous peignez la sélection en noir et blanc.'],
+  ['d','Sélectionner et masquer','Pour les cheveux, la fourrure, les bords flous.'],
+  ['key','Maj / Alt','Ajouter à la sélection / retrancher de la sélection'],
+  ['key','Cmd + D','Désélectionner'],
+  ['key','Cmd + Maj + I','Intervertir la sélection'],
+  ['key','Q','Mode masque']]},
+ {h:'Vérifier un détourage', b:[
+  ['att','Placez un calque de couleur vive sous votre sujet et zoomez à 200 % : les défauts du contour sautent aux yeux.'],
+  ['conf','Détourer à la gomme : impossible de corriger ensuite. Utilisez toujours un masque de fusion.']]}
+]},
+{t:'Montage et composition', short:'Montage', sub:'Intégrer, composer, écrire', s:[
+ {h:'Un montage crédible', fig:'Raccords', b:[
+  ['p','Pour qu’un élément rapporté semble faire partie de l’image, trois raccords doivent fonctionner. Ajoutez ensuite une ombre portée cohérente avec la direction de la lumière.'],
+  ['att','Pour accorder la couleur d’un sujet au décor, ajoutez un calque de réglage écrêté sur le sujet : il ne touchera que lui.']]},
+ {h:'La composition', fig:'LectureZ', b:[
+  ['p','Utilisez la règle des tiers et un point focal clair. Prévoyez de l’espace négatif, une zone calme où le texte pourra se poser.'],
+  ['p','Côté couleur : une dominante, une secondaire, un accent, en vous appuyant sur les harmonies du cercle chromatique (complémentaires, analogues).']]},
+ {h:'Le texte dans Photoshop', b:[
+  ['p','Chaque texte est un calque, réglé avec les panneaux Caractère et Paragraphe. Deux familles de caractères au maximum. Pour faire passer un sujet devant un titre, placez le titre en dessous et ajoutez un masque au sujet.'],
+  ['conf','Les styles de calque (ombre, biseau, contour) s’utilisent avec beaucoup de retenue : ils datent vite une image.'],
+  ['att','Au-delà de quelques lignes de texte, passez sur InDesign.']]}
+]},
+{t:'Initiation à InDesign', short:'InDesign', sub:'Pourquoi et comment', s:[
+ {h:'Photoshop ou InDesign', fig:'PsId', b:[
+  ['p','Dans InDesign, tout est placé dans des blocs, et les images sont liées, pas intégrées : si vous modifiez le PSD dans Photoshop, la mise en page se met à jour.']]},
+ {h:'Premiers pas', b:[
+  ['p','Réglez les unités en millimètres dans les Préférences. Créez un nouveau document avec son format, ses marges, ses colonnes et 3 mm de fonds perdus. Placez du texte avec l’outil Texte et importez les images.'],
+  ['key','Cmd + D','Importer une image'],
+  ['key','V / A','Sélection du bloc / sélection du contenu'],
+  ['key','W','Mode Aperçu']]}
+]},
+{t:'Préparer et livrer', short:'Livrer', sub:'Imprimeur et web', s:[
+ {h:'Pour l’imprimeur', fig:'FondPerdu', b:[
+  ['d','Couleurs','CMJN, au profil demandé par l’imprimeur.'],
+  ['d','Résolution','300 ppi à la taille finale.'],
+  ['d','Fonds perdus','3 mm, ajoutés avec Taille de la zone de travail.'],
+  ['d','Sécurité','Les textes à au moins 5 mm de la coupe.'],
+  ['d','Texte noir','100 % de noir (K) seul.'],
+  ['d','Format','Photoshop PDF ou TIFF aplati. Depuis InDesign : PDF/X-4 avec traits de coupe.']]},
+ {h:'Pour le web', b:[
+  ['p','sRVB, dimensions en pixels, puis Fichier, Exporter, Exporter sous. JPEG pour les photos, PNG pour la transparence, WebP pour les sites. Surveillez le poids du fichier.']]},
+ {h:'Checklist avant d’envoyer', b:[
+  ['d','1','Le bon mode colorimétrique.'],
+  ['d','2','La bonne taille, en pixels ou en millimètres.'],
+  ['d','3','Les fonds perdus.'],
+  ['d','4','Les marges de sécurité.'],
+  ['d','5','Le fichier nommé NOM_Prenom_Support.'],
+  ['d','6','Le fichier rouvert et vérifié après export.']]}
+]}
+];
+const PIX = (() => { const out = []; for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) { const d = Math.hypot(x - 3.5, y - 3.5); out.push(d < 2.6 ? '#ff3d7f' : d < 3.4 ? '#ffa3c3' : '#fff'); } return out; })();
+const CAL = [
+ {n:'Titre', d:'calque de texte', th:'#fff', bg:'#fff'},
+ {n:'Courbes', d:'calque de réglage + masque', th:'linear-gradient(135deg,#17131f 50%,#fff 50%)', bg:'#fff', mask:true},
+ {n:'Sujet', d:'objet dynamique', th:'#ff3d7f', bg:'#ffe3ee'},
+ {n:'Retouches', d:'calque vide pour le correcteur', th:'repeating-conic-gradient(#e4ddf7 0 25%,#fff 0 50%) 0 0/8px 8px', bg:'#fff'},
+ {n:'Arrière-plan', d:'verrouillé, jamais modifié', th:'#8a82a3', bg:'#f2eefc'}
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    const chapters = DATA.map((c, i) => ({
+      t: c.t, short: c.short, sub: c.sub, id: 'ch' + (i + 1), href: '#ch' + (i + 1), num: String(i + 1).padStart(2, '0'),
+      label: String(i + 1).padStart(2, '0') + ' ' + c.t,
+      sections: c.s.map(sec => ({
+        h: sec.h, ['fig' + (sec.fig || 'None')]: true,
+        blocks: sec.b.map(([t, a, b]) => ({ a, b, isP: t === 'p', isD: t === 'd', isAtt: t === 'att', isConf: t === 'conf', isKey: t === 'key' }))
+      }))
+    }));
+    return { chapters, pixels: PIX, calques: CAL };
+  }
+}
+</script>
+</body>
+</html>
