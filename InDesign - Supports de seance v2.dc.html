@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./doc-page.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;font-family:'Instrument Sans',system-ui,sans-serif;color:#17131f;-webkit-font-smoothing:antialiased}
+a{color:#17131f}a:hover{color:#ff3d7f}
+doc-page:not(:defined){visibility:hidden}
+</style>
+<script src="./cloud.js"></script>
+</helmet>
+<doc-page size="a4">
+  <sc-for list="{{ pages }}" as="pg" hint-placeholder-count="2">
+    <section class="page" data-screen-label="{{ pg.label }}" style="display:flex;flex-direction:column;gap:16px;padding:40px 50px 26px;box-sizing:border-box;background:#fff;font-family:'Instrument Sans',system-ui,sans-serif;color:#17131f">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding-bottom:12px;border-bottom:2px solid #17131f">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">{{ mod.name }} · {{ mod.classe }}</div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <sc-if value="{{ pg.hasS }}" hint-placeholder-val="{{ true }}"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;padding:3px 10px;border:2px solid #17131f;border-radius:8px">{{ pg.s }}</span></sc-if>
+          <span style="font-size:12px;font-weight:700;padding:5px 11px;border:2px solid #17131f;border-radius:99px;background:#ff3d7f;color:#17131f">{{ pg.type }}</span>
+        </div>
+      </div>
+
+      <div style="flex:1 1 auto;min-height:0;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr);align-content:start;gap:13px">
+        <sc-for list="{{ pg.blocks }}" as="b" hint-placeholder-count="5">
+          <sc-if value="{{ b.isH1 }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px;padding-bottom:4px">
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:31px;line-height:1.05;text-wrap:balance">{{ b.a }}</div>
+              <sc-if value="{{ b.hasB }}" hint-placeholder-val="{{ true }}"><div style="font-size:16px;line-height:1.45;color:#2e2938;text-wrap:pretty">{{ b.b }}</div></sc-if>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:8px;margin-top:4px;font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase"><span style="width:11px;height:11px;background:#ff3d7f;border:2px solid #17131f;border-radius:3px;flex:none"></span>{{ b.a }}</div>
+          </sc-if>
+          <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:15px;line-height:1.5;text-wrap:pretty">{{ b.a }}</div>
+          </sc-if>
+          <sc-if value="{{ b.isList }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3">
+                <div style="display:flex;gap:10px;font-size:15px;line-height:1.45"><span style="flex:none;width:7px;height:7px;margin-top:8px;border-radius:50%;background:#17131f"></span><span style="text-wrap:pretty">{{ it.a }}</span></div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isSteps }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3">
+                <div style="display:flex;gap:12px;align-items:flex-start">
+                  <span style="flex:none;width:26px;height:26px;border:2px solid #17131f;border-radius:7px;background:#ff3d7f;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px">{{ it.n }}</span>
+                  <div style="font-size:15px;line-height:1.45;text-wrap:pretty;padding-top:2px"><b>{{ it.a }}</b> {{ it.b }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isAnnot }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="4">
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                  <span style="flex:none;width:24px;height:24px;border:2px solid #17131f;border-radius:50%;background:#ff3d7f;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">{{ it.l }}</span>
+                  <div style="display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.42"><b style="font-size:14.5px">{{ it.a }}</b><span style="text-wrap:pretty">{{ it.b }}</span></div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isKv }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:minmax(130px,30%) minmax(0,1fr);gap:14px;padding:6px 0;border-bottom:1px solid #e3ddf0;font-size:14.5px;line-height:1.42">
+                  <b>{{ it.a }}</b>
+                  <sc-if value="{{ it.hasB }}" hint-placeholder-val="{{ true }}"><span style="text-wrap:pretty">{{ it.b }}</span></sc-if>
+                  <sc-if value="{{ it.blank }}" hint-placeholder-val="{{ false }}"><span style="border-bottom:1.5px dotted #9a92b3;height:18px"></span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isMeta }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:2px solid #17131f;border-radius:10px">
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="6">
+                <div style="display:flex;flex-direction:column;gap:3px;padding:8px 12px;border-right:1px solid #e3ddf0;border-bottom:1px solid #e3ddf0">
+                  <span style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5d5670">{{ it.a }}</span>
+                  <span style="font-size:14px;line-height:1.35;font-weight:600">{{ it.b }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isBar }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;border:2px solid #17131f;border-radius:10px">
+              <div style="padding:7px 12px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#ffe3ee;border-bottom:2px solid #17131f;border-radius:8px 8px 0 0">{{ b.a }}</div>
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="5">
+                <div style="display:flex;justify-content:space-between;gap:12px;padding:5px 12px;border-bottom:1px solid #e3ddf0;font-size:14px;line-height:1.38"><span style="text-wrap:pretty">{{ it.a }}</span><b style="flex:none;font-variant-numeric:tabular-nums">/{{ it.b }}</b></div>
+              </sc-for>
+              <div style="display:flex;justify-content:space-between;padding:7px 12px;background:#17131f;color:#fff;font-size:14px;font-weight:700;border-radius:0 0 7px 7px"><span>Total</span><span>/{{ b.total }}</span></div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isCheck }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;border:2px solid #17131f;border-radius:10px">
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) 62px 62px 62px;gap:8px;padding:6px 12px;background:#ffe3ee;border-bottom:2px solid #17131f;border-radius:8px 8px 0 0;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;align-items:center">
+                <span>{{ b.a }}</span><span style="text-align:center">Acquis</span><span style="text-align:center">À revoir</span><span style="text-align:center">Non</span>
+              </div>
+              <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:minmax(0,1fr) 62px 62px 62px;gap:8px;padding:5px 12px;border-bottom:1px solid #e3ddf0;font-size:14px;line-height:1.38;align-items:center">
+                  <span style="text-wrap:pretty">{{ it.a }}</span>
+                  <span style="justify-self:center;width:15px;height:15px;border:1.5px solid #17131f;border-radius:4px"></span>
+                  <span style="justify-self:center;width:15px;height:15px;border:1.5px solid #17131f;border-radius:4px"></span>
+                  <span style="justify-self:center;width:15px;height:15px;border:1.5px solid #17131f;border-radius:4px"></span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isNote }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:4px;padding:11px 14px;border-radius:10px;background:#ffe3ee;border:2px solid #17131f">
+              <span style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">{{ b.b }}</span>
+              <span style="font-size:15px;line-height:1.45;font-weight:500;text-wrap:pretty">{{ b.a }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isProf }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:4px;padding:10px 14px;border-radius:10px;border:2px dashed #17131f">
+              <span style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Exemplaire enseignant · variante B et rattrapage</span>
+              <span style="font-size:14px;line-height:1.45;text-wrap:pretty">{{ b.a }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isImg }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="height:{{ b.h }};position:relative"><image-slot id="{{ b.id }}" shape="rounded" radius="10" placeholder="{{ b.b }}"></image-slot></div>
+              <span style="font-size:12.5px;color:#5d5670">{{ b.b }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isFill }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <span style="font-size:14px;font-weight:700">{{ b.a }}</span>
+              <sc-for list="{{ b.lines }}" as="ln" hint-placeholder-count="3"><div style="height:26px;border-bottom:1.5px dotted #9a92b3"></div></sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isTable }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;border:2px solid #17131f;border-radius:10px">
+              <div style="display:grid;grid-template-columns:{{ b.cols }};gap:10px;padding:6px 12px;background:#ffe3ee;border-bottom:2px solid #17131f;border-radius:8px 8px 0 0;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">
+                <sc-for list="{{ b.head }}" as="hd" hint-placeholder-count="4"><span>{{ hd.a }}</span></sc-for>
+              </div>
+              <sc-for list="{{ b.rows }}" as="rw" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:{{ b.cols }};gap:10px;padding:5px 12px;border-bottom:1px solid #e3ddf0;font-size:13.5px;line-height:1.38;min-height:18px">
+                  <sc-for list="{{ rw.cells }}" as="c" hint-placeholder-count="4"><span style="text-wrap:pretty">{{ c.a }}</span></sc-for>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;gap:16px;padding-top:9px;border-top:1px solid #17131f;font-size:10.5px;color:#2e2938">
+        <span>{{ mod.name }} · {{ mod.classe }} · {{ intervenant }}</span>
+        <span>Support v{{ version }} du {{ date }} · à déposer sur Moodle · p. {{ pg.num }}/{{ total }}</span>
+      </div>
+    </section>
+  </sc-for>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;exemplaire&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Enseignant&quot;,&quot;Étudiant&quot;],&quot;default&quot;:&quot;Enseignant&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;seance&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Tout&quot;,&quot;Sommaire&quot;,&quot;S1&quot;,&quot;S2&quot;,&quot;S3&quot;,&quot;S4&quot;,&quot;S5&quot;,&quot;S6&quot;,&quot;S7&quot;,&quot;S8&quot;],&quot;default&quot;:&quot;Tout&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;version&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;2.0&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;date&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;09/10/2026&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;intervenant&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Cliclac Studio&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const TYPES = { index: 'Sommaire du module', methode: 'Fiche méthode', exemple: 'Exemple commenté', consignes: 'Consignes et barème', modele: 'Document modèle', autoeval: 'Auto-évaluation' };
+const DATE_DEVOIR = '___ / ___ / ______';
+/*DATA*/
+const MOD = {
+  name: 'InDesign', classe: 'B2 EIDM', volume: '6 séances · 21 h + 3 h 30 FOAD', periode: 'Semestre 1',
+  fil: 'Chaque étudiant réalise la maquette d’un magazine de mode : trois doubles-pages sur Yves Saint Laurent (textes et images fournis) ou sur un sujet libre, une couverture, un sommaire et la déclinaison d’une double-page en post Instagram. Vous êtes invités à proposer un sujet libre. Dans ce cas, c’est à vous de fournir les éléments textuels et visuels, et de créer les titres, sous-titres et chapôs. Les photos devront être de bonne qualité. La note ne prend pas en compte la partie rédactionnelle, seulement la partie formelle.',
+  cc: [["Note 1 · théorique","Moyenne des quiz de séance"],["Note 2 · technique","La maquette de magazine"],["   Exercices imposés S1 à S5","30 % de la note 2"],["   Maquette magazine","50 % de la note 2"],["   Fichiers de sortie et soutenance","20 % de la note 2"]],
+  extra: 'Version 2, mise à jour après les séances 1 et 2. Aucun étudiant n’avait utilisé InDesign avant le module : le rythme a été ralenti. L’exercice de relevé de grille sur une page de magazine et les références culturelles ont été retirés au profit de la pratique du logiciel sur le document YSL. Le sujet « Ars longa, vita brevis » reste le sujet de rattrapage.'
+};
+const SEANCES = ['Découvrir InDesign', 'Composer la mise en page YSL', 'Maîtriser le texte', 'Images et couleur', 'Gabarits, couverture et sommaire', 'Contrôle, export et soutenance'];
+const DOCS = [
+ { s: 1, type: 'consignes', when: 'Distribué à 1h55, au début de l’exercice YSL', pages: [[
+  ['h1', 'Créer le document YSL', 'Première prise en main : vous créez le document du magazine et vous y placez les textes et les images fournis.'],
+  ['meta', [['Date du devoir', DATE_DEVOIR], ['Durée', '1 h 10 en séance'], ['Modalité', 'Individuel, sur poste'], ['IA', 'Non autorisée'], ['Rendu', 'NOM_Prenom_S1_YSL.indd'], ['Dépôt', 'Moodle, en fin de séance']]],
+  ['h', 'Étapes'],
+  ['steps', [['Nouveau document.', 'Format du magazine, pages en vis-à-vis, fonds perdus 3 mm.'], ['Marges et colonnes.', 'Réglées à la création, modifiables ensuite (Page › Marges et colonnes).'], ['Repères.', 'Tirés depuis les règles pour placer titres et images.'], ['Calques.', 'Trois calques nommés : Images, Textes, Repères.'], ['Texte.', 'Dessinez un bloc avec l’outil Texte (T), puis Fichier › Importer (Cmd + D) le fichier « Kit contenu YSL – textes.txt ».'], ['Chaînage.', 'Cliquez sur le + rouge en bas du bloc, puis dans le bloc suivant. Plus aucun + rouge à la fin.'], ['Images.', 'Cmd + D, puis ajustez l’image au bloc sans la déformer.'], ['Enregistrer.', 'Dès la création, puis régulièrement (Cmd + S).']]],
+  ['bar', 'Barème', [['Format et fonds perdus', 4], ['Marges, colonnes et repères', 4], ['Calques nommés', 3], ['Texte importé et chaîné, aucun texte en excès', 5], ['Images placées sans déformation', 4]]],
+  ['prof', 'Rattrapage : même exercice à partir d’une fiche technique imposée (format, marges, colonnes), 45 min sur poste, mêmes critères.']
+ ]] },
+ { s: 2, type: 'methode', when: 'Projetée à 2h00 (composition et polices), puis distribuée avec la fiche typos', pages: [[
+  ['h1', 'Composer une page et choisir ses polices', 'Un lecteur de magazine ne lit pas tout. Il regarde, il parcourt, puis il lit. La mise en page sert ces trois temps.'],
+  ['steps', [['On regarde :', 'le titre et l’image.'], ['On parcourt :', 'le chapô, les intertitres, les exergues, les légendes.'], ['On lit :', 'le texte courant.']]],
+  ['h', 'Les niveaux de texte'],
+  ['kv', [['Titre', 'L’accroche. Le plus grand corps de la page.'], ['Chapô', 'Résume l’article, entre le titre et le texte.'], ['Intertitre', 'Relance la lecture dans un texte long.'], ['Texte courant', 'Le texte de l’article, dans un corps confortable à lire.'], ['Exergue', 'Citation mise en valeur. Elle casse le rythme.'], ['Légende', 'Décrit l’image, nomme le photographe.']]],
+  ['h', 'Les polices'],
+  ['list', ['Deux familles de caractères au maximum. Le contraste vient du corps, de la graisse et de l’espace.', 'Installer : double-clic sur le fichier .otf ou .ttf › Installer (Mac et PC). Si la police n’apparaît pas, relancez InDesign.', 'Polices gratuites conseillées : voir la fiche typos (10 familles, graisses et usages).', 'Styles de paragraphe : un style par niveau de texte. On les approfondit en séance 3.']],
+  ['note', 'Plissez les yeux devant la page. Si vous ne distinguez plus que deux niveaux, la hiérarchie est trop faible.', 'Test rapide'],
+  ['bar', 'Exercice imposé : mise en page YSL (composition libre)', [['Repères et marges respectés', 5], ['Hiérarchie lisible : titre, chapô, texte', 6], ['Deux familles de polices au maximum, installées correctement', 4], ['Images bien cadrées, sans déformation', 5]]]
+ ]] },
+ { s: 3, type: 'methode', when: 'Distribuée à 0h20, sert de mémo pendant toute la séance', pages: [[
+  ['h1', 'Gérer le texte', 'Tous les réglages vus en séance, avec leur raccourci Mac. Sur PC : Cmd devient Ctrl, Option devient Alt.'],
+  ['h', 'Panneau Caractère · Cmd + T'],
+  ['kv', [['Corps', 'Taille des caractères. Cmd + Maj + > ou <.'], ['Interlignage', 'Espace entre les lignes. Alt + flèche haut ou bas.'], ['Approche', 'Espace sur un mot ou une ligne entière. Sélectionnez le texte, puis Alt + flèche gauche ou droite.'], ['Crénage', 'Espace entre deux lettres précises. Curseur entre les deux lettres, puis Alt + flèche gauche ou droite.']]],
+  ['h', 'Panneau Paragraphe · Cmd + Alt + T'],
+  ['kv', [['Alignement', 'Fer à gauche, centré, justifié. En justifié, activez la césure.'], ['Césure', 'Coupe les mots en fin de ligne. Évite les grands blancs du texte justifié.'], ['Retraits', 'Décalage à gauche, à droite, ou de la première ligne.'], ['Espaces avant / après', 'Séparent les paragraphes. Jamais de ligne vide.'], ['Lettrine', 'Nombre de lignes et nombre de caractères.'], ['Filets', 'Trait au-dessus ou au-dessous du paragraphe. Il suit le texte.']]],
+  ['h', 'Mise en page du texte'],
+  ['kv', [['Habillage', 'Fenêtre › Habillage : autour du cadre ou autour de la forme de l’objet.'], ['Ligne de base', 'Préférences › Grilles : pas égal à l’interlignage du texte courant. Puis « Aligner sur la grille » dans le style.'], ['Texte en excès', '+ rouge en bas du bloc. Cliquez dessus, puis dans le bloc suivant. Maj + clic ajoute les pages automatiquement.'], ['Liens de texte', 'Affichage › Extras › Afficher les liens du texte.']]]
+ ], [
+  ['h1', 'Les styles', 'Un style enregistre tous les réglages d’un niveau de texte. On le modifie une fois, tout le document suit.'],
+  ['steps', [['Créer.', 'Mettez en forme un paragraphe, sélectionnez-le, puis « Créer un style » dans le panneau Styles de paragraphe.'], ['Appliquer.', 'Curseur dans le paragraphe, clic sur le nom du style.'], ['Modifier.', 'Double-clic sur le style : toutes les occurrences se mettent à jour.'], ['Hériter.', 'Option « Basé sur » : Chapô et Légende basés sur Texte courant. Modifier le parent modifie les enfants.'], ['Nettoyer.', 'Un + à côté du nom signale une modification manuelle. Effacez les remplacements.'], ['Style de caractère.', 'Pour quelques mots dans un paragraphe : titre d’œuvre en italique, nom en gras.']]],
+  ['note', 'Aucun réglage manuel sur le texte en fin de séance. Si le panneau Styles affiche un +, le travail n’est pas terminé.', 'À retenir'],
+  ['bar', 'Exercice imposé : la feuille de styles YSL', [['Six styles de paragraphe nommés (Titre, Chapô, Intertitre, Texte courant, Exergue, Légende)', 5], ['Au moins deux styles basés sur un autre', 3], ['Un style de caractère', 2], ['Une lettrine, un filet de paragraphe, un habillage', 4], ['Texte courant aligné sur la grille de ligne de base', 3], ['Aucun texte en excès, aucun remplacement local', 3]]],
+  ['prof', 'Rattrapage : texte brut fourni à mettre en forme avec ses styles, 45 min sur poste, mêmes critères.']
+ ]] },
+ { s: 4, type: 'methode', when: 'Distribuée à 0h20, avant la démonstration images', pages: [[
+  ['h1', 'Images et couleur', 'On place et on contrôle dans InDesign. On corrige dans Photoshop.'],
+  ['h', 'Dans InDesign'],
+  ['kv', [['Importer', 'Cmd + D. Plusieurs images peuvent être placées à la suite.'], ['Ajuster', 'Clic droit › Ajustement › Remplir le bloc proportionnellement.'], ['Recadrer', 'Sélection directe (A) pour déplacer l’image dans son bloc.'], ['Panneau Liens', 'Statut et ppi effectifs : 300 minimum pour l’impression. Triangle jaune : image modifiée. Point d’interrogation rouge : lien manquant.'], ['Modifier l’original', 'Ouvre l’image dans Photoshop. Le lien se met à jour à l’enregistrement.']]],
+  ['h', 'Dans Photoshop'],
+  ['steps', [['Recadrer', 'au format du bloc.'], ['Corriger', 'l’exposition et le contraste.'], ['Détourer', 'une silhouette : Sélectionner le sujet, puis masque de fusion.'], ['Convertir', 'en CMJN.'], ['Enregistrer', 'en PSD ou TIFF dans le dossier Liens du magazine.']]],
+  ['h', 'Le nuancier'],
+  ['list', ['Nouvelle nuance CMJN, nommée (par exemple « Rouge YSL »).', 'Pipette pour prélever une couleur dans une photo, puis l’ajouter au nuancier.', 'Texte courant noir en 100 % K.']],
+  ['bar', 'Exercice imposé : images et couleurs YSL', [['Images recadrées, exposition corrigée', 5], ['Une silhouette détourée proprement', 4], ['300 ppi effectifs, CMJN, dossier Liens', 4], ['Nuancier de 3 ou 4 couleurs nommées et appliquées', 4], ['Aucun lien manquant ni modifié', 3]]]
+ ]] },
+ { s: 5, type: 'modele', when: 'Distribué à 1h00 (couverture et sommaire), sert de référence à la correction', pages: [[
+  ['h1', 'Gabarits, couverture, sommaire : les cotes', 'Ce document est la cible technique. Les dimensions se reproduisent exactement ; la composition vous appartient.'],
+  ['img', 'id-s5-couverture', 'Couverture modèle avec repères : fonds perdus, zone de sécurité, éléments obligatoires', '170px'],
+  ['h', 'Gabarits'],
+  ['kv', [['Folio automatique', 'Sur le gabarit parent : Texte › Insérer un caractère spécial › Marques › Numéro de page.'], ['Gabarit enfant', 'Basé sur le parent. Il hérite de ses modifications.'], ['Libérer un élément', 'Cmd + Maj + clic sur la page.']]],
+  ['h', 'Couverture'],
+  ['kv', [['Format', 'Celui de votre magazine, fonds perdus 3 mm.'], ['Zone de sécurité', '5 mm du bord : aucun texte au-delà.'], ['Obligatoire', 'Logo du titre, image, 3 accroches minimum, date et numéro, prix, code-barres.']]],
+  ['h', 'Sommaire et déclinaison'],
+  ['kv', [['Sommaire', 'Rubriques, numéros de pages, une image d’appel. Option : Page › Table des matières, à partir des styles.'], ['Post Instagram', '1080 × 1350 px, RVB, unités en pixels.']]],
+  ['note', 'Décliner, ce n’est pas réduire. On garde les polices, les couleurs et le traitement des images ; on recompose.', 'À retenir'],
+  ['bar', 'Exercice imposé : couverture, sommaire, déclinaison', [['Folios automatiques sur toutes les pages', 4], ['Couverture : éléments obligatoires, zone de sécurité respectée', 6], ['Sommaire : rubriques et renvois de pages justes', 4], ['Post Instagram aux bonnes dimensions, mêmes polices et couleurs', 6]]]
+ ]] },
+ { s: 6, type: 'autoeval', when: 'Remplie en début de séance, avant les exports. La grille de soutenance est projetée.', pages: [[
+  ['h1', 'Avant de rendre : auto-évaluation', 'Cochez honnêtement. Ce qui n’est pas acquis se corrige avant l’export.'],
+  ['check', 'Document', ['Contrôle en amont : aucun voyant rouge', 'Aucun texte en excès', 'Aucun remplacement local de style (+)', 'Folios automatiques sur toutes les pages', 'Images à 300 ppi effectifs, liens à jour', 'Texte noir en 100 % K (aperçu des séparations)']],
+  ['check', 'Exports', ['PDF/X-4 avec fonds perdus et traits de coupe', 'PDF écran : planches, RVB, images compressées', 'Assemblage : document, liens et polices', 'Nommage : NOM_Prenom_S6_Magazine.pdf']],
+  ['check', 'Soutenance (5 min + 3 min de questions)', ['Je présente mon magazine en une phrase', 'J’explique mes choix de polices et de hiérarchie', 'J’explique le traitement des images et la déclinaison', 'J’explique pourquoi, pas seulement ce qu’on voit']],
+  ['fill', 'Ce que je referais autrement :', 3]
+ ], [
+  ['h1', 'Grilles d’évaluation finales', 'Les critères ci-dessous sont communiqués avant la soutenance. Ils reprennent la répartition du contrôle continu.'],
+  ['bar', 'Maquette magazine · 50 %', [['Mise en page : marges, repères, alignements', 5], ['Hiérarchie typographique et feuille de styles', 5], ['Cohérence : styles, nuancier, gabarits', 4], ['Qualité et préparation des images', 3], ['Couverture, sommaire et déclinaison', 3]]],
+  ['bar', 'Fichiers de sortie et soutenance · 20 %', [['Contrôle en amont sans erreur', 4], ['Exports PDF impression et écran conformes', 4], ['Dossier d’assemblage complet', 2], ['Explication des choix', 6], ['Réponses aux questions', 4]]],
+  ['note', '« J’ai mis une grande image à gauche » décrit. « L’image est grande parce que l’article parle d’abord d’une silhouette » explique.', 'Expliquer, ce n’est pas décrire'],
+  ['prof', 'Rattrapage de la soutenance : oral individuel de 10 min sur la maquette rendue, mêmes critères. Rattrapage des sorties : fichier piégé à corriger et exporter, 45 min sur table.']
+ ]] }
+];
+/*ENDDATA*/
+
+class Component extends DCLogic {
+  block(raw, k) {
+    const [t, a, b, c] = raw, o = { k };
+    const F = { h1: 'isH1', h: 'isH', p: 'isP', list: 'isList', steps: 'isSteps', annot: 'isAnnot', kv: 'isKv', meta: 'isMeta', bar: 'isBar', check: 'isCheck', note: 'isNote', prof: 'isProf', img: 'isImg', fill: 'isFill', table: 'isTable' };
+    o[F[t]] = true;
+    if (t === 'h1') Object.assign(o, { a, b, hasB: !!b });
+    if (t === 'h' || t === 'p' || t === 'prof') o.a = a;
+    if (t === 'note') Object.assign(o, { a, b: b || 'À retenir' });
+    if (t === 'list') o.items = a.map(x => ({ a: x }));
+    if (t === 'steps') o.items = a.map((x, i) => ({ n: i + 1, a: x[0], b: x[1] }));
+    if (t === 'annot') o.items = a.map((x, i) => ({ l: 'abcdefghij'[i], a: x[0], b: x[1] }));
+    if (t === 'kv' || t === 'meta') o.items = a.map(x => ({ a: x[0], b: x[1], hasB: !!x[1], blank: !x[1] }));
+    if (t === 'bar') Object.assign(o, { a, items: b.map(x => ({ a: x[0], b: x[1] })), total: b.reduce((s, x) => s + x[1], 0) });
+    if (t === 'check') Object.assign(o, { a, items: b.map(x => ({ a: x })) });
+    if (t === 'img') Object.assign(o, { id: a, b, h: c || '240px' });
+    if (t === 'fill') Object.assign(o, { a, lines: [...Array(b || 3).keys()].map(i => ({ i })) });
+    if (t === 'table') Object.assign(o, { head: a.map(x => ({ a: x })), rows: b.map(r => ({ cells: r.map(x => ({ a: x })) })), cols: c || 'repeat(' + a.length + ',minmax(0,1fr))' });
+    return o;
+  }
+  indexPage() {
+    return [
+      ['h1', MOD.name + ' · ' + MOD.classe, MOD.volume + ' · ' + MOD.periode + '. ' + MOD.fil],
+      ['h', 'Un support par séance'],
+      ['table', ['Séance', 'Document', 'Quand l’utiliser'], DOCS.map(d => ['S' + d.s + ' · ' + SEANCES[d.s - 1], TYPES[d.type], d.when]), 'minmax(0,1.1fr) minmax(0,.7fr) minmax(0,1.2fr)'],
+      ['h', 'Contrôle continu'],
+      ['kv', MOD.cc],
+      ['h', 'Règles ACE appliquées à ces supports'],
+      ['list', ['Supports datés et versionnés en pied de page (Qualiopi), déposés sur Moodle après la séance.', 'Chaque sujet indique barème, date, durée, modalité et règle sur l’IA. La démarche est évaluée autant que le résultat.', 'Exemplaire enseignant : variante B pour la seconde classe et sujet de rattrapage. Notes sur Miracle sous 10 jours.']],
+      ...(MOD.extra ? [['note', MOD.extra, 'Mise à jour']] : [])
+    ];
+  }
+  componentDidMount() { this.fit(); if (document.fonts) document.fonts.ready.then(() => this.fit()); setTimeout(() => this.fit(), 800); }
+  componentDidUpdate() { this.fit(); }
+  fit() {
+    requestAnimationFrame(() => document.querySelectorAll('section.page').forEach(s => {
+      const c = s.children[1]; if (!c) return; c.style.zoom = 1;
+      const H = Math.round(s.getBoundingClientRect().width * 297 / 210), over = Math.max(s.scrollHeight - H, c.scrollHeight - c.clientHeight);
+      const ch = c.getBoundingClientRect().height;
+      const z = over > 2 ? Math.max(0.78, (ch - over - 4) / ch) : 1; c.style.zoom = z; s.dataset.fit = z.toFixed(2);
+    }));
+  }
+  renderVals() {
+    const p = this.props, ens = (p.exemplaire ?? 'Enseignant') !== 'Étudiant', only = p.seance ?? 'Tout';
+    const docs = only === 'Tout' || only === 'Sommaire' ? DOCS : DOCS.filter(d => 'S' + d.s === only);
+    const list = [];
+    if (only === 'Tout' || only === 'Sommaire' || !docs.length) list.push({ type: TYPES.index, s: '', blocks: this.indexPage() });
+    if (only !== 'Sommaire') (docs.length ? docs : DOCS).forEach(d => d.pages.forEach(pg => list.push({ type: TYPES[d.type], s: 'S' + d.s, blocks: pg })));
+    const pages = list.map((pg, i) => ({ num: i + 1, type: pg.type, s: pg.s, hasS: !!pg.s, label: (pg.s ? pg.s + ' · ' : '') + pg.type,
+      blocks: pg.blocks.filter(b => ens || b[0] !== 'prof').map((b, k) => this.block(b, k)) }));
+    return { pages, total: pages.length, mod: MOD, version: p.version ?? '2.0', date: p.date ?? '09/10/2026', intervenant: p.intervenant ?? 'Cliclac Studio' };
+  }
+}
+</script>
+</body>
+</html>
