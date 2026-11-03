@@ -112,6 +112,21 @@ a:hover{color:oklch(0.45 0.13 250)}
           </div>
         </sc-if>
 
+        <sc-if value="{{ s.hasQuiz }}" hint-placeholder-val="{{ false }}">
+          <div data-avoid="1" style="display:flex;flex-direction:column;gap:4px;padding:22px 26px;background:oklch(0.95 0.05 85);border:1.5px solid oklch(0.55 0.12 75);border-radius:6px;margin-bottom:40px">
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;padding-bottom:8px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.38 0.1 70)">★ Au quiz · à dire explicitement</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#6b675e">Moment du déroulé</div>
+            </div>
+            <sc-for list="{{ s.quiz }}" as="qz" hint-placeholder-count="6">
+              <div style="display:flex;gap:16px;align-items:baseline;padding:8px 0;border-top:1px solid oklch(0.85 0.06 80)">
+                <span style="flex:1;min-width:0;font-size:15px;line-height:1.5;text-wrap:pretty">{{ qz.t }}</span>
+                <span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:12px">{{ qz.w }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
         <div style="display:flex;flex-direction:column">
           <sc-for list="{{ s.steps }}" as="st" hint-placeholder-count="4">
             <div style="display:flex;flex-wrap:wrap;gap:8px 28px;padding:24px 0;border-top:1px solid #d9d4c7">
@@ -222,7 +237,14 @@ a:hover{color:oklch(0.45 0.13 250)}
 <script type="text/x-dc" data-dc-script>
 /*META*/
 const KEY = 'fil-illustrator-v4';
-const LEGEND = ['◇ Référence culturelle', '✎ Exercice imposé', '! Notion clé', '↻ Entre les séances', '→ Livrable', '☐ À préparer'];
+const QUIZ = [
+ [['Les trois formes primaires du Bauhaus : cercle, carré, triangle','0h00'],['Apprendre à voir avant d’apprendre à faire','0h35'],['Courbe tendue (intention) contre courbe molle (hésitation)','0h35'],['Point d’ancrage, poignée, point lisse, point d’angle','0h35'],['Les points d’ancrage aux extrémités : haut, bas, gauche, droite','0h55'],['Le moins de points possible : un cercle en 4 points','0h55']],
+ [['Frutiger, auteur de L’homme et ses signes','0h00'],['Pathfinder : Unifier, Soustraire, Intersection, Exclure','0h35'],['Concepteur de forme : Maj + M','0h35'],['Un bon logo se construit avec des formes simples combinées','0h35'],['La plume trace les courbes de Bézier','0h35'],['Le signe : la forme seule, sans couleur ni typographie','1h55']],
+ [['Vignelli : peu de caractères, grande rigueur','0h00'],['Un fichier mal organisé est inutilisable par un autre graphiste','0h30'],['Style graphique : un ensemble d’attributs d’aspect réutilisable','0h30'],['Un effet reste modifiable dans Aspect ; Décomposer l’aspect le fige','1h30'],['Effets Photoshop pixellisés à 300 ppi ; dégradé de forme et dégradé sur tracé','1h30'],['Un pattern part d’une cellule de base qu’on répète','1h30']],
+ [['Otl Aicher : pictogrammes des JO de Munich 1972','0h00'],['Approche, crénage, interlignage, texte curviligne','0h30'],['Un système : même grille, même angle, même épaisseur de trait','1h00'],['Repérer le pictogramme qui sort du système','1h00'],['Logotype complet : signe, nom, baseline éventuelle','2h00'],['Une série de 4 à 6 pictogrammes','2h00']],
+ [['Paul Rand, auteur du logo IBM','0h00'],['PNG écran, PDF impression, SVG web, AI source','0h35'],['Avant le PDF impression : profil colorimétrique, fonds perdus, résolution','1h05'],['Logo livré en couleur, en noir et blanc et en négatif','1h35'],['La planche se construit dans InDesign, sur le template fourni','1h35'],['Ordre de l’oral : nom et positionnement, puis pourquoi le signe, la typo, le pattern et les pictos','2h05']]
+];
+const LEGEND = ['◇ Référence culturelle', '★ Au quiz', '✎ Exercice imposé', '! Notion clé', '↻ Entre les séances', '→ Livrable', '☐ À préparer'];
 const CADRE = [
  {g:'Fil rouge culturel', paras:['Chaque séance s’ouvre sur une référence culturelle de 10 à 15 minutes. L’objectif n’est pas de faire un cours d’histoire du design — c’est de planter une graine. Une référence, deux ou trois idées clés, une question posée au groupe. Ces références construisent progressivement une culture de la forme qui donnera du sens aux choix graphiques des étudiants.'], items:[['Séance 1','Bauhaus et la théorie de la forme'],['Séance 2','Adrian Frutiger et la courbe parfaite'],['Séance 3','Massimo Vignelli et la pureté formelle'],['Séance 4','Otl Aicher et les systèmes de pictogrammes'],['Séance 5','Paul Rand et le logo comme objet de design pur']]},
  {g:'Fil rouge projet', paras:['Chaque étudiant construit un système graphique complet pour une marque fictive de son choix. Ce projet traverse les 5 séances et devient un livrable de portfolio. L’objectif n’est pas de faire beau rapidement : c’est d’apprendre à faire juste, proprement, avec intention.','Le système graphique final comprend un signe au trait, un pattern dérivé du signe, un système de formes géométriques, une série de pictogrammes cohérents, un logotype complet et une planche de présentation.'], items:[]},
@@ -363,7 +385,7 @@ class Component extends DCLogic {
       const items = [...s.prep.map((t, j) => mk(i + '-' + j, t, false)), ...(KITADD[i] || []).map(x => mk(i + '-' + x.id, x.t, false, x.docs)), ...(extra[i] || []).map(x => mk(x.id, x.t, true))];
       return {
         canEdit, n: i + 1, id: 's' + (i + 1), href: '#s' + (i + 1), date: s.date, h: s.h, t: s.t,
-        hasRef: !!s.ref, ref: s.ref || {}, hasEntre: !!s.entre, entre: s.entre || '', livrable: s.livrable,
+        hasRef: !!s.ref, ref: s.ref || {}, hasQuiz: !!QUIZ[i], quiz: (QUIZ[i] || []).map(([t, w]) => ({ t, w })), hasEntre: !!s.entre, entre: s.entre || '', livrable: s.livrable,
         draft: draft[i] || '', onDraft: e => { const v = e.target.value; this.setState(st => ({ draft: { ...st.draft, [i]: v } })); }, onDraftKey: e => { if (e.key === 'Enter') this.addItem(i); }, addItem: () => this.addItem(i),
         prep: items, prepLabel: items.filter(x => x.on).length + '/' + items.length,
         steps: s.steps.map(([time, t, ...bl]) => ({

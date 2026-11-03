@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#f5f3ee;color:#1d1c1a;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:oklch(0.45 0.13 250)}
+@media (max-width:760px){[data-aside]{position:static !important;flex:1 1 100% !important}[data-aside] nav{display:none !important}}
+@media print{[data-noprint]{display:none !important}body{background:#fff}[data-chapter]{break-before:page}[data-avoid]{break-inside:avoid}[data-main]{max-width:none !important}}
+</style>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;gap:40px 48px;max-width:1280px;margin:0 auto;padding:48px 32px 120px;box-sizing:border-box">
+  <aside data-noprint="1" data-aside="1" style="flex:0 0 232px;position:sticky;top:32px;align-self:flex-start;display:flex;flex-direction:column;gap:28px;font-size:13.5px">
+    <a href="Sommaire.dc.html" style="align-self:flex-start;display:flex;align-items:center;gap:6px;padding:7px 12px;background:#1d1c1a;color:#f3f0e8;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase" style-hover="background:#4a4740;color:#f3f0e8">← Sommaire</a>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b675e">Dossier prof · B2 ESDAC</div>
+      <div style="font-family:Newsreader,serif;font-size:22px;line-height:1.1">Références culturelles</div>
+    </div>
+    <nav style="display:flex;flex-direction:column">
+      <sc-for list="{{ refs }}" as="r" hint-placeholder-count="5">
+        <a href="{{ r.href }}" style="display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid #e3dfd5;line-height:1.3">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8a857a;width:22px;flex:none">S{{ r.n }}</span>
+          <span style="flex:1">{{ r.short }}</span>
+        </a>
+      </sc-for>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#4a4740">
+      <span>▤ Biographie et contexte</span><span>◫ Œuvres à montrer</span><span>❝ Anecdotes</span><span>? Questions des élèves</span><span>★ Au quiz</span>
+    </div>
+    <button onClick="{{ print }}" style="font:500 12.5px 'IBM Plex Sans',sans-serif;background:#1d1c1a;color:#f5f3ee;border:0;border-radius:999px;padding:9px 16px;cursor:pointer;align-self:flex-start">Imprimer / PDF</button>
+  </aside>
+
+  <main data-main="1" style="flex:1 1 420px;min-width:0;max-width:860px">
+    <header style="display:flex;flex-direction:column;gap:22px;padding-bottom:24px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b675e">Dossier prof · Illustrator perfectionnement · ESDAC Nice · 2026-2027</div>
+      <h1 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(46px,6.6vw,80px);line-height:.96;letter-spacing:-.02em;margin:0;text-wrap:balance">Les cinq références du module</h1>
+      <p style="margin:0;max-width:640px;font-size:16.5px;line-height:1.6;color:#2a2926;text-wrap:pretty;padding-top:18px;border-top:2px solid #1d1c1a">De quoi tenir les 15 minutes d’ouverture sans notes et répondre aux questions de la salle. Les dates et attributions marquées « à vérifier » demandent une confirmation avant d’être projetées.</p>
+    </header>
+
+    <sc-for list="{{ refs }}" as="r" hint-placeholder-count="1">
+      <section id="{{ r.id }}" data-chapter="1" style="padding-top:88px;scroll-margin-top:16px">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;border-top:2px solid #1d1c1a;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em">
+          <span>SÉANCE {{ r.n }} · {{ r.seance }}</span><span style="color:#4a4740">{{ r.dates }}</span>
+        </div>
+        <h2 style="font-family:Newsreader,serif;font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1.02;letter-spacing:-.015em;margin:24px 0 8px;text-wrap:balance">{{ r.who }}</h2>
+        <div style="font-family:Newsreader,serif;font-style:italic;font-size:21px;color:#6b675e;margin-bottom:32px;text-wrap:balance">{{ r.idea }}</div>
+
+        <div style="display:flex;flex-direction:column;gap:12px;padding-bottom:36px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">▤ Biographie et contexte</div>
+          <sc-for list="{{ r.bio }}" as="p"><p style="margin:0;font-size:16px;line-height:1.66;text-wrap:pretty;color:#2a2926">{{ p }}</p></sc-for>
+          <div style="display:flex;flex-direction:column;margin-top:8px">
+            <sc-for list="{{ r.dates2 }}" as="d">
+              <div style="display:flex;gap:20px;padding:8px 0;border-bottom:1px solid #e3dfd5">
+                <span style="flex:0 0 92px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;padding-top:2px">{{ d.k }}</span>
+                <span style="flex:1;min-width:0;font-size:15px;line-height:1.5;text-wrap:pretty">{{ d.v }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;padding-bottom:36px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">◫ Œuvres clés à montrer</div>
+          <sc-for list="{{ r.works }}" as="w">
+            <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 24px;padding:16px 0;border-bottom:1px solid #d9d4c7">
+              <div style="flex:0 0 210px;display:flex;flex-direction:column;gap:2px">
+                <span style="font-family:Newsreader,serif;font-size:20px;line-height:1.2">{{ w.t }}</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#6b675e">{{ w.y }}</span>
+              </div>
+              <div style="flex:1 1 300px;min-width:0;font-size:15px;line-height:1.58;text-wrap:pretty;color:#2a2926">{{ w.v }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:14px;padding-bottom:36px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">❝ Anecdotes pour raconter</div>
+          <sc-for list="{{ r.anec }}" as="a">
+            <div data-avoid="1" style="display:flex;flex-direction:column;gap:4px;padding:14px 18px;background:#e8e4da;border-radius:4px">
+              <div style="font-weight:600;font-size:15px">{{ a.t }}</div>
+              <div style="font-size:15px;line-height:1.6;text-wrap:pretty">{{ a.v }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;flex-direction:column;padding-bottom:28px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid #1d1c1a">? Questions probables des élèves</div>
+          <sc-for list="{{ r.qa }}" as="x">
+            <div data-avoid="1" style="display:flex;flex-direction:column;gap:6px;padding:16px 0;border-bottom:1px solid #d9d4c7">
+              <div style="font-family:Newsreader,serif;font-size:19.5px;line-height:1.35;text-wrap:pretty">« {{ x.q }} »</div>
+              <div style="font-size:15px;line-height:1.6;color:#2a2926;text-wrap:pretty">{{ x.a }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div data-avoid="1" style="display:flex;flex-wrap:wrap;gap:6px 20px;padding:16px 20px;background:oklch(0.95 0.05 85);border:1.5px solid oklch(0.55 0.12 75);border-radius:6px">
+          <div style="flex:0 0 130px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:oklch(0.38 0.1 70);padding-top:3px">★ Au quiz</div>
+          <div style="flex:1 1 300px;min-width:0;font-size:15px;line-height:1.55;text-wrap:pretty">{{ r.quiz }}</div>
+        </div>
+      </section>
+    </sc-for>
+
+    <footer style="margin-top:96px;padding-top:16px;border-top:1px solid #d9d4c7;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6b675e">Cliclac Studio · Document de préparation, usage enseignant</footer>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const REFS = [
+{short:'Bauhaus', seance:'Introduction et éducation du regard', who:'Le Bauhaus — Itten, Kandinsky, Klee', dates:'1919 – 1933', idea:'Décomposer toute forme en éléments simples, puis la reconstruire avec rigueur.',
+ bio:['Le Bauhaus est fondé à Weimar en 1919 par l’architecte Walter Gropius, en fusionnant une école des beaux-arts et une école d’arts appliqués. Le projet : réunir artistes et artisans, et former des créateurs capables de dessiner pour l’industrie. L’école déménage à Dessau en 1925, dans un bâtiment conçu par Gropius, puis à Berlin en 1932. Elle ferme en 1933 sous la pression du régime nazi.','Tous les étudiants passent d’abord par le cours préliminaire (Vorkurs). Johannes Itten le crée et l’enseigne jusqu’en 1923 : contrastes, matières, couleur, formes élémentaires. László Moholy-Nagy puis Josef Albers lui succèdent. Kandinsky (à partir de 1922) et Paul Klee (1921-1931) enseignent la théorie de la forme et de la couleur.','Pour le module, l’idée à retenir est simple : le cercle, le carré et le triangle sont traités comme un vocabulaire de base, chacun avec un caractère propre. C’est exactement la logique du Pathfinder et des premiers exercices à la plume.'],
+ dates2:[['1919','Fondation à Weimar par Walter Gropius.'],['1923','Questionnaire de Kandinsky sur les formes et les couleurs. Itten quitte l’école.'],['1925','Installation à Dessau. Herbert Bayer dessine son alphabet universel en bas de casse.'],['1926','Kandinsky publie Point et ligne sur plan.'],['1933','Fermeture à Berlin.']],
+ works:[['Questionnaire de Kandinsky','1923','Une fiche distribuée aux membres de l’école : associer une couleur au triangle, au carré et au cercle. La réponse attendue est triangle jaune, carré rouge, cercle bleu. Idéal pour lancer la question au groupe.'],['Sphère des couleurs de Johannes Itten','1921','Une étoile de couleurs en douze teintes. Montre que la couleur était enseignée comme un système, pas au goût de chacun.'],['Alphabet universel de Herbert Bayer','1925','Une typographie sans capitales, construite au cercle et à la droite. Parfait pour montrer des lettres faites de formes primaires.'],['Affiches et couvertures du Bauhaus','1923 – 1930','Les compositions de Joost Schmidt ou Moholy-Nagy : cercles, barres, diagonales. Montrer comment peu de formes suffisent à composer.'],['Bâtiment du Bauhaus à Dessau','1925 – 1926','Pour situer l’école et montrer que la même rigueur s’applique de l’affiche à l’architecture.']],
+ anec:[['Le mystique de l’école','Itten suivait la doctrine Mazdaznan : crâne rasé, tunique, régime végétarien, exercices de respiration en début de cours. Ce mysticisme a fini par l’opposer à Gropius, qui voulait orienter l’école vers l’industrie. Itten part en 1923.'],['La ligne qui se promène','Klee décrit la ligne comme un point qui part se promener. La formule aide à expliquer ce qu’est un tracé vectoriel : un point d’ancrage qui se déplace.'],['Le sondage de 1923','Kandinsky a fait remplir son questionnaire à toute l’école. Refaire le test en classe fonctionne bien : les réponses des élèves divergent souvent de celle de Kandinsky, ce qui ouvre la discussion.']],
+ qa:[['Le Bauhaus, c’est une école ou un style ?','Une école d’abord, qui a existé quatorze ans. Le « style Bauhaus » est une étiquette donnée après coup à une façon de dessiner : formes géométriques, pas d’ornement, fonction d’abord.'],['Pourquoi seulement trois formes ?','Parce qu’on peut décomposer presque toute forme en cercles, carrés et triangles. C’est un outil pour apprendre à voir, pas une règle stricte.'],['Pourquoi l’école a fermé ?','Les nazis la jugeaient « dégénérée » et trop internationale. Sous la pression, Mies van der Rohe, dernier directeur, la ferme en 1933. Beaucoup d’enseignants partent aux États-Unis.'],['Est-ce qu’on voit encore le Bauhaus aujourd’hui ?','Partout : mobilier en tube d’acier, typographies géométriques comme Futura, interfaces plates, logos construits au compas.']],
+ quiz:'Les trois formes primaires du Bauhaus : cercle, carré, triangle.'},
+{short:'Adrian Frutiger', seance:'Le trait parfait', who:'Adrian Frutiger', dates:'1928 – 2015', idea:'Une courbe juste a une direction et une intention.',
+ bio:['Adrian Frutiger naît en Suisse en 1928. Il commence par un apprentissage de compositeur typographe, puis étudie à l’école d’arts appliqués de Zurich. En 1952, il rejoint la fonderie Deberny & Peignot à Paris, où il fera l’essentiel de sa carrière.','Il dessine Univers (1957), une grande famille de sans-serif, puis la signalétique de l’aéroport de Roissy-Charles-de-Gaulle au début des années 1970. Le caractère créé pour cette signalétique est commercialisé en 1976 sous son nom : Frutiger. Suivront notamment Avenir (1988) et l’alphabet de la signalétique du métro parisien.','Il écrit aussi sur les signes. L’homme et ses signes réunit sa réflexion sur les signes, symboles et pictogrammes, de la trace manuelle au logotype. L’ouvrage paraît d’abord en allemand en plusieurs volumes à partir de 1978 ; la date de 1983 citée dans le fil conducteur correspond à une édition, à vérifier selon l’exemplaire que tu montres.'],
+ dates2:[['1952','Arrivée chez Deberny & Peignot, Paris.'],['1957','Univers et son système de numérotation des graisses.'],['1968','OCR-B, caractère lisible par les machines et les humains.'],['1975','Signalétique de Roissy-Charles-de-Gaulle (années 1970).'],['1976','Commercialisation du caractère Frutiger.'],['1988','Avenir.']],
+ works:[['Univers','1957','21 variantes dessinées d’un coup, nommées par des chiffres (55, 65, 75…) au lieu de « gras » ou « light ». Montrer la grille des graisses : c’est déjà un système.'],['Signalétique de Roissy-CDG','années 1970','Le caractère vu de loin, en mouvement, dans un éclairage artificiel. Montre pourquoi les courbes ouvertes et les formes ovoïdes restent lisibles.'],['Le caractère Frutiger','1976','Comparer un « o » de Frutiger à un cercle parfait : le cercle paraît mort, l’ovoïde a une tension. C’est la démonstration de la séance.'],['L’homme et ses signes','1978 – 1981 (éd. allemande)','Les planches sur les signes élémentaires : point, ligne, croix, cercle. Le lien avec la séance précédente sur le Bauhaus se fait tout seul.'],['Avenir','1988','Une géométrique « corrigée à l’œil ». Bon contre-exemple à Futura pour parler de corrections optiques.']],
+ anec:[['Des chiffres au lieu des noms','Pour Univers, Frutiger refuse les noms de graisses qui changent selon les langues et les fonderies. Il invente une numérotation : la dizaine donne la graisse, l’unité la chasse et l’inclinaison. Le système sera repris par d’autres familles, dont Helvetica Neue.'],['Le caractère d’un aéroport','Le caractère Frutiger s’est d’abord appelé « Roissy ». Il est né d’un besoin concret de signalétique, pas d’une envie de dessiner une police : la forme sert l’usage.'],['L’artisan','Frutiger a aussi pratiqué la gravure et la sculpture sur bois. Il revendiquait le geste de la main comme origine de toute forme, ce qui rejoint le propos de la séance sur la courbe vivante.']],
+ qa:[['Une courbe « vivante », c’est subjectif, non ?','En partie, mais ça se mesure : une courbe tendue a des poignées bien orientées, peu de points, et une variation de courbure régulière. Une courbe molle a des points en trop et des cassures.'],['Pourquoi le « o » n’est pas un cercle ?','Un cercle parfait paraît plus petit et plus raide que les autres lettres. Les dessinateurs le corrigent à l’œil : léger dépassement, forme légèrement ovoïde.'],['Frutiger et Helvetica, c’est pareil ?','Non. Helvetica a des terminaisons horizontales et des formes plus fermées. Frutiger a des ouvertures plus larges, d’où sa lisibilité à distance.'],['On peut lire son livre ?','Il existe une édition française, L’homme et ses signes. Les planches parlent d’elles-mêmes, même sans tout lire.']],
+ quiz:'Frutiger est l’auteur de L’homme et ses signes.'},
+{short:'Massimo Vignelli', seance:'La forme complexe', who:'Massimo Vignelli', dates:'1931 – 2014', idea:'Chaque élément doit avoir une raison d’être.',
+ bio:['Massimo Vignelli naît à Milan en 1931 et étudie l’architecture. Avec sa femme Lella Vignelli, architecte et designer, il travaille d’abord en Italie, puis s’installe à New York au milieu des années 1960.','En 1965, il cofonde Unimark International, une agence qui défend le design systématique : grilles, peu de caractères, chartes rigoureuses. Avec Bob Noorda, il travaille sur la signalétique du métro de New York. En 1971, il fonde Vignelli Associates avec Lella.','Ses positions sont tranchées : quelques caractères suffisent, la grille structure tout, l’ornement est inutile. Il les résume en 2010 dans The Vignelli Canon, un court manuel téléchargeable gratuitement.'],
+ dates2:[['1965','Cofondation d’Unimark International.'],['1966 – 1970','Signalétique du métro de New York avec Bob Noorda.'],['1967','Logo d’American Airlines, utilisé jusqu’en 2013.'],['1972','Plan du métro de New York.'],['2010','The Vignelli Canon.']],
+ works:[['Plan du métro de New York','1972','Un diagramme : angles à 45° et 90°, une couleur par ligne, la géographie sacrifiée à la lisibilité. Le meilleur exemple de rigueur poussée jusqu’au bout.'],['Logo American Airlines','1967','Deux « A » en Helvetica et un aigle. Il a tenu plus de quarante ans presque sans retouche.'],['Signalétique du métro de New York','1966 – 1970','Les bandeaux noirs, les pastilles de couleur, une seule typographie. Lien direct avec la séance : un fichier organisé, c’est comme une signalétique claire.'],['Sac Bloomingdale’s « Big Brown Bag »','1973','Un sac kraft avec trois mots. Montre qu’un objet de marque peut tenir sans illustration.'],['The Vignelli Canon','2010','Quelques doubles pages à projeter : la grille, la liste des caractères, la notion de « discipline ».']],
+ anec:[['Le plan trop beau','Le plan de 1972 est aujourd’hui une icône, mais les usagers s’en plaignaient : Central Park y est carré, les distances sont fausses, l’eau est beige. Il est remplacé en 1979. Bon sujet de débat : jusqu’où la rigueur peut-elle sacrifier l’usage ?'],['Une poignée de caractères','Vignelli répétait qu’on pouvait tout faire avec très peu de caractères, et qu’on en utilise trop. Demander aux élèves combien ils en ont dans leurs polices installées fait toujours réagir.'],['Le designer de tout','Avec Lella, il a dessiné des logos, des meubles, de la vaisselle, des intérieurs. Sa formule : si tu sais dessiner une chose, tu sais tout dessiner. Le documentaire Design Is One (2012) leur est consacré.']],
+ qa:[['« L’ornement est un crime », c’est de lui ?','Non, c’est le titre d’un texte de l’architecte Adolf Loos (1908-1910). Vignelli partage l’idée, mais la formule n’est pas de lui.'],['Si tout le monde suit Vignelli, tout se ressemble ?','C’est la critique principale. Sa réponse : la discipline n’empêche pas l’expression, elle évite le n’importe quoi. Le choix des éléments reste personnel.'],['Quel rapport avec les calques ?','La même logique : chaque élément a une place et un nom. Un fichier Illustrator rangé se lit comme une signalétique.'],['On peut lire le Canon en français ?','Le PDF officiel est en anglais, mais il est court et très illustré.']],
+ quiz:'Vignelli défend peu de caractères et une grande rigueur.'},
+{short:'Otl Aicher', seance:'Typographie, pictogrammes et système de formes', who:'Otl Aicher', dates:'1922 – 1991', idea:'Un pictogramme isolé n’est rien ; un système forme un langage.',
+ bio:['Otl Aicher naît à Ulm en 1922. Opposé au nazisme, il refuse d’entrer aux Jeunesses hitlériennes. Il est proche de la famille Scholl : Hans et Sophie Scholl, du réseau de résistance la Rose blanche, sont exécutés en 1943. Il épouse ensuite leur sœur Inge Scholl.','En 1953, avec Inge Scholl et Max Bill, il fonde la Hochschule für Gestaltung d’Ulm, école qui prolonge l’esprit du Bauhaus avec une approche plus méthodique et scientifique. Il y crée l’identité de Lufthansa avec ses étudiants dans les années 1960.','Il dirige le design des Jeux olympiques de Munich 1972 : couleurs, affiches, signalétique, mascotte et pictogrammes. Les pictogrammes reposent sur une grille commune avec des lignes à 0°, 45° et 90°. Plus tard, il dessine le caractère Rotis (1988).'],
+ dates2:[['1953','Fondation de l’école d’Ulm (HfG).'],['1962','Identité de Lufthansa avec l’école d’Ulm.'],['1972','JO de Munich : pictogrammes, palette, mascotte Waldi.'],['1988','Caractère Rotis.']],
+ works:[['Pictogrammes de Munich 1972','1972','La série complète des sports sur la grille. Faire repérer aux élèves ce qui ne change jamais : épaisseur, angles, tête ronde.'],['Grille de construction des pictogrammes','1972','La grille seule, puis un pictogramme posé dessus. C’est le support direct de la démonstration.'],['Palette de Munich 1972','1972','Bleu clair, vert, argent, orange. Le rouge et le noir sont écartés pour se démarquer de l’imagerie des Jeux de Berlin 1936.'],['Identité Lufthansa','1962 – 1969','La grue dans un cercle et la typographie. Un exemple de système appliqué à tous les supports.'],['Pictogrammes de Tokyo 1964 et Tokyo 2020','1964 / 2020','Tokyo 1964 précède Munich et l’inspire. Tokyo 2020 (Masaaki Hiromura) reprend la logique de système avec une autre exécution. Les trois côte à côte font une bonne comparaison.']],
+ anec:[['Des Jeux contre 1936','Munich voulait montrer une Allemagne pacifique, trente-six ans après les Jeux de Berlin. D’où les couleurs claires, l’absence de rouge et de noir, et une mascotte en forme de teckel, Waldi, première mascotte olympique officielle.'],['Le prolongement du Bauhaus','Max Bill, cofondateur de l’école d’Ulm, avait étudié au Bauhaus. On peut boucler avec la séance 1 : du cercle-carré-triangle aux systèmes de signes.'],['Des pictos devenus produit','Les pictogrammes de Munich ont ensuite été développés en un système plus large et commercialisé, notamment par le fabricant d’éclairage ERCO. On les croise encore dans des bâtiments publics.']],
+ qa:[['C’est Aicher qui a inventé les pictogrammes olympiques ?','Non. Tokyo 1964 avait déjà un système de pictogrammes, dirigé par Masaru Katsumie. Aicher l’a rendu plus rigoureux et en a fait une référence.'],['Pourquoi 45° ?','Avec seulement 0°, 45° et 90°, tous les corps paraissent appartenir au même système, et la construction reste simple à reproduire.'],['Comment je sais si mes pictos forment un système ?','Posez-les côte à côte et plissez les yeux. Si l’un paraît plus lourd, plus fin ou plus détaillé, il sort du système.'],['Et Tokyo 2020, c’est mieux ?','C’est différent : formes pleines et plus détaillées, mais même logique de grille. La question à poser : qu’est-ce qui a changé, qu’est-ce qui est resté ?']],
+ quiz:'Otl Aicher a conçu les pictogrammes des Jeux olympiques de Munich 1972.'},
+{short:'Paul Rand', seance:'Production, export et présentation', who:'Paul Rand', dates:'1914 – 1996', idea:'Un logo n’illustre pas : il identifie.',
+ bio:['Paul Rand, né Peretz Rosenbaum à Brooklyn en 1914, commence dans la presse et la publicité new-yorkaise. Il devient directeur artistique des magazines Esquire et Apparel Arts très jeune, à la fin des années 1930.','Dans les années 1950 et 1960, il dessine les identités qui définissent le logo moderne américain : IBM (1956, version rayée en 1972), Westinghouse (1960), UPS (1961), ABC (1962). Il enseigne à Yale à partir de 1956.','Il écrit beaucoup : Thoughts on Design (1947), A Designer’s Art (1985), Design, Form, and Chaos (1993). Son idée centrale : un logo tire sa valeur de ce qu’il représente et du temps, pas de ce qu’il dessine.'],
+ dates2:[['1947','Thoughts on Design.'],['1956','Logo IBM.'],['1961 – 1962','UPS, puis ABC.'],['1972','IBM à huit rayures.'],['1981','Affiche Eye-Bee-M.'],['1986','Logo NeXT pour Steve Jobs.']],
+ works:[['Logo IBM à rayures','1972','Les rayures horizontales donnent une idée de vitesse et de précision sans rien illustrer. C’est l’exemple central de la séance.'],['Affiche Eye-Bee-M','1981','Un œil, une abeille, un M. Montre qu’un logo rigoureux peut aussi jouer.'],['Logo ABC','1962','Un cercle et trois lettres. Il n’a presque pas changé depuis.'],['Logo UPS','1961','Un écusson surmonté d’un paquet noué. Remplacé en 2003 : un bon exemple pour parler de ce qui vieillit.'],['Brochure NeXT','1986','Le livret de présentation du logo : une démonstration d’argumentation. Parfait juste avant les oraux.']],
+ anec:[['Une seule proposition','Pour NeXT, Steve Jobs demande plusieurs pistes. Rand répond qu’il proposera une seule solution, à payer qu’elle plaise ou non. Il livre un livret qui explique chaque choix. Le chiffre souvent cité est de 100 000 dollars.'],['Le logo ne vaut rien seul','Rand répète qu’un logo prend son sens avec le temps et la qualité de ce qu’il signe. À relier directement à l’oral : on n’attend pas un logo célèbre, on attend un logo défendable.'],['Les rayures et la photocopie','Une explication souvent donnée aux rayures d’IBM : elles unifient les lettres et masquent les défauts d’impression. Elle est plausible mais pas certaine : à présenter comme une hypothèse.']],
+ qa:[['Un logo doit-il représenter l’activité ?','Pour Rand, non. IBM ne montre pas d’ordinateur, Apple ne parle pas d’informatique. Un logo doit être mémorable, simple et reproductible.'],['Comment savoir si mon logo va vieillir ?','Regarder ce qui date : effets, dégradés, tendances typographiques. Plus la forme est simple et construite, mieux elle traverse le temps.'],['Pourquoi en noir et blanc d’abord ?','Si le logo tient en noir et blanc, il tiendra partout : fax, gravure, broderie, tampon. La couleur vient ensuite.'],['Il a vraiment refusé de proposer plusieurs logos ?','Oui, c’était sa façon de travailler avec ses clients importants. C’est rare et pas forcément un modèle, mais ça montre la force d’un argumentaire.']],
+ quiz:'Paul Rand a dessiné le logo d’IBM.'}
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      print: () => window.print(),
+      refs: REFS.map((r, i) => ({ ...r, n: i + 1, id: 'r' + (i + 1), href: '#r' + (i + 1),
+        dates2: r.dates2.map(([k, v]) => ({ k, v })), works: r.works.map(([t, y, v]) => ({ t, y, v })),
+        anec: r.anec.map(([t, v]) => ({ t, v })), qa: r.qa.map(([q, a]) => ({ q, a })) }))
+    };
+  }
+}
+</script>
+</body>
+</html>
