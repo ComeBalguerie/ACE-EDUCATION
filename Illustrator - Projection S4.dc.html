@@ -23,7 +23,7 @@
           <div style="align-self:flex-start;padding:10px 26px;border:3px solid #17131f;border-radius:999px;background:#c6f432;font-size:32px;font-weight:700;box-shadow:6px 6px 0 #17131f">Séance {{ s.n }}</div>
           <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:150px;line-height:.95;letter-spacing:-.03em;max-width:1500px;text-wrap:balance">{{ s.title }}</div>
         </div>
-        <div style="font-size:30px;color:#5d5670">Référence du jour : {{ s.sub }}</div>
+        <div style="font-size:30px;color:#5d5670">{{ s.sub }}</div>
       </section>
     </sc-if>
     <sc-if value="{{ s.isRef }}" hint-placeholder-val="{{ false }}">
@@ -35,10 +35,8 @@
             <div style="font-size:40px;font-weight:600">{{ s.sub }}</div>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;justify-content:flex-end;gap:28px">
-          <sc-for list="{{ s.items }}" as="it" hint-placeholder-count="3">
-            <div style="padding:28px 32px;background:#f2eefc;border:3px solid #17131f;border-radius:20px;box-shadow:6px 6px 0 #17131f;font-size:36px;line-height:1.3;text-wrap:pretty">{{ it.t }}</div>
-          </sc-for>
+        <div style="position:relative;border:3px solid #17131f;border-radius:24px;box-shadow:8px 8px 0 #17131f;overflow:hidden;background:#f2eefc">
+          <image-slot id="{{ s.slot }}" shape="rect" fit="cover" placeholder="{{ s.search }}"></image-slot>
         </div>
       </section>
     </sc-if>
@@ -52,7 +50,6 @@
           <div style="display:flex;flex-direction:column;gap:22px">
             <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:76px;line-height:1;letter-spacing:-.02em;text-wrap:balance">{{ s.title }}</div>
             <div style="font-size:34px;font-weight:600;color:#5d5670">{{ s.sub }}</div>
-            <div style="font-size:34px;line-height:1.4;text-wrap:pretty">{{ s.body }}</div>
           </div>
         </div>
       </section>
@@ -69,14 +66,11 @@
           <div style="font-size:28px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#ff3d7f">Notion clé · {{ s.kicker }}</div>
           <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:96px;line-height:1;letter-spacing:-.02em;text-wrap:balance">{{ s.title }}</div>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;align-items:start">
+        <div style="flex:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;align-items:center">
           <sc-for list="{{ s.items }}" as="it" hint-placeholder-count="3">
-            <div style="display:flex;flex-direction:column;gap:20px;padding:40px;background:#fff;border:3px solid #17131f;border-radius:24px;box-shadow:6px 6px 0 #17131f">
-              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px">
-                <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:48px;line-height:1.05">{{ it.t }}</div>
-                <sc-if value="{{ it.quiz }}" hint-placeholder-val="{{ false }}"><div style="flex:none;padding:6px 16px;border:2.5px solid #17131f;border-radius:999px;background:#c6f432;font-size:24px;font-weight:700">Au quiz</div></sc-if>
-              </div>
-              <div style="font-size:32px;line-height:1.4;color:#17131f;text-wrap:pretty">{{ it.d }}</div>
+            <div style="display:flex;flex-direction:column;justify-content:space-between;gap:40px;min-height:340px;padding:44px;background:#fff;border:3px solid #17131f;border-radius:24px;box-shadow:6px 6px 0 #17131f;box-sizing:border-box">
+              <sc-if value="{{ it.quiz }}" hint-placeholder-val="{{ false }}"><div style="align-self:flex-start;padding:6px 16px;border:2.5px solid #17131f;border-radius:999px;background:#c6f432;font-size:24px;font-weight:700">Au quiz</div></sc-if>
+              <div style="margin-top:auto;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:64px;line-height:1.02;letter-spacing:-.01em;text-wrap:balance">{{ it.t }}</div>
             </div>
           </sc-for>
         </div>
@@ -104,11 +98,11 @@
 <script type="text/x-dc" data-dc-script>
 const N = 4;
 const DECKS = [
-{t:'Introduction et éducation du regard', date:'6 novembre 2026', who:'Le Bauhaus', yrs:'Weimar, Dessau, Berlin · 1919 – 1933',
+{t:'Introduction et éducation du regard', date:'6 novembre 2026', noRef:1, who:'Le Bauhaus', yrs:'Weimar, Dessau, Berlin · 1919 – 1933',
  intro:['Une école fondée en 1919 par Walter Gropius pour réunir artistes et artisans.','Toute forme se décompose en trois formes primaires : cercle, carré, triangle.','Chacune a un caractère : le cercle doux, le carré stable, le triangle tendu.'],
  works:[['Le questionnaire de Kandinsky','1923','Associer une couleur à chaque forme. La réponse de Kandinsky : triangle jaune, carré rouge, cercle bleu.','Questionnaire de Kandinsky 1923, fiche originale scannée (triangle, carré, cercle à colorier)'],['L’alphabet universel','Herbert Bayer · 1925','Une typographie sans capitales, construite au cercle et à la droite.','Herbert Bayer, Universal alphabet 1925, planche complète des lettres'],['Composer avec peu de formes','Affiches du Bauhaus · 1923 – 1930','Cercles, barres et diagonales : quelques formes suffisent à construire une image.','Affiche exposition Bauhaus 1923 de Joost Schmidt, haute définition']],
- ask:'Regardez ce logo. Quelles formes primaires voyez-vous, et comment s’articulent-elles ?',
- notions:[{k:'0h35',t:'Apprendre à voir avant de faire',items:[['Courbe tendue','Elle a une intention, une direction.',1],['Courbe molle','Elle hésite : trop de points, des cassures.',1],['Le réflexe','Regarder, nommer ce qu’on voit, puis tracer.',0]]},{k:'0h35 – 0h55',t:'Anatomie d’un tracé',items:[['Point d’ancrage','Début ou fin d’un segment.',1],['Poignée','Règle la courbure.',1],['Lisse ou d’angle','Courbe continue, ou changement de direction.',1]]},{k:'0h55',t:'Le moins de points possible',items:[['Aux extrémités','Les ancres en haut, en bas, à gauche, à droite.',1],['Un cercle','Quatre points, pas un de plus.',1],['Nommer','NOM_Prenom_S1_Intro.ai',0]]}]},
+ ask:'Regardez ce logo. Quelles formes simples voyez-vous, et comment s’articulent-elles ?',
+ notions:[{k:'0h20',t:'Apprendre à voir avant de faire',items:[['Courbe tendue','Elle a une intention, une direction.',1],['Courbe molle','Elle hésite : trop de points, des cassures.',1],['Le réflexe','Regarder, nommer ce qu’on voit, puis tracer.',0]]},{k:'0h20 – 0h40',t:'Anatomie d’un tracé',items:[['Point d’ancrage','Début ou fin d’un segment.',1],['Poignée','Règle la courbure.',1],['Lisse ou d’angle','Courbe continue, ou changement de direction.',1]]},{k:'0h40',t:'Le moins de points possible',items:[['Aux extrémités','Les ancres en haut, en bas, à gauche, à droite.',1],['Un cercle','Quatre points, pas un de plus.',1],['Nommer','NOM_Prenom_S1_Intro.ai',0]]}]},
 {t:'Le trait parfait', date:'9 novembre 2026', who:'Adrian Frutiger', yrs:'Typographe suisse · 1928 – 2015',
  intro:['Auteur des caractères Univers (1957) et Frutiger (1976).','Le caractère Frutiger naît de la signalétique de l’aéroport de Roissy-Charles-de-Gaulle.','Dans L’homme et ses signes, il montre qu’une courbe juste a une direction et une intention.'],
  works:[['Univers','1957','21 variantes nommées par des chiffres : déjà un système.','Univers Adrian Frutiger 1957 tableau des 21 graisses numérotées'],['Roissy-Charles-de-Gaulle','années 1970','Le caractère lu de loin, en mouvement : des formes ouvertes et lisibles.','Signalétique aéroport Roissy CDG terminal 1 années 1970 panneaux Frutiger'],['Un o rond, un o vivant','Le caractère Frutiger · 1976','Le cercle parfait paraît raide. L’ovoïde a une tension.','Comparaison lettre o Futura et Frutiger superposées (ou à dessiner : cercle contre ovoïde)']],
@@ -131,23 +125,51 @@ const DECKS = [
  notions:[{k:'0h35',t:'Un format par usage',items:[['PNG et SVG','PNG pour l’écran, SVG pour le web.',1],['PDF','L’impression.',1],['AI','Le fichier source.',1]]},{k:'1h05',t:'Avant le PDF impression',items:[['Profil','Le bon profil colorimétrique.',1],['Fonds perdus','Activés et vérifiés.',1],['Résolution','Contrôlée pour chaque élément.',1]]},{k:'1h35 – 2h05',t:'Livrer et défendre',items:[['Trois versions','Couleur, noir et blanc, négatif.',1],['La planche','InDesign, sur le template fourni.',1],['L’oral','Nom et positionnement, puis le pourquoi de chaque choix.',1]]}]}
 ];
 const QUIZ = [
- ['Les trois formes primaires du Bauhaus : cercle, carré, triangle','Apprendre à voir avant d’apprendre à faire','Courbe tendue contre courbe molle','Point d’ancrage, poignée, point lisse, point d’angle','Les points d’ancrage aux extrémités','Un cercle en 4 points'],
+ ['Transformer une forme : déplacer les points, régler les poignées','Apprendre à voir avant d’apprendre à faire','Courbe tendue contre courbe molle','Point d’ancrage, poignée, point lisse, point d’angle','Les points d’ancrage aux extrémités','Un cercle en 4 points','Pathfinder : Soustraire pour évider la raquette'],
  ['Frutiger, auteur de L’homme et ses signes','Pathfinder : Unifier, Soustraire, Intersection, Exclure','Concepteur de forme : Maj + M','Un bon logo combine des formes simples','La plume trace les courbes de Bézier','Le signe : la forme seule, sans couleur ni typo'],
  ['Vignelli : peu de caractères, grande rigueur','Un fichier mal organisé est inutilisable','Style graphique : attributs d’aspect réutilisables','Effet modifiable dans Aspect, figé par Décomposer','Effets Photoshop à 300 ppi ; dégradé de forme et sur tracé','Un pattern part d’une cellule de base'],
  ['Otl Aicher : Munich 1972','Approche, crénage, interlignage, texte curviligne','Même épaisseur de trait pour tout le système','Repérer le pictogramme qui sort du système','Logotype : signe, nom, baseline éventuelle','Une série de 4 à 6 pictogrammes'],
  ['Paul Rand : le logo IBM','PNG écran, PDF impression, SVG web, AI source','PDF impression : profil, fonds perdus, résolution','Logo en couleur, noir et blanc et négatif','La planche dans InDesign, sur le template','L’ordre de l’oral']
 ];
 class Component extends DCLogic {
+  componentDidMount() {
+    this.cur = 0;
+    this.onMsg = e => { if (e.data && typeof e.data.slideIndexChanged === 'number') { this.cur = e.data.slideIndexChanged; this.paintNotes(); } };
+    this.onKey = e => { if ((e.key === 'n' || e.key === 'N') && !e.metaKey && !e.ctrlKey && !(e.target.isContentEditable || /INPUT|TEXTAREA/.test(e.target.tagName))) this.openNotes(); };
+    window.addEventListener('message', this.onMsg); window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() { window.removeEventListener('message', this.onMsg); window.removeEventListener('keydown', this.onKey); }
+  openNotes = () => {
+    const w = this.nw = window.open('', 'notes-illustrator', 'width=720,height=640');
+    if (!w) return alert('Autorisez les fenêtres pop-up pour afficher les notes.');
+    w.document.title = 'Notes · Illustrator S' + N;
+    w.document.body.style.cssText = "margin:0;background:#17131f;color:#f2eefc;font-family:'Instrument Sans',system-ui,sans-serif";
+    w.document.body.innerHTML = '<div style="display:flex;flex-direction:column;gap:18px;padding:28px 32px;box-sizing:border-box;min-height:100vh"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><div data-h style="font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:#ff3d7f;font-weight:600"></div><div style="display:flex;gap:8px"><button data-p style="font:inherit;font-size:20px;padding:10px 18px;border-radius:999px;border:2px solid #f2eefc;background:none;color:#f2eefc;cursor:pointer">←</button><button data-n style="font:inherit;font-size:20px;padding:10px 18px;border-radius:999px;border:2px solid #c6f432;background:#c6f432;color:#17131f;cursor:pointer">→</button></div></div><div data-b style="font-size:26px;line-height:1.5;white-space:pre-line"></div><div data-x style="margin-top:auto;font-size:16px;color:#c9c0e6;border-top:1px solid #3a3347;padding-top:14px"></div></div>';
+    const go = d => { const st = document.querySelector('deck-stage'); if (st && st.goTo) st.goTo(Math.max(0, Math.min(this.cur + d, this.slides.length - 1))); };
+    w.document.querySelector('[data-p]').onclick = () => go(-1);
+    w.document.querySelector('[data-n]').onclick = () => go(1);
+    w.addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === ' ') go(1); if (e.key === 'ArrowLeft') go(-1); });
+    this.paintNotes();
+  };
+  paintNotes = () => {
+    const w = this.nw; if (!w || w.closed || !this.slides) return;
+    const s = this.slides[this.cur] || {}, nx = this.slides[this.cur + 1];
+    w.document.querySelector('[data-h]').textContent = (this.cur + 1) + ' / ' + this.slides.length + ' · ' + (s.label || '').replace(/^\d+ /, '');
+    w.document.querySelector('[data-b]').textContent = s.notes || '';
+    w.document.querySelector('[data-x]').textContent = nx ? 'Ensuite : ' + nx.label.replace(/^\d+ /, '') + (nx.title ? ' · ' + nx.title : '') : 'Dernière diapositive';
+  };
   renderVals() {
     const n = N, d = DECKS[n - 1], Q = QUIZ[n - 1];
     const S = [];
-    S.push({ isCover: 1, label: 'Couverture', n, title: d.t, date: d.date, sub: d.who, notes: 'Séance ' + n + ' : ' + d.t + '.' });
-    S.push({ isRef: 1, label: 'Référence', title: d.who, sub: d.yrs, items: d.intro.map(t => ({ t })), notes: '10 à 15 minutes. Détails, anecdotes et réponses aux questions dans le dossier prof.' });
-    d.works.forEach(([t, y, b, q], i) => S.push({ isWork: 1, label: 'Œuvre ' + (i + 1), slot: 's' + n + '-w' + (i + 1), kicker: d.who, title: t, sub: y, body: b, search: 'Image à chercher : ' + q, notes: 'Image à chercher : ' + q + '.' }));
+    S.push({ isCover: 1, label: 'Couverture', n, title: d.t, date: d.date, sub: d.noRef ? '' : 'Référence du jour : ' + d.who, notes: 'Séance ' + n + ' : ' + d.t + '.' });
+    if (!d.noRef) S.push({ isRef: 1, label: 'Référence', title: d.who, sub: d.yrs, slot: 's' + n + '-ref', search: 'Portrait ou image emblématique : ' + d.who, notes: '10 à 15 minutes.\n• ' + d.intro.join('\n• ') + '\n\nDétails, anecdotes et réponses aux questions dans le dossier références.' });
+    if (!d.noRef) d.works.forEach(([t, y, b, q], i) => S.push({ isWork: 1, label: 'Œuvre ' + (i + 1), slot: 's' + n + '-w' + (i + 1), kicker: d.who, title: t, sub: y, search: 'Image à chercher : ' + q, notes: b + '\n\nImage : ' + q + '.' }));
     S.push({ isAsk: 1, label: 'Question', title: d.ask, notes: 'Laisser répondre deux ou trois élèves avant de commenter.' });
-    d.notions.forEach((x, i) => S.push({ isNotion: 1, label: 'Notion ' + (i + 1), kicker: x.k, title: x.t, items: x.items.map(([t, dd, q]) => ({ t, d: dd, quiz: !!q })), notes: 'Moment du déroulé : ' + x.k + '. Les cartes « Au quiz » doivent être dites explicitement.' }));
+    d.notions.forEach((x, i) => S.push({ isNotion: 1, label: 'Notion ' + (i + 1), kicker: x.k, title: x.t, items: x.items.map(([t, dd, q]) => ({ t, d: dd, quiz: !!q })), notes: 'Moment du déroulé : ' + x.k + '.\n' + x.items.map(([t, dd, q]) => '• ' + t + ' : ' + dd + (q ? '  [AU QUIZ, à dire explicitement]' : '')).join('\n') }));
     S.push({ isQuiz: 1, label: 'Récap quiz', n, items: Q.map((t, i) => ({ n: String(i + 1).padStart(2, '0'), t })), notes: 'À projeter juste avant d’ouvrir le quiz.' });
-    return { slides: S.map((s, i) => ({ isCover: 0, isRef: 0, isWork: 0, isAsk: 0, isNotion: 0, isQuiz: 0, ...s, label: String(i + 1).padStart(2, '0') + ' ' + s.label })) };
+    const out = S.map((s, i) => ({ isCover: 0, isRef: 0, isWork: 0, isAsk: 0, isNotion: 0, isQuiz: 0, ...s, label: String(i + 1).padStart(2, '0') + ' ' + s.label }));
+    this.slides = out;
+    return { slides: out };
   }
 }
 </script>
