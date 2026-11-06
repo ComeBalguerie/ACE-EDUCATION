@@ -61,9 +61,78 @@
     });
   };
 
+  // Édition des textes : surcharges enregistrées dans kv sous « edits:<page> », appliquées pour tous
+  var EK = 'edits:' + decodeURIComponent(location.pathname.split('/').pop() || 'index');
+  var edits = {}, editing = false, sched = 0, edBtn, edCss;
+  var norm = function (s) { return String(s || '').replace(/\s+/g, ' ').trim(); };
+  var SKIP = '[data-cl-gate],[data-cl-ed],script,style,button,select,option,input,textarea,svg,label';
+  var leaves = function () { return Array.prototype.filter.call(document.body.querySelectorAll('*'), function (el) {
+    return !el.children.length && el.firstChild && el.firstChild.nodeType === 3 && norm(el.textContent) && !el.closest(SKIP);
+  }); };
+  var setText = function (el, v) { if (el.childNodes.length === 1 && el.firstChild.nodeType === 3) el.firstChild.nodeValue = v; else el.textContent = v; };
+  var apply = function () {
+    sched = 0; if (!document.body) return;
+    var seen = {};
+    leaves().forEach(function (el) {
+      if (el === document.activeElement && el.isContentEditable) return;
+      var cur = norm(el.textContent);
+      if (el.__clNew === undefined || cur !== el.__clNew) { el.__clOrig = cur; el.__clNew = undefined; }
+      var o = el.__clOrig, n = seen[o] = (seen[o] || 0) + 1, k = o + '#' + n;
+      el.__clKey = k;
+      if (edits[k] !== undefined && edits[k] !== cur) { setText(el, edits[k]); el.__clNew = edits[k]; }
+      if (editing) { if (el.contentEditable !== 'plaintext-only' && el.contentEditable !== 'true') { try { el.contentEditable = 'plaintext-only'; } catch (e) { el.contentEditable = 'true'; } } }
+      else if (el.isContentEditable && el.__clWasEd) el.removeAttribute('contenteditable');
+      if (editing) el.__clWasEd = true;
+    });
+  };
+  var schedule = function () { if (!sched) sched = requestAnimationFrame(apply); };
+  var commit = function (el) {
+    var k = el.__clKey; if (!k) return;
+    var v = norm(el.innerText || el.textContent), o = el.__clOrig;
+    if (!v || v === o) { delete edits[k]; v = o; setText(el, o); el.__clNew = undefined; } else { edits[k] = v; el.__clNew = v; }
+    C.set(EK, edits);
+  };
+  var setEditing = function (on) {
+    editing = on;
+    if (!edCss) { edCss = document.createElement('style'); document.head.appendChild(edCss); }
+    edCss.textContent = on ? '[contenteditable]{outline:1px dashed rgba(255,61,127,.55);outline-offset:2px;cursor:text;border-radius:2px}[contenteditable]:hover{background:rgba(198,244,50,.25)}[contenteditable]:focus{outline:2px solid #ff3d7f;background:#fff}' : '';
+    apply(); paintBtn();
+  };
+  C.editMode = function (on) { if (C.canEdit) setEditing(on); };
+  document.addEventListener('focusout', function (e) { if (editing && e.target.__clKey && e.target.isContentEditable) commit(e.target); }, true);
+  document.addEventListener('keydown', function (e) {
+    var el = e.target; if (!editing || !el.isContentEditable || !el.__clKey) return;
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); el.blur(); }
+    if (e.key === 'Escape') { setText(el, edits[el.__clKey] !== undefined ? edits[el.__clKey] : el.__clOrig); el.blur(); }
+  }, true);
+  document.addEventListener('click', function (e) { if (editing && e.target.closest && e.target.closest('[contenteditable]') && e.target.closest('a')) e.preventDefault(); }, true);
+  C.ready.then(function () { return C.get(EK); }).then(function (v) {
+    edits = v || {}; apply();
+    new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true, characterData: true });
+  }).catch(function () {});
+
   var btn;
   var paintBtn = function () {
     if (!document.body || PUBLIC) return;
+    if (!edBtn) {
+      edBtn = document.createElement('div');
+      edBtn.setAttribute('data-noprint', '1'); edBtn.setAttribute('data-cl-ed', '1');
+      edBtn.style.cssText = "position:fixed;right:14px;bottom:54px;z-index:50;display:none;gap:6px;align-items:center;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase";
+      edBtn.innerHTML = '<button data-r style="font:inherit;padding:9px 12px;border-radius:999px;border:1px solid #bfb8a8;background:rgba(245,243,238,.94);color:#8a3b2b;cursor:pointer">Tout rétablir</button><button data-t style="font:inherit;padding:9px 12px;border-radius:999px;border:1px solid #1d1c1a;cursor:pointer"></button>';
+      document.body.appendChild(edBtn);
+      edBtn.querySelector('[data-t]').onclick = function () { setEditing(!editing); };
+      edBtn.querySelector('[data-r]').onclick = function () {
+        var n = Object.keys(edits).length; if (!n) return alert('Aucune modification sur cette page.');
+        if (!confirm('Annuler les ' + n + ' modification(s) de texte de cette page ?')) return;
+        edits = {}; C.set(EK, edits).then(function () { location.reload(); });
+      };
+    }
+    edBtn.style.display = C.canEdit ? 'flex' : 'none';
+    var t = edBtn.querySelector('[data-t]');
+    t.textContent = editing ? '✓ Terminer' : '✎ Modifier les textes';
+    t.style.background = editing ? '#c6f432' : '#1d1c1a'; t.style.color = editing ? '#1d1c1a' : '#f5f3ee';
+    edBtn.querySelector('[data-r]').style.display = editing ? '' : 'none';
+    if (!C.canEdit && editing) setEditing(false);
     if (!btn) {
       btn = document.createElement('button');
       btn.setAttribute('data-noprint', '1'); btn.setAttribute('data-cl-gate', '1');
