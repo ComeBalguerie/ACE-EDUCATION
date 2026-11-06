@@ -77,7 +77,10 @@ input,button{font-family:inherit}
           <div style="font-size:12px;color:#5d5670;letter-spacing:.08em;text-transform:uppercase">{{ me.cls }}</div>
           <div style="font-size:18px;font-weight:600">{{ me.pseudo }}</div>
         </div>
-        <button onClick="{{ logout }}" style="padding:8px 14px;border:1.5px solid #c9c0e6;border-radius:999px;background:none;font-size:13px;cursor:pointer;color:#17131f">Déconnexion</button>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+          <sc-if value="{{ isProf }}" hint-placeholder-val="{{ false }}"><a href="Sommaire.dc.html" style="padding:8px 14px;border:2px solid #17131f;border-radius:999px;background:#c6f432;font-size:13px;font-weight:700;color:#17131f;text-decoration:none" style-hover="color:#17131f;background:#b4e220">← Documents de cours</a></sc-if>
+          <button onClick="{{ logout }}" style="padding:8px 14px;border:1.5px solid #c9c0e6;border-radius:999px;background:none;font-size:13px;cursor:pointer;color:#17131f">Déconnexion</button>
+        </div>
       </div>
       <sc-if value="{{ noMods }}" hint-placeholder-val="{{ false }}">
         <div style="font-size:15px;line-height:1.55;color:#5d5670">Aucun module n'est encore disponible pour votre classe. Si vous pensez vous être trompé de classe, prévenez votre enseignant.</div>
@@ -92,6 +95,42 @@ input,button{font-family:inherit}
             <div style="display:flex;gap:10px;flex-wrap:wrap">
               <a href="{{ m.quiz }}" style="flex:1;min-width:130px;text-align:center;padding:12px 16px;border:2px solid #17131f;border-radius:999px;background:#ff3d7f;color:#17131f;font-size:15px;font-weight:700;text-decoration:none;box-shadow:3px 3px 0 #17131f" style-hover="color:#17131f;transform:translate(-1px,-1px);box-shadow:4px 4px 0 #17131f">Jouer au quiz</a>
               <a href="{{ m.kit }}" style="flex:1;min-width:130px;text-align:center;padding:12px 16px;border:2px solid #17131f;border-radius:999px;background:#c6f432;color:#17131f;font-size:15px;font-weight:700;text-decoration:none;box-shadow:3px 3px 0 #17131f" style-hover="color:#17131f;transform:translate(-1px,-1px);box-shadow:4px 4px 0 #17131f">Fiches de révision</a>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;border-top:1.5px dashed #c9c0e6;padding-top:14px">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">
+                <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Documents</div>
+                <div style="font-size:13px;color:#5d5670">{{ m.count }}</div>
+              </div>
+              <sc-if value="{{ m.empty }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:14px;color:#5d5670">Aucun document déposé pour l'instant.</div>
+              </sc-if>
+              <sc-for list="{{ m.groups }}" as="g" hint-placeholder-count="0">
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <div style="font-size:12px;font-weight:600;color:#ff3d7f">{{ g.label }}</div>
+                  <sc-for list="{{ g.files }}" as="fl" hint-placeholder-count="1">
+                    <div style="display:flex;align-items:center;gap:8px;background:#f7f4ff;border-radius:10px;padding:4px 4px 4px 12px">
+                      <a href="{{ fl.url }}" target="_blank" rel="noopener" style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;padding:6px 0;text-decoration:none;color:#17131f">
+                        <span style="font-size:15px;font-weight:600;overflow-wrap:anywhere">{{ fl.name }}</span>
+                        <span style="font-size:12px;color:#5d5670">{{ fl.meta }}</span>
+                      </a>
+                      <a href="{{ fl.url }}" style="flex:none;padding:9px 14px;border:2px solid #17131f;border-radius:999px;background:#fff;color:#17131f;font-size:13px;font-weight:700;text-decoration:none" style-hover="color:#17131f;background:#c6f432">Télécharger</a>
+                      <sc-if value="{{ isProf }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ fl.onDel }}" title="Supprimer" style="flex:none;width:36px;height:36px;border:0;border-radius:999px;background:none;color:#d6361f;font-size:18px;cursor:pointer" style-hover="background:#ffe1d8">×</button>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-for>
+              <sc-if value="{{ isProf }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+                  <select value="{{ m.sel }}" onChange="{{ m.onSel }}" style="padding:10px 12px;border:1.5px solid #c9c0e6;border-radius:10px;font-size:14px;background:#fff;color:#17131f">
+                    <sc-for list="{{ seances }}" as="s" hint-placeholder-count="6">
+                      <option value="{{ s }}">{{ s }}</option>
+                    </sc-for>
+                  </select>
+                  <label style="flex:1;min-width:150px;text-align:center;padding:10px 14px;border:2px dashed #17131f;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;background:#fff" style-hover="background:#c6f432">{{ m.upLabel }}<input type="file" multiple onChange="{{ m.onPick }}" style="display:none"></label>
+                </div>
+              </sc-if>
             </div>
           </div>
         </sc-for>
@@ -111,6 +150,10 @@ const MODS = [
   { name: 'Portfolio et communication digitale', sub: 'B3 ESDAC', cls: ['B3 ESDAC'], quiz: 'Quiz Portfolio.dc.html', kit: 'Portfolio - Revision.dc.html' }
 ];
 const LAST = 'espace-etudiant-last';
+const SEANCES = ['Général', 'Séance 1', 'Séance 2', 'Séance 3', 'Séance 4', 'Séance 5', 'Séance 6'];
+const safe = n => n.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\w.\-]+/g, '_');
+const fmtSize = b => !b ? '' : b < 1048576 ? Math.max(1, Math.round(b / 1024)) + ' Ko' : (b / 1048576).toFixed(1).replace('.', ',') + ' Mo';
+const fmtDate = d => new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
 const QCw = () => window.QuizCloud ? Promise.resolve(window.QuizCloud) : new Promise(r => { const t = setInterval(() => { if (window.QuizCloud) { clearInterval(t); r(window.QuizCloud); } }, 50); });
 const ret = () => { const r = new URLSearchParams(location.search).get('r'); return r && /^[\w %\-.]+\.dc\.html$/.test(r) ? r : null; };
 const last = () => { try { return JSON.parse(localStorage.getItem(LAST) || 'null'); } catch (e) { return null; } };
@@ -122,8 +165,37 @@ class Component extends DCLogic {
       const me = await (await QCw()).me();
       if (me && ret()) return location.replace(ret());
       this.setState({ me, boot: false });
+      if (me) this.loadDrive();
     } catch (e) { this.setState({ boot: false, err: e.message || 'Serveur indisponible.' }); }
   }
+  loadDrive = async () => {
+    const sb = (await QCw()).sb;
+    const r = await sb.from('drive_files').select('*').order('created_at', { ascending: false });
+    if (!r.error) this.setState({ drive: r.data || [] });
+  };
+  upload = async (mod, files) => {
+    if (!files.length) return;
+    const sb = (await QCw()).sb, seance = (this.state.sel || {})[mod] || 'Général';
+    this.setState(s => ({ up: { ...s.up, [mod]: true } }));
+    try {
+      for (const f of files) {
+        const path = 'drive/' + safe(mod) + '/' + Date.now() + '-' + safe(f.name);
+        const u = await sb.storage.from('pj').upload(path, f, { contentType: f.type || undefined });
+        if (u.error) throw u.error;
+        const q = await sb.from('drive_files').insert({ module: mod, seance, name: f.name, type: f.type, size: f.size, path });
+        if (q.error) throw q.error;
+      }
+    } catch (e) { alert('Dépôt impossible : ' + (e.message || e)); }
+    this.setState(s => ({ up: { ...s.up, [mod]: false } }));
+    this.loadDrive();
+  };
+  remove = async f => {
+    if (!confirm('Supprimer « ' + f.name + ' » ?')) return;
+    const sb = (await QCw()).sb;
+    await sb.from('drive_files').delete().eq('id', f.id);
+    await sb.storage.from('pj').remove([f.path]);
+    this.loadDrive();
+  };
   setF = p => this.setState(st => ({ f: { ...st.f, ...p }, err: '' }));
   login = async () => {
     const { f, busy, mode } = this.state; if (busy) return;
@@ -138,13 +210,23 @@ class Component extends DCLogic {
       try { localStorage.setItem(LAST, JSON.stringify({ ecole: f.ecole, niveau: f.niveau, pseudo })); } catch (e) {}
       if (ret()) return location.replace(ret());
       this.setState({ me, busy: false, f: { ...f, pin: '' } });
+      this.loadDrive();
     } catch (e) { this.setState({ busy: false, err: e.message || 'Connexion impossible.' }); }
   };
   logout = () => { window.QuizCloud && window.QuizCloud.logout(); this.setState({ me: null, mode: 'login' }); };
   renderVals() {
     const { boot, me, f, err, busy, mode } = this.state;
     const pick = (list, key) => list.map(v => { const on = f[key] === v; return { label: v, bg: on ? '#c6f432' : '#fff', sh: on ? '3px 3px 0 #17131f' : 'none', onClick: () => this.setF({ [key]: v }) }; });
-    const mods = !me ? [] : MODS.filter(m => me.prof || m.cls.includes(me.cls));
+    const drive = this.state.drive || [], sel = this.state.sel || {}, up = this.state.up || {};
+    const sb = window.QuizCloud && window.QuizCloud.sb;
+    const url = (p, name) => sb ? sb.storage.from('pj').getPublicUrl(p, { download: name }).data.publicUrl : '#';
+    const mods = (!me ? [] : MODS.filter(m => me.prof || m.cls.includes(me.cls))).map(m => {
+      const mine = drive.filter(d => d.module === m.name);
+      const groups = SEANCES.map(s => ({ label: s, files: mine.filter(d => d.seance === s).map(d => ({ name: d.name, meta: [fmtSize(d.size), 'déposé le ' + fmtDate(d.created_at)].filter(Boolean).join(' · '), url: url(d.path, d.name), onDel: () => this.remove(d) })) })).filter(g => g.files.length);
+      return { ...m, groups, empty: !mine.length, count: mine.length ? mine.length + (mine.length > 1 ? ' fichiers' : ' fichier') : '',
+        sel: sel[m.name] || 'Général', onSel: e => { const v = e.target.value; this.setState(s => ({ sel: { ...s.sel, [m.name]: v } })); },
+        upLabel: up[m.name] ? 'Envoi en cours…' : '+ Déposer des fichiers', onPick: e => { const fs = [...e.target.files]; e.target.value = ''; this.upload(m.name, fs); } };
+    });
     return {
       isBoot: boot, isLogin: !boot && !me, isHome: !boot && !!me, isCreate: mode === 'create',
       tabLoginBg: mode === 'login' ? '#fff' : 'transparent', tabCreateBg: mode === 'create' ? '#fff' : 'transparent',
@@ -155,7 +237,7 @@ class Component extends DCLogic {
       onPin: e => { const AZ = { '&': '1', 'é': '2', '"': '3', "'": '4', '(': '5', '§': '6', '-': '6', 'è': '7', '!': '8', '_': '8', 'ç': '9', 'à': '0' }; this.setF({ pin: [...e.target.value].map(c => AZ[c] || c).join('').replace(/\D/g, '').slice(0, 4) }); },
       login: this.login, logout: this.logout,
       me: me ? { cls: me.prof ? 'Vue enseignant · tous les modules' : me.cls, pseudo: me.prof ? 'Enseignant' : me.pseudo } : {},
-      mods, noMods: !!me && !mods.length
+      mods, noMods: !!me && !mods.length, isProf: !!(me && me.prof), seances: SEANCES
     };
   }
 }

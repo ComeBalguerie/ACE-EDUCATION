@@ -257,7 +257,7 @@ input,button,select,textarea{font-family:inherit}
         <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#ff3d7f;font-weight:600">Espace enseignant</div>
         <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.02em;font-size:32px;line-height:1.1">Infographie · Quiz de fin de séance</div>
       </div>
-      <button onClick="{{ logout }}" style="padding:8px 14px;border:1.5px solid #c9c0e6;border-radius:999px;background:none;font-size:13px;cursor:pointer;color:#17131f">Déconnexion</button>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><a href="Sommaire.dc.html" style="padding:8px 14px;border:2px solid #17131f;border-radius:999px;background:#c6f432;font-size:13px;font-weight:700;color:#17131f;text-decoration:none" style-hover="color:#17131f;background:#b4e220">← Documents de cours</a><button onClick="{{ logout }}" style="padding:8px 14px;border:1.5px solid #c9c0e6;border-radius:999px;background:none;font-size:13px;cursor:pointer;color:#17131f">Déconnexion</button></div>
     </div>
     <div style="display:flex;gap:4px;background:#e4ddf7;padding:4px;border-radius:10px;align-self:flex-start;flex-wrap:wrap">
       <sc-for list="{{ profTabs }}" as="tb" hint-placeholder-count="3">
